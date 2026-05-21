@@ -20,10 +20,9 @@ export function useLoginMutation() {
             return loginData;
         },
         onSuccess: (loginData) => {
-            queryClient.setQueryData(
-                meQueryOption().queryKey,
-                loginData.data.user
-            );
+            queryClient.setQueryData(meQueryOption().queryKey, {
+                data: loginData.data.user,
+            });
 
             const redirectPath = sessionStorage.getItem(
                 SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN
