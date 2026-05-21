@@ -12,7 +12,7 @@ export function GuestRoutes() {
         enabled: !!token,
     });
 
-    if (isPending) {
+    if (isPending && token) {
         return <div>Loading...</div>;
     }
 
