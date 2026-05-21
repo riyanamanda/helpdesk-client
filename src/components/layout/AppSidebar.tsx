@@ -1,3 +1,4 @@
+import { ROUTES } from "@/constants";
 import {
     BlocksIcon,
     GaugeIcon,
@@ -8,6 +9,7 @@ import {
     UserIcon,
 } from "lucide-react";
 import type { ComponentProps } from "react";
+import { NavLink } from "react-router";
 import { SidebarNav } from "../SidebarNav";
 import {
     Sidebar,
@@ -23,7 +25,7 @@ const data = {
     navMain: [
         {
             name: "Dashboard",
-            url: "#",
+            url: ROUTES.DASHBOARD,
             icon: GaugeIcon,
         },
         {
@@ -68,7 +70,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <a href="#">
+                            <NavLink to={ROUTES.HOME}>
                                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                                     <HeartHandshakeIcon className="size-4" />
                                 </div>
@@ -80,7 +82,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                                         Erba ticketing system
                                     </span>
                                 </div>
-                            </a>
+                            </NavLink>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>

@@ -1,12 +1,14 @@
 import { authRoutes } from "@/features/auth";
 import { dashboardRoutes } from "@/features/dashboard/routes";
+import { homeRoutes } from "@/features/home/routes";
 import type { RouteObject } from "react-router";
+import { GuestRoutes } from "./GuestRoutes";
 import { ProtectedRoutes } from "./ProtectedRoutes";
-import { PublicRoutes } from "./PublicRoutes";
 
 export const appRoutes: RouteObject[] = [
+    ...homeRoutes,
     {
-        element: <PublicRoutes />,
+        element: <GuestRoutes />,
         children: [...authRoutes],
     },
     {
