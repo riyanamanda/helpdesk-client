@@ -4,6 +4,7 @@ import { homeRoutes } from "@/features/home/routes";
 import type { RouteObject } from "react-router";
 import { GuestRoutes } from "./GuestRoutes";
 import { ProtectedRoutes } from "./ProtectedRoutes";
+import { categoryRoutes } from "@/features/category/routes";
 
 export const appRoutes: RouteObject[] = [
     ...homeRoutes,
@@ -13,7 +14,7 @@ export const appRoutes: RouteObject[] = [
     },
     {
         element: <ProtectedRoutes />,
-        children: [...dashboardRoutes],
+        children: [...dashboardRoutes, ...categoryRoutes],
     },
     {
         path: "*",

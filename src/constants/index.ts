@@ -24,4 +24,8 @@ export const ROUTES = {
     LOGIN: "/login",
 
     DASHBOARD: "/dashboard",
+
+    CATEGORY: {
+        INDEX: "/category",
+    },
 } as const;

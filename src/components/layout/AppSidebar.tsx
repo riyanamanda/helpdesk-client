@@ -37,7 +37,7 @@ const data = {
     navMaster: [
         {
             name: "Category",
-            url: "#",
+            url: ROUTES.CATEGORY.INDEX,
             icon: BlocksIcon,
         },
         {
