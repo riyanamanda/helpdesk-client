@@ -3,6 +3,18 @@ interface Meta {
     request_id: string;
 }
 
+export interface Pagination {
+    page: number;
+    limit: number;
+    total: number;
+    total_page: number;
+}
+
+export interface PaginatedResponse<T> {
+    data: T[];
+    meta: Meta & { pagination: Pagination };
+}
+
 export interface ServerErrorResponse {
     error: {
         code?: string;

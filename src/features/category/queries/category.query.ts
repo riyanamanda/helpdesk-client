@@ -2,10 +2,10 @@ import { queryOptions } from "@tanstack/react-query";
 import { categoryService } from "../service/categoryService";
 import { CATEGORY_QUERY_KEYS } from "./queryKeys";
 
-export function listCategoryQueryOption() {
+export function listCategoryQueryOption(params = { page: 1, limit: 10 }) {
     return queryOptions({
-        queryKey: CATEGORY_QUERY_KEYS.ROOT,
-        queryFn: () => categoryService.list(),
+        queryKey: CATEGORY_QUERY_KEYS.LIST(params),
+        queryFn: () => categoryService.list(params),
     });
 }
 
