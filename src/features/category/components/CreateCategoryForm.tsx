@@ -58,7 +58,7 @@ export function CreateCategoryForm() {
                                 <Field>
                                     <FieldLabel htmlFor="name">
                                         Name
-                                        <span className="text-red-500">*</span>
+                                        <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Input
                                         {...field}

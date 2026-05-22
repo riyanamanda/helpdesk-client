@@ -49,9 +49,11 @@ export function DivisionActions({ division }: DivisionActionsProps) {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <NavLink to={ROUTES.DIVISION.EDIT.replace(":id", String(division.id))}>
-                    <DropdownMenuItem className="cursor-pointer">Edit</DropdownMenuItem>
-                </NavLink>
+                <DropdownMenuItem asChild>
+                    <NavLink to={ROUTES.DIVISION.EDIT.replace(":id", String(division.id))}>
+                        Edit
+                    </NavLink>
+                </DropdownMenuItem>
                 <DeleteDialog
                     title="Delete Division?"
                     description={`"${division.name}" will be permanently deleted and cannot be recovered.`}

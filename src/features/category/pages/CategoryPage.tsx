@@ -2,6 +2,7 @@ import { DataTable } from "@/components/DataTable";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ROUTES } from "@/constants";
 import { useQuery } from "@tanstack/react-query";
 import { PlusIcon } from "lucide-react";
@@ -16,7 +17,14 @@ export function CategoryPage() {
     const columns = getCategoryColumns(0);
 
     if (isLoading) {
-        return <PageLayout>Loading...</PageLayout>;
+        return (
+            <PageLayout>
+                <div className="my-4 flex flex-col gap-4">
+                    <Skeleton className="h-10 w-48" />
+                    <Skeleton className="h-64 w-full" />
+                </div>
+            </PageLayout>
+        );
     }
 
     return (

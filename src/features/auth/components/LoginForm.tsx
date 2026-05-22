@@ -1,14 +1,7 @@
 import { AuthPlaceholder } from "@/assets";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-    Field,
-    FieldDescription,
-    FieldError,
-    FieldGroup,
-    FieldLabel,
-    FieldSeparator,
-} from "@/components/ui/field";
+import { Field, FieldError, FieldGroup, FieldLabel, FieldSeparator } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { ROUTES } from "@/constants";
 import { handleFormError } from "@/lib/handle-form-error";
@@ -125,9 +118,9 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                     </div>
                 </CardContent>
             </Card>
-            <FieldDescription className="px-6 text-center">
+            <p className="px-6 text-center text-sm text-muted-foreground">
                 Made by IT Ernaldi Bahar
-            </FieldDescription>
+            </p>
         </div>
     );
 }

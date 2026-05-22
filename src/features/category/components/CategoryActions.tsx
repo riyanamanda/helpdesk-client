@@ -49,9 +49,11 @@ export function CategoryActions({ category }: CategoryActionsProps) {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <NavLink to={ROUTES.CATEGORY.EDIT.replace(":id", String(category.id))}>
-                    <DropdownMenuItem className="cursor-pointer">Edit</DropdownMenuItem>
-                </NavLink>
+                <DropdownMenuItem asChild>
+                    <NavLink to={ROUTES.CATEGORY.EDIT.replace(":id", String(category.id))}>
+                        Edit
+                    </NavLink>
+                </DropdownMenuItem>
                 <DeleteDialog
                     title="Delete Category?"
                     description={`"${category.name}" will be permanently deleted and cannot be recovered.`}

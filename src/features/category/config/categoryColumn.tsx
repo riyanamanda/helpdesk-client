@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/formatters";
 import type { ColumnDef } from "@tanstack/react-table";
-import { CircleCheckBigIcon, X } from "lucide-react";
+import { CircleCheckBigIcon, CircleXIcon } from "lucide-react";
 import { CategoryActions } from "../components/CategoryActions";
 import type { Category } from "../types";
 
@@ -24,10 +24,7 @@ export const getCategoryColumns = (pageOffset = 0): ColumnDef<Category>[] => [
         cell: ({ row }) => {
             const status = row.getValue("is_active");
             return (
-                <Badge
-                    variant="outline"
-                    className={`px-1.5 ${status ? "text-green-500" : "text-muted-foreground"}`}
-                >
+                <Badge variant={status ? "success" : "destructive"} className="px-1.5">
                     {status ? (
                         <>
                             <CircleCheckBigIcon />
@@ -35,7 +32,7 @@ export const getCategoryColumns = (pageOffset = 0): ColumnDef<Category>[] => [
                         </>
                     ) : (
                         <>
-                            <X />
+                            <CircleXIcon />
                             Inactive
                         </>
                     )}

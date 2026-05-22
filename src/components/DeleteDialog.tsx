@@ -1,3 +1,4 @@
+import { Spinner } from "@/components/ui/spinner";
 import { Trash2Icon } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import {
@@ -56,6 +57,7 @@ export function DeleteDialog({
                         disabled={isPending}
                         onClick={onConfirm}
                     >
+                        {isPending && <Spinner data-icon="inline-start" />}
                         {isPending ? "Deleting..." : "Delete"}
                     </AlertDialogAction>
                 </AlertDialogFooter>

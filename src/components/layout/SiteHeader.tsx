@@ -6,6 +6,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { LogOutIcon, UserCircleIcon } from "lucide-react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
+import { ModeToggle } from "../ModeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
     DropdownMenu,
@@ -15,6 +16,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { Separator } from "../ui/separator";
 import { SidebarTrigger } from "../ui/sidebar";
 
 export function SiteHeader() {
@@ -43,9 +45,15 @@ export function SiteHeader() {
             <div className="flex w-full items-center gap-2 px-4">
                 <SidebarTrigger className="-ml-1" size="icon-lg" />
 
+                <div className="ml-auto">
+                    <ModeToggle />
+                </div>
+
+                <Separator orientation="vertical" className="mx-2" />
+
                 <DropdownMenu>
-                    <DropdownMenuTrigger className="ml-auto flex gap-3">
-                        <Avatar className="h-8 w-8 rounded-lg grayscale">
+                    <DropdownMenuTrigger className="flex gap-3">
+                        <Avatar className="size-8 rounded-lg grayscale">
                             <AvatarImage src={user.avatar_url} alt={user.name} />
                             <AvatarFallback className="rounded-lg">
                                 {user && getInitials(user.name)}
