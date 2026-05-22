@@ -28,9 +28,9 @@ export function handleFormError<TFieldValues extends FieldValues>(
     }
 
     const errorMessage =
-        resp.error.message ?? error.message ?? "Something went wrong";
+        resp.error?.message ?? error?.message ?? "Something went wrong";
 
-    toast.error("Operasi gagal", {
+    toast.error("Operation failed", {
         description: errorMessage,
     });
 }
