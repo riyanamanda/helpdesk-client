@@ -1,8 +1,11 @@
+import { DataTable } from "@/components/DataTable";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { PageLayout } from "@/components/layout/PageLayout";
-import { formatDate } from "@/lib/formatters";
+import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
+import { PlusIcon } from "lucide-react";
+import { getCategoryColumns } from "../config/categoryColumn";
 import { listCategoryQueryOption } from "../queries/category.query";
-import type { Category } from "../types";
 
 export function CategoryPage() {
     const { data: categoryData, isFetching } = useQuery(
@@ -10,23 +13,26 @@ export function CategoryPage() {
     );
     const categories = categoryData?.data;
 
+    const columns = getCategoryColumns();
+
     if (isFetching) {
         return <PageLayout>Loading...</PageLayout>;
     }
 
     return (
         <PageLayout>
-            <div className="flex flex-col">
-                {categories.map((category: Category) => (
-                    <div className="inline-flex gap-4">
-                        <div>{category.id}</div>
-                        <div>{category.name}</div>
-                        <div>{category.is_active}</div>
-                        <div>{formatDate(category.created_at)}</div>
-                        <div>{formatDate(category.updated_at)}</div>
-                    </div>
-                ))}
-            </div>
+            <PageHeader
+                title="Category"
+                description="All listed provided categories"
+                actions={
+                    <Button variant="outline">
+                        <PlusIcon />
+                        Create new category
+                    </Button>
+                }
+            />
+
+            <DataTable columns={columns} data={categories} />
         </PageLayout>
     );
 }
