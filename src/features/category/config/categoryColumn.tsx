@@ -1,23 +1,15 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ROUTES } from "@/constants";
 import { formatDate } from "@/lib/formatters";
 import type { ColumnDef } from "@tanstack/react-table";
-import { CircleCheckBigIcon, MoreHorizontalIcon, X } from "lucide-react";
-import { NavLink } from "react-router";
+import { CircleCheckBigIcon, X } from "lucide-react";
+import { CategoryActions } from "../components/CategoryActions";
 import type { Category } from "../types";
 
-export const getCategoryColumns = (): ColumnDef<Category>[] => [
+export const getCategoryColumns = (pageOffset = 0): ColumnDef<Category>[] => [
     {
-        accessorKey: "id",
-        header: "#ID",
-        cell: ({ row }) => <div>{row.getValue("id")}</div>,
+        id: "no",
+        header: "No.",
+        cell: ({ row }) => <div>{pageOffset + row.index + 1}</div>,
         enableSorting: false,
     },
     {
@@ -36,7 +28,7 @@ export const getCategoryColumns = (): ColumnDef<Category>[] => [
                     variant="outline"
                     className={`px-1.5 ${status ? "text-green-500" : "text-muted-foreground"}`}
                 >
-                    {status === true ? (
+                    {status ? (
                         <>
                             <CircleCheckBigIcon />
                             Active
@@ -66,31 +58,6 @@ export const getCategoryColumns = (): ColumnDef<Category>[] => [
     },
     {
         id: "action",
-        cell: ({ row }) => {
-            const category = row.original;
-
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                            <MoreHorizontalIcon />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <NavLink
-                            to={ROUTES.CATEGORY.EDIT.replace(
-                                ":id",
-                                String(category.id)
-                            )}
-                        >
-                            <DropdownMenuItem>Update</DropdownMenuItem>
-                        </NavLink>
-                        <DropdownMenuItem variant="destructive">
-                            Delete
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            );
-        },
+        cell: ({ row }) => <CategoryActions category={row.original} />,
     },
 ];

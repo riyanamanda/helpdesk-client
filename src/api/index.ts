@@ -1,9 +1,4 @@
-import {
-    CONFIG,
-    COOKIES,
-    ERROR_CODES,
-    SESSION_STORAGE_KEYS,
-} from "@/constants";
+import { CONFIG, COOKIES, ERROR_CODES, ROUTES, SESSION_STORAGE_KEYS } from "@/constants";
 import { cookies } from "@/lib/cookies";
 import Axios from "axios";
 
@@ -37,14 +32,10 @@ http.interceptors.response.use(
             if (error_code === ERROR_CODES.TOKEN_EXPIRED) {
                 cookies.remove(COOKIES.TOKEN_KEY, { path: COOKIES.PATH });
 
-                const currentPath =
-                    window.location.pathname + window.location.search;
-                sessionStorage.setItem(
-                    SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN,
-                    currentPath
-                );
+                const currentPath = window.location.pathname + window.location.search;
+                sessionStorage.setItem(SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN, currentPath);
 
-                window.location.href = `${window.location.origin}/login`;
+                window.location.href = window.location.origin + ROUTES.LOGIN;
             }
         }
 

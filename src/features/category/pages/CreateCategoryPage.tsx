@@ -5,10 +5,7 @@ import { CreateCategoryForm } from "../components/CreateCategoryForm";
 export function CategoryCreatePage() {
     return (
         <PageLayout>
-            <PageHeader
-                title="Create Category"
-                description="Add new category"
-            />
+            <PageHeader title="Create Category" description="Add new category" />
 
             <div>
                 <CreateCategoryForm />

@@ -18,8 +18,6 @@ export const formatDate = (
 ): string => {
     if (!date) return "-";
     const dateObj =
-        typeof date === "string"
-            ? new Date(date.includes("T") ? date : date + "T00:00:00")
-            : date;
+        typeof date === "string" ? new Date(date.includes("T") ? date : date + "T00:00:00") : date;
     return dateObj.toLocaleDateString(locale, options);
 };

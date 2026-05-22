@@ -6,12 +6,7 @@ export interface Category {
     updated_at: string;
 }
 
-export interface CreateCategoryRequest {
-    name: string;
-}
-
-export interface UpdateCategoryRequest {
-    id: string
+export interface CategoryFormData {
     name: string;
     is_active: boolean;
 }

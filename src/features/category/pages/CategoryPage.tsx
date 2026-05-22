@@ -10,14 +10,12 @@ import { getCategoryColumns } from "../config/categoryColumn";
 import { listCategoryQueryOption } from "../queries/category.query";
 
 export function CategoryPage() {
-    const { data: categoryData, isFetching } = useQuery(
-        listCategoryQueryOption()
-    );
+    const { data: categoryData, isLoading } = useQuery(listCategoryQueryOption());
     const categories = categoryData?.data;
 
-    const columns = getCategoryColumns();
+    const columns = getCategoryColumns(0);
 
-    if (isFetching) {
+    if (isLoading) {
         return <PageLayout>Loading...</PageLayout>;
     }
 

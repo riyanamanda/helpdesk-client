@@ -46,18 +46,13 @@ export function SiteHeader() {
                 <DropdownMenu>
                     <DropdownMenuTrigger className="ml-auto flex gap-3">
                         <Avatar className="h-8 w-8 rounded-lg grayscale">
-                            <AvatarImage
-                                src={user.avatar_url}
-                                alt={user.name}
-                            />
+                            <AvatarImage src={user.avatar_url} alt={user.name} />
                             <AvatarFallback className="rounded-lg">
                                 {user && getInitials(user.name)}
                             </AvatarFallback>
                         </Avatar>
                         <div className="grid flex-1 text-left text-sm leading-tight">
-                            <span className="truncate font-medium">
-                                {user.name}
-                            </span>
+                            <span className="truncate font-medium">{user.name}</span>
                             <span className="truncate text-xs text-muted-foreground">
                                 {user.role}
                             </span>
@@ -73,8 +68,7 @@ export function SiteHeader() {
                                 className="cursor-pointer"
                                 onClick={() =>
                                     toast.info("On Progress", {
-                                        description:
-                                            "Profile is on development",
+                                        description: "Profile is on development",
                                     })
                                 }
                             >

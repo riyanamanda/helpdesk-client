@@ -24,13 +24,9 @@ export function useLoginMutation() {
                 data: loginData.data.user,
             });
 
-            const redirectPath = sessionStorage.getItem(
-                SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN
-            );
+            const redirectPath = sessionStorage.getItem(SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN);
             if (redirectPath) {
-                sessionStorage.removeItem(
-                    SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN
-                );
+                sessionStorage.removeItem(SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN);
                 navigate(redirectPath, { replace: true });
             } else {
                 navigate(ROUTES.DASHBOARD);

@@ -8,9 +8,7 @@ export function HomePage() {
             <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
                 Welcome: IT Helpdesk
             </h1>
-            <p className="mt-2 text-xs">
-                The ticketing management system for internal users
-            </p>
+            <p className="mt-2 text-xs">The ticketing management system for internal users</p>
 
             <div className="mt-10 inline-flex gap-2">
                 <NavLink to={ROUTES.DASHBOARD}>

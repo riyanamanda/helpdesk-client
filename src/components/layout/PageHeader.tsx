@@ -13,15 +13,9 @@ export function PageHeader({ title, description, actions }: PageHeaderProps) {
                 <h1 className="bg-linear-to-r from-primary to-primary/70 bg-clip-text text-2xl font-bold tracking-tight text-transparent">
                     {title}
                 </h1>
-                {description && (
-                    <p className="text-sm text-muted-foreground">
-                        {description}
-                    </p>
-                )}
+                {description && <p className="text-sm text-muted-foreground">{description}</p>}
             </div>
-            {actions && (
-                <div className="flex items-center gap-2">{actions}</div>
-            )}
+            {actions && <div className="flex items-center gap-2">{actions}</div>}
         </div>
     );
 }

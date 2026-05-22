@@ -1,10 +1,6 @@
 import type { ServerErrorResponse } from "@/types";
 import { AxiosError } from "axios";
-import {
-    type FieldValues,
-    type Path,
-    type UseFormReturn,
-} from "react-hook-form";
+import { type FieldValues, type Path, type UseFormReturn } from "react-hook-form";
 import { toast } from "sonner";
 
 export function handleFormError<TFieldValues extends FieldValues>(
@@ -27,8 +23,7 @@ export function handleFormError<TFieldValues extends FieldValues>(
         return;
     }
 
-    const errorMessage =
-        resp.error?.message ?? error?.message ?? "Something went wrong";
+    const errorMessage = resp.error?.message ?? error?.message ?? "Something went wrong";
 
     toast.error("Operation failed", {
         description: errorMessage,

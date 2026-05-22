@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { ROUTES } from "@/constants";
@@ -9,43 +10,53 @@ import type { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
-import { useCreateCategoryMutation } from "../mutation/category.mutation";
+import { useUpdateCategoryMutation } from "../mutation/category.mutation";
 import { CATEGORY_QUERY_KEYS } from "../queries";
-import type { CategoryFormData } from "../types";
+import type { Category, CategoryFormData } from "../types";
 
-export function CreateCategoryForm() {
+interface EditCategoryFormProps {
+    id: number;
+    category: Category;
+}
+
+export function EditCategoryForm({ id, category }: EditCategoryFormProps) {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
-    const { mutate, isPending } = useCreateCategoryMutation();
 
-    const form = useForm({
+    const { mutate: updateCategory, isPending } = useUpdateCategoryMutation();
+
+    const form = useForm<CategoryFormData>({
         defaultValues: {
-            name: "",
+            name: category.name,
+            is_active: category.is_active,
         },
         mode: "onSubmit",
     });
 
-    const onSubmit = (payload: Pick<CategoryFormData, "name">) => {
-        mutate(payload, {
-            onSuccess: async () => {
-                toast.success("Success", {
-                    description: "Category created successfully",
-                });
-                await queryClient.invalidateQueries({
-                    queryKey: CATEGORY_QUERY_KEYS.ROOT,
-                });
-                navigate(ROUTES.CATEGORY.INDEX, { replace: true });
-            },
-            onError: (error) => {
-                handleFormError(error as AxiosError, form);
-            },
-        });
+    const onSubmit = (payload: CategoryFormData) => {
+        updateCategory(
+            { id, payload },
+            {
+                onSuccess: async () => {
+                    toast.success("Success", {
+                        description: "Category updated successfully",
+                    });
+                    await queryClient.invalidateQueries({
+                        queryKey: CATEGORY_QUERY_KEYS.ROOT,
+                    });
+                    navigate(ROUTES.CATEGORY.INDEX, { replace: true });
+                },
+                onError: (error) => {
+                    handleFormError(error as AxiosError, form);
+                },
+            }
+        );
     };
 
     return (
         <Card className="mx-auto max-w-lg">
             <CardHeader>
-                <CardTitle>Add New Category</CardTitle>
+                <CardTitle>Edit Category</CardTitle>
                 <CardDescription>Please fill all required fields</CardDescription>
             </CardHeader>
             <CardContent>
@@ -71,6 +82,22 @@ export function CreateCategoryForm() {
                             )}
                         />
 
+                        <Controller
+                            name="is_active"
+                            control={form.control}
+                            render={({ field }) => (
+                                <Field orientation="horizontal" className="items-center gap-2">
+                                    <Checkbox
+                                        id={field.name}
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
+                                    />
+
+                                    <FieldLabel htmlFor={field.name}>Active</FieldLabel>
+                                </Field>
+                            )}
+                        />
+
                         <Field orientation="horizontal" className="justify-end">
                             <Button
                                 type="button"
@@ -81,7 +108,7 @@ export function CreateCategoryForm() {
                                 Cancel
                             </Button>
                             <Button type="submit" variant="default" disabled={isPending}>
-                                Create
+                                Save
                             </Button>
                         </Field>
                     </FieldGroup>

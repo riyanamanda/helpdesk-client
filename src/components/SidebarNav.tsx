@@ -30,10 +30,7 @@ export function SidebarNav({
                     {items.map((item) => (
                         <SidebarMenuItem key={item.name}>
                             <SidebarMenuButton tooltip={item.name} asChild>
-                                <NavLink
-                                    to={item.url}
-                                    target={item.is_blank ? "_blank" : "_self"}
-                                >
+                                <NavLink to={item.url} target={item.is_blank ? "_blank" : "_self"}>
                                     <item.icon />
                                     <span>{item.name}</span>
                                 </NavLink>

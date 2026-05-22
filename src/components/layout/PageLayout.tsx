@@ -9,9 +9,7 @@ export function PageLayout({ children }: PropsWithChildren) {
             <AppSidebar variant="inset" />
             <SidebarInset>
                 <SiteHeader />
-                <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                    {children}
-                </main>
+                <main className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</main>
             </SidebarInset>
         </SidebarProvider>
     );

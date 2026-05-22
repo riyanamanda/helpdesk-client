@@ -33,9 +33,6 @@ export function ProtectedRoutes() {
 }
 
 function redirectIfUnauthorized(location: Location) {
-    sessionStorage.setItem(
-        SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN,
-        location.pathname
-    );
+    sessionStorage.setItem(SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN, location.pathname);
     return <Navigate to={ROUTES.LOGIN} replace />;
 }

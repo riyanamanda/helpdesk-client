@@ -1,10 +1,10 @@
 import { authRoutes } from "@/features/auth";
-import { dashboardRoutes } from "@/features/dashboard/routes";
+import { categoryRoutes } from "@/features/category";
+import { dashboardRoutes } from "@/features/dashboard";
 import { homeRoutes } from "@/features/home/routes";
 import type { RouteObject } from "react-router";
 import { GuestRoutes } from "./GuestRoutes";
 import { ProtectedRoutes } from "./ProtectedRoutes";
-import { categoryRoutes } from "@/features/category/routes";
 
 export const appRoutes: RouteObject[] = [
     ...homeRoutes,

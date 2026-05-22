@@ -1,5 +1,5 @@
 import { http } from "@/api";
-import type { CreateCategoryRequest, UpdateCategoryRequest } from "../types";
+import type { CategoryFormData } from "../types";
 
 export const categoryService = {
     list: async () => {
@@ -7,16 +7,23 @@ export const categoryService = {
         return response.data;
     },
 
-    create: async (payload: CreateCategoryRequest) => {
+    create: async (payload: Pick<CategoryFormData, "name">) => {
         const response = await http.post("/api/v1/categories", payload);
         return response.data;
     },
 
-    update: async (payload: UpdateCategoryRequest) => {
-        const response = await http.patch(
-            `/api/v1/categories/${payload.id}`,
-            payload
-        );
+    get: async (id: number) => {
+        const response = await http.get(`/api/v1/categories/${id}`);
+        return response.data;
+    },
+
+    update: async (id: number, payload: Partial<CategoryFormData>) => {
+        const response = await http.patch(`/api/v1/categories/${id}`, payload);
+        return response.data;
+    },
+
+    delete: async (id: number) => {
+        const response = await http.delete(`/api/v1/categories/${id}`);
         return response.data;
     },
 };
