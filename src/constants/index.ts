@@ -28,4 +28,10 @@ export const ROUTES = {
     CATEGORY: {
         INDEX: "/category",
     },
+
+    DIVISION: {
+        INDEX: "/division",
+        CREATE: "/division/create",
+        EDIT: "/division/:id/edit",
+    },
 } as const;

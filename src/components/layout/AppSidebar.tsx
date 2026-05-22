@@ -42,7 +42,7 @@ const data = {
         },
         {
             name: "Division",
-            url: "#",
+            url: ROUTES.DIVISION.INDEX,
             icon: PresentationIcon,
         },
     ],

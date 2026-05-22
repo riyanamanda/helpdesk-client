@@ -1,10 +1,11 @@
 import { authRoutes } from "@/features/auth";
-import { dashboardRoutes } from "@/features/dashboard/routes";
+import { categoryRoutes } from "@/features/category/routes";
+import { dashboardRoutes } from "@/features/dashboard";
+import { divisionRoutes } from "@/features/division/routes";
 import { homeRoutes } from "@/features/home/routes";
 import type { RouteObject } from "react-router";
 import { GuestRoutes } from "./GuestRoutes";
 import { ProtectedRoutes } from "./ProtectedRoutes";
-import { categoryRoutes } from "@/features/category/routes";
 
 export const appRoutes: RouteObject[] = [
     ...homeRoutes,
@@ -14,7 +15,7 @@ export const appRoutes: RouteObject[] = [
     },
     {
         element: <ProtectedRoutes />,
-        children: [...dashboardRoutes, ...categoryRoutes],
+        children: [...dashboardRoutes, ...categoryRoutes, ...divisionRoutes],
     },
     {
         path: "*",
