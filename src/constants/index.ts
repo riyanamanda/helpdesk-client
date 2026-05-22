@@ -27,5 +27,7 @@ export const ROUTES = {
 
     CATEGORY: {
         INDEX: "/category",
+        CREATE: "/category/create",
+        EDIT: "/category/:id/edit",
     },
 } as const;

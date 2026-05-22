@@ -1,7 +1,16 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ROUTES } from "@/constants";
 import { formatDate } from "@/lib/formatters";
 import type { ColumnDef } from "@tanstack/react-table";
-import { CircleCheckBigIcon, X } from "lucide-react";
+import { CircleCheckBigIcon, MoreHorizontalIcon, X } from "lucide-react";
+import { NavLink } from "react-router";
 import type { Category } from "../types";
 
 export const getCategoryColumns = (): ColumnDef<Category>[] => [
@@ -54,5 +63,34 @@ export const getCategoryColumns = (): ColumnDef<Category>[] => [
         header: "Updated At",
         cell: ({ row }) => <div>{formatDate(row.getValue("updated_at"))}</div>,
         enableSorting: false,
+    },
+    {
+        id: "action",
+        cell: ({ row }) => {
+            const category = row.original;
+
+            return (
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                            <MoreHorizontalIcon />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <NavLink
+                            to={ROUTES.CATEGORY.EDIT.replace(
+                                ":id",
+                                String(category.id)
+                            )}
+                        >
+                            <DropdownMenuItem>Update</DropdownMenuItem>
+                        </NavLink>
+                        <DropdownMenuItem variant="destructive">
+                            Delete
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            );
+        },
     },
 ];
