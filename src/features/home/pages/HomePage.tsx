@@ -35,20 +35,21 @@ const team = [
         image: "https://images.unsplash.com/photo-1504593811423-6dd665756598?q=80&w=1200&auto=format&fit=crop",
     },
 
+    {
+        name: "Deti Nadya Rahma",
+        role: "Help Desk Analyst",
+        image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1200&auto=format&fit=crop",
+    },
+
     // CENTER
     {
         name: "Ledyana Puspasari",
         role: "IT Manager",
         featured: true,
-        image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1200&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
     },
     // END
 
-    {
-        name: "Deti Nadya Rahma",
-        role: "Help Desk Analyst",
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
-    },
     {
         name: "Riyan Amanda Nasution",
         role: "IT Support",
