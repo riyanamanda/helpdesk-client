@@ -41,4 +41,10 @@ export const ROUTES = {
         INDEX: "/user",
         CREATE: "/user/create",
     },
+
+    TICKET: {
+        INDEX: "/ticket",
+        CREATE: "/ticket/create",
+        DETAIL: "/ticket/:id",
+    },
 } as const;

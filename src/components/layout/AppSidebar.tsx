@@ -30,7 +30,7 @@ const data = {
         },
         {
             name: "Tickets",
-            url: "#",
+            url: ROUTES.TICKET.INDEX,
             icon: TicketIcon,
         },
     ],
