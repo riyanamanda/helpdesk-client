@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 import {
     SidebarGroup,
     SidebarGroupContent,
@@ -22,6 +22,13 @@ export function SidebarNav({
         icon: LucideIcon;
     }[];
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
+    const { pathname } = useLocation();
+
+    function isActive(url: string) {
+        if (url === "/" || url === "#") return false;
+        return pathname === url || pathname.startsWith(url + "/");
+    }
+
     return (
         <SidebarGroup {...props}>
             {label ? <SidebarGroupLabel>{label}</SidebarGroupLabel> : ""}
@@ -29,7 +36,11 @@ export function SidebarNav({
                 <SidebarMenu>
                     {items.map((item) => (
                         <SidebarMenuItem key={item.name}>
-                            <SidebarMenuButton tooltip={item.name} asChild>
+                            <SidebarMenuButton
+                                tooltip={item.name}
+                                asChild
+                                isActive={isActive(item.url)}
+                            >
                                 <NavLink to={item.url} target={item.is_blank ? "_blank" : "_self"}>
                                     <item.icon />
                                     <span>{item.name}</span>

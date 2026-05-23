@@ -53,7 +53,7 @@ export function SiteHeader() {
 
                 <DropdownMenu>
                     <DropdownMenuTrigger className="flex gap-3">
-                        <Avatar className="size-8 rounded-lg grayscale">
+                        <Avatar className="size-8 rounded-lg">
                             <AvatarImage src={user.avatar_url} alt={user.name} />
                             <AvatarFallback className="rounded-lg">
                                 {user && getInitials(user.name)}
@@ -85,7 +85,7 @@ export function SiteHeader() {
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={logout}>
+                        <DropdownMenuItem onClick={logout} className="text-destructive">
                             <LogOutIcon />
                             Log out
                         </DropdownMenuItem>
