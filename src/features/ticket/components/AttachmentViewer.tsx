@@ -16,7 +16,7 @@ export function AttachmentViewer({ fileUrl, label = "View attachment" }: Attachm
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <button className="flex items-center gap-1.5 text-xs text-primary hover:underline">
+                <button className="flex cursor-pointer items-center gap-1.5 text-xs text-primary hover:underline">
                     <PaperclipIcon className="size-3" />
                     {label}
                 </button>

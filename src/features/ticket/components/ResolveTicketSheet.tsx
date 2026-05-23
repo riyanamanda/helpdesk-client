@@ -108,7 +108,7 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
                                 {file && (
                                     <button
                                         type="button"
-                                        className="text-xs text-muted-foreground hover:text-destructive"
+                                        className="cursor-pointer text-xs text-muted-foreground hover:text-destructive"
                                         onClick={() => {
                                             setFile(null);
                                             if (fileRef.current) fileRef.current.value = "";

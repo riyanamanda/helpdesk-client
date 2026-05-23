@@ -52,7 +52,7 @@ export function SiteHeader() {
                 <Separator orientation="vertical" className="mx-2" />
 
                 <DropdownMenu>
-                    <DropdownMenuTrigger className="flex gap-3">
+                    <DropdownMenuTrigger className="flex cursor-pointer gap-3">
                         <Avatar className="size-8 rounded-lg">
                             <AvatarImage src={user.avatar_url} alt={user.name} />
                             <AvatarFallback className="rounded-lg">

@@ -1,3 +1,3 @@
-import AuthPlaceholder from "./placeholder.svg";
+import GoogleSvg from "./google-logo.svg";
 
-export { AuthPlaceholder };
+export { GoogleSvg };
