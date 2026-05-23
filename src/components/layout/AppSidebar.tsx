@@ -49,7 +49,7 @@ const data = {
     navAuth: [
         {
             name: "Users",
-            url: "#",
+            url: ROUTES.USER.INDEX,
             icon: UserIcon,
         },
     ],
