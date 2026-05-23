@@ -34,11 +34,6 @@ const team = [
         role: "Help Desk Analyst",
         image: "https://images.unsplash.com/photo-1504593811423-6dd665756598?q=80&w=1200&auto=format&fit=crop",
     },
-    {
-        name: "Deti Nadya Rahma",
-        role: "Help Desk Analyst",
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
-    },
 
     // CENTER
     {
@@ -47,7 +42,13 @@ const team = [
         featured: true,
         image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1200&auto=format&fit=crop",
     },
+    // END
 
+    {
+        name: "Deti Nadya Rahma",
+        role: "Help Desk Analyst",
+        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
+    },
     {
         name: "Riyan Amanda Nasution",
         role: "IT Support",
@@ -72,7 +73,7 @@ const stackConfig = [
     { x: -70, scale: 0.97, rotate: -2, z: 4, opacity: 0.96 },
 
     // center
-    { x: 0, scale: 1.08, rotate: 0, z: 30, opacity: 1 },
+    { x: 0, scale: 1.0, rotate: 0, z: 30, opacity: 1 },
 
     { x: 70, scale: 0.97, rotate: 2, z: 4, opacity: 0.96 },
     { x: 140, scale: 0.93, rotate: 4, z: 3, opacity: 0.9 },
@@ -242,7 +243,7 @@ export function HomePage() {
                             return (
                                 <motion.div
                                     key={member.name}
-                                    className={`absolute overflow-hidden transition-all duration-300 ${
+                                    className={`absolute overflow-hidden transition-all duration-100 ${
                                         cfg.z <= 3 ? "blur-[2px]" : "blur-0"
                                     }`}
                                     initial={{
@@ -263,17 +264,18 @@ export function HomePage() {
                                     }}
                                     whileHover={{
                                         y: -12,
-                                        scale: 1.04,
+                                        scale: 1.1,
                                         rotate: 0,
                                         zIndex: 999,
                                         filter: "blur(0px)",
+                                        opacity: 1,
                                     }}
                                     style={{
                                         zIndex: cfg.z,
                                     }}
                                 >
                                     <div
-                                        className={`group relative w-52 overflow-hidden rounded-[2rem] border border-white/10 bg-black/75 shadow-[0_30px_100px_rgba(0,0,0,0.7)] backdrop-blur-xl transition-all duration-300 hover:shadow-[0_30px_120px_rgba(0,255,255,0.12)] ${isFeatured ? "ring-1 ring-primary/30" : ""} `}
+                                        className={`group relative w-52 overflow-hidden rounded-[2rem] border border-white/10 bg-black/75 shadow-[0_30px_100px_rgba(0,0,0,0.12)] backdrop-blur-xl transition-all duration-100 hover:shadow-[0_30px_120px_rgba(0,255,255,0.12)] ${isFeatured ? "ring-1 ring-primary/30" : ""} `}
                                     >
                                         <div
                                             className={`pointer-events-none absolute inset-0 z-10 transition-all duration-300 ${
@@ -300,7 +302,7 @@ export function HomePage() {
                                             )}
 
                                             {/* overlay */}
-                                            <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/55 via-40% to-transparent" />
+                                            <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/10 via-40% to-transparent" />
                                         </div>
 
                                         {/* CONTENT */}
