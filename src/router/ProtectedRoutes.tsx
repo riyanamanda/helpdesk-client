@@ -1,7 +1,9 @@
+import { ComponentLoading } from "@/components/ComponentLoading";
 import { COOKIES, ROUTES, SESSION_STORAGE_KEYS } from "@/constants";
 import { meQueryOption } from "@/features/auth/queries/auth.query";
 import { cookies } from "@/lib/cookies";
 import { useQuery } from "@tanstack/react-query";
+import { Suspense } from "react";
 import { Navigate, Outlet, useLocation, type Location } from "react-router";
 
 export function ProtectedRoutes() {
@@ -22,14 +24,18 @@ export function ProtectedRoutes() {
     }
 
     if (isPending) {
-        return <div>Loading...</div>;
+        return <ComponentLoading text="Authenticating your session..." />;
     }
 
     if (isError || !currentUser) {
         return redirectIfUnauthorized(location);
     }
 
-    return <Outlet />;
+    return (
+        <Suspense fallback={<ComponentLoading text="Loading..." />}>
+            <Outlet />
+        </Suspense>
+    );
 }
 
 function redirectIfUnauthorized(location: Location) {

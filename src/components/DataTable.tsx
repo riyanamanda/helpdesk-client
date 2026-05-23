@@ -1,3 +1,4 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import {
     Table,
     TableBody,
@@ -6,19 +7,39 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from "@tanstack/react-table";
+import {
+    flexRender,
+    getCoreRowModel,
+    useReactTable,
+    type ColumnDef,
+    type OnChangeFn,
+    type SortingState,
+} from "@tanstack/react-table";
+import { ArrowDownIcon, ArrowUpIcon, ChevronsUpDownIcon } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[] | undefined;
+    isLoading?: boolean;
+    sorting?: SortingState;
+    onSortingChange?: OnChangeFn<SortingState>;
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+    columns,
+    data,
+    isLoading,
+    sorting,
+    onSortingChange,
+}: DataTableProps<TData, TValue>) {
     // eslint-disable-next-line react-hooks/incompatible-library
     const table = useReactTable({
         data: data ?? [],
         columns,
         getCoreRowModel: getCoreRowModel(),
+        manualSorting: true,
+        state: { sorting: sorting ?? [] },
+        onSortingChange,
     });
 
     return (
@@ -28,14 +49,34 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => {
+                                const isSortable = header.column.getCanSort();
+                                const sortDir = header.column.getIsSorted();
+
                                 return (
                                     <TableHead key={header.id}>
-                                        {header.isPlaceholder
-                                            ? null
-                                            : flexRender(
-                                                  header.column.columnDef.header,
-                                                  header.getContext()
-                                              )}
+                                        {header.isPlaceholder ? null : isSortable ? (
+                                            <button
+                                                onClick={header.column.getToggleSortingHandler()}
+                                                className="flex cursor-pointer items-center gap-1 select-none hover:text-foreground"
+                                            >
+                                                {flexRender(
+                                                    header.column.columnDef.header,
+                                                    header.getContext()
+                                                )}
+                                                {sortDir === "asc" ? (
+                                                    <ArrowUpIcon className="size-3.5" />
+                                                ) : sortDir === "desc" ? (
+                                                    <ArrowDownIcon className="size-3.5" />
+                                                ) : (
+                                                    <ChevronsUpDownIcon className="size-3.5 text-muted-foreground" />
+                                                )}
+                                            </button>
+                                        ) : (
+                                            flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
+                                            )
+                                        )}
                                     </TableHead>
                                 );
                             })}
@@ -43,7 +84,17 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                     ))}
                 </TableHeader>
                 <TableBody>
-                    {table.getRowModel().rows?.length ? (
+                    {isLoading ? (
+                        Array.from({ length: 5 }).map((_, rowIndex) => (
+                            <TableRow key={rowIndex}>
+                                {columns.map((_, colIndex) => (
+                                    <TableCell key={colIndex}>
+                                        <Skeleton className="h-4 w-full" />
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))
+                    ) : table.getRowModel().rows?.length ? (
                         table.getRowModel().rows.map((row) => (
                             <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                                 {row.getVisibleCells().map((cell) => (

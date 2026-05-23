@@ -16,7 +16,7 @@ export const getDivisionColumns = (pageOffset = 0): ColumnDef<Division>[] => [
         accessorKey: "name",
         header: "Name",
         cell: ({ row }) => <div>{row.getValue("name")}</div>,
-        enableSorting: false,
+        enableSorting: true,
     },
     {
         accessorKey: "is_active",
@@ -39,13 +39,13 @@ export const getDivisionColumns = (pageOffset = 0): ColumnDef<Division>[] => [
                 </Badge>
             );
         },
-        enableSorting: false,
+        enableSorting: true,
     },
     {
         accessorKey: "created_at",
         header: "Created At",
         cell: ({ row }) => <div>{formatDate(row.getValue("created_at"))}</div>,
-        enableSorting: false,
+        enableSorting: true,
     },
     {
         accessorKey: "updated_at",
@@ -56,5 +56,6 @@ export const getDivisionColumns = (pageOffset = 0): ColumnDef<Division>[] => [
     {
         id: "action",
         cell: ({ row }) => <DivisionActions division={row.original} />,
+        enableSorting: false,
     },
 ];

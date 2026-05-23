@@ -16,7 +16,7 @@ export const getCategoryColumns = (pageOffset = 0): ColumnDef<Category>[] => [
         accessorKey: "name",
         header: "Name",
         cell: ({ row }) => <div>{row.getValue("name")}</div>,
-        enableSorting: false,
+        enableSorting: true,
     },
     {
         accessorKey: "is_active",
@@ -39,13 +39,13 @@ export const getCategoryColumns = (pageOffset = 0): ColumnDef<Category>[] => [
                 </Badge>
             );
         },
-        enableSorting: false,
+        enableSorting: true,
     },
     {
         accessorKey: "created_at",
         header: "Created At",
         cell: ({ row }) => <div>{formatDate(row.getValue("created_at"))}</div>,
-        enableSorting: false,
+        enableSorting: true,
     },
     {
         accessorKey: "updated_at",
@@ -56,5 +56,6 @@ export const getCategoryColumns = (pageOffset = 0): ColumnDef<Category>[] => [
     {
         id: "action",
         cell: ({ row }) => <CategoryActions category={row.original} />,
+        enableSorting: false,
     },
 ];

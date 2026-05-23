@@ -1,9 +1,9 @@
 import { http } from "@/api";
 import type { PaginatedResponse } from "@/types";
-import type { Category, CategoryFormData } from "../types";
+import type { Category, CategoryFormData, CategoryListParams } from "../types";
 
 export const categoryService = {
-    list: async (params?: { page?: number; limit?: number }) => {
+    list: async (params?: CategoryListParams) => {
         const response = await http.get("/api/v1/categories", { params });
         return response.data as PaginatedResponse<Category>;
     },

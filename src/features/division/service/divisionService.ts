@@ -1,9 +1,9 @@
 import { http } from "@/api";
 import type { PaginatedResponse } from "@/types";
-import type { Division, DivisionFormData } from "../types";
+import type { Division, DivisionFormData, DivisionListParams } from "../types";
 
 export const divisionService = {
-    list: async (params?: { page?: number; limit?: number }) => {
+    list: async (params?: DivisionListParams) => {
         const response = await http.get("/api/v1/divisions", { params });
         return response.data as PaginatedResponse<Division>;
     },

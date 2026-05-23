@@ -1,3 +1,4 @@
+import { ComponentLoading } from "@/components/ComponentLoading";
 import { COOKIES, ROUTES } from "@/constants";
 import { meQueryOption } from "@/features/auth/queries/auth.query";
 import { cookies } from "@/lib/cookies";
@@ -13,7 +14,7 @@ export function GuestRoutes() {
     });
 
     if (isPending && token) {
-        return <div>Loading...</div>;
+        return <ComponentLoading text="Authenticating your session..." />;
     }
 
     if (currentUser) {
