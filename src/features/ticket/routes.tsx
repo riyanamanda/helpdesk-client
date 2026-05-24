@@ -1,8 +1,5 @@
 import { ROUTES } from "@/constants";
 import type { RouteObject } from "react-router";
-import { CreateTicketPage } from "./pages/CreateTicketPage";
-import { TicketDetailPage } from "./pages/TicketDetailPage";
-import { TicketPage } from "./pages/TicketPage";
 
 export const ticketRoutes: RouteObject[] = [
     {
@@ -10,15 +7,24 @@ export const ticketRoutes: RouteObject[] = [
         children: [
             {
                 path: "",
-                element: <TicketPage />,
+                lazy: async () => {
+                    const { TicketPage } = await import("./pages/TicketPage");
+                    return { Component: TicketPage };
+                },
             },
             {
                 path: ROUTES.TICKET.CREATE,
-                element: <CreateTicketPage />,
+                lazy: async () => {
+                    const { CreateTicketPage } = await import("./pages/CreateTicketPage");
+                    return { Component: CreateTicketPage };
+                },
             },
             {
                 path: ROUTES.TICKET.DETAIL,
-                element: <TicketDetailPage />,
+                lazy: async () => {
+                    const { TicketDetailPage } = await import("./pages/TicketDetailPage");
+                    return { Component: TicketDetailPage };
+                },
             },
         ],
     },

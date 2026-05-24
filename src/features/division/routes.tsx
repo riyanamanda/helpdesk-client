@@ -1,8 +1,5 @@
 import { ROUTES } from "@/constants";
 import type { RouteObject } from "react-router";
-import { DivisionPage } from "./pages/DivisionPage";
-import { DivisionCreatePage } from "./pages/CreateDivisionPage";
-import { EditDivisionPage } from "./pages/EditDivisionPage";
 
 export const divisionRoutes: RouteObject[] = [
     {
@@ -10,15 +7,24 @@ export const divisionRoutes: RouteObject[] = [
         children: [
             {
                 path: "",
-                element: <DivisionPage />,
+                lazy: async () => {
+                    const { DivisionPage } = await import("./pages/DivisionPage");
+                    return { Component: DivisionPage };
+                },
             },
             {
                 path: ROUTES.DIVISION.CREATE,
-                element: <DivisionCreatePage />,
+                lazy: async () => {
+                    const { DivisionCreatePage } = await import("./pages/CreateDivisionPage");
+                    return { Component: DivisionCreatePage };
+                },
             },
             {
                 path: ROUTES.DIVISION.EDIT,
-                element: <EditDivisionPage />,
+                lazy: async () => {
+                    const { EditDivisionPage } = await import("./pages/EditDivisionPage");
+                    return { Component: EditDivisionPage };
+                },
             },
         ],
     },

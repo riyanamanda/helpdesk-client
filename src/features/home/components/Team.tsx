@@ -42,22 +42,16 @@ export function Team() {
 
             <div className="relative flex h-full items-start justify-center pt-6 sm:pt-8">
                 {team.map((member, i) => {
-                    const cfg = activeConfig[i];
+                    const { opacity, x, rotate, scale, z } = activeConfig[i];
                     const isFeatured = !!member.featured;
-                    const isHidden = cfg.opacity === 0;
+                    const isHidden = opacity === 0;
 
                     return (
                         <motion.div
                             key={member.name}
                             className="absolute"
                             initial={{ opacity: 0, y: 60, scale: 0.7 }}
-                            animate={{
-                                opacity: cfg.opacity,
-                                y: 0,
-                                x: cfg.x,
-                                rotate: cfg.rotate,
-                                scale: cfg.scale,
-                            }}
+                            animate={{ opacity, y: 0, x, rotate, scale }}
                             transition={{ duration: 0.35, ease: "easeOut" }}
                             whileHover={
                                 isHidden
@@ -71,7 +65,7 @@ export function Team() {
                                       }
                             }
                             style={{
-                                zIndex: cfg.z,
+                                zIndex: z,
                                 pointerEvents: isHidden ? "none" : "auto",
                             }}
                         >
@@ -80,9 +74,9 @@ export function Team() {
                             >
                                 <div
                                     className={`pointer-events-none absolute inset-0 z-10 transition-all duration-300 ${
-                                        cfg.z <= 1
+                                        z <= 1
                                             ? "bg-black/40 group-hover:bg-black/10"
-                                            : cfg.z <= 2
+                                            : z <= 2
                                               ? "bg-black/25 group-hover:bg-black/10"
                                               : "bg-black/10"
                                     }`}

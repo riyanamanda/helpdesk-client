@@ -1,25 +1,22 @@
-import { useRef } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import LoadingBar, { type LoadingBarRef } from "react-top-loading-bar";
 import { TopLoaderContext } from "./TopLoaderContext";
 
 export function TopLoaderProvider({ children }: { children: React.ReactNode }) {
     const ref = useRef<LoadingBarRef>(null);
 
-    const start = () => {
+    const start = useCallback(() => {
         ref.current?.continuousStart();
-    };
+    }, []);
 
-    const complete = () => {
+    const complete = useCallback(() => {
         ref.current?.complete();
-    };
+    }, []);
+
+    const value = useMemo(() => ({ start, complete }), [start, complete]);
 
     return (
-        <TopLoaderContext.Provider
-            value={{
-                start,
-                complete,
-            }}
-        >
+        <TopLoaderContext.Provider value={value}>
             <LoadingBar
                 color="var(--primary)"
                 height={2}

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants";
-import { motion } from "motion/react";
+import { type Variants, motion } from "motion/react";
 import { Link, useNavigate } from "react-router";
 
 const bubbles = [
@@ -14,12 +14,12 @@ const bubbles = [
     { cls: "h-10 w-10", pos: "bottom-[30%] right-[8%]", duration: 11, delay: 0.3 },
 ];
 
-const containerVariants = {
+const containerVariants: Variants = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.1 } },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };

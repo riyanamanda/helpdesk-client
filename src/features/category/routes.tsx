@@ -1,8 +1,5 @@
 import { ROUTES } from "@/constants";
 import type { RouteObject } from "react-router";
-import { CategoryPage } from "./pages/CategoryPage";
-import { CategoryCreatePage } from "./pages/CreateCategoryPage";
-import { EditCategoryPage } from "./pages/EditCategoryPage";
 
 export const categoryRoutes: RouteObject[] = [
     {
@@ -10,15 +7,24 @@ export const categoryRoutes: RouteObject[] = [
         children: [
             {
                 path: "",
-                element: <CategoryPage />,
+                lazy: async () => {
+                    const { CategoryPage } = await import("./pages/CategoryPage");
+                    return { Component: CategoryPage };
+                },
             },
             {
                 path: ROUTES.CATEGORY.CREATE,
-                element: <CategoryCreatePage />,
+                lazy: async () => {
+                    const { CategoryCreatePage } = await import("./pages/CreateCategoryPage");
+                    return { Component: CategoryCreatePage };
+                },
             },
             {
                 path: ROUTES.CATEGORY.EDIT,
-                element: <EditCategoryPage />,
+                lazy: async () => {
+                    const { EditCategoryPage } = await import("./pages/EditCategoryPage");
+                    return { Component: EditCategoryPage };
+                },
             },
         ],
     },

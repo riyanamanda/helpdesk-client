@@ -1,7 +1,5 @@
 import { ROUTES } from "@/constants";
 import type { RouteObject } from "react-router";
-import { CreateUserPage } from "./pages/CreateUserPage";
-import { UserPage } from "./pages/UserPage";
 
 export const userRoutes: RouteObject[] = [
     {
@@ -9,11 +7,17 @@ export const userRoutes: RouteObject[] = [
         children: [
             {
                 path: "",
-                element: <UserPage />,
+                lazy: async () => {
+                    const { UserPage } = await import("./pages/UserPage");
+                    return { Component: UserPage };
+                },
             },
             {
                 path: ROUTES.USER.CREATE,
-                element: <CreateUserPage />,
+                lazy: async () => {
+                    const { CreateUserPage } = await import("./pages/CreateUserPage");
+                    return { Component: CreateUserPage };
+                },
             },
         ],
     },

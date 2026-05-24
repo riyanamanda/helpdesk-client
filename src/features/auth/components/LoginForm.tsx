@@ -1,4 +1,5 @@
-import { ErbaImg, GoogleSvg } from "@/assets";
+import { ErbaImg } from "@/assets/images";
+import { GoogleSvg } from "@/assets/svgs";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel, FieldSeparator } from "@/components/ui/field";

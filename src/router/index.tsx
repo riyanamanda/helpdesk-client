@@ -1,6 +1,6 @@
-import { authRoutes } from "@/features/auth";
-import { categoryRoutes } from "@/features/category";
-import { dashboardRoutes } from "@/features/dashboard";
+import { authRoutes } from "@/features/auth/routes";
+import { categoryRoutes } from "@/features/category/routes";
+import { dashboardRoutes } from "@/features/dashboard/routes";
 import { divisionRoutes } from "@/features/division/routes";
 import { ticketRoutes } from "@/features/ticket/routes";
 import { userRoutes } from "@/features/user/routes";

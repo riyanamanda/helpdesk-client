@@ -1,4 +1,4 @@
-import { RiyanImg } from "@/assets";
+import { RiyanImg } from "@/assets/images";
 
 export const team = [
     {
