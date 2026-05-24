@@ -6,6 +6,7 @@ import { ticketRoutes } from "@/features/ticket/routes";
 import { userRoutes } from "@/features/user/routes";
 import { homeRoutes } from "@/features/home/routes";
 import type { RouteObject } from "react-router";
+import { NotFoundPage } from "@/pages/NotFoundPage";
 import { GuestRoutes } from "./GuestRoutes";
 import { NavigationProgress } from "./NavigationProgress";
 import { ProtectedRoutes } from "./ProtectedRoutes";
@@ -31,7 +32,7 @@ export const appRoutes: RouteObject[] = [
             },
             {
                 path: "*",
-                element: <div>Page Not Found</div>,
+                element: <NotFoundPage />,
             },
         ],
     },
