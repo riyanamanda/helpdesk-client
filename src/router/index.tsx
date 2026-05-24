@@ -7,26 +7,32 @@ import { userRoutes } from "@/features/user/routes";
 import { homeRoutes } from "@/features/home/routes";
 import type { RouteObject } from "react-router";
 import { GuestRoutes } from "./GuestRoutes";
+import { NavigationProgress } from "./NavigationProgress";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 
 export const appRoutes: RouteObject[] = [
-    ...homeRoutes,
     {
-        element: <GuestRoutes />,
-        children: [...authRoutes],
-    },
-    {
-        element: <ProtectedRoutes />,
+        element: <NavigationProgress />,
         children: [
-            ...dashboardRoutes,
-            ...categoryRoutes,
-            ...divisionRoutes,
-            ...userRoutes,
-            ...ticketRoutes,
+            ...homeRoutes,
+            {
+                element: <GuestRoutes />,
+                children: [...authRoutes],
+            },
+            {
+                element: <ProtectedRoutes />,
+                children: [
+                    ...dashboardRoutes,
+                    ...categoryRoutes,
+                    ...divisionRoutes,
+                    ...userRoutes,
+                    ...ticketRoutes,
+                ],
+            },
+            {
+                path: "*",
+                element: <div>Page Not Found</div>,
+            },
         ],
-    },
-    {
-        path: "*",
-        element: <div>Page Not Found</div>,
     },
 ];
