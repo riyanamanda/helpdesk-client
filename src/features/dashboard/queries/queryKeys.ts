@@ -1,0 +1,7 @@
+const DASHBOARD_ROOT_KEY = ["dashboard"] as const;
+
+export const DASHBOARD_QUERY_KEYS = {
+    ROOT: DASHBOARD_ROOT_KEY,
+    SUMMARY: [...DASHBOARD_ROOT_KEY, "summary"] as const,
+    RECENT_TICKETS: [...DASHBOARD_ROOT_KEY, "recent-tickets"] as const,
+};

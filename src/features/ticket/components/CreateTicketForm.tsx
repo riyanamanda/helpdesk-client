@@ -20,6 +20,7 @@ import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
+import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
 import { useCreateTicketMutation } from "../mutation/ticket.mutation";
 import { TICKET_QUERY_KEYS } from "../queries";
 import type { TicketCreateFormData } from "../types";
@@ -52,6 +53,7 @@ export function CreateTicketForm() {
                         description: "Ticket created successfully",
                     });
                     await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
+                    await queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEYS.ROOT });
                     navigate(ROUTES.TICKET.INDEX, { replace: true });
                 },
                 onError: (error) => {
