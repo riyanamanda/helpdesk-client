@@ -38,7 +38,7 @@ export function AssignTicketSheet({ ticketId }: AssignTicketSheetProps) {
     const { mutate, isPending } = useAssignTicketMutation();
 
     const { data: usersData } = useQuery(listUserQueryOption({ page: 1, limit: 100 }));
-    const users = usersData?.data ?? [];
+    const users = (usersData?.data ?? []).filter((u) => u.division.name === "IT");
 
     const form = useForm<TicketAssignFormData>({
         defaultValues: { assigned_to: "" },

@@ -1,13 +1,26 @@
 import { PageLayout } from "@/components/layout/PageLayout";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { ROUTES } from "@/constants";
 import { DeleteDialog } from "@/components/DeleteDialog";
 import { formatDate } from "@/lib/formatters";
+import { cn } from "@/lib/utils";
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { ArrowLeftIcon, XCircleIcon } from "lucide-react";
+import {
+    AlignLeftIcon,
+    ArrowLeftIcon,
+    Building2Icon,
+    CheckCircle2Icon,
+    CircleDotIcon,
+    CircleIcon,
+    ClockIcon,
+    PaperclipIcon,
+    TagIcon,
+    UsersIcon,
+    XCircleIcon,
+} from "lucide-react";
 import { NavLink, useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 import { AssignTicketSheet } from "../components/AssignTicketSheet";
@@ -18,6 +31,101 @@ import { TicketPriorityBadge, TicketStatusBadge } from "../components/TicketBadg
 import { useCloseTicketMutation } from "../mutation/ticket.mutation";
 import { TICKET_QUERY_KEYS } from "../queries";
 import { getTicketQueryOption } from "../queries/ticket.query";
+import type { TicketStatus } from "../types";
+
+const STATUS_ACCENT: Record<TicketStatus, string> = {
+    OPEN: "border-l-blue-500",
+    IN_PROGRESS: "border-l-yellow-500",
+    RESOLVED: "border-l-green-500",
+    CLOSED: "border-l-muted-foreground/40",
+};
+
+function getInitials(name: string) {
+    return name
+        .split(" ")
+        .map((n) => n[0])
+        .slice(0, 2)
+        .join("")
+        .toUpperCase();
+}
+
+function PersonRow({ label, name }: { label: string; name?: string | null }) {
+    if (!name) return null;
+    return (
+        <div className="flex items-center gap-2.5">
+            <Avatar size="sm">
+                <AvatarFallback>{getInitials(name)}</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+                <span className="text-[11px] text-muted-foreground">{label}</span>
+                <span className="text-xs font-medium">{name}</span>
+            </div>
+        </div>
+    );
+}
+
+function TimelineStep({
+    label,
+    date,
+    person,
+    isDone,
+    isActive,
+    isLast,
+}: {
+    label: string;
+    date: string | null;
+    person?: string | null;
+    isDone: boolean;
+    isActive?: boolean;
+    isLast?: boolean;
+}) {
+    return (
+        <div className="flex gap-3">
+            <div className="flex flex-col items-center">
+                <div
+                    className={cn(
+                        "flex size-5 shrink-0 items-center justify-center rounded-full",
+                        isDone
+                            ? "bg-primary text-primary-foreground"
+                            : isActive
+                              ? "border-2 border-primary text-primary"
+                              : "border-2 border-border text-muted-foreground"
+                    )}
+                >
+                    {isDone ? (
+                        <CheckCircle2Icon className="size-3" />
+                    ) : isActive ? (
+                        <CircleDotIcon className="size-3" />
+                    ) : (
+                        <CircleIcon className="size-3" />
+                    )}
+                </div>
+                {!isLast && (
+                    <div
+                        className={cn("my-1 w-0.5 flex-1", isDone ? "bg-primary/40" : "bg-border")}
+                        style={{ minHeight: "1.5rem" }}
+                    />
+                )}
+            </div>
+            <div className={cn("pb-4", isLast && "pb-0")}>
+                <p
+                    className={cn(
+                        "text-xs font-medium",
+                        !isDone && !isActive && "text-muted-foreground"
+                    )}
+                >
+                    {label}
+                </p>
+                {isDone && date && (
+                    <p className="mt-0.5 text-[11px] text-muted-foreground">{formatDate(date)}</p>
+                )}
+                {isDone && person && (
+                    <p className="text-[11px] text-muted-foreground">by {person}</p>
+                )}
+            </div>
+        </div>
+    );
+}
 
 export function TicketDetailPage() {
     const { id } = useParams();
@@ -52,7 +160,6 @@ export function TicketDetailPage() {
         <PageLayout>
             <PageLayout.Header
                 title={`Ticket #${ticket.id}`}
-                description={ticket.title}
                 actions={
                     <NavLink to={ROUTES.TICKET.INDEX}>
                         <Button variant="ghost" size="sm">
@@ -63,42 +170,92 @@ export function TicketDetailPage() {
                 }
             />
             <PageLayout.Content>
+                {/* Hero banner */}
+                <Card className={cn("border-l-4", STATUS_ACCENT[ticket.status])}>
+                    <CardContent className="py-4">
+                        <div className="flex flex-wrap items-start justify-between gap-4">
+                            <div className="flex flex-col gap-2">
+                                <h2 className="text-base leading-snug font-semibold">
+                                    {ticket.title}
+                                </h2>
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <TicketStatusBadge status={ticket.status} />
+                                    <TicketPriorityBadge priority={ticket.priority} />
+                                    {ticket.category && (
+                                        <Badge variant="outline" className="gap-1">
+                                            <TagIcon className="size-3" />
+                                            {ticket.category.name}
+                                        </Badge>
+                                    )}
+                                    <Badge variant="outline" className="gap-1">
+                                        <Building2Icon className="size-3" />
+                                        {ticket.division.name}
+                                    </Badge>
+                                </div>
+                            </div>
+                            <div className="flex flex-col items-end gap-1 text-right">
+                                <span className="text-[11px] text-muted-foreground">
+                                    Created {formatDate(ticket.created_at)}
+                                </span>
+                                <span className="text-[11px] text-muted-foreground">
+                                    Updated {formatDate(ticket.updated_at)}
+                                </span>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+
                 <div className="grid gap-4 lg:grid-cols-3">
                     {/* Left — main content */}
                     <div className="flex flex-col gap-4 lg:col-span-2">
                         <Card>
-                            <CardHeader>
-                                <CardTitle className="text-sm">Description</CardTitle>
+                            <CardHeader className="pb-2">
+                                <CardTitle className="flex items-center gap-2 text-sm font-medium">
+                                    <AlignLeftIcon className="size-4 text-muted-foreground" />
+                                    Description
+                                </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                                <p className="text-sm leading-relaxed whitespace-pre-wrap text-muted-foreground">
                                     {ticket.description}
                                 </p>
                             </CardContent>
                         </Card>
 
                         {ticket.resolution && (
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className="text-sm">Resolution</CardTitle>
+                            <Card className="border-green-500/30">
+                                <CardHeader className="pb-2">
+                                    <CardTitle className="flex items-center gap-2 text-sm font-medium">
+                                        <CheckCircle2Icon className="size-4 text-green-500" />
+                                        Resolution
+                                    </CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                                    <p className="text-sm leading-relaxed whitespace-pre-wrap text-muted-foreground">
                                         {ticket.resolution}
                                     </p>
-                                    {resolutionAttachments.map((a) => (
-                                        <div key={a.id} className="mt-3">
-                                            <AttachmentViewer fileUrl={a.file_url} />
+                                    {resolutionAttachments.length > 0 && (
+                                        <div className="mt-4 flex flex-col gap-2 border-t pt-4">
+                                            {resolutionAttachments.map((a) => (
+                                                <AttachmentViewer key={a.id} fileUrl={a.file_url} />
+                                            ))}
                                         </div>
-                                    ))}
+                                    )}
                                 </CardContent>
                             </Card>
                         )}
 
                         {reportAttachments.length > 0 && (
                             <Card>
-                                <CardHeader>
-                                    <CardTitle className="text-sm">Attachments</CardTitle>
+                                <CardHeader className="pb-2">
+                                    <CardTitle className="flex items-center gap-2 text-sm font-medium">
+                                        <PaperclipIcon className="size-4 text-muted-foreground" />
+                                        Attachments
+                                        <span className="ml-auto text-xs font-normal text-muted-foreground">
+                                            {reportAttachments.length} file
+                                            {reportAttachments.length !== 1 ? "s" : ""}
+                                        </span>
+                                    </CardTitle>
                                 </CardHeader>
                                 <CardContent className="flex flex-col gap-2">
                                     {reportAttachments.map((a) => (
@@ -109,98 +266,76 @@ export function TicketDetailPage() {
                         )}
                     </div>
 
-                    {/* Right — meta + actions */}
+                    {/* Right — sidebar */}
                     <div className="flex flex-col gap-4">
+                        {/* People */}
                         <Card>
-                            <CardContent className="pt-6">
-                                <dl className="flex flex-col gap-3 text-xs">
-                                    <div className="flex items-center justify-between">
-                                        <dt className="text-muted-foreground">Status</dt>
-                                        <dd>
-                                            <TicketStatusBadge status={ticket.status} />
-                                        </dd>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <dt className="text-muted-foreground">Priority</dt>
-                                        <dd>
-                                            <TicketPriorityBadge priority={ticket.priority} />
-                                        </dd>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <dt className="text-muted-foreground">Category</dt>
-                                        <dd>
-                                            <Badge variant="outline">
-                                                {ticket.category?.name ?? "-"}
-                                            </Badge>
-                                        </dd>
-                                    </div>
-                                    <Separator />
-                                    <div className="flex items-center justify-between">
-                                        <dt className="text-muted-foreground">Reported by</dt>
-                                        <dd className="font-medium">
-                                            {ticket.created_by?.name ?? "-"}
-                                        </dd>
-                                    </div>
-                                    {ticket.assigned_to && (
-                                        <div className="flex items-center justify-between">
-                                            <dt className="text-muted-foreground">Assigned to</dt>
-                                            <dd className="font-medium">
-                                                {ticket.assigned_to.name}
-                                            </dd>
-                                        </div>
-                                    )}
-                                    {ticket.resolved_by && (
-                                        <div className="flex items-center justify-between">
-                                            <dt className="text-muted-foreground">Resolved by</dt>
-                                            <dd className="font-medium">
-                                                {ticket.resolved_by.name}
-                                            </dd>
-                                        </div>
-                                    )}
-                                    {ticket.closed_by && (
-                                        <div className="flex items-center justify-between">
-                                            <dt className="text-muted-foreground">Closed by</dt>
-                                            <dd className="font-medium">{ticket.closed_by.name}</dd>
-                                        </div>
-                                    )}
-                                    <Separator />
-                                    <div className="flex items-center justify-between">
-                                        <dt className="text-muted-foreground">Created</dt>
-                                        <dd>{formatDate(ticket.created_at)}</dd>
-                                    </div>
-                                    {ticket.assigned_at && (
-                                        <div className="flex items-center justify-between">
-                                            <dt className="text-muted-foreground">Assigned</dt>
-                                            <dd>{formatDate(ticket.assigned_at)}</dd>
-                                        </div>
-                                    )}
-                                    {ticket.resolved_at && (
-                                        <div className="flex items-center justify-between">
-                                            <dt className="text-muted-foreground">Resolved</dt>
-                                            <dd>{formatDate(ticket.resolved_at)}</dd>
-                                        </div>
-                                    )}
-                                    {ticket.closed_at && (
-                                        <div className="flex items-center justify-between">
-                                            <dt className="text-muted-foreground">Closed</dt>
-                                            <dd>{formatDate(ticket.closed_at)}</dd>
-                                        </div>
-                                    )}
-                                </dl>
+                            <CardHeader className="pb-2">
+                                <CardTitle className="flex items-center gap-2 text-sm font-medium">
+                                    <UsersIcon className="size-4 text-muted-foreground" />
+                                    People
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="flex flex-col gap-3">
+                                <PersonRow label="Reporter" name={ticket.created_by?.name} />
+                                <PersonRow label="Assignee" name={ticket.assigned_to?.name} />
+                                <PersonRow label="Resolved by" name={ticket.resolved_by?.name} />
+                                <PersonRow label="Closed by" name={ticket.closed_by?.name} />
+                            </CardContent>
+                        </Card>
+
+                        {/* Timeline */}
+                        <Card>
+                            <CardHeader className="pb-2">
+                                <CardTitle className="flex items-center gap-2 text-sm font-medium">
+                                    <ClockIcon className="size-4 text-muted-foreground" />
+                                    Timeline
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <TimelineStep
+                                    label="Created"
+                                    date={ticket.created_at}
+                                    person={ticket.created_by?.name}
+                                    isDone
+                                />
+                                <TimelineStep
+                                    label="Assigned"
+                                    date={ticket.assigned_at}
+                                    person={ticket.assigned_to?.name}
+                                    isDone={!!ticket.assigned_at}
+                                    isActive={
+                                        ticket.status === "IN_PROGRESS" && !ticket.assigned_at
+                                    }
+                                />
+                                <TimelineStep
+                                    label="Resolved"
+                                    date={ticket.resolved_at}
+                                    person={ticket.resolved_by?.name}
+                                    isDone={!!ticket.resolved_at}
+                                    isActive={ticket.status === "IN_PROGRESS"}
+                                />
+                                <TimelineStep
+                                    label="Closed"
+                                    date={ticket.closed_at}
+                                    person={ticket.closed_by?.name}
+                                    isDone={!!ticket.closed_at}
+                                    isActive={ticket.status === "RESOLVED"}
+                                    isLast
+                                />
                             </CardContent>
                         </Card>
 
                         {/* Actions */}
                         {ticket.status !== "CLOSED" && (
                             <Card>
-                                <CardHeader>
-                                    <CardTitle className="text-sm">Actions</CardTitle>
+                                <CardHeader className="pb-2">
+                                    <CardTitle className="text-sm font-medium">Actions</CardTitle>
                                 </CardHeader>
-                                <CardContent className="flex flex-wrap gap-2">
+                                <CardContent className="flex flex-col gap-2">
                                     {ticket.status === "OPEN" && (
                                         <AssignTicketSheet ticketId={ticketId} />
                                     )}
-
                                     {(ticket.status === "OPEN" ||
                                         ticket.status === "IN_PROGRESS") && (
                                         <SetPrioritySheet
@@ -208,19 +343,24 @@ export function TicketDetailPage() {
                                             currentPriority={ticket.priority}
                                         />
                                     )}
-
                                     {ticket.status === "IN_PROGRESS" && (
                                         <ResolveTicketSheet ticketId={ticketId} />
                                     )}
-
                                     {ticket.status === "RESOLVED" && (
                                         <DeleteDialog
                                             title="Close Ticket?"
                                             description="This will permanently close the ticket. This action cannot be undone."
                                             onConfirm={handleClose}
                                             isPending={isClosing}
+                                            confirmLabel="Close Ticket"
+                                            pendingLabel="Closing..."
+                                            icon={<XCircleIcon />}
                                             trigger={
-                                                <Button variant="destructive" size="sm">
+                                                <Button
+                                                    variant="destructive"
+                                                    size="sm"
+                                                    className="w-full"
+                                                >
                                                     <XCircleIcon />
                                                     Close Ticket
                                                 </Button>

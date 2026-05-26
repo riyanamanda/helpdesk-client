@@ -1,3 +1,5 @@
+import type { Division } from "@/features/division/types";
+
 export type TicketStatus = "OPEN" | "IN_PROGRESS" | "RESOLVED" | "CLOSED";
 export type TicketPriority = "LOW" | "MEDIUM" | "HIGH" | "URGENT";
 export type AttachmentType = "REPORT" | "RESOLUTION";
@@ -26,6 +28,7 @@ export interface Ticket {
     title: string;
     description: string;
     category: TicketCategory;
+    division: Division;
     status: TicketStatus;
     priority: TicketPriority | null;
     created_by: TicketUser;
@@ -47,7 +50,8 @@ export interface TicketDetail extends Ticket {
 export interface TicketCreateFormData {
     title: string;
     description: string;
-    category_id: number;
+    category: number;
+    division: number;
 }
 
 export interface TicketAssignFormData {
@@ -62,7 +66,17 @@ export interface TicketResolutionFormData {
     resolution: string;
 }
 
+export type TicketSortBy = "created_at" | "updated_at" | "status" | "priority";
+export type SortType = "ASC" | "DESC";
+
 export interface TicketListParams {
     page?: number;
     limit?: number;
+    status?: TicketStatus;
+    priority?: TicketPriority;
+    category_id?: number;
+    division_id?: number;
+    assigned_to_id?: string;
+    sort_by?: TicketSortBy;
+    sort_type?: SortType;
 }

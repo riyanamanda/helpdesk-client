@@ -4,18 +4,43 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { type SortingState } from "@tanstack/react-table";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router";
 import { getTicketColumns } from "../config/ticketColumn";
+import { TicketFilters, type TicketFiltersState } from "../components/TicketFilters";
 import { listTicketQueryOption } from "../queries/ticket.query";
+import type { SortType, TicketSortBy } from "../types";
 
 export function TicketPage() {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
+    const [filters, setFilters] = useState<TicketFiltersState>({});
+    const [sorting, setSorting] = useState<SortingState>([]);
+
+    const handleFiltersChange = (next: TicketFiltersState) => {
+        setFilters(next);
+        setPage(1);
+    };
+
+    const handleSortingChange = (
+        updater: SortingState | ((prev: SortingState) => SortingState)
+    ) => {
+        const next = typeof updater === "function" ? updater(sorting) : updater;
+        setSorting(next);
+        setPage(1);
+    };
+
+    const sort_by = sorting[0]?.id as TicketSortBy | undefined;
+    const sort_type: SortType | undefined = sorting[0]
+        ? sorting[0].desc
+            ? "DESC"
+            : "ASC"
+        : undefined;
 
     const { data, isLoading } = useQuery({
-        ...listTicketQueryOption({ page, limit }),
+        ...listTicketQueryOption({ page, limit, ...filters, sort_by, sort_type }),
         placeholderData: keepPreviousData,
     });
 
@@ -38,7 +63,15 @@ export function TicketPage() {
                 }
             />
             <PageLayout.Content>
-                <DataTable columns={columns} data={tickets} isLoading={isLoading} />
+                <TicketFilters filters={filters} onFiltersChange={handleFiltersChange} />
+
+                <DataTable
+                    columns={columns}
+                    data={tickets}
+                    isLoading={isLoading}
+                    sorting={sorting}
+                    onSortingChange={handleSortingChange}
+                />
 
                 {pagination && (
                     <DataTablePagination

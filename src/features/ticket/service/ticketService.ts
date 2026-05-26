@@ -29,7 +29,8 @@ export const ticketService = {
         const formData = new FormData();
         formData.append("title", data.title);
         formData.append("description", data.description);
-        formData.append("category_id", String(data.category_id));
+        formData.append("category", String(data.category));
+        formData.append("division", String(data.division));
         formData.append("attachment", file);
         const response = await http.post("/api/v1/tickets", formData);
         return response.data;

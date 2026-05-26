@@ -20,6 +20,9 @@ interface DeleteDialogProps {
     onConfirm: () => void;
     isPending?: boolean;
     trigger: ReactNode;
+    confirmLabel?: string;
+    pendingLabel?: string;
+    icon?: ReactNode;
 }
 
 export function DeleteDialog({
@@ -28,6 +31,9 @@ export function DeleteDialog({
     onConfirm,
     isPending = false,
     trigger,
+    confirmLabel = "Delete",
+    pendingLabel = "Deleting...",
+    icon = <Trash2Icon />,
 }: DeleteDialogProps) {
     const [open, setOpen] = useState(false);
 
@@ -42,7 +48,7 @@ export function DeleteDialog({
             <AlertDialogContent size="sm">
                 <AlertDialogHeader>
                     <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
-                        <Trash2Icon />
+                        {icon}
                     </AlertDialogMedia>
                     <AlertDialogTitle>{title}</AlertDialogTitle>
                     <AlertDialogDescription>{description}</AlertDialogDescription>
@@ -58,7 +64,7 @@ export function DeleteDialog({
                         onClick={onConfirm}
                     >
                         {isPending && <Spinner data-icon="inline-start" />}
-                        {isPending ? "Deleting..." : "Delete"}
+                        {isPending ? pendingLabel : confirmLabel}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

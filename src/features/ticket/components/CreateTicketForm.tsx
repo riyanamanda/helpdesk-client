@@ -23,6 +23,7 @@ import { toast } from "sonner";
 import { useCreateTicketMutation } from "../mutation/ticket.mutation";
 import { TICKET_QUERY_KEYS } from "../queries";
 import type { TicketCreateFormData } from "../types";
+import { listDivisionQueryOption } from "@/features/division/queries/division.query";
 
 export function CreateTicketForm() {
     const navigate = useNavigate();
@@ -34,8 +35,11 @@ export function CreateTicketForm() {
     const { data: categoriesData } = useQuery(listCategoryQueryOption({ page: 1, limit: 100 }));
     const categories = categoriesData?.data ?? [];
 
+    const { data: divisionsData } = useQuery(listDivisionQueryOption({ page: 1, limit: 10 }));
+    const divisions = divisionsData?.data ?? [];
+
     const form = useForm<TicketCreateFormData>({
-        defaultValues: { title: "", description: "", category_id: undefined },
+        defaultValues: { title: "", description: "", category: undefined, division: undefined },
         mode: "onSubmit",
     });
 
@@ -108,34 +112,75 @@ export function CreateTicketForm() {
                             )}
                         />
 
-                        <Controller
-                            name="category_id"
-                            control={form.control}
-                            render={({ field, fieldState }) => (
-                                <Field>
-                                    <FieldLabel htmlFor="category_id">
-                                        Category
-                                        <span className="text-destructive">*</span>
-                                    </FieldLabel>
-                                    <Select
-                                        value={field.value ? String(field.value) : ""}
-                                        onValueChange={(v) => field.onChange(Number(v))}
-                                    >
-                                        <SelectTrigger id="category_id">
-                                            <SelectValue placeholder="Select category" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {categories.map((c) => (
-                                                <SelectItem key={c.id} value={String(c.id)}>
-                                                    {c.name}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
-                                </Field>
-                            )}
-                        />
+                        <div className="grid grid-cols-2 gap-4">
+                            <Controller
+                                name="category"
+                                control={form.control}
+                                render={({ field, fieldState }) => (
+                                    <Field>
+                                        <FieldLabel htmlFor="category">
+                                            Category
+                                            <span className="text-destructive">*</span>
+                                        </FieldLabel>
+                                        <Select
+                                            value={field.value ? String(field.value) : ""}
+                                            onValueChange={(v) => field.onChange(Number(v))}
+                                        >
+                                            <SelectTrigger id="category_id">
+                                                <SelectValue placeholder="Select category" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {categories.map((category) => (
+                                                    <SelectItem
+                                                        key={category.id}
+                                                        value={String(category.id)}
+                                                    >
+                                                        {category.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        {fieldState.error && (
+                                            <FieldError errors={[fieldState.error]} />
+                                        )}
+                                    </Field>
+                                )}
+                            />
+
+                            <Controller
+                                name="division"
+                                control={form.control}
+                                render={({ field, fieldState }) => (
+                                    <Field>
+                                        <FieldLabel htmlFor="division">
+                                            Division
+                                            <span className="text-destructive">*</span>
+                                        </FieldLabel>
+                                        <Select
+                                            value={field.value ? String(field.value) : ""}
+                                            onValueChange={(v) => field.onChange(Number(v))}
+                                        >
+                                            <SelectTrigger id="division_id">
+                                                <SelectValue placeholder="Select division" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {divisions.map((divison) => (
+                                                    <SelectItem
+                                                        key={divison.id}
+                                                        value={String(divison.id)}
+                                                    >
+                                                        {divison.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        {fieldState.error && (
+                                            <FieldError errors={[fieldState.error]} />
+                                        )}
+                                    </Field>
+                                )}
+                            />
+                        </div>
 
                         <Field>
                             <FieldLabel>Attachment (optional)</FieldLabel>
