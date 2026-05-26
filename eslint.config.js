@@ -6,7 +6,8 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist', 'src/components/ui/**/*']),
+  globalIgnores(['dist', 'src/components/ui/**']),
+  
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -18,6 +19,20 @@ export default defineConfig([
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+    },
+    settings: {
+      tailwindcss: {
+        ignoredKeys: ['compoundVariants', 'defaultVariants'],
+        whitelist: [], 
+      },
+    },
+  },
+  {
+    files: ['src/components/ui/**/*.{ts,tsx}'],
+    rules: {
+      'tailwindcss/classnames-order': 'off',
+      'tailwindcss/no-custom-classname': 'off',
+      'tailwindcss/no-contradicting-classname': 'off',
     },
   },
   {
