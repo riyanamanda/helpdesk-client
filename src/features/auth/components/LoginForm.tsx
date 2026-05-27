@@ -12,11 +12,13 @@ import type { AxiosError } from "axios";
 import type { ComponentProps } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { NavLink } from "react-router";
-import { useLoginMutation } from "../mutation/auth.mutation";
+import { useGoogleLoginMutation, useLoginMutation } from "../mutation/auth.mutation";
 import type { LoginRequest } from "../types";
+import { toast } from "sonner";
 
 export function LoginForm({ className, ...props }: ComponentProps<"div">) {
     const { mutate: login, isPending } = useLoginMutation();
+    const { mutate: googleLogin, isPending: isGooglePending } = useGoogleLoginMutation();
 
     const form = useForm<LoginRequest>({
         defaultValues: {
@@ -30,6 +32,17 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
         login(payload, {
             onError: (error) => {
                 handleFormError(error as AxiosError, form);
+            },
+        });
+    };
+
+    const handleGoogleLogin = () => {
+        googleLogin(undefined, {
+            onError: (error) => {
+                const axiosError = error as AxiosError<{ error: { message: string } }>;
+                toast.error(
+                    axiosError.response?.data?.error?.message ?? "Failed to sign in with Google"
+                );
             },
         });
     };
@@ -105,9 +118,22 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                                 Or continue with
                             </FieldSeparator>
                             <Field>
-                                <Button variant="outline" type="button" disabled={isPending}>
-                                    <img src={GoogleSvg} alt="Google" className="size-4" />
-                                    Login with Google
+                                <Button
+                                    variant="outline"
+                                    type="button"
+                                    disabled={isPending || isGooglePending}
+                                    onClick={() => handleGoogleLogin()}
+                                >
+                                    {isGooglePending ? (
+                                        <>
+                                            <Spinner /> Signing in...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <img src={GoogleSvg} alt="Google" className="size-4" />
+                                            Login with Google
+                                        </>
+                                    )}
                                 </Button>
                             </Field>
                         </FieldGroup>
