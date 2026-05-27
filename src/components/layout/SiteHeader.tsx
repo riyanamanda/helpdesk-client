@@ -5,7 +5,6 @@ import { getInitials } from "@/lib/formatters";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { LogOutIcon, UserCircleIcon } from "lucide-react";
 import { useNavigate } from "react-router";
-import { toast } from "sonner";
 import { ModeToggle } from "../ModeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
@@ -74,11 +73,7 @@ export function SiteHeader() {
                         <DropdownMenuGroup>
                             <DropdownMenuItem
                                 className="cursor-pointer"
-                                onClick={() =>
-                                    toast.info("On Progress", {
-                                        description: "Profile is on development",
-                                    })
-                                }
+                                onClick={() => navigate(ROUTES.PROFILE)}
                             >
                                 <UserCircleIcon />
                                 Profile

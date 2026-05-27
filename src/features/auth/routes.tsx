@@ -10,3 +10,13 @@ export const authRoutes: RouteObject[] = [
         },
     },
 ];
+
+export const profileRoutes: RouteObject[] = [
+    {
+        path: ROUTES.PROFILE,
+        lazy: async () => {
+            const { ProfilePage } = await import("./pages/ProfilePage");
+            return { Component: ProfilePage };
+        },
+    },
+];

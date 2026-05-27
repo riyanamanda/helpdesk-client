@@ -1,4 +1,4 @@
-import { authRoutes } from "@/features/auth/routes";
+import { authRoutes, profileRoutes } from "@/features/auth/routes";
 import { categoryRoutes } from "@/features/category/routes";
 import { dashboardRoutes } from "@/features/dashboard/routes";
 import { divisionRoutes } from "@/features/division/routes";
@@ -28,6 +28,7 @@ export const appRoutes: RouteObject[] = [
                     ...divisionRoutes,
                     ...userRoutes,
                     ...ticketRoutes,
+                    ...profileRoutes,
                 ],
             },
             {

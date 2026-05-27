@@ -47,4 +47,6 @@ export const ROUTES = {
         CREATE: "/ticket/create",
         DETAIL: "/ticket/:id",
     },
+
+    PROFILE: "/profile",
 } as const;
