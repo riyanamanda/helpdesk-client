@@ -12,7 +12,7 @@ import type { AxiosError } from "axios";
 import type { ComponentProps } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { NavLink } from "react-router";
-import { useLoginMutation } from "../mutation/login.mutation";
+import { useLoginMutation } from "../mutation/auth.mutation";
 import type { LoginRequest } from "../types";
 
 export function LoginForm({ className, ...props }: ComponentProps<"div">) {

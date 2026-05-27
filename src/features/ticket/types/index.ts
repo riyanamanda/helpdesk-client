@@ -1,25 +1,19 @@
+import type { Category } from "@/features/category/types";
 import type { Division } from "@/features/division/types";
+import type { User } from "@/features/user/types";
 
 export type TicketStatus = "OPEN" | "IN_PROGRESS" | "RESOLVED" | "CLOSED";
 export type TicketPriority = "LOW" | "MEDIUM" | "HIGH" | "URGENT";
 export type AttachmentType = "REPORT" | "RESOLUTION";
-
-export interface TicketCategory {
-    id: number;
-    name: string;
-}
-
-export interface TicketUser {
-    id: string;
-    name: string;
-}
+export type TicketSortBy = "created_at" | "updated_at" | "status" | "priority";
+export type SortType = "ASC" | "DESC";
 
 export interface TicketAttachment {
     id: number;
     ticket_id: number;
     file_url: string;
     attachment_type: AttachmentType;
-    uploaded_by: TicketUser;
+    uploaded_by: Pick<User, "id" | "name">;
     created_at: string;
 }
 
@@ -27,14 +21,14 @@ export interface Ticket {
     id: number;
     title: string;
     description: string;
-    category: TicketCategory;
+    category: Pick<Category, "id" | "name">;
     division: Division;
     status: TicketStatus;
     priority: TicketPriority | null;
-    created_by: TicketUser;
-    assigned_to: TicketUser | null;
-    resolved_by: TicketUser | null;
-    closed_by: TicketUser | null;
+    created_by: Pick<User, "id" | "name">;
+    assigned_to: Pick<User, "id" | "name"> | null;
+    resolved_by: Pick<User, "id" | "name"> | null;
+    closed_by: Pick<User, "id" | "name"> | null;
     resolution: string | null;
     assigned_at: string | null;
     resolved_at: string | null;
@@ -65,9 +59,6 @@ export interface TicketPriorityFormData {
 export interface TicketResolutionFormData {
     resolution: string;
 }
-
-export type TicketSortBy = "created_at" | "updated_at" | "status" | "priority";
-export type SortType = "ASC" | "DESC";
 
 export interface TicketListParams {
     page?: number;
