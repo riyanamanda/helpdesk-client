@@ -334,14 +334,14 @@ export function TicketDetailPage() {
                                 </CardHeader>
                                 <CardContent className="flex flex-col gap-2">
                                     {ticket.status === "OPEN" && (
-                                        <AssignTicketSheet ticketId={ticketId} />
-                                    )}
-                                    {(ticket.status === "OPEN" ||
-                                        ticket.status === "IN_PROGRESS") && (
                                         <SetPrioritySheet
                                             ticketId={ticketId}
                                             currentPriority={ticket.priority}
                                         />
+                                    )}
+                                    {(ticket.status === "OPEN" ||
+                                        ticket.status === "IN_PROGRESS") && (
+                                        <AssignTicketSheet ticketId={ticketId} />
                                     )}
                                     {ticket.status === "IN_PROGRESS" && (
                                         <ResolveTicketSheet ticketId={ticketId} />
