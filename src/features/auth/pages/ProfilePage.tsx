@@ -1,4 +1,5 @@
 import { PageLayout } from "@/components/layout/PageLayout";
+import { DeleteDialog } from "@/components/DeleteDialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,14 +12,15 @@ import type { User } from "@/features/user/types";
 import { getInitials } from "@/lib/formatters";
 import { useQuery } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
-import { CameraIcon, MailIcon, CheckCircle2Icon, LinkIcon } from "lucide-react";
+import { CameraIcon, LinkIcon, MailIcon } from "lucide-react";
 import { useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import {
+    useRevokeGoogleMutation,
+    useSyncGoogleMutation,
     useUpdateAvatarMutation,
     useUpdateProfileMutation,
-    useSyncGoogleMutation,
 } from "../mutation/profile.mutation";
 import { profileQueryOption } from "../queries/profile.query";
 import type { UpdateProfileRequest } from "../types";
@@ -210,6 +212,7 @@ function EditProfileCard({ user }: { user: User }) {
 
 function GoogleSyncCard({ user }: { user: User }) {
     const { mutate: syncGoogle, isPending } = useSyncGoogleMutation();
+    const { mutate: revokeGoogle, isPending: revokePending } = useRevokeGoogleMutation();
 
     const handleSync = () => {
         syncGoogle(undefined, {
@@ -217,6 +220,17 @@ function GoogleSyncCard({ user }: { user: User }) {
                 const axiosError = error as AxiosError<{ error: { message: string } }>;
                 toast.error(
                     axiosError.response?.data?.error?.message ?? "Failed to link Google account"
+                );
+            },
+        });
+    };
+
+    const handleRevoke = () => {
+        revokeGoogle(undefined, {
+            onError: (error) => {
+                const axiosError = error as AxiosError<{ error: { message: string } }>;
+                toast.error(
+                    axiosError.response?.data?.error?.message ?? "Failed to unlink Google Account"
                 );
             },
         });
@@ -247,10 +261,20 @@ function GoogleSyncCard({ user }: { user: User }) {
                         </div>
                     </div>
                     {isLinked ? (
-                        <Badge className="shrink-0 bg-green-500/10 text-green-600 dark:bg-green-500/20 dark:text-green-400">
-                            <CheckCircle2Icon className="mr-1 size-3" />
-                            Linked
-                        </Badge>
+                        <DeleteDialog
+                            title="Unlink Google Account"
+                            description="Are you sure you want to unlink your Google account? You won't be able to sign in with Google until you link it again."
+                            confirmLabel="Unlink"
+                            pendingLabel="Unlinking..."
+                            icon={<LinkIcon />}
+                            isPending={revokePending}
+                            onConfirm={handleRevoke}
+                            trigger={
+                                <Button variant="destructive" size="sm" className="shrink-0">
+                                    Unlink Google
+                                </Button>
+                            }
+                        />
                     ) : (
                         <Button
                             variant="outline"

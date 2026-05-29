@@ -15,6 +15,7 @@ export const SESSION_STORAGE_KEYS = {
 
 export const ERROR_CODES = {
     TOKEN_EXPIRED: "TOKEN_EXPIRED",
+    INVALID_TOKEN: "INVALID_TOKEN",
     BAD_REQUEST: "BAD_REQUEST",
 } as const;
 

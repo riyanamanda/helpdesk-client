@@ -1,8 +1,8 @@
-import { COOKIES, ROUTES } from "@/constants";
+import { ROUTES } from "@/constants";
+import { useLogoutMutation } from "@/features/auth/mutation/auth.mutation";
 import { meQueryOption } from "@/features/auth/queries/auth.query";
-import { cookies } from "@/lib/cookies";
 import { getInitials } from "@/lib/formatters";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { LogOutIcon, UserCircleIcon } from "lucide-react";
 import { useNavigate } from "react-router";
 import { ModeToggle } from "../ModeToggle";
@@ -20,22 +20,11 @@ import { SidebarTrigger } from "../ui/sidebar";
 
 export function SiteHeader() {
     const navigate = useNavigate();
-    const queryClient = useQueryClient();
-
     const { data: userData, isFetching } = useQuery(meQueryOption());
-    const user = userData.data;
+    const { mutate: logout } = useLogoutMutation();
+    const user = userData?.data;
 
-    const logout = () => {
-        cookies.remove(COOKIES.TOKEN_KEY, { path: COOKIES.PATH });
-
-        queryClient.removeQueries({
-            queryKey: meQueryOption().queryKey,
-        });
-
-        return navigate(ROUTES.LOGIN, { replace: true });
-    };
-
-    if (isFetching) {
+    if (isFetching || !user) {
         return null;
     }
 
@@ -80,7 +69,7 @@ export function SiteHeader() {
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={logout} className="text-destructive">
+                        <DropdownMenuItem onClick={() => logout()} className="text-destructive">
                             <LogOutIcon />
                             Log out
                         </DropdownMenuItem>

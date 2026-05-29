@@ -29,7 +29,10 @@ http.interceptors.response.use(
         if (error.response && error.response.status === 401) {
             const error_code = error.response?.data?.error.code;
 
-            if (error_code === ERROR_CODES.TOKEN_EXPIRED) {
+            if (
+                error_code === ERROR_CODES.TOKEN_EXPIRED ||
+                error_code === ERROR_CODES.INVALID_TOKEN
+            ) {
                 cookies.remove(COOKIES.TOKEN_KEY, { path: COOKIES.PATH });
 
                 const currentPath = window.location.pathname + window.location.search;

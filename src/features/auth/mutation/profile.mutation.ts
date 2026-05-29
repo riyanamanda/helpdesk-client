@@ -2,10 +2,9 @@ import { auth, googleProvider } from "@/lib/firebase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signInWithPopup } from "firebase/auth";
 import { toast } from "sonner";
-import { profileQueryOption } from "../queries/profile.query";
+import { AUTH_QUERY_KEYS, PROFILE_QUERY_KEYS } from "../queries/queryKeys";
 import { profileService } from "../service/profileService";
 import type { UpdateProfileRequest } from "../types";
-import { AUTH_QUERY_KEYS, PROFILE_QUERY_KEYS } from "../queries/queryKeys";
 
 export function useUpdateProfileMutation() {
     const queryClient = useQueryClient();
@@ -39,6 +38,7 @@ export function useSyncGoogleMutation() {
         mutationFn: async () => {
             const credential = await signInWithPopup(auth, googleProvider);
             const idToken = await credential.user.getIdToken();
+
             await profileService.syncGoogle({ id_token: idToken });
         },
         onSuccess: () => {
@@ -48,4 +48,14 @@ export function useSyncGoogleMutation() {
     });
 }
 
-export { profileQueryOption };
+export function useRevokeGoogleMutation() {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async () => profileService.revokeGoogle(),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: PROFILE_QUERY_KEYS.ROOT });
+            toast.success("Google account unlinked successfully");
+        },
+    });
+}

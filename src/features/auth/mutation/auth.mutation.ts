@@ -8,6 +8,20 @@ import { meQueryOption } from "../queries/auth.query";
 import { authService } from "../service/authService";
 import type { LoginRequest } from "../types";
 
+export function useLogoutMutation() {
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: () => authService.logout(),
+        onSettled: () => {
+            cookies.remove(COOKIES.TOKEN_KEY, { path: COOKIES.PATH });
+            queryClient.clear();
+            navigate(ROUTES.LOGIN, { replace: true });
+        },
+    });
+}
+
 export function useGoogleLoginMutation() {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
