@@ -88,19 +88,19 @@ export function DashboardPage() {
 
     const statusPieData = summary
         ? [
-              { name: "open", value: summary.by_status.open, fill: "#3b82f6" },
-              { name: "in_progress", value: summary.by_status.in_progress, fill: "#eab308" },
-              { name: "resolved", value: summary.by_status.resolved, fill: "#22c55e" },
-              { name: "closed", value: summary.by_status.closed, fill: "#94a3b8" },
+              { name: "open", value: summary.status.open, fill: "#3b82f6" },
+              { name: "in_progress", value: summary.status.in_progress, fill: "#eab308" },
+              { name: "resolved", value: summary.status.resolved, fill: "#22c55e" },
+              { name: "closed", value: summary.status.closed, fill: "#94a3b8" },
           ]
         : [];
 
     const priorityBarData = summary
         ? [
-              { priority: "Low", count: summary.by_priority.low, fill: "#22c55e" },
-              { priority: "Medium", count: summary.by_priority.medium, fill: "#eab308" },
-              { priority: "High", count: summary.by_priority.high, fill: "#f97316" },
-              { priority: "Urgent", count: summary.by_priority.urgent, fill: "#ef4444" },
+              { priority: "Low", count: summary.priority.low, fill: "#22c55e" },
+              { priority: "Medium", count: summary.priority.medium, fill: "#eab308" },
+              { priority: "High", count: summary.priority.high, fill: "#f97316" },
+              { priority: "Urgent", count: summary.priority.urgent, fill: "#ef4444" },
           ]
         : [];
 
@@ -112,34 +112,34 @@ export function DashboardPage() {
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
                     <StatCard
                         label="Total Tickets"
-                        value={summary?.by_status.total}
+                        value={summary?.status.total}
                         icon={<TicketIcon className="size-4" />}
                         isLoading={isSummaryLoading}
                     />
                     <StatCard
                         label="Open"
-                        value={summary?.by_status.open}
+                        value={summary?.status.open}
                         icon={<InboxIcon className="size-4" />}
                         valueClass="text-blue-600"
                         isLoading={isSummaryLoading}
                     />
                     <StatCard
                         label="In Progress"
-                        value={summary?.by_status.in_progress}
+                        value={summary?.status.in_progress}
                         icon={<CircleDotIcon className="size-4" />}
                         valueClass="text-yellow-600"
                         isLoading={isSummaryLoading}
                     />
                     <StatCard
                         label="Resolved"
-                        value={summary?.by_status.resolved}
+                        value={summary?.status.resolved}
                         icon={<CheckCircle2Icon className="size-4" />}
                         valueClass="text-green-600"
                         isLoading={isSummaryLoading}
                     />
                     <StatCard
                         label="Closed"
-                        value={summary?.by_status.closed}
+                        value={summary?.status.closed}
                         icon={<ClockIcon className="size-4" />}
                         isLoading={isSummaryLoading}
                     />

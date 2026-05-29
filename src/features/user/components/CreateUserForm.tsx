@@ -41,6 +41,7 @@ export function CreateUserForm() {
             password: "",
             role: undefined,
             division_id: undefined,
+            gender: undefined,
         },
         mode: "onSubmit",
     });
@@ -172,6 +173,30 @@ export function CreateUserForm() {
                                 )}
                             />
                         </div>
+
+                        <Controller
+                            name="gender"
+                            control={form.control}
+                            render={({ field, fieldState }) => (
+                                <Field>
+                                    <FieldLabel htmlFor="gender">
+                                        Gender
+                                        <span className="text-destructive">*</span>
+                                    </FieldLabel>
+                                    <Select onValueChange={(v) => field.onChange(v)}>
+                                        <SelectTrigger id="gender">
+                                            <SelectValue placeholder="Select gender" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="MALE">Male</SelectItem>
+
+                                            <SelectItem value="FEMALE">Female</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
+                                </Field>
+                            )}
+                        />
 
                         <Controller
                             name="password"

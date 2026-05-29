@@ -1,7 +1,14 @@
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/formatters";
 import type { ColumnDef } from "@tanstack/react-table";
-import { CircleCheckBigIcon, CircleXIcon, GlobeOffIcon, RadioTowerIcon } from "lucide-react";
+import {
+    CircleCheckBigIcon,
+    CircleXIcon,
+    GlobeOffIcon,
+    MarsIcon,
+    RadioTowerIcon,
+    VenusIcon,
+} from "lucide-react";
 import type { User } from "../types";
 
 export const getUserColumns = (pageOffset = 0): ColumnDef<User>[] => [
@@ -37,7 +44,6 @@ export const getUserColumns = (pageOffset = 0): ColumnDef<User>[] => [
             const role = row.getValue("role") as string;
             const variantMap: Record<string, "default" | "secondary" | "outline"> = {
                 ADMIN: "default",
-                TEAM_LEAD: "secondary",
                 EMPLOYEE: "outline",
             };
             return <Badge variant={variantMap[role] ?? "outline"}>{role}</Badge>;
@@ -50,6 +56,28 @@ export const getUserColumns = (pageOffset = 0): ColumnDef<User>[] => [
         header: "Division",
         cell: ({ row }) => <div>{row.original.division?.name ?? "-"}</div>,
         enableSorting: true,
+    },
+    {
+        accessorKey: "gender",
+        header: "Gender",
+        cell: ({ row }) => {
+            const gender = row.original.gender;
+
+            return (
+                <Badge variant="outline">
+                    {gender === "MALE" ? (
+                        <>
+                            <MarsIcon /> Male
+                        </>
+                    ) : (
+                        <>
+                            <VenusIcon /> Female
+                        </>
+                    )}
+                </Badge>
+            );
+        },
+        enableSorting: false,
     },
     {
         accessorKey: "is_active",

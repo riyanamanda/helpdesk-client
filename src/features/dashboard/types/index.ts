@@ -14,8 +14,8 @@ export interface TicketPriorityStats {
 }
 
 export interface DashboardSummary {
-    by_status: TicketStatusStats;
-    by_priority: TicketPriorityStats;
+    status: TicketStatusStats;
+    priority: TicketPriorityStats;
 }
 
 export interface RecentTicket {

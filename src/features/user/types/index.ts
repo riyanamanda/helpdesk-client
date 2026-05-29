@@ -1,4 +1,5 @@
 export type UserRole = "ADMIN" | "EMPLOYEE";
+export type UserGender = "MALE" | "FEMALE";
 
 export interface UserDivision {
     id: number;
@@ -15,6 +16,7 @@ export interface User {
     name: string;
     email: string;
     google_id: string | null;
+    gender: UserGender;
     avatar_url: string | null;
     phone: string | null;
     role: UserRole;
@@ -31,6 +33,7 @@ export interface UserFormData {
     password: string;
     role: UserRole;
     division_id: number;
+    gender: UserGender;
 }
 
 export interface UserListParams {
