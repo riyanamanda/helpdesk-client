@@ -183,7 +183,10 @@ export function CreateUserForm() {
                                         Gender
                                         <span className="text-destructive">*</span>
                                     </FieldLabel>
-                                    <Select onValueChange={(v) => field.onChange(v)}>
+                                    <Select
+                                        value={field.value ?? ""}
+                                        onValueChange={field.onChange}
+                                    >
                                         <SelectTrigger id="gender">
                                             <SelectValue placeholder="Select gender" />
                                         </SelectTrigger>

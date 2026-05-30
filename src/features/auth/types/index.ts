@@ -1,3 +1,5 @@
+import type { UserGender } from "@/features/user/types";
+
 export interface CurrentUser {
     id: string;
     name: string;
@@ -21,7 +23,9 @@ export interface GoogleLoginRequest {
 
 export interface UpdateProfileRequest {
     name: string;
+    email: string;
     phone?: string | null;
+    gender: UserGender;
 }
 
 export interface LoginResponse {
