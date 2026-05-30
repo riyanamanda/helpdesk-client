@@ -9,6 +9,7 @@ import {
     RadioTowerIcon,
     VenusIcon,
 } from "lucide-react";
+import { UserActions } from "../components/UserActions";
 import type { User } from "../types";
 
 export const getUserColumns = (pageOffset = 0): ColumnDef<User>[] => [
@@ -141,6 +142,11 @@ export const getUserColumns = (pageOffset = 0): ColumnDef<User>[] => [
         accessorKey: "updated_at",
         header: "Updated At",
         cell: ({ row }) => <div>{formatDate(row.getValue("updated_at"))}</div>,
+        enableSorting: false,
+    },
+    {
+        id: "action",
+        cell: ({ row }) => <UserActions user={row.original} />,
         enableSorting: false,
     },
 ];

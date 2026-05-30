@@ -36,6 +36,15 @@ export interface UserFormData {
     gender: UserGender;
 }
 
+export interface UpdateUserFormData {
+    name: string;
+    email: string;
+    role: UserRole;
+    division: number;
+    gender: UserGender;
+    is_active: boolean;
+}
+
 export interface UserListParams {
     page?: number;
     limit?: number;

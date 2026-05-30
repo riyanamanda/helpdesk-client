@@ -19,6 +19,13 @@ export const userRoutes: RouteObject[] = [
                     return { Component: CreateUserPage };
                 },
             },
+            {
+                path: ROUTES.USER.EDIT,
+                lazy: async () => {
+                    const { EditUserPage } = await import("./pages/EditUserPage");
+                    return { Component: EditUserPage };
+                },
+            },
         ],
     },
 ];

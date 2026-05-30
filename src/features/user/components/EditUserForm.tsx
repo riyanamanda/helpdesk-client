@@ -1,0 +1,234 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+    Field,
+    FieldContent,
+    FieldDescription,
+    FieldError,
+    FieldGroup,
+    FieldLabel,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { ROUTES } from "@/constants";
+import { listDivisionQueryOption } from "@/features/division/queries/division.query";
+import { handleFormError } from "@/lib/handle-form-error";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
+import { Controller, useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
+import { useUpdateUserMutation } from "../mutation/user.mutation";
+import { USER_QUERY_KEYS } from "../queries";
+import type { UpdateUserFormData, User, UserGender, UserRole } from "../types";
+
+const ROLES: { label: string; value: UserRole }[] = [
+    { label: "Admin", value: "ADMIN" },
+    { label: "Employee", value: "EMPLOYEE" },
+];
+
+interface EditUserFormProps {
+    user: User;
+}
+
+export function EditUserForm({ user }: EditUserFormProps) {
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+    const { mutate: updateUser, isPending } = useUpdateUserMutation();
+
+    const { data: divisionsData } = useQuery(listDivisionQueryOption({ page: 1, limit: 100 }));
+    const divisions = divisionsData?.data ?? [];
+
+    const form = useForm<UpdateUserFormData>({
+        defaultValues: {
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            division: user.division.id,
+            gender: user.gender,
+            is_active: user.is_active,
+        },
+        mode: "onSubmit",
+    });
+
+    const onSubmit = (payload: UpdateUserFormData) => {
+        updateUser(
+            { id: user.id, payload: { ...payload, is_active: payload.is_active === true } },
+            {
+                onSuccess: async () => {
+                    toast.success("Success", { description: "User updated successfully" });
+                    await queryClient.invalidateQueries({ queryKey: USER_QUERY_KEYS.ROOT });
+                    navigate(ROUTES.USER.INDEX, { replace: true });
+                },
+                onError: (error) => {
+                    handleFormError(error as AxiosError, form);
+                },
+            }
+        );
+    };
+
+    return (
+        <Card className="mx-auto max-w-lg">
+            <CardHeader>
+                <CardTitle>Edit User</CardTitle>
+                <CardDescription>Update the details for {user.name}</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <form onSubmit={form.handleSubmit(onSubmit)}>
+                    <FieldGroup>
+                        <Controller
+                            name="name"
+                            control={form.control}
+                            rules={{ required: "Name is required" }}
+                            render={({ field, fieldState }) => (
+                                <Field>
+                                    <FieldLabel htmlFor="name">
+                                        Name <span className="text-destructive">*</span>
+                                    </FieldLabel>
+                                    <Input {...field} id="name" autoComplete="off" />
+                                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
+                                </Field>
+                            )}
+                        />
+
+                        <Controller
+                            name="email"
+                            control={form.control}
+                            rules={{ required: "Email is required" }}
+                            render={({ field, fieldState }) => (
+                                <Field>
+                                    <FieldLabel htmlFor="email">
+                                        Email <span className="text-destructive">*</span>
+                                    </FieldLabel>
+                                    <Input {...field} id="email" type="email" autoComplete="off" />
+                                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
+                                </Field>
+                            )}
+                        />
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <Controller
+                                name="role"
+                                control={form.control}
+                                render={({ field, fieldState }) => (
+                                    <Field>
+                                        <FieldLabel htmlFor="role">Role</FieldLabel>
+                                        <Select value={field.value} onValueChange={field.onChange}>
+                                            <SelectTrigger id="role">
+                                                <SelectValue placeholder="Select role" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {ROLES.map((r) => (
+                                                    <SelectItem key={r.value} value={r.value}>
+                                                        {r.label}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        {fieldState.error && (
+                                            <FieldError errors={[fieldState.error]} />
+                                        )}
+                                    </Field>
+                                )}
+                            />
+
+                            <Controller
+                                name="division"
+                                control={form.control}
+                                render={({ field, fieldState }) => (
+                                    <Field>
+                                        <FieldLabel htmlFor="division">Division</FieldLabel>
+                                        <Select
+                                            value={field.value ? String(field.value) : ""}
+                                            onValueChange={(v) => field.onChange(Number(v))}
+                                        >
+                                            <SelectTrigger id="division">
+                                                <SelectValue placeholder="Select division" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {divisions.map((d) => (
+                                                    <SelectItem key={d.id} value={String(d.id)}>
+                                                        {d.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        {fieldState.error && (
+                                            <FieldError errors={[fieldState.error]} />
+                                        )}
+                                    </Field>
+                                )}
+                            />
+                        </div>
+
+                        <Controller
+                            name="gender"
+                            control={form.control}
+                            render={({ field, fieldState }) => (
+                                <Field>
+                                    <FieldLabel htmlFor="gender">Gender</FieldLabel>
+                                    <Select
+                                        value={field.value ?? ""}
+                                        onValueChange={(v) => field.onChange(v as UserGender)}
+                                    >
+                                        <SelectTrigger id="gender">
+                                            <SelectValue placeholder="Select gender" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="MALE">Male</SelectItem>
+                                            <SelectItem value="FEMALE">Female</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
+                                </Field>
+                            )}
+                        />
+
+                        <Controller
+                            name="is_active"
+                            control={form.control}
+                            render={({ field }) => (
+                                <Field orientation="horizontal">
+                                    <Checkbox
+                                        id="is_active"
+                                        checked={field.value}
+                                        onCheckedChange={(checked) =>
+                                            field.onChange(checked === true)
+                                        }
+                                    />
+                                    <FieldContent>
+                                        <FieldLabel htmlFor="is_active">Active</FieldLabel>
+                                        <FieldDescription>
+                                            Active or diactive a user to login into helpdesk
+                                        </FieldDescription>
+                                    </FieldContent>
+                                </Field>
+                            )}
+                        />
+
+                        <Field orientation="horizontal" className="justify-end">
+                            <Button
+                                type="button"
+                                variant="ghost"
+                                disabled={isPending}
+                                onClick={() => navigate(ROUTES.USER.INDEX)}
+                            >
+                                Cancel
+                            </Button>
+                            <Button type="submit" disabled={isPending}>
+                                Save Changes
+                            </Button>
+                        </Field>
+                    </FieldGroup>
+                </form>
+            </CardContent>
+        </Card>
+    );
+}

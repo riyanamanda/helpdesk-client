@@ -1,6 +1,6 @@
 import { http } from "@/api";
 import type { PaginatedResponse } from "@/types";
-import type { User, UserFormData, UserListParams } from "../types";
+import type { UpdateUserFormData, User, UserFormData, UserListParams } from "../types";
 
 export const userService = {
     list: async (params?: UserListParams) => {
@@ -15,6 +15,11 @@ export const userService = {
 
     create: async (payload: UserFormData) => {
         const response = await http.post("/api/v1/users", payload);
+        return response.data;
+    },
+
+    update: async (id: string, payload: UpdateUserFormData) => {
+        const response = await http.patch(`/api/v1/users/${id}`, payload);
         return response.data;
     },
 };
