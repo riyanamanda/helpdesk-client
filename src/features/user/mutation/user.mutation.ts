@@ -14,3 +14,10 @@ export function useUpdateUserMutation() {
             userService.update(id, payload),
     });
 }
+
+export function useUpdateUserPasswordMutation() {
+    return useMutation({
+        mutationFn: ({ id, password }: { id: string; password: string }) =>
+            userService.updatePassword(id, password),
+    });
+}

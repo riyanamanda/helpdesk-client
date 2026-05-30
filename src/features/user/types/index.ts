@@ -45,6 +45,11 @@ export interface UpdateUserFormData {
     is_active: boolean;
 }
 
+export interface UpdateUserPasswordFormData {
+    password: string;
+    confirm_password: string;
+}
+
 export interface UserListParams {
     page?: number;
     limit?: number;

@@ -22,4 +22,9 @@ export const userService = {
         const response = await http.patch(`/api/v1/users/${id}`, payload);
         return response.data;
     },
+
+    updatePassword: async (id: string, password: string) => {
+        const response = await http.patch(`/api/v1/users/${id}/password`, { password });
+        return response.data;
+    },
 };
