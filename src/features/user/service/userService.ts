@@ -1,12 +1,6 @@
 import { http } from "@/api";
 import type { PaginatedResponse } from "@/types";
-import type {
-    AssignableUser,
-    UpdateUserFormData,
-    User,
-    UserFormData,
-    UserListParams,
-} from "../types";
+import type { User, UserBrief, UserFormData, UserListParams } from "../types";
 
 export const userService = {
     list: async (params?: UserListParams) => {
@@ -14,7 +8,7 @@ export const userService = {
         return response.data as PaginatedResponse<User>;
     },
 
-    listAssignableUser: async (): Promise<{ data: AssignableUser[] }> => {
+    listAssignableUser: async (): Promise<{ data: UserBrief[] }> => {
         const response = await http.get("/api/v1/users/assignable");
         return response.data;
     },
@@ -29,7 +23,7 @@ export const userService = {
         return response.data;
     },
 
-    update: async (id: string, payload: UpdateUserFormData) => {
+    update: async (id: string, payload: Omit<UserFormData, "password">) => {
         const response = await http.patch(`/api/v1/users/${id}`, payload);
         return response.data;
     },

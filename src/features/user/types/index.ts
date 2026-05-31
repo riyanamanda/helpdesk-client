@@ -1,18 +1,13 @@
 export type UserRole = "ADMIN" | "EMPLOYEE";
 export type UserGender = "MALE" | "FEMALE";
 
-export interface UserDivision {
+export interface UserBrief {
+    id: string;
+    name: string;
+}
+
+export interface DivisionBrief {
     id: number;
-    name: string;
-}
-
-export interface UserCreatedBy {
-    id: string;
-    name: string;
-}
-
-export interface AssignableUser {
-    id: string;
     name: string;
 }
 
@@ -25,9 +20,9 @@ export interface User {
     avatar_url: string | null;
     phone: string | null;
     role: UserRole;
-    division: UserDivision;
+    division: DivisionBrief;
     is_active: boolean;
-    created_by: UserCreatedBy | null;
+    created_by: UserBrief | null;
     created_at: string;
     updated_at: string;
 }
@@ -36,14 +31,6 @@ export interface UserFormData {
     name: string;
     email: string;
     password: string;
-    role: UserRole;
-    division: number;
-    gender: UserGender;
-}
-
-export interface UpdateUserFormData {
-    name: string;
-    email: string;
     role: UserRole;
     division: number;
     gender: UserGender;

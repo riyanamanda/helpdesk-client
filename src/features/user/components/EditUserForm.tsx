@@ -27,7 +27,7 @@ import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useUpdateUserMutation } from "../mutation/user.mutation";
 import { USER_QUERY_KEYS } from "../queries";
-import type { UpdateUserFormData, User, UserGender, UserRole } from "../types";
+import type { User, UserFormData, UserGender, UserRole } from "../types";
 
 const ROLES: { label: string; value: UserRole }[] = [
     { label: "Admin", value: "ADMIN" },
@@ -46,7 +46,7 @@ export function EditUserForm({ user }: EditUserFormProps) {
     const { data: divisionOptionsData } = useQuery(listDivisionOptionsQueryOption());
     const divisionOptions = divisionOptionsData?.data ?? [];
 
-    const form = useForm<UpdateUserFormData>({
+    const form = useForm<Omit<UserFormData, "password">>({
         defaultValues: {
             name: user.name,
             email: user.email,
@@ -58,7 +58,7 @@ export function EditUserForm({ user }: EditUserFormProps) {
         mode: "onSubmit",
     });
 
-    const onSubmit = (payload: UpdateUserFormData) => {
+    const onSubmit = (payload: Omit<UserFormData, "password">) => {
         updateUser(
             { id: user.id, payload: { ...payload, is_active: payload.is_active === true } },
             {
