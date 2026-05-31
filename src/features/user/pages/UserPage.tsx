@@ -50,7 +50,7 @@ export function UserPage() {
             sort_by: sortBy,
             sort_type: sortType,
             role,
-            division_id: divisionId,
+            division: divisionId,
             is_active: isActive,
         }),
         placeholderData: keepPreviousData,

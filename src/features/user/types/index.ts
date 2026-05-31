@@ -59,9 +59,9 @@ export interface UserListParams {
     page?: number;
     limit?: number;
     search?: string;
-    sort_by?: "name" | "email" | "role" | "division_id" | "is_active" | "created_at";
+    sort_by?: "name" | "email" | "role" | "division" | "is_active" | "created_at";
     sort_type?: "ASC" | "DESC";
     role?: UserRole;
-    division_id?: number;
+    division?: number;
     is_active?: boolean;
 }
