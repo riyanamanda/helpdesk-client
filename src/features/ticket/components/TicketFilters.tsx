@@ -6,8 +6,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { listCategoryQueryOption } from "@/features/category/queries/category.query";
-import { listDivisionQueryOption } from "@/features/division/queries/division.query";
+import { listCategoryOptionsQueryOption } from "@/features/category/queries/category.query";
+import { listDivisionOptionsQueryOption } from "@/features/division/queries/division.query";
 import { listUserQueryOption } from "@/features/user/queries/user.query";
 import { useQuery } from "@tanstack/react-query";
 import { XIcon } from "lucide-react";
@@ -38,12 +38,12 @@ interface TicketFiltersProps {
 }
 
 export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) {
-    const { data: categoriesData } = useQuery(listCategoryQueryOption({ page: 1, limit: 100 }));
-    const { data: divisionsData } = useQuery(listDivisionQueryOption({ page: 1, limit: 100 }));
+    const { data: categoryOptionsData } = useQuery(listCategoryOptionsQueryOption());
+    const { data: divisionOptionsData } = useQuery(listDivisionOptionsQueryOption());
     const { data: usersData } = useQuery(listUserQueryOption({ page: 1, limit: 100 }));
 
-    const categories = categoriesData?.data ?? [];
-    const divisions = divisionsData?.data ?? [];
+    const categoryOptions = categoryOptionsData?.data ?? [];
+    const divisionOptions = divisionOptionsData?.data ?? [];
     const users = (usersData?.data ?? []).filter((u) => u.division.name === "IT");
 
     const hasActiveFilters = Object.values(filters).some((v) => v !== undefined);
@@ -101,7 +101,7 @@ export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) 
                 </SelectTrigger>
                 <SelectContent>
                     <SelectItem value="all">All categories</SelectItem>
-                    {categories.map((c) => (
+                    {categoryOptions.map((c) => (
                         <SelectItem key={c.id} value={String(c.id)}>
                             {c.name}
                         </SelectItem>
@@ -118,7 +118,7 @@ export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) 
                 </SelectTrigger>
                 <SelectContent>
                     <SelectItem value="all">All rooms</SelectItem>
-                    {divisions.map((d) => (
+                    {divisionOptions.map((d) => (
                         <SelectItem key={d.id} value={String(d.id)}>
                             {d.name}
                         </SelectItem>

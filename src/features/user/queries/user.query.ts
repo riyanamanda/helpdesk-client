@@ -16,3 +16,10 @@ export function getUserQueryOption(id: string) {
         queryFn: () => userService.get(id),
     });
 }
+
+export function listAssignableUserQueryOption() {
+    return queryOptions({
+        queryKey: USER_QUERY_KEYS.ASSIGNABLE_USER,
+        queryFn: () => userService.listAssignableUser(),
+    });
+}

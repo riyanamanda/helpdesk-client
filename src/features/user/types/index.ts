@@ -11,6 +11,11 @@ export interface UserCreatedBy {
     name: string;
 }
 
+export interface AssignableUser {
+    id: string;
+    name: string;
+}
+
 export interface User {
     id: string;
     name: string;
@@ -32,7 +37,7 @@ export interface UserFormData {
     email: string;
     password: string;
     role: UserRole;
-    division_id: number;
+    division: number;
     gender: UserGender;
 }
 

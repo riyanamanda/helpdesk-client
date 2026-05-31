@@ -18,7 +18,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { ROUTES } from "@/constants";
-import { listDivisionQueryOption } from "@/features/division/queries/division.query";
+import { listDivisionOptionsQueryOption } from "@/features/division/queries/division.query";
 import { handleFormError } from "@/lib/handle-form-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
@@ -43,8 +43,8 @@ export function EditUserForm({ user }: EditUserFormProps) {
     const queryClient = useQueryClient();
     const { mutate: updateUser, isPending } = useUpdateUserMutation();
 
-    const { data: divisionsData } = useQuery(listDivisionQueryOption({ page: 1, limit: 100 }));
-    const divisions = divisionsData?.data ?? [];
+    const { data: divisionOptionsData } = useQuery(listDivisionOptionsQueryOption());
+    const divisionOptions = divisionOptionsData?.data ?? [];
 
     const form = useForm<UpdateUserFormData>({
         defaultValues: {
@@ -153,7 +153,7 @@ export function EditUserForm({ user }: EditUserFormProps) {
                                                 <SelectValue placeholder="Select division" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                {divisions.map((d) => (
+                                                {divisionOptions.map((d) => (
                                                     <SelectItem key={d.id} value={String(d.id)}>
                                                         {d.name}
                                                     </SelectItem>

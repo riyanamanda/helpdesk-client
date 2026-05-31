@@ -20,7 +20,7 @@ export const getTicketColumns = (pageOffset = 0): ColumnDef<Ticket>[] => [
         cell: ({ row }) => (
             <NavLink
                 to={ROUTES.TICKET.DETAIL.replace(":id", String(row.original.id))}
-                className="font-medium hover:underline"
+                className="truncate font-medium hover:underline"
             >
                 <Button variant="link">{row.getValue("title")}</Button>
             </NavLink>

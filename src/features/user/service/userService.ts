@@ -1,11 +1,22 @@
 import { http } from "@/api";
 import type { PaginatedResponse } from "@/types";
-import type { UpdateUserFormData, User, UserFormData, UserListParams } from "../types";
+import type {
+    AssignableUser,
+    UpdateUserFormData,
+    User,
+    UserFormData,
+    UserListParams,
+} from "../types";
 
 export const userService = {
     list: async (params?: UserListParams) => {
         const response = await http.get("/api/v1/users", { params });
         return response.data as PaginatedResponse<User>;
+    },
+
+    listAssignableUser: async (): Promise<{ data: AssignableUser[] }> => {
+        const response = await http.get("/api/v1/users/assignable");
+        return response.data;
     },
 
     get: async (id: string) => {

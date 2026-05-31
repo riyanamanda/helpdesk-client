@@ -16,7 +16,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
-import { listUserQueryOption } from "@/features/user/queries/user.query";
+import { listAssignableUserQueryOption } from "@/features/user/queries/user.query";
 import { handleFormError } from "@/lib/handle-form-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
@@ -37,8 +37,8 @@ export function AssignTicketSheet({ ticketId }: AssignTicketSheetProps) {
     const queryClient = useQueryClient();
     const { mutate, isPending } = useAssignTicketMutation();
 
-    const { data: usersData } = useQuery(listUserQueryOption({ page: 1, limit: 100 }));
-    const users = (usersData?.data ?? []).filter((u) => u.division.name === "IT");
+    const { data: assignableUsersData } = useQuery(listAssignableUserQueryOption());
+    const assignableUsers = assignableUsersData?.data ?? [];
 
     const form = useForm<TicketAssignFormData>({
         defaultValues: { assigned_to: "" },
@@ -88,9 +88,10 @@ export function AssignTicketSheet({ ticketId }: AssignTicketSheetProps) {
                                             <SelectValue placeholder="Select user" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {users.map((u) => (
-                                                <SelectItem key={u.id} value={u.id}>
-                                                    {u.name}
+                                            <SelectItem value="__none__">Select a user</SelectItem>
+                                            {assignableUsers.map((user) => (
+                                                <SelectItem key={user.id} value={user.id}>
+                                                    {user.name}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>

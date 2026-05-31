@@ -40,7 +40,7 @@ export function CreateUserForm() {
             email: "",
             password: "",
             role: undefined,
-            division_id: undefined,
+            division: undefined,
             gender: undefined,
         },
         mode: "onSubmit",
@@ -143,11 +143,11 @@ export function CreateUserForm() {
                             />
 
                             <Controller
-                                name="division_id"
+                                name="division"
                                 control={form.control}
                                 render={({ field, fieldState }) => (
                                     <Field>
-                                        <FieldLabel htmlFor="division_id">
+                                        <FieldLabel htmlFor="division">
                                             Division
                                             <span className="text-destructive">*</span>
                                         </FieldLabel>
@@ -155,7 +155,7 @@ export function CreateUserForm() {
                                             value={field.value ? String(field.value) : ""}
                                             onValueChange={(v) => field.onChange(Number(v))}
                                         >
-                                            <SelectTrigger id="division_id">
+                                            <SelectTrigger id="division">
                                                 <SelectValue placeholder="Select division" />
                                             </SelectTrigger>
                                             <SelectContent>

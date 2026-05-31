@@ -11,7 +11,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { ROUTES } from "@/constants";
-import { listDivisionQueryOption } from "@/features/division/queries/division.query";
+import { listDivisionOptionsQueryOption } from "@/features/division/queries/division.query";
 import { useDebounce } from "@/hooks/use-debounce";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import type { OnChangeFn, SortingState } from "@tanstack/react-table";
@@ -34,8 +34,8 @@ export function UserPage() {
     const [divisionId, setDivisionId] = useState<number | undefined>(undefined);
     const [isActive, setIsActive] = useState<boolean | undefined>(undefined);
 
-    const { data: divisionsData } = useQuery(listDivisionQueryOption({ page: 1, limit: 10 }));
-    const divisions = divisionsData?.data ?? [];
+    const { data: divisionOptionsData } = useQuery(listDivisionOptionsQueryOption());
+    const divisionOptions = divisionOptionsData?.data ?? [];
 
     const debouncedSearch = useDebounce(search, 300);
 
@@ -126,7 +126,7 @@ export function UserPage() {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="all">All Divisions</SelectItem>
-                            {divisions.map((d) => (
+                            {divisionOptions.map((d) => (
                                 <SelectItem key={d.id} value={String(d.id)}>
                                     {d.name}
                                 </SelectItem>
