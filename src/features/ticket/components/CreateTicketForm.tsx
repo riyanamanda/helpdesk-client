@@ -11,7 +11,9 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { ROUTES } from "@/constants";
-import { listCategoryQueryOption } from "@/features/category/queries/category.query";
+import { listCategoryOptionsQueryOption } from "@/features/category/queries/category.query";
+import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
+import { listDivisionOptionsQueryOption } from "@/features/division/queries/division.query";
 import { handleFormError } from "@/lib/handle-form-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
@@ -20,11 +22,9 @@ import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
-import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
 import { useCreateTicketMutation } from "../mutation/ticket.mutation";
 import { TICKET_QUERY_KEYS } from "../queries";
 import type { TicketCreateFormData } from "../types";
-import { listDivisionQueryOption } from "@/features/division/queries/division.query";
 
 export function CreateTicketForm() {
     const navigate = useNavigate();
@@ -33,11 +33,11 @@ export function CreateTicketForm() {
     const [file, setFile] = useState<File | null>(null);
     const fileRef = useRef<HTMLInputElement>(null);
 
-    const { data: categoriesData } = useQuery(listCategoryQueryOption({ page: 1, limit: 100 }));
-    const categories = categoriesData?.data ?? [];
+    const { data: categoryOptionsData } = useQuery(listCategoryOptionsQueryOption());
+    const categoryOptions = categoryOptionsData?.data ?? [];
 
-    const { data: divisionsData } = useQuery(listDivisionQueryOption({ page: 1, limit: 10 }));
-    const divisions = divisionsData?.data ?? [];
+    const { data: divisionOptionsData } = useQuery(listDivisionOptionsQueryOption());
+    const divisionOptions = divisionOptionsData?.data ?? [];
 
     const form = useForm<TicketCreateFormData>({
         defaultValues: { title: "", description: "", category: undefined, division: undefined },
@@ -132,7 +132,10 @@ export function CreateTicketForm() {
                                                 <SelectValue placeholder="Select category" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                {categories.map((category) => (
+                                                <SelectItem value="__none__">
+                                                    Select a category
+                                                </SelectItem>
+                                                {categoryOptions.map((category) => (
                                                     <SelectItem
                                                         key={category.id}
                                                         value={String(category.id)}
@@ -166,7 +169,10 @@ export function CreateTicketForm() {
                                                 <SelectValue placeholder="Select division" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                {divisions.map((divison) => (
+                                                <SelectItem value="__none__">
+                                                    Select a division
+                                                </SelectItem>
+                                                {divisionOptions.map((divison) => (
                                                     <SelectItem
                                                         key={divison.id}
                                                         value={String(divison.id)}

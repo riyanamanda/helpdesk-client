@@ -16,3 +16,10 @@ export function getCategoryQueryOption(id: number) {
         queryFn: () => categoryService.get(id),
     });
 }
+
+export function listCategoryOptionsQueryOption() {
+    return queryOptions({
+        queryKey: CATEGORY_QUERY_KEYS.OPTIONS,
+        queryFn: () => categoryService.options(),
+    });
+}

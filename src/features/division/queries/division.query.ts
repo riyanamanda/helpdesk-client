@@ -16,3 +16,10 @@ export function getDivisionQueryOption(id: number) {
         queryFn: () => divisionService.get(id),
     });
 }
+
+export function listDivisionOptionsQueryOption() {
+    return queryOptions({
+        queryKey: DIVISION_QUERY_KEYS.OPTION,
+        queryFn: () => divisionService.option(),
+    });
+}

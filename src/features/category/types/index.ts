@@ -6,6 +6,11 @@ export interface Category {
     updated_at: string;
 }
 
+export interface CategoryOption {
+    id: number;
+    name: string;
+}
+
 export interface CategoryFormData {
     name: string;
     is_active: boolean;

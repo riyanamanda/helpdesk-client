@@ -6,6 +6,11 @@ export interface Division {
     updated_at: string;
 }
 
+export interface DivisionOptions {
+    id: number;
+    name: string;
+}
+
 export interface DivisionFormData {
     name: string;
     is_active: boolean;
