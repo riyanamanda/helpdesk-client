@@ -5,6 +5,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import { resolveMediaUrl } from "@/lib/media-url";
 import { PaperclipIcon } from "lucide-react";
 
 interface AttachmentViewerProps {
@@ -13,6 +14,8 @@ interface AttachmentViewerProps {
 }
 
 export function AttachmentViewer({ fileUrl, label = "View attachment" }: AttachmentViewerProps) {
+    const resolvedFileUrl = resolveMediaUrl(fileUrl);
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -28,7 +31,7 @@ export function AttachmentViewer({ fileUrl, label = "View attachment" }: Attachm
                     </DialogHeader>
                     <div className="flex flex-1 items-center justify-center overflow-hidden bg-muted/50 p-2">
                         <img
-                            src={fileUrl}
+                            src={resolvedFileUrl}
                             alt="Attachment"
                             className="max-h-full max-w-full object-contain"
                         />

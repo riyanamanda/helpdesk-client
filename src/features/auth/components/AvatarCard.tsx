@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
 import type { User } from "@/features/user/types";
 import { getInitials } from "@/lib/formatters";
+import { resolveMediaUrl } from "@/lib/media-url";
 import type { AxiosError } from "axios";
 import { CameraIcon, MailIcon } from "lucide-react";
 import { useRef } from "react";
@@ -40,7 +41,7 @@ export function AvatarCard({ user }: { user: User }) {
             <CardContent className="flex items-center gap-6 pt-6 pb-6">
                 <div className="relative">
                     <Avatar className="size-20 text-2xl">
-                        <AvatarImage src={user.avatar_url ?? undefined} alt={user.name} />
+                        <AvatarImage src={resolveMediaUrl(user.avatar_url)} alt={user.name} />
                         <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
                     </Avatar>
                     <button

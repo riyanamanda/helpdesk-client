@@ -2,6 +2,7 @@ import { ROUTES } from "@/constants";
 import { useLogoutMutation } from "@/features/auth/mutation/auth.mutation";
 import { meQueryOption } from "@/features/auth/queries/auth.query";
 import { getInitials } from "@/lib/formatters";
+import { resolveMediaUrl } from "@/lib/media-url";
 import { useQuery } from "@tanstack/react-query";
 import { LogOutIcon, UserCircleIcon } from "lucide-react";
 import { useNavigate } from "react-router";
@@ -42,7 +43,7 @@ export function SiteHeader() {
                 <DropdownMenu>
                     <DropdownMenuTrigger className="flex cursor-pointer gap-3">
                         <Avatar className="size-8 rounded-lg">
-                            <AvatarImage src={user.avatar_url} alt={user.name} />
+                            <AvatarImage src={resolveMediaUrl(user.avatar_url)} alt={user.name} />
                             <AvatarFallback className="rounded-lg">
                                 {user && getInitials(user.name)}
                             </AvatarFallback>
