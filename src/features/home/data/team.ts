@@ -1,4 +1,4 @@
-import { RiyanImg } from "@/assets/images";
+import { AdriImg, LedyImg, RahmatImg, RendraImg, RiyanImg } from "@/assets/images";
 
 export const team = [
     {
@@ -9,12 +9,12 @@ export const team = [
     {
         name: "Rendra Triyono",
         role: "Network Engineer",
-        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&auto=format&fit=crop",
+        image: RendraImg,
     },
     {
         name: "Adriansyah Malikus Saleh",
         role: "Network Engineer",
-        image: "https://images.unsplash.com/photo-1504593811423-6dd665756598?q=80&w=1200&auto=format&fit=crop",
+        image: AdriImg,
     },
 
     // CENTER
@@ -22,7 +22,7 @@ export const team = [
         name: "Ledyana Puspasari",
         role: "IT Manager",
         featured: true,
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
+        image: LedyImg,
     },
     // END
 
@@ -39,7 +39,7 @@ export const team = [
     {
         name: "Rahmat Setiawan",
         role: "IT Support",
-        image: "https://images.unsplash.com/photo-1504257432389-52343af06ae3?q=80&w=1200&auto=format&fit=crop",
+        image: RahmatImg,
     },
     {
         name: "Nabila",
