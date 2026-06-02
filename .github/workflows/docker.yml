@@ -30,19 +30,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create production env
-        run: |
-          cat <<EOF > .env.production
-          VITE_APP_NAME=${{ vars.VITE_APP_NAME }}
-          VITE_API_BASE_URL=${{ vars.VITE_API_BASE_URL }}
-          VITE_FIREBASE_API_KEY=${{ vars.VITE_FIREBASE_API_KEY }}
-          VITE_FIREBASE_AUTH_DOMAIN=${{ vars.VITE_FIREBASE_AUTH_DOMAIN }}
-          VITE_FIREBASE_PROJECT_ID=${{ vars.VITE_FIREBASE_PROJECT_ID }}
-          VITE_FIREBASE_STORAGE_BUCKET=${{ vars.VITE_FIREBASE_STORAGE_BUCKET }}
-          VITE_FIREBASE_MESSAGING_SENDER_ID=${{ vars.VITE_FIREBASE_MESSAGING_SENDER_ID }}
-          VITE_FIREBASE_APP_ID=${{ vars.VITE_FIREBASE_APP_ID }}
-          EOF
-
       - name: Extract metadata
         id: meta
         uses: docker/metadata-action@v5
@@ -59,5 +46,22 @@ jobs:
           file: ./Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
+          build-args: |
+            VITE_APP_NAME=${{ vars.VITE_APP_NAME }}
+            VITE_API_BASE_URL=/api
+            VITE_FIREBASE_API_KEY=${{ vars.VITE_FIREBASE_API_KEY }}
+            VITE_FIREBASE_AUTH_DOMAIN=${{ vars.VITE_FIREBASE_AUTH_DOMAIN }}
+            VITE_FIREBASE_PROJECT_ID=${{ vars.VITE_FIREBASE_PROJECT_ID }}
+            VITE_FIREBASE_STORAGE_BUCKET=${{ vars.VITE_FIREBASE_STORAGE_BUCKET }}
+            VITE_FIREBASE_MESSAGING_SENDER_ID=${{ vars.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+            VITE_FIREBASE_APP_ID=${{ vars.VITE_FIREBASE_APP_ID }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Trigger infra deploy
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.INFRA_DISPATCH_TOKEN }}
+          repository: riyanamanda/helpdesk-infra
+          event-type: deploy
+          client-payload: '{"service": "frontend"}'
