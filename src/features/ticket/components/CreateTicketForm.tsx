@@ -17,7 +17,7 @@ import { listDivisionOptionsQueryOption } from "@/features/division/queries/divi
 import { handleFormError } from "@/lib/handle-form-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
-import { PaperclipIcon } from "lucide-react";
+import { CircleQuestionMarkIcon, PaperclipIcon } from "lucide-react";
 import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
@@ -25,6 +25,7 @@ import { toast } from "sonner";
 import { useCreateTicketMutation } from "../mutation/ticket.mutation";
 import { TICKET_QUERY_KEYS } from "../queries";
 import type { TicketCreateFormData } from "../types";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 
 export function CreateTicketForm() {
     const navigate = useNavigate();
@@ -80,6 +81,19 @@ export function CreateTicketForm() {
                                     <FieldLabel htmlFor="title">
                                         Title
                                         <span className="text-destructive">*</span>
+                                        <HoverCard>
+                                            <HoverCardTrigger>
+                                                <CircleQuestionMarkIcon className="size-3.5 cursor-help text-muted-foreground" />
+                                            </HoverCardTrigger>
+                                            <HoverCardContent className="text-sm">
+                                                A short, clear summary of your issue. Max 100
+                                                characters.
+                                                <br />
+                                                <span className="text-muted-foreground">
+                                                    Example: "Printer not working on Poly"
+                                                </span>
+                                            </HoverCardContent>
+                                        </HoverCard>
                                     </FieldLabel>
                                     <Input
                                         {...field}
@@ -101,6 +115,16 @@ export function CreateTicketForm() {
                                     <FieldLabel htmlFor="description">
                                         Description
                                         <span className="text-destructive">*</span>
+                                        <HoverCard>
+                                            <HoverCardTrigger>
+                                                <CircleQuestionMarkIcon className="size-3.5 cursor-help text-muted-foreground" />
+                                            </HoverCardTrigger>
+                                            <HoverCardContent className="text-sm">
+                                                Describe your issue in detail. Include what
+                                                happened, what you expected, and any steps to
+                                                reproduce it.
+                                            </HoverCardContent>
+                                        </HoverCard>
                                     </FieldLabel>
                                     <Textarea
                                         {...field}
@@ -123,6 +147,15 @@ export function CreateTicketForm() {
                                         <FieldLabel htmlFor="category">
                                             Category
                                             <span className="text-destructive">*</span>
+                                            <HoverCard>
+                                                <HoverCardTrigger>
+                                                    <CircleQuestionMarkIcon className="size-3.5 cursor-help text-muted-foreground" />
+                                                </HoverCardTrigger>
+                                                <HoverCardContent className="text-sm">
+                                                    Select the type of issue. This helps route your
+                                                    ticket to the right support team.
+                                                </HoverCardContent>
+                                            </HoverCard>
                                         </FieldLabel>
                                         <Select
                                             value={field.value ? String(field.value) : ""}
@@ -160,6 +193,15 @@ export function CreateTicketForm() {
                                         <FieldLabel htmlFor="division">
                                             Division
                                             <span className="text-destructive">*</span>
+                                            <HoverCard>
+                                                <HoverCardTrigger>
+                                                    <CircleQuestionMarkIcon className="size-3.5 cursor-help text-muted-foreground" />
+                                                </HoverCardTrigger>
+                                                <HoverCardContent className="text-sm">
+                                                    Select your division so the support team knows
+                                                    which department is affected.
+                                                </HoverCardContent>
+                                            </HoverCard>
                                         </FieldLabel>
                                         <Select
                                             value={field.value ? String(field.value) : ""}
