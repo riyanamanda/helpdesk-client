@@ -10,6 +10,7 @@ import {
     VenusIcon,
 } from "lucide-react";
 import { UserActions } from "../components/UserActions";
+import { UserAvatarCell } from "../components/UserAvatarCell";
 import type { User } from "../types";
 
 export const getUserColumns = (pageOffset = 0, loggedUserId?: string): ColumnDef<User>[] => [
@@ -17,6 +18,12 @@ export const getUserColumns = (pageOffset = 0, loggedUserId?: string): ColumnDef
         id: "no",
         header: "No.",
         cell: ({ row }) => <div>{pageOffset + row.index + 1}</div>,
+        enableSorting: false,
+    },
+    {
+        id: "avatar",
+        header: "Avatar",
+        cell: ({ row }) => <UserAvatarCell user={row.original} />,
         enableSorting: false,
     },
     {
