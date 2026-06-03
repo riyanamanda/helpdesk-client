@@ -1,0 +1,78 @@
+{
+    "appName": "IT Helpdesk",
+    "appTagline": "Sistem Tiket Erba",
+    "actions": {
+        "create": "Buat",
+        "edit": "Edit",
+        "delete": "Hapus",
+        "cancel": "Batal",
+        "save": "Simpan",
+        "back": "Kembali",
+        "submit": "Kirim",
+        "clear": "Hapus Filter",
+        "remove": "Hapus",
+        "close": "Tutup",
+        "saving": "Menyimpan..."
+    },
+    "status": {
+        "active": "Aktif",
+        "inactive": "Nonaktif",
+        "connected": "Terhubung",
+        "disconnected": "Tidak Terhubung",
+        "allStatus": "Semua Status"
+    },
+    "pagination": {
+        "showing": "Menampilkan {{from}}–{{to}} dari {{total}} data",
+        "rowsPerPage": "Baris per halaman"
+    },
+    "dialog": {
+        "areYouSure": "Apakah Anda yakin?",
+        "deleteConfirm": "Hapus",
+        "deleting": "Menghapus...",
+        "cannotBeUndone": "Tindakan ini tidak dapat dibatalkan."
+    },
+    "table": {
+        "no": "No.",
+        "name": "Nama",
+        "status": "Status",
+        "createdAt": "Dibuat Pada",
+        "updatedAt": "Diperbarui Pada",
+        "action": "Aksi"
+    },
+    "form": {
+        "required": "Wajib diisi",
+        "fillRequired": "Harap lengkapi semua kolom yang wajib diisi",
+        "selectDivision": "Pilih divisi",
+        "selectCategory": "Pilih kategori",
+        "selectUser": "Pilih pengguna"
+    },
+    "gender": {
+        "male": "Laki-laki",
+        "female": "Perempuan",
+        "placeholder": "Pilih jenis kelamin"
+    },
+    "nav": {
+        "dashboard": "Dasbor",
+        "tickets": "Tiket",
+        "category": "Kategori",
+        "division": "Divisi",
+        "users": "Pengguna",
+        "contact": "Kontak",
+        "master": "Data Master",
+        "auth": "Kontrol Akses"
+    },
+    "toast": {
+        "success": "Berhasil",
+        "operationFailed": "Operasi Gagal"
+    },
+    "errors": {
+        "notFoundTitle": "Halaman Tidak Ditemukan",
+        "notFoundDescription": "Halaman yang Anda cari tidak ada atau telah dipindahkan.",
+        "errorTitle": "Terjadi Kesalahan",
+        "errorDescription": "Terjadi kesalahan tak terduga. Silakan coba lagi nanti.",
+        "goToDashboard": "Ke Dasbor",
+        "goToHome": "Ke Beranda",
+        "goBack": "Kembali",
+        "tryAgain": "Coba Lagi"
+    }
+}

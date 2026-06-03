@@ -22,17 +22,11 @@ import type { AxiosError } from "axios";
 import { FlagIcon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { useSetPriorityMutation } from "../mutation/ticket.mutation";
 import { TICKET_QUERY_KEYS } from "../queries";
 import type { TicketPriority, TicketPriorityFormData } from "../types";
-
-const PRIORITIES: { label: string; value: TicketPriority }[] = [
-    { label: "Low", value: "LOW" },
-    { label: "Medium", value: "MEDIUM" },
-    { label: "High", value: "HIGH" },
-    { label: "Urgent", value: "URGENT" },
-];
 
 interface SetPrioritySheetProps {
     ticketId: number;
@@ -40,9 +34,17 @@ interface SetPrioritySheetProps {
 }
 
 export function SetPrioritySheet({ ticketId, currentPriority }: SetPrioritySheetProps) {
+    const { t } = useTranslation("ticket");
     const [open, setOpen] = useState(false);
     const queryClient = useQueryClient();
     const { mutate, isPending } = useSetPriorityMutation();
+
+    const PRIORITIES: { label: string; value: TicketPriority }[] = [
+        { label: t("priority.LOW"), value: "LOW" },
+        { label: t("priority.MEDIUM"), value: "MEDIUM" },
+        { label: t("priority.HIGH"), value: "HIGH" },
+        { label: t("priority.URGENT"), value: "URGENT" },
+    ];
 
     const form = useForm<TicketPriorityFormData>({
         defaultValues: { priority: currentPriority ?? "MEDIUM" },
@@ -54,7 +56,9 @@ export function SetPrioritySheet({ ticketId, currentPriority }: SetPrioritySheet
             { id: ticketId, payload },
             {
                 onSuccess: async () => {
-                    toast.success("Success", { description: "Priority updated successfully" });
+                    toast.success(t("common:toast.success"), {
+                        description: t("setPriority.updatedSuccess"),
+                    });
                     await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
                     setOpen(false);
                 },
@@ -70,13 +74,13 @@ export function SetPrioritySheet({ ticketId, currentPriority }: SetPrioritySheet
             <SheetTrigger asChild>
                 <Button variant="outline" size="sm">
                     <FlagIcon />
-                    Set Priority
+                    {t("setPriority.setButton")}
                 </Button>
             </SheetTrigger>
             <SheetContent>
                 <SheetHeader>
-                    <SheetTitle>Set Priority</SheetTitle>
-                    <SheetDescription>Choose the priority level for this ticket.</SheetDescription>
+                    <SheetTitle>{t("setPriority.sheetTitle")}</SheetTitle>
+                    <SheetDescription>{t("setPriority.sheetDescription")}</SheetDescription>
                 </SheetHeader>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="px-6">
                     <FieldGroup>
@@ -85,10 +89,14 @@ export function SetPrioritySheet({ ticketId, currentPriority }: SetPrioritySheet
                             control={form.control}
                             render={({ field, fieldState }) => (
                                 <Field>
-                                    <FieldLabel htmlFor="priority">Priority</FieldLabel>
+                                    <FieldLabel htmlFor="priority">
+                                        {t("setPriority.priorityLabel")}
+                                    </FieldLabel>
                                     <Select value={field.value} onValueChange={field.onChange}>
                                         <SelectTrigger id="priority">
-                                            <SelectValue placeholder="Select priority" />
+                                            <SelectValue
+                                                placeholder={t("setPriority.priorityPlaceholder")}
+                                            />
                                         </SelectTrigger>
                                         <SelectContent>
                                             {PRIORITIES.map((p) => (
@@ -106,10 +114,10 @@ export function SetPrioritySheet({ ticketId, currentPriority }: SetPrioritySheet
                 </form>
                 <SheetFooter>
                     <Button variant="ghost" onClick={() => setOpen(false)} disabled={isPending}>
-                        Cancel
+                        {t("common:actions.cancel")}
                     </Button>
                     <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
-                        Save
+                        {t("setPriority.saveButton")}
                     </Button>
                 </SheetFooter>
             </SheetContent>

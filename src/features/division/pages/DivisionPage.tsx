@@ -16,6 +16,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import type { OnChangeFn, SortingState } from "@tanstack/react-table";
 import { PlusIcon } from "lucide-react";
 import { startTransition, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { getDivisionColumns } from "../config/divisionColumn";
 import { listDivisionQueryOption } from "../queries/division.query";
@@ -25,6 +26,7 @@ type SortBy = NonNullable<DivisionListParams["sort_by"]>;
 type SortType = NonNullable<DivisionListParams["sort_type"]>;
 
 export function DivisionPage() {
+    const { t } = useTranslation("division");
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [search, setSearch] = useState("");
@@ -50,7 +52,7 @@ export function DivisionPage() {
 
     const divisions = data?.data;
     const pagination = data?.meta.pagination;
-    const columns = getDivisionColumns((page - 1) * limit);
+    const columns = getDivisionColumns(t, (page - 1) * limit);
 
     function handleSearchChange(value: string) {
         setSearch(value);
@@ -76,13 +78,13 @@ export function DivisionPage() {
     return (
         <PageLayout>
             <PageLayout.Header
-                title="Division"
-                description="All listed provided divisions"
+                title={t("page.title")}
+                description={t("page.description")}
                 actions={
                     <NavLink to={ROUTES.DIVISION.CREATE}>
                         <Button variant="outline" className="cursor-pointer">
                             <PlusIcon />
-                            Create new division
+                            {t("page.createButton")}
                         </Button>
                     </NavLink>
                 }
@@ -90,7 +92,7 @@ export function DivisionPage() {
             <PageLayout.Content>
                 <div className="flex flex-wrap items-center gap-2">
                     <Input
-                        placeholder="Search divisions..."
+                        placeholder={t("page.searchPlaceholder")}
                         value={search}
                         onChange={(e) => handleSearchChange(e.target.value)}
                         className="max-w-xs"
@@ -100,12 +102,12 @@ export function DivisionPage() {
                         onValueChange={handleIsActiveChange}
                     >
                         <SelectTrigger className="w-36">
-                            <SelectValue placeholder="Status" />
+                            <SelectValue placeholder={t("common:table.status")} />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">All Status</SelectItem>
-                            <SelectItem value="true">Active</SelectItem>
-                            <SelectItem value="false">Inactive</SelectItem>
+                            <SelectItem value="all">{t("filters.allStatus")}</SelectItem>
+                            <SelectItem value="true">{t("common:status.active")}</SelectItem>
+                            <SelectItem value="false">{t("common:status.inactive")}</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>

@@ -1,26 +1,30 @@
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/formatters";
 import type { ColumnDef } from "@tanstack/react-table";
+import type { TFunction } from "i18next";
 import { CircleCheckBigIcon, CircleXIcon } from "lucide-react";
 import { DivisionActions } from "../components/DivisionActions";
 import type { Division } from "../types";
 
-export const getDivisionColumns = (pageOffset = 0): ColumnDef<Division>[] => [
+export const getDivisionColumns = (
+    t: TFunction<"division">,
+    pageOffset = 0
+): ColumnDef<Division>[] => [
     {
         id: "no",
-        header: "No.",
+        header: t("common:table.no"),
         cell: ({ row }) => <div>{pageOffset + row.index + 1}</div>,
         enableSorting: false,
     },
     {
         accessorKey: "name",
-        header: "Name",
+        header: t("common:table.name"),
         cell: ({ row }) => <div>{row.getValue("name")}</div>,
         enableSorting: true,
     },
     {
         accessorKey: "is_active",
-        header: "Status",
+        header: t("common:table.status"),
         cell: ({ row }) => {
             const status = row.getValue("is_active");
             return (
@@ -28,12 +32,12 @@ export const getDivisionColumns = (pageOffset = 0): ColumnDef<Division>[] => [
                     {status ? (
                         <>
                             <CircleCheckBigIcon />
-                            Active
+                            {t("columns.active")}
                         </>
                     ) : (
                         <>
                             <CircleXIcon />
-                            Inactive
+                            {t("columns.inactive")}
                         </>
                     )}
                 </Badge>
@@ -43,13 +47,13 @@ export const getDivisionColumns = (pageOffset = 0): ColumnDef<Division>[] => [
     },
     {
         accessorKey: "created_at",
-        header: "Created At",
+        header: t("common:table.createdAt"),
         cell: ({ row }) => <div>{formatDate(row.getValue("created_at"))}</div>,
         enableSorting: true,
     },
     {
         accessorKey: "updated_at",
-        header: "Updated At",
+        header: t("common:table.updatedAt"),
         cell: ({ row }) => <div>{formatDate(row.getValue("updated_at"))}</div>,
         enableSorting: false,
     },

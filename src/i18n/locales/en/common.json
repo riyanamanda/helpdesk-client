@@ -1,0 +1,78 @@
+{
+    "appName": "IT Helpdesk",
+    "appTagline": "Erba Ticketing System",
+    "actions": {
+        "create": "Create",
+        "edit": "Edit",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "save": "Save",
+        "back": "Back",
+        "submit": "Submit",
+        "clear": "Clear Filters",
+        "remove": "Remove",
+        "close": "Close",
+        "saving": "Saving..."
+    },
+    "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "connected": "Connected",
+        "disconnected": "Disconnected",
+        "allStatus": "All Status"
+    },
+    "pagination": {
+        "showing": "Showing {{from}}–{{to}} of {{total}} results",
+        "rowsPerPage": "Rows per page"
+    },
+    "dialog": {
+        "areYouSure": "Are you sure?",
+        "deleteConfirm": "Delete",
+        "deleting": "Deleting...",
+        "cannotBeUndone": "This action cannot be undone."
+    },
+    "table": {
+        "no": "No.",
+        "name": "Name",
+        "status": "Status",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "action": "Action"
+    },
+    "form": {
+        "required": "Required",
+        "fillRequired": "Please fill in all required fields",
+        "selectDivision": "Select a division",
+        "selectCategory": "Select a category",
+        "selectUser": "Select a user"
+    },
+    "gender": {
+        "male": "Male",
+        "female": "Female",
+        "placeholder": "Select gender"
+    },
+    "nav": {
+        "dashboard": "Dashboard",
+        "tickets": "Tickets",
+        "category": "Category",
+        "division": "Division",
+        "users": "Users",
+        "contact": "Contact",
+        "master": "Master Data",
+        "auth": "Access Control"
+    },
+    "toast": {
+        "success": "Success",
+        "operationFailed": "Operation Failed"
+    },
+    "errors": {
+        "notFoundTitle": "Page Not Found",
+        "notFoundDescription": "The page you're looking for doesn't exist or has been moved.",
+        "errorTitle": "Something Went Wrong",
+        "errorDescription": "An unexpected error occurred. Please try again later.",
+        "goToDashboard": "Go to Dashboard",
+        "goToHome": "Go to Home",
+        "goBack": "Go Back",
+        "tryAgain": "Try Again"
+    }
+}

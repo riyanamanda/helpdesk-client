@@ -2,21 +2,22 @@ import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants";
 import { formatRelativeDate } from "@/lib/formatters";
 import type { ColumnDef } from "@tanstack/react-table";
+import type { TFunction } from "i18next";
 import { ListCollapseIcon } from "lucide-react";
 import { NavLink } from "react-router";
 import { TicketPriorityBadge, TicketStatusBadge } from "../components/TicketBadges";
 import type { Ticket } from "../types";
 
-export const getTicketColumns = (pageOffset = 0): ColumnDef<Ticket>[] => [
+export const getTicketColumns = (t: TFunction<"ticket">, pageOffset = 0): ColumnDef<Ticket>[] => [
     {
         id: "no",
-        header: "No.",
+        header: t("common:table.no"),
         cell: ({ row }) => <div>{pageOffset + row.index + 1}</div>,
         enableSorting: false,
     },
     {
         accessorKey: "title",
-        header: "Title",
+        header: t("columns.title"),
         cell: ({ row }) => (
             <NavLink
                 to={ROUTES.TICKET.DETAIL.replace(":id", String(row.original.id))}
@@ -29,61 +30,61 @@ export const getTicketColumns = (pageOffset = 0): ColumnDef<Ticket>[] => [
     },
     {
         id: "category",
-        header: "Category",
+        header: t("columns.category"),
         cell: ({ row }) => <div>{row.original.category?.name ?? "-"}</div>,
         enableSorting: false,
     },
     {
         id: "division",
-        header: "Room",
+        header: t("columns.room"),
         cell: ({ row }) => <div>{row.original.division.name ?? "-"}</div>,
         enableSorting: false,
     },
     {
         id: "created_by",
-        header: "Reported By",
+        header: t("columns.reportedBy"),
         cell: ({ row }) => <div>{row.original.created_by?.name ?? "-"}</div>,
         enableSorting: false,
     },
     {
         accessorKey: "priority",
-        header: "Priority",
+        header: t("columns.priority"),
         cell: ({ row }) => <TicketPriorityBadge priority={row.getValue("priority")} />,
         enableSorting: true,
     },
     {
         id: "assigned_to",
-        header: "Assigned To",
+        header: t("columns.assignedTo"),
         cell: ({ row }) => <div>{row.original.assigned_to?.name ?? "-"}</div>,
         enableSorting: false,
     },
     {
         id: "resolved_by",
-        header: "Resolved by",
+        header: t("columns.resolvedBy"),
         cell: ({ row }) => <div>{row.original.resolved_by?.name ?? "-"}</div>,
         enableSorting: false,
     },
     {
         id: "closed_by",
-        header: "Closed by",
+        header: t("columns.closedBy"),
         cell: ({ row }) => <div>{row.original.closed_by?.name ?? "-"}</div>,
         enableSorting: false,
     },
     {
         accessorKey: "created_at",
-        header: "Created At",
+        header: t("common:table.createdAt"),
         cell: ({ row }) => <div>{formatRelativeDate(row.getValue("created_at"))}</div>,
         enableSorting: true,
     },
     {
         accessorKey: "updated_at",
-        header: "Updated At",
+        header: t("common:table.updatedAt"),
         cell: ({ row }) => <div>{formatRelativeDate(row.getValue("updated_at"))}</div>,
         enableSorting: true,
     },
     {
         accessorKey: "status",
-        header: "Status",
+        header: t("common:table.status"),
         cell: ({ row }) => <TicketStatusBadge status={row.getValue("status")} />,
         enableSorting: true,
     },
@@ -93,7 +94,7 @@ export const getTicketColumns = (pageOffset = 0): ColumnDef<Ticket>[] => [
             <NavLink to={ROUTES.TICKET.DETAIL.replace(":id", String(row.original.id))}>
                 <Button variant="ghost">
                     <ListCollapseIcon />
-                    Detail
+                    {t("columns.detail")}
                 </Button>
             </NavLink>
         ),

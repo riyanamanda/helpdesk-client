@@ -11,6 +11,7 @@ import { listDivisionOptionsQueryOption } from "@/features/division/queries/divi
 import { listUserQueryOption } from "@/features/user/queries/user.query";
 import { useQuery } from "@tanstack/react-query";
 import { XIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { TicketListParams, TicketPriority, TicketStatus } from "../types";
 
 export type TicketFiltersState = Pick<
@@ -18,26 +19,28 @@ export type TicketFiltersState = Pick<
     "status" | "priority" | "category_id" | "division_id" | "assigned_to_id"
 >;
 
-const STATUS_OPTIONS: { value: TicketStatus; label: string }[] = [
-    { value: "OPEN", label: "Open" },
-    { value: "IN_PROGRESS", label: "In Progress" },
-    { value: "RESOLVED", label: "Resolved" },
-    { value: "CLOSED", label: "Closed" },
-];
-
-const PRIORITY_OPTIONS: { value: TicketPriority; label: string }[] = [
-    { value: "LOW", label: "Low" },
-    { value: "MEDIUM", label: "Medium" },
-    { value: "HIGH", label: "High" },
-    { value: "URGENT", label: "Urgent" },
-];
-
 interface TicketFiltersProps {
     filters: TicketFiltersState;
     onFiltersChange: (filters: TicketFiltersState) => void;
 }
 
 export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) {
+    const { t } = useTranslation("ticket");
+
+    const STATUS_OPTIONS: { value: TicketStatus; label: string }[] = [
+        { value: "OPEN", label: t("status.OPEN") },
+        { value: "IN_PROGRESS", label: t("status.IN_PROGRESS") },
+        { value: "RESOLVED", label: t("status.RESOLVED") },
+        { value: "CLOSED", label: t("status.CLOSED") },
+    ];
+
+    const PRIORITY_OPTIONS: { value: TicketPriority; label: string }[] = [
+        { value: "LOW", label: t("priority.LOW") },
+        { value: "MEDIUM", label: t("priority.MEDIUM") },
+        { value: "HIGH", label: t("priority.HIGH") },
+        { value: "URGENT", label: t("priority.URGENT") },
+    ];
+
     const { data: categoryOptionsData } = useQuery(listCategoryOptionsQueryOption());
     const { data: divisionOptionsData } = useQuery(listDivisionOptionsQueryOption());
     const { data: usersData } = useQuery(listUserQueryOption({ page: 1, limit: 100 }));
@@ -61,10 +64,10 @@ export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) 
                 onValueChange={(v) => set("status", v === "all" ? undefined : (v as TicketStatus))}
             >
                 <SelectTrigger className="h-8 w-36 text-xs">
-                    <SelectValue placeholder="Status" />
+                    <SelectValue placeholder={t("status.allStatuses")} />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="all">All statuses</SelectItem>
+                    <SelectItem value="all">{t("status.allStatuses")}</SelectItem>
                     {STATUS_OPTIONS.map((o) => (
                         <SelectItem key={o.value} value={o.value}>
                             {o.label}
@@ -80,10 +83,10 @@ export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) 
                 }
             >
                 <SelectTrigger className="h-8 w-36 text-xs">
-                    <SelectValue placeholder="Priority" />
+                    <SelectValue placeholder={t("priority.allPriorities")} />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="all">All priorities</SelectItem>
+                    <SelectItem value="all">{t("priority.allPriorities")}</SelectItem>
                     {PRIORITY_OPTIONS.map((o) => (
                         <SelectItem key={o.value} value={o.value}>
                             {o.label}
@@ -97,10 +100,10 @@ export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) 
                 onValueChange={(v) => set("category_id", v === "all" ? undefined : Number(v))}
             >
                 <SelectTrigger className="h-8 w-40 text-xs">
-                    <SelectValue placeholder="Category" />
+                    <SelectValue placeholder={t("filters.allCategories")} />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="all">All categories</SelectItem>
+                    <SelectItem value="all">{t("filters.allCategories")}</SelectItem>
                     {categoryOptions.map((c) => (
                         <SelectItem key={c.id} value={String(c.id)}>
                             {c.name}
@@ -114,10 +117,10 @@ export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) 
                 onValueChange={(v) => set("division_id", v === "all" ? undefined : Number(v))}
             >
                 <SelectTrigger className="h-8 w-40 text-xs">
-                    <SelectValue placeholder="Room" />
+                    <SelectValue placeholder={t("filters.allRooms")} />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="all">All rooms</SelectItem>
+                    <SelectItem value="all">{t("filters.allRooms")}</SelectItem>
                     {divisionOptions.map((d) => (
                         <SelectItem key={d.id} value={String(d.id)}>
                             {d.name}
@@ -131,10 +134,10 @@ export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) 
                 onValueChange={(v) => set("assigned_to_id", v === "all" ? undefined : v)}
             >
                 <SelectTrigger className="h-8 w-40 text-xs">
-                    <SelectValue placeholder="Assigned to" />
+                    <SelectValue placeholder={t("filters.allAssignees")} />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="all">All assignees</SelectItem>
+                    <SelectItem value="all">{t("filters.allAssignees")}</SelectItem>
                     {users.map((u) => (
                         <SelectItem key={u.id} value={u.id}>
                             {u.name}
@@ -146,7 +149,7 @@ export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) 
             {hasActiveFilters && (
                 <Button variant="ghost" size="sm" className="h-8 px-2 text-xs" onClick={clear}>
                     <XIcon className="size-3" />
-                    Clear
+                    {t("common:actions.clear")}
                 </Button>
             )}
         </div>

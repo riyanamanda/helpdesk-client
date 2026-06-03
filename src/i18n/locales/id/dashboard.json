@@ -1,0 +1,31 @@
+{
+    "page": {
+        "title": "Dasbor",
+        "description": "Ikhtisar aktivitas helpdesk"
+    },
+    "stats": {
+        "totalTickets": "Total Tiket",
+        "open": "Terbuka",
+        "inProgress": "Sedang Diproses",
+        "resolved": "Selesai",
+        "closed": "Ditutup"
+    },
+    "charts": {
+        "byStatus": "Tiket Berdasarkan Status",
+        "byPriority": "Tiket Aktif Berdasarkan Prioritas",
+        "open": "Terbuka",
+        "inProgress": "Sedang Diproses",
+        "resolved": "Selesai",
+        "closed": "Ditutup",
+        "tickets": "Tiket",
+        "low": "Rendah",
+        "medium": "Sedang",
+        "high": "Tinggi",
+        "urgent": "Mendesak"
+    },
+    "recent": {
+        "title": "Tiket Terbuka & Sedang Diproses",
+        "noTickets": "Tidak ada tiket terbuka saat ini",
+        "unassigned": "Belum Ditugaskan"
+    }
+}

@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/formatters";
 import type { ColumnDef } from "@tanstack/react-table";
+import type { TFunction } from "i18next";
 import {
     CircleCheckBigIcon,
     CircleXIcon,
@@ -13,22 +14,26 @@ import { UserActions } from "../components/UserActions";
 import { UserAvatarCell } from "../components/UserAvatarCell";
 import type { User } from "../types";
 
-export const getUserColumns = (pageOffset = 0, loggedUserId?: string): ColumnDef<User>[] => [
+export const getUserColumns = (
+    t: TFunction<"user">,
+    pageOffset = 0,
+    loggedUserId?: string
+): ColumnDef<User>[] => [
     {
         id: "no",
-        header: "No.",
+        header: t("common:table.no"),
         cell: ({ row }) => <div>{pageOffset + row.index + 1}</div>,
         enableSorting: false,
     },
     {
         id: "avatar",
-        header: "Avatar",
+        header: t("columns.avatar"),
         cell: ({ row }) => <UserAvatarCell user={row.original} />,
         enableSorting: false,
     },
     {
         accessorKey: "name",
-        header: "Name",
+        header: t("common:table.name"),
         cell: ({ row }) => (
             <div>
                 <div className="font-medium">{row.original.name}</div>
@@ -39,7 +44,7 @@ export const getUserColumns = (pageOffset = 0, loggedUserId?: string): ColumnDef
     },
     {
         accessorKey: "phone",
-        header: "Phone",
+        header: t("columns.phone"),
         cell: ({ row }) => (
             <div className="text-muted-foreground">{row.getValue("phone") ?? "-"}</div>
         ),
@@ -47,7 +52,7 @@ export const getUserColumns = (pageOffset = 0, loggedUserId?: string): ColumnDef
     },
     {
         accessorKey: "role",
-        header: "Role",
+        header: t("columns.role"),
         cell: ({ row }) => {
             const role = row.getValue("role") as string;
             const variantMap: Record<string, "default" | "secondary" | "outline"> = {
@@ -61,13 +66,13 @@ export const getUserColumns = (pageOffset = 0, loggedUserId?: string): ColumnDef
     {
         id: "division_id",
         accessorFn: (row) => row.division?.id,
-        header: "Division",
+        header: t("columns.division"),
         cell: ({ row }) => <div>{row.original.division?.name ?? "-"}</div>,
         enableSorting: true,
     },
     {
         accessorKey: "gender",
-        header: "Gender",
+        header: t("columns.gender"),
         cell: ({ row }) => {
             const gender = row.original.gender;
 
@@ -75,11 +80,11 @@ export const getUserColumns = (pageOffset = 0, loggedUserId?: string): ColumnDef
                 <Badge variant="outline">
                     {gender === "MALE" ? (
                         <>
-                            <MarsIcon /> Male
+                            <MarsIcon /> {t("common:gender.male")}
                         </>
                     ) : (
                         <>
-                            <VenusIcon /> Female
+                            <VenusIcon /> {t("common:gender.female")}
                         </>
                     )}
                 </Badge>
@@ -89,7 +94,7 @@ export const getUserColumns = (pageOffset = 0, loggedUserId?: string): ColumnDef
     },
     {
         accessorKey: "is_active",
-        header: "Status",
+        header: t("common:table.status"),
         cell: ({ row }) => {
             const status = row.getValue("is_active");
             return (
@@ -97,12 +102,12 @@ export const getUserColumns = (pageOffset = 0, loggedUserId?: string): ColumnDef
                     {status ? (
                         <>
                             <CircleCheckBigIcon />
-                            Active
+                            {t("common:status.active")}
                         </>
                     ) : (
                         <>
                             <CircleXIcon />
-                            Inactive
+                            {t("common:status.inactive")}
                         </>
                     )}
                 </Badge>
@@ -112,7 +117,7 @@ export const getUserColumns = (pageOffset = 0, loggedUserId?: string): ColumnDef
     },
     {
         accessorKey: "google_id",
-        header: "Google Account",
+        header: t("columns.googleAccount"),
         cell: ({ row }) => {
             const status = row.getValue("google_id");
             return (
@@ -120,12 +125,12 @@ export const getUserColumns = (pageOffset = 0, loggedUserId?: string): ColumnDef
                     {status ? (
                         <>
                             <RadioTowerIcon />
-                            Connected
+                            {t("common:status.connected")}
                         </>
                     ) : (
                         <>
                             <GlobeOffIcon />
-                            Disconnect
+                            {t("common:status.disconnected")}
                         </>
                     )}
                 </Badge>
@@ -135,19 +140,19 @@ export const getUserColumns = (pageOffset = 0, loggedUserId?: string): ColumnDef
     },
     {
         accessorKey: "created_by",
-        header: "Created By",
+        header: t("columns.createdBy"),
         cell: ({ row }) => <div>{row.original.created_by?.name ?? "System"}</div>,
         enableSorting: false,
     },
     {
         accessorKey: "created_at",
-        header: "Created At",
+        header: t("common:table.createdAt"),
         cell: ({ row }) => <div>{formatDate(row.getValue("created_at"))}</div>,
         enableSorting: true,
     },
     {
         accessorKey: "updated_at",
-        header: "Updated At",
+        header: t("common:table.updatedAt"),
         cell: ({ row }) => <div>{formatDate(row.getValue("updated_at"))}</div>,
         enableSorting: false,
     },

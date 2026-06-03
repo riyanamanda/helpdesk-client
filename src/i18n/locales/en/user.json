@@ -1,0 +1,57 @@
+{
+    "page": {
+        "title": "Users",
+        "description": "Manage user accounts and access permissions",
+        "createButton": "Add User",
+        "searchPlaceholder": "Search users..."
+    },
+    "filters": {
+        "allDivisions": "All Divisions",
+        "allRoles": "All Roles",
+        "allStatus": "All Status"
+    },
+    "columns": {
+        "avatar": "Avatar",
+        "phone": "Phone Number",
+        "role": "Role",
+        "division": "Division",
+        "gender": "Gender",
+        "googleAccount": "Google Account",
+        "createdBy": "Created By"
+    },
+    "roles": {
+        "admin": "Administrator",
+        "employee": "Employee",
+        "placeholder": "Select role"
+    },
+    "create": {
+        "cardTitle": "Add New User",
+        "nameLabel": "Full Name",
+        "namePlaceholder": "John Doe",
+        "emailLabel": "Email Address",
+        "emailPlaceholder": "john@example.com",
+        "roleLabel": "Role",
+        "divisionLabel": "Division",
+        "divisionPlaceholder": "Select division",
+        "passwordLabel": "Password",
+        "createdSuccess": "User account created successfully"
+    },
+    "edit": {
+        "cardTitle": "Edit User",
+        "cardDescription": "Update account details for {{name}}",
+        "nameLabel": "Full Name",
+        "nameRequired": "Full name is required",
+        "emailLabel": "Email Address",
+        "emailRequired": "Email address is required",
+        "roleLabel": "Role",
+        "divisionLabel": "Division",
+        "activeLabel": "Active Account",
+        "activeDescription": "Enable or disable this user's access to the helpdesk system",
+        "saveChanges": "Save Changes",
+        "updatedSuccess": "User account updated successfully"
+    },
+    "actions": {
+        "edit": "Edit",
+        "changePassword": "Change Password"
+    }
+}

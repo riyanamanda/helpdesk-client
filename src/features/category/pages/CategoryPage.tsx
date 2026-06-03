@@ -16,6 +16,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import type { OnChangeFn, SortingState } from "@tanstack/react-table";
 import { PlusIcon } from "lucide-react";
 import { startTransition, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { getCategoryColumns } from "../config/categoryColumn";
 import { listCategoryQueryOption } from "../queries/category.query";
@@ -25,6 +26,7 @@ type SortBy = NonNullable<CategoryListParams["sort_by"]>;
 type SortType = NonNullable<CategoryListParams["sort_type"]>;
 
 export function CategoryPage() {
+    const { t } = useTranslation("category");
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [search, setSearch] = useState("");
@@ -50,7 +52,7 @@ export function CategoryPage() {
 
     const categories = data?.data;
     const pagination = data?.meta.pagination;
-    const columns = getCategoryColumns((page - 1) * limit);
+    const columns = getCategoryColumns(t, (page - 1) * limit);
 
     function handleSearchChange(value: string) {
         setSearch(value);
@@ -76,13 +78,13 @@ export function CategoryPage() {
     return (
         <PageLayout>
             <PageLayout.Header
-                title="Category"
-                description="All listed provided categories"
+                title={t("page.title")}
+                description={t("page.description")}
                 actions={
                     <NavLink to={ROUTES.CATEGORY.CREATE}>
                         <Button variant="outline" className="cursor-pointer">
                             <PlusIcon />
-                            Create new category
+                            {t("page.createButton")}
                         </Button>
                     </NavLink>
                 }
@@ -90,7 +92,7 @@ export function CategoryPage() {
             <PageLayout.Content>
                 <div className="flex flex-wrap items-center gap-2">
                     <Input
-                        placeholder="Search categories..."
+                        placeholder={t("page.searchPlaceholder")}
                         value={search}
                         onChange={(e) => handleSearchChange(e.target.value)}
                         className="max-w-xs"
@@ -100,12 +102,12 @@ export function CategoryPage() {
                         onValueChange={handleIsActiveChange}
                     >
                         <SelectTrigger className="w-36">
-                            <SelectValue placeholder="Status" />
+                            <SelectValue placeholder={t("common:table.status")} />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">All Status</SelectItem>
-                            <SelectItem value="true">Active</SelectItem>
-                            <SelectItem value="false">Inactive</SelectItem>
+                            <SelectItem value="all">{t("filters.allStatus")}</SelectItem>
+                            <SelectItem value="true">{t("common:status.active")}</SelectItem>
+                            <SelectItem value="false">{t("common:status.inactive")}</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>

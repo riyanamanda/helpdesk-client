@@ -1,0 +1,36 @@
+{
+    "page": {
+        "title": "Divisi",
+        "description": "Kelola departemen dan divisi",
+        "createButton": "Tambah Divisi",
+        "searchPlaceholder": "Cari divisi..."
+    },
+    "filters": {
+        "allStatus": "Semua Status"
+    },
+    "columns": {
+        "active": "Aktif",
+        "inactive": "Nonaktif"
+    },
+    "delete": {
+        "title": "Hapus Divisi?",
+        "description": "\"{{name}}\" akan dihapus secara permanen dan tidak dapat dipulihkan.",
+        "deletedSuccess": "Divisi berhasil dihapus",
+        "deleteFailed": "Gagal menghapus divisi"
+    },
+    "create": {
+        "cardTitle": "Tambah Divisi Baru",
+        "nameLabel": "Nama Divisi",
+        "namePlaceholder": "Contoh: Engineering",
+        "createdSuccess": "Divisi berhasil dibuat"
+    },
+    "edit": {
+        "cardTitle": "Edit Divisi",
+        "activeLabel": "Aktif",
+        "savedSuccess": "Divisi berhasil diperbarui"
+    },
+    "actions": {
+        "edit": "Edit",
+        "delete": "Hapus"
+    }
+}

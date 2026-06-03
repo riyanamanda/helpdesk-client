@@ -1,4 +1,5 @@
 import type { Pagination } from "@/types";
+import { useTranslation } from "react-i18next";
 import { Button } from "./ui/button";
 import {
     Pagination as PaginationRoot,
@@ -36,6 +37,7 @@ export function DataTablePagination({
     onPageChange,
     onLimitChange,
 }: DataTablePaginationProps) {
+    const { t } = useTranslation("common");
     const { page, total_page, total, limit } = pagination;
     const from = (page - 1) * limit + 1;
     const to = Math.min(page * limit, total);
@@ -45,11 +47,13 @@ export function DataTablePagination({
         <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
                 <p className="text-sm text-muted-foreground">
-                    Showing {from}–{to} of {total} results
+                    {t("pagination.showing", { from, to, total })}
                 </p>
                 {onLimitChange && (
                     <div className="flex items-center gap-2">
-                        <span className="text-sm text-muted-foreground">Rows per page</span>
+                        <span className="text-sm text-muted-foreground">
+                            {t("pagination.rowsPerPage")}
+                        </span>
                         <Select
                             value={String(limit)}
                             onValueChange={(val) => {

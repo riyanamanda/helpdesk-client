@@ -1,9 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants";
-import { NavLink } from "react-router";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router";
 
 export function Hero() {
+    const { t } = useTranslation("home");
+
     const heroItem = {
         hidden: {
             opacity: 0,
@@ -29,16 +32,16 @@ export function Hero() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
                 </span>
-                All systems operational
+                {t("hero.systemsOperational")}
             </motion.div>
 
             <motion.h1
                 variants={heroItem}
                 className="max-w-4xl text-3xl font-extrabold tracking-tight text-balance sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
             >
-                Support that{" "}
+                {t("hero.headline1")}{" "}
                 <span className="bg-linear-to-r from-primary via-primary/75 to-primary/40 bg-clip-text text-transparent">
-                    never sleeps
+                    {t("hero.headline2")}
                 </span>
             </motion.h1>
 
@@ -46,8 +49,7 @@ export function Hero() {
                 variants={heroItem}
                 className="mt-3 max-w-xl text-sm text-balance text-muted-foreground sm:mt-4 sm:text-base"
             >
-                The internal IT helpdesk for Erba employees. Submit tickets, track progress, and get
-                help — all in one place.
+                {t("hero.subheadline")}
             </motion.p>
 
             <motion.div
@@ -56,7 +58,7 @@ export function Hero() {
             >
                 <NavLink to={ROUTES.DASHBOARD}>
                     <Button size="lg" className="h-10 px-5 text-sm sm:h-11 sm:px-7">
-                        Go to Dashboard
+                        {t("hero.goToDashboard")}
                     </Button>
                 </NavLink>
             </motion.div>

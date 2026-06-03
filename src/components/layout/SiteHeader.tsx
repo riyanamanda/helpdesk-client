@@ -5,7 +5,9 @@ import { getInitials } from "@/lib/formatters";
 import { resolveMediaUrl } from "@/lib/media-url";
 import { useQuery } from "@tanstack/react-query";
 import { KeyRoundIcon, LogOutIcon, UserCircleIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { LanguageSwitcher } from "../LanguageSwitcher";
 import { ModeToggle } from "../ModeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
@@ -21,6 +23,7 @@ import { SidebarTrigger } from "../ui/sidebar";
 
 export function SiteHeader() {
     const navigate = useNavigate();
+    const { t } = useTranslation("auth");
     const { data: userData, isFetching } = useQuery(meQueryOption());
     const { mutate: logout } = useLogoutMutation();
     const user = userData?.data;
@@ -34,7 +37,8 @@ export function SiteHeader() {
             <div className="flex w-full items-center gap-2 px-4">
                 <SidebarTrigger className="-ml-1" size="icon-lg" />
 
-                <div className="ml-auto">
+                <div className="ml-auto flex items-center gap-2">
+                    <LanguageSwitcher />
                     <ModeToggle />
                 </div>
 
@@ -66,20 +70,20 @@ export function SiteHeader() {
                                 onClick={() => navigate(ROUTES.PROFILE)}
                             >
                                 <UserCircleIcon />
-                                Profile
+                                {t("header.profile")}
                             </DropdownMenuItem>
                             <DropdownMenuItem
                                 className="cursor-pointer"
                                 onClick={() => navigate(ROUTES.PROFILE_UPDATE_PASSWORD)}
                             >
                                 <KeyRoundIcon />
-                                Change Password
+                                {t("header.changePassword")}
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={() => logout()} className="text-destructive">
                             <LogOutIcon />
-                            Log out
+                            {t("header.logout")}
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

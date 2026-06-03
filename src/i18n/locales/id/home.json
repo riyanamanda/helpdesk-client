@@ -1,0 +1,19 @@
+{
+    "header": {
+        "appName": "IT Helpdesk",
+        "signIn": "Masuk",
+        "dashboard": "Dasbor"
+    },
+    "hero": {
+        "systemsOperational": "Semua sistem berjalan normal",
+        "headline1": "Dukungan Lebih Cepat",
+        "headline2": "Pengalaman Lebih Baik",
+        "subheadline": "Helpdesk IT internal untuk karyawan Erba. Ajukan tiket, pantau perkembangan, dan dapatkan bantuan — semuanya dalam satu platform.",
+        "goToDashboard": "Buka Dasbor"
+    },
+    "footer": {
+        "appName": "IT Helpdesk",
+        "tagline": "Sistem Tiket Erba",
+        "rights": "© {{year}} Hak cipta dilindungi undang-undang."
+    }
+}

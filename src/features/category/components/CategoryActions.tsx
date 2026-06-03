@@ -9,6 +9,7 @@ import {
 import { ROUTES } from "@/constants";
 import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { toast } from "sonner";
 import { useDeleteCategoryMutation } from "../mutation/category.mutation";
@@ -20,22 +21,23 @@ interface CategoryActionsProps {
 }
 
 export function CategoryActions({ category }: CategoryActionsProps) {
+    const { t } = useTranslation("category");
     const queryClient = useQueryClient();
     const { mutate: deleteCategory, isPending } = useDeleteCategoryMutation();
 
     const handleDelete = () => {
         deleteCategory(category.id, {
             onSuccess: async () => {
-                toast.success("Success", {
-                    description: "Category deleted successfully",
+                toast.success(t("common:toast.success"), {
+                    description: t("delete.deletedSuccess"),
                 });
                 await queryClient.invalidateQueries({
                     queryKey: CATEGORY_QUERY_KEYS.ROOT,
                 });
             },
             onError: () => {
-                toast.error("Operation failed", {
-                    description: "Failed to delete category",
+                toast.error(t("common:toast.operationFailed"), {
+                    description: t("delete.deleteFailed"),
                 });
             },
         });
@@ -51,12 +53,12 @@ export function CategoryActions({ category }: CategoryActionsProps) {
             <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
                     <NavLink to={ROUTES.CATEGORY.EDIT.replace(":id", String(category.id))}>
-                        Edit
+                        {t("actions.edit")}
                     </NavLink>
                 </DropdownMenuItem>
                 <DeleteDialog
-                    title="Delete Category?"
-                    description={`"${category.name}" will be permanently deleted and cannot be recovered.`}
+                    title={t("delete.title")}
+                    description={t("delete.description", { name: category.name })}
                     onConfirm={handleDelete}
                     isPending={isPending}
                     trigger={
@@ -65,7 +67,7 @@ export function CategoryActions({ category }: CategoryActionsProps) {
                             className="cursor-pointer"
                             onSelect={(e) => e.preventDefault()}
                         >
-                            Delete
+                            {t("actions.delete")}
                         </DropdownMenuItem>
                     }
                 />

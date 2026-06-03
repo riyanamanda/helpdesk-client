@@ -1,0 +1,36 @@
+{
+    "page": {
+        "title": "Division",
+        "description": "Manage departments and divisions",
+        "createButton": "Add Division",
+        "searchPlaceholder": "Search divisions..."
+    },
+    "filters": {
+        "allStatus": "All Status"
+    },
+    "columns": {
+        "active": "Active",
+        "inactive": "Inactive"
+    },
+    "delete": {
+        "title": "Delete Division?",
+        "description": "\"{{name}}\" will be permanently deleted and cannot be recovered.",
+        "deletedSuccess": "Division deleted successfully",
+        "deleteFailed": "Failed to delete division"
+    },
+    "create": {
+        "cardTitle": "Add New Division",
+        "nameLabel": "Division Name",
+        "namePlaceholder": "e.g. Engineering",
+        "createdSuccess": "Division created successfully"
+    },
+    "edit": {
+        "cardTitle": "Edit Division",
+        "activeLabel": "Active",
+        "savedSuccess": "Division updated successfully"
+    },
+    "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+    }
+}

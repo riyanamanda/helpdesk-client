@@ -1,0 +1,31 @@
+{
+    "page": {
+        "title": "Dashboard",
+        "description": "Overview of helpdesk activity"
+    },
+    "stats": {
+        "totalTickets": "Total Tickets",
+        "open": "Open",
+        "inProgress": "In Progress",
+        "resolved": "Resolved",
+        "closed": "Closed"
+    },
+    "charts": {
+        "byStatus": "Tickets by Status",
+        "byPriority": "Active Tickets by Priority",
+        "open": "Open",
+        "inProgress": "In Progress",
+        "resolved": "Resolved",
+        "closed": "Closed",
+        "tickets": "Tickets",
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "urgent": "Urgent"
+    },
+    "recent": {
+        "title": "Recent Open & In Progress",
+        "noTickets": "No open tickets at this time",
+        "unassigned": "Unassigned"
+    }
+}

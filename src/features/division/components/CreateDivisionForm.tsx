@@ -7,6 +7,7 @@ import { handleFormError } from "@/lib/handle-form-error";
 import { useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useCreateDivisionMutation } from "../mutation/division.mutation";
@@ -14,6 +15,7 @@ import { DIVISION_QUERY_KEYS } from "../queries";
 import type { DivisionFormData } from "../types";
 
 export function CreateDivisionForm() {
+    const { t } = useTranslation("division");
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { mutate, isPending } = useCreateDivisionMutation();
@@ -28,8 +30,8 @@ export function CreateDivisionForm() {
     const onSubmit = (payload: Pick<DivisionFormData, "name">) => {
         mutate(payload, {
             onSuccess: async () => {
-                toast.success("Success", {
-                    description: "Division created successfully",
+                toast.success(t("common:toast.success"), {
+                    description: t("create.createdSuccess"),
                 });
                 await queryClient.invalidateQueries({
                     queryKey: DIVISION_QUERY_KEYS.ROOT,
@@ -45,8 +47,8 @@ export function CreateDivisionForm() {
     return (
         <Card className="mx-auto max-w-lg">
             <CardHeader>
-                <CardTitle>Add New Division</CardTitle>
-                <CardDescription>Please fill all required fields</CardDescription>
+                <CardTitle>{t("create.cardTitle")}</CardTitle>
+                <CardDescription>{t("common:form.fillRequired")}</CardDescription>
             </CardHeader>
             <CardContent>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -57,14 +59,14 @@ export function CreateDivisionForm() {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="name">
-                                        Name
+                                        {t("create.nameLabel")}
                                         <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Input
                                         {...field}
                                         id={field.name}
                                         autoComplete="off"
-                                        placeholder="Engineering"
+                                        placeholder={t("create.namePlaceholder")}
                                     />
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
                                 </Field>
@@ -78,10 +80,10 @@ export function CreateDivisionForm() {
                                 disabled={isPending}
                                 onClick={() => navigate(ROUTES.DIVISION.INDEX)}
                             >
-                                Cancel
+                                {t("common:actions.cancel")}
                             </Button>
                             <Button type="submit" variant="default" disabled={isPending}>
-                                Create
+                                {t("common:actions.create")}
                             </Button>
                         </Field>
                     </FieldGroup>

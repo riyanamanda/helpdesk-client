@@ -23,25 +23,27 @@ import { handleFormError } from "@/lib/handle-form-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useUpdateUserMutation } from "../mutation/user.mutation";
 import { USER_QUERY_KEYS } from "../queries";
 import type { User, UserFormData, UserGender, UserRole } from "../types";
 
-const ROLES: { label: string; value: UserRole }[] = [
-    { label: "Admin", value: "ADMIN" },
-    { label: "Employee", value: "EMPLOYEE" },
-];
-
 interface EditUserFormProps {
     user: User;
 }
 
 export function EditUserForm({ user }: EditUserFormProps) {
+    const { t } = useTranslation("user");
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { mutate: updateUser, isPending } = useUpdateUserMutation();
+
+    const ROLES: { label: string; value: UserRole }[] = [
+        { label: t("roles.admin"), value: "ADMIN" },
+        { label: t("roles.employee"), value: "EMPLOYEE" },
+    ];
 
     const { data: divisionOptionsData } = useQuery(listDivisionOptionsQueryOption());
     const divisionOptions = divisionOptionsData?.data ?? [];
@@ -63,7 +65,9 @@ export function EditUserForm({ user }: EditUserFormProps) {
             { id: user.id, payload: { ...payload, is_active: payload.is_active === true } },
             {
                 onSuccess: async () => {
-                    toast.success("Success", { description: "User updated successfully" });
+                    toast.success(t("common:toast.success"), {
+                        description: t("edit.updatedSuccess"),
+                    });
                     await queryClient.invalidateQueries({ queryKey: USER_QUERY_KEYS.ROOT });
                     navigate(ROUTES.USER.INDEX, { replace: true });
                 },
@@ -77,8 +81,8 @@ export function EditUserForm({ user }: EditUserFormProps) {
     return (
         <Card className="mx-auto max-w-lg">
             <CardHeader>
-                <CardTitle>Edit User</CardTitle>
-                <CardDescription>Update the details for {user.name}</CardDescription>
+                <CardTitle>{t("edit.cardTitle")}</CardTitle>
+                <CardDescription>{t("edit.cardDescription", { name: user.name })}</CardDescription>
             </CardHeader>
             <CardContent>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -86,11 +90,12 @@ export function EditUserForm({ user }: EditUserFormProps) {
                         <Controller
                             name="name"
                             control={form.control}
-                            rules={{ required: "Name is required" }}
+                            rules={{ required: t("edit.nameRequired") }}
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="name">
-                                        Name <span className="text-destructive">*</span>
+                                        {t("edit.nameLabel")}{" "}
+                                        <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Input {...field} id="name" autoComplete="off" />
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
@@ -101,11 +106,12 @@ export function EditUserForm({ user }: EditUserFormProps) {
                         <Controller
                             name="email"
                             control={form.control}
-                            rules={{ required: "Email is required" }}
+                            rules={{ required: t("edit.emailRequired") }}
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="email">
-                                        Email <span className="text-destructive">*</span>
+                                        {t("edit.emailLabel")}{" "}
+                                        <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Input {...field} id="email" type="email" autoComplete="off" />
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
@@ -119,10 +125,12 @@ export function EditUserForm({ user }: EditUserFormProps) {
                                 control={form.control}
                                 render={({ field, fieldState }) => (
                                     <Field>
-                                        <FieldLabel htmlFor="role">Role</FieldLabel>
+                                        <FieldLabel htmlFor="role">
+                                            {t("edit.roleLabel")}
+                                        </FieldLabel>
                                         <Select value={field.value} onValueChange={field.onChange}>
                                             <SelectTrigger id="role">
-                                                <SelectValue placeholder="Select role" />
+                                                <SelectValue placeholder={t("roles.placeholder")} />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {ROLES.map((r) => (
@@ -144,13 +152,17 @@ export function EditUserForm({ user }: EditUserFormProps) {
                                 control={form.control}
                                 render={({ field, fieldState }) => (
                                     <Field>
-                                        <FieldLabel htmlFor="division">Division</FieldLabel>
+                                        <FieldLabel htmlFor="division">
+                                            {t("edit.divisionLabel")}
+                                        </FieldLabel>
                                         <Select
                                             value={field.value ? String(field.value) : ""}
                                             onValueChange={(v) => field.onChange(Number(v))}
                                         >
                                             <SelectTrigger id="division">
-                                                <SelectValue placeholder="Select division" />
+                                                <SelectValue
+                                                    placeholder={t("create.divisionPlaceholder")}
+                                                />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {divisionOptions.map((d) => (
@@ -173,17 +185,25 @@ export function EditUserForm({ user }: EditUserFormProps) {
                             control={form.control}
                             render={({ field, fieldState }) => (
                                 <Field>
-                                    <FieldLabel htmlFor="gender">Gender</FieldLabel>
+                                    <FieldLabel htmlFor="gender">
+                                        {t("common:gender.placeholder")}
+                                    </FieldLabel>
                                     <Select
                                         value={field.value ?? ""}
                                         onValueChange={(v) => field.onChange(v as UserGender)}
                                     >
                                         <SelectTrigger id="gender">
-                                            <SelectValue placeholder="Select gender" />
+                                            <SelectValue
+                                                placeholder={t("common:gender.placeholder")}
+                                            />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="MALE">Male</SelectItem>
-                                            <SelectItem value="FEMALE">Female</SelectItem>
+                                            <SelectItem value="MALE">
+                                                {t("common:gender.male")}
+                                            </SelectItem>
+                                            <SelectItem value="FEMALE">
+                                                {t("common:gender.female")}
+                                            </SelectItem>
                                         </SelectContent>
                                     </Select>
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
@@ -204,9 +224,11 @@ export function EditUserForm({ user }: EditUserFormProps) {
                                         }
                                     />
                                     <FieldContent>
-                                        <FieldLabel htmlFor="is_active">Active</FieldLabel>
+                                        <FieldLabel htmlFor="is_active">
+                                            {t("edit.activeLabel")}
+                                        </FieldLabel>
                                         <FieldDescription>
-                                            Active or diactive a user to login into helpdesk
+                                            {t("edit.activeDescription")}
                                         </FieldDescription>
                                     </FieldContent>
                                 </Field>
@@ -220,10 +242,10 @@ export function EditUserForm({ user }: EditUserFormProps) {
                                 disabled={isPending}
                                 onClick={() => navigate(ROUTES.USER.INDEX)}
                             >
-                                Cancel
+                                {t("common:actions.cancel")}
                             </Button>
                             <Button type="submit" disabled={isPending}>
-                                Save Changes
+                                {t("edit.saveChanges")}
                             </Button>
                         </Field>
                     </FieldGroup>

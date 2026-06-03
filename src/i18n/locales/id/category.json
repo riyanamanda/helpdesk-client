@@ -1,0 +1,36 @@
+{
+    "page": {
+        "title": "Kategori",
+        "description": "Kelola dan atur kategori tiket",
+        "createButton": "Tambah Kategori",
+        "searchPlaceholder": "Cari kategori..."
+    },
+    "filters": {
+        "allStatus": "Semua Status"
+    },
+    "columns": {
+        "active": "Aktif",
+        "inactive": "Nonaktif"
+    },
+    "delete": {
+        "title": "Hapus Kategori?",
+        "description": "\"{{name}}\" akan dihapus secara permanen dan tidak dapat dipulihkan.",
+        "deletedSuccess": "Kategori berhasil dihapus",
+        "deleteFailed": "Gagal menghapus kategori"
+    },
+    "create": {
+        "cardTitle": "Tambah Kategori Baru",
+        "nameLabel": "Nama Kategori",
+        "namePlaceholder": "Contoh: Hardware",
+        "createdSuccess": "Kategori berhasil dibuat"
+    },
+    "edit": {
+        "cardTitle": "Edit Kategori",
+        "activeLabel": "Aktif",
+        "savedSuccess": "Kategori berhasil diperbarui"
+    },
+    "actions": {
+        "edit": "Edit",
+        "delete": "Hapus"
+    }
+}

@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import type { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { useUpdateUserPasswordMutation } from "../mutation/user.mutation";
 import type { UpdateUserPasswordFormData, User } from "../types";
@@ -27,6 +28,7 @@ export function UpdateUserPasswordDialog({
     open,
     onOpenChange,
 }: UpdateUserPasswordDialogProps) {
+    const { t } = useTranslation("auth");
     const { mutate, isPending } = useUpdateUserPasswordMutation();
 
     const form = useForm<UpdateUserPasswordFormData>({
@@ -38,14 +40,16 @@ export function UpdateUserPasswordDialog({
             { id: user.id, password },
             {
                 onSuccess: () => {
-                    toast.success("Success", { description: "Password updated successfully" });
+                    toast.success(t("common:toast.success"), {
+                        description: t("user.passwordUpdatedSuccess"),
+                    });
                     onOpenChange(false);
                     form.reset();
                 },
                 onError: (error) => {
                     const axiosError = error as AxiosError<{ error: { message: string } }>;
                     toast.error(
-                        axiosError.response?.data?.error?.message ?? "Failed to update password"
+                        axiosError.response?.data?.error?.message ?? t("user.failedUpdate")
                     );
                 },
             }
@@ -61,9 +65,10 @@ export function UpdateUserPasswordDialog({
         <Dialog open={open} onOpenChange={handleOpenChange}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Change Password</DialogTitle>
+                    <DialogTitle>{t("user.passwordDialogTitle")}</DialogTitle>
                     <DialogDescription>
-                        Set a new password for <span className="font-medium">{user.name}</span>.
+                        {t("user.passwordDialogDescription")}{" "}
+                        <span className="font-medium">{user.name}</span>.
                     </DialogDescription>
                 </DialogHeader>
 
@@ -73,13 +78,14 @@ export function UpdateUserPasswordDialog({
                             name="password"
                             control={form.control}
                             rules={{
-                                required: "Password is required",
-                                minLength: { value: 8, message: "Min 8 characters" },
+                                required: t("user.passwordRequired"),
+                                minLength: { value: 8, message: t("user.passwordMinLength") },
                             }}
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="password">
-                                        New Password <span className="text-destructive">*</span>
+                                        {t("user.newPasswordLabel")}{" "}
+                                        <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Input
                                         {...field}
@@ -97,15 +103,16 @@ export function UpdateUserPasswordDialog({
                             name="confirm_password"
                             control={form.control}
                             rules={{
-                                required: "Please confirm your password",
+                                required: t("user.confirmRequired"),
                                 validate: (value) =>
                                     value === form.getValues("password") ||
-                                    "Passwords do not match",
+                                    t("user.passwordMismatch"),
                             }}
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="confirm_password">
-                                        Confirm Password <span className="text-destructive">*</span>
+                                        {t("user.confirmPasswordLabel")}{" "}
+                                        <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Input
                                         {...field}
@@ -127,15 +134,15 @@ export function UpdateUserPasswordDialog({
                         onClick={() => handleOpenChange(false)}
                         disabled={isPending}
                     >
-                        Cancel
+                        {t("common:actions.cancel")}
                     </Button>
                     <Button form="password-form" type="submit" disabled={isPending}>
                         {isPending ? (
                             <>
-                                <Spinner /> Saving...
+                                <Spinner /> {t("user.updatingButton")}
                             </>
                         ) : (
-                            "Update Password"
+                            t("user.updateButton")
                         )}
                     </Button>
                 </DialogFooter>

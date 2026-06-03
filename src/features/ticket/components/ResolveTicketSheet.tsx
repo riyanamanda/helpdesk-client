@@ -16,6 +16,7 @@ import type { AxiosError } from "axios";
 import { CheckCircleIcon, PaperclipIcon } from "lucide-react";
 import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { useResolveTicketMutation } from "../mutation/ticket.mutation";
 import { TICKET_QUERY_KEYS } from "../queries";
@@ -26,6 +27,7 @@ interface ResolveTicketSheetProps {
 }
 
 export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
+    const { t } = useTranslation("ticket");
     const [open, setOpen] = useState(false);
     const [file, setFile] = useState<File | null>(null);
     const fileRef = useRef<HTMLInputElement>(null);
@@ -42,7 +44,9 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
             { id: ticketId, data, file: file ?? undefined },
             {
                 onSuccess: async () => {
-                    toast.success("Success", { description: "Ticket resolved successfully" });
+                    toast.success(t("common:toast.success"), {
+                        description: t("resolve.resolvedSuccess"),
+                    });
                     await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
                     setOpen(false);
                     form.reset();
@@ -60,15 +64,13 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
             <SheetTrigger asChild>
                 <Button variant="outline" size="sm">
                     <CheckCircleIcon />
-                    Resolve
+                    {t("resolve.resolveButton")}
                 </Button>
             </SheetTrigger>
             <SheetContent>
                 <SheetHeader>
-                    <SheetTitle>Resolve Ticket</SheetTitle>
-                    <SheetDescription>
-                        Provide a resolution and optionally attach proof.
-                    </SheetDescription>
+                    <SheetTitle>{t("resolve.sheetTitle")}</SheetTitle>
+                    <SheetDescription>{t("resolve.sheetDescription")}</SheetDescription>
                 </SheetHeader>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="px-6">
                     <FieldGroup>
@@ -78,14 +80,14 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="resolution">
-                                        Resolution
+                                        {t("resolve.resolutionLabel")}
                                         <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Textarea
                                         {...field}
                                         id={field.name}
                                         rows={5}
-                                        placeholder="Describe how the issue was resolved"
+                                        placeholder={t("resolve.resolutionPlaceholder")}
                                         maxLength={1000}
                                     />
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
@@ -94,7 +96,7 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
                         />
 
                         <Field>
-                            <FieldLabel>Attachment (optional)</FieldLabel>
+                            <FieldLabel>{t("resolve.attachmentLabel")}</FieldLabel>
                             <div className="flex items-center gap-2">
                                 <Button
                                     type="button"
@@ -103,7 +105,7 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
                                     onClick={() => fileRef.current?.click()}
                                 >
                                     <PaperclipIcon />
-                                    {file ? file.name : "Choose image"}
+                                    {file ? file.name : t("resolve.chooseImage")}
                                 </Button>
                                 {file && (
                                     <button
@@ -114,7 +116,7 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
                                             if (fileRef.current) fileRef.current.value = "";
                                         }}
                                     >
-                                        Remove
+                                        {t("resolve.remove")}
                                     </button>
                                 )}
                             </div>
@@ -130,10 +132,10 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
                 </form>
                 <SheetFooter>
                     <Button variant="ghost" onClick={() => setOpen(false)} disabled={isPending}>
-                        Cancel
+                        {t("common:actions.cancel")}
                     </Button>
                     <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
-                        Submit Resolution
+                        {t("resolve.submitButton")}
                     </Button>
                 </SheetFooter>
             </SheetContent>

@@ -11,12 +11,14 @@ import { cn } from "@/lib/utils";
 import type { AxiosError } from "axios";
 import type { ComponentProps } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
+import { toast } from "sonner";
 import { useGoogleLoginMutation, useLoginMutation } from "../mutation/auth.mutation";
 import type { LoginRequest } from "../types";
-import { toast } from "sonner";
 
 export function LoginForm({ className, ...props }: ComponentProps<"div">) {
+    const { t } = useTranslation("auth");
     const { mutate: login, isPending } = useLoginMutation();
     const { mutate: googleLogin, isPending: isGooglePending } = useGoogleLoginMutation();
 
@@ -40,9 +42,7 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
         googleLogin(undefined, {
             onError: (error) => {
                 const axiosError = error as AxiosError<{ error: { message: string } }>;
-                toast.error(
-                    axiosError.response?.data?.error?.message ?? "Failed to sign in with Google"
-                );
+                toast.error(axiosError.response?.data?.error?.message ?? t("login.failedGoogle"));
             },
         });
     };
@@ -55,10 +55,10 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                         <FieldGroup>
                             <div className="flex flex-col items-center gap-2 text-center">
                                 <NavLink to={ROUTES.HOME}>
-                                    <h1 className="text-2xl font-bold">IT Helpdesk</h1>
+                                    <h1 className="text-2xl font-bold">{t("login.title")}</h1>
                                 </NavLink>
                                 <p className="text-balance text-muted-foreground">
-                                    Login to your account
+                                    {t("login.subtitle")}
                                 </p>
                             </div>
 
@@ -67,12 +67,14 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                                 control={form.control}
                                 render={({ field, fieldState }) => (
                                     <Field>
-                                        <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>
+                                            {t("login.emailLabel")}
+                                        </FieldLabel>
                                         <Input
                                             {...field}
                                             id={field.name}
                                             type="email"
-                                            placeholder="email@example.com"
+                                            placeholder={t("login.emailPlaceholder")}
                                         />
                                         {fieldState.error && (
                                             <FieldError errors={[fieldState.error]} />
@@ -87,12 +89,14 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                                 render={({ field, fieldState }) => (
                                     <Field>
                                         <div className="flex items-center">
-                                            <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                                            <FieldLabel htmlFor={field.name}>
+                                                {t("login.passwordLabel")}
+                                            </FieldLabel>
                                             <NavLink
                                                 to="#"
                                                 className="ml-auto text-xs underline-offset-2 hover:underline"
                                             >
-                                                Forgot your password?
+                                                {t("login.forgotPassword")}
                                             </NavLink>
                                         </div>
                                         <Input {...field} id={field.name} type="password" />
@@ -107,15 +111,15 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                                 <Button type="submit" disabled={isPending}>
                                     {isPending ? (
                                         <>
-                                            <Spinner /> Login...
+                                            <Spinner /> {t("login.loggingIn")}
                                         </>
                                     ) : (
-                                        "Login"
+                                        t("login.loginButton")
                                     )}
                                 </Button>
                             </Field>
                             <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
-                                Or continue with
+                                {t("login.continueWith")}
                             </FieldSeparator>
                             <Field>
                                 <Button
@@ -126,12 +130,12 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                                 >
                                     {isGooglePending ? (
                                         <>
-                                            <Spinner /> Signing in...
+                                            <Spinner /> {t("login.signingIn")}
                                         </>
                                     ) : (
                                         <>
                                             <img src={GoogleSvg} alt="Google" className="size-4" />
-                                            Login with Google
+                                            {t("login.loginWithGoogle")}
                                         </>
                                     )}
                                 </Button>
@@ -147,9 +151,7 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                     </div>
                 </CardContent>
             </Card>
-            <p className="px-6 text-center text-sm text-muted-foreground">
-                Made by IT Ernaldi Bahar
-            </p>
+            <p className="px-6 text-center text-sm text-muted-foreground">{t("login.madeBy")}</p>
         </div>
     );
 }

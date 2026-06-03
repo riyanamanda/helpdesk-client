@@ -55,7 +55,7 @@ export function HomePage() {
             <Header />
 
             <motion.section
-                className="relative z-10 flex flex-1 flex-col items-center px-4 pt-8 text-center sm:px-6 sm:pt-12 lg:pt-16"
+                className="relative z-10 flex flex-1 flex-col items-center px-4 pt-8 text-center sm:px-6 lg:pt-8"
                 variants={heroVariants}
                 initial="hidden"
                 animate="visible"

@@ -1,0 +1,57 @@
+{
+    "page": {
+        "title": "Pengguna",
+        "description": "Kelola akun dan hak akses pengguna",
+        "createButton": "Tambah Pengguna",
+        "searchPlaceholder": "Cari pengguna..."
+    },
+    "filters": {
+        "allDivisions": "Semua Divisi",
+        "allRoles": "Semua Peran",
+        "allStatus": "Semua Status"
+    },
+    "columns": {
+        "avatar": "Foto",
+        "phone": "Nomor Telepon",
+        "role": "Peran",
+        "division": "Divisi",
+        "gender": "Jenis Kelamin",
+        "googleAccount": "Akun Google",
+        "createdBy": "Dibuat Oleh"
+    },
+    "roles": {
+        "admin": "Administrator",
+        "employee": "Karyawan",
+        "placeholder": "Pilih peran"
+    },
+    "create": {
+        "cardTitle": "Tambah Pengguna Baru",
+        "nameLabel": "Nama Lengkap",
+        "namePlaceholder": "John Doe",
+        "emailLabel": "Alamat Email",
+        "emailPlaceholder": "john@example.com",
+        "roleLabel": "Peran",
+        "divisionLabel": "Divisi",
+        "divisionPlaceholder": "Pilih divisi",
+        "passwordLabel": "Kata Sandi",
+        "createdSuccess": "Akun pengguna berhasil dibuat"
+    },
+    "edit": {
+        "cardTitle": "Edit Pengguna",
+        "cardDescription": "Perbarui detail akun untuk {{name}}",
+        "nameLabel": "Nama Lengkap",
+        "nameRequired": "Nama lengkap wajib diisi",
+        "emailLabel": "Alamat Email",
+        "emailRequired": "Alamat email wajib diisi",
+        "roleLabel": "Peran",
+        "divisionLabel": "Divisi",
+        "activeLabel": "Akun Aktif",
+        "activeDescription": "Aktifkan atau nonaktifkan akses pengguna ke sistem helpdesk",
+        "saveChanges": "Simpan Perubahan",
+        "updatedSuccess": "Akun pengguna berhasil diperbarui"
+    },
+    "actions": {
+        "edit": "Edit",
+        "changePassword": "Ubah Kata Sandi"
+    }
+}

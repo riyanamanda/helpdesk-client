@@ -23,6 +23,7 @@ import type { AxiosError } from "axios";
 import { UserPlusIcon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { useAssignTicketMutation } from "../mutation/ticket.mutation";
 import { TICKET_QUERY_KEYS } from "../queries";
@@ -33,6 +34,7 @@ interface AssignTicketSheetProps {
 }
 
 export function AssignTicketSheet({ ticketId }: AssignTicketSheetProps) {
+    const { t } = useTranslation("ticket");
     const [open, setOpen] = useState(false);
     const queryClient = useQueryClient();
     const { mutate, isPending } = useAssignTicketMutation();
@@ -50,7 +52,9 @@ export function AssignTicketSheet({ ticketId }: AssignTicketSheetProps) {
             { id: ticketId, payload },
             {
                 onSuccess: async () => {
-                    toast.success("Success", { description: "Ticket assigned successfully" });
+                    toast.success(t("common:toast.success"), {
+                        description: t("assign.assignedSuccess"),
+                    });
                     await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
                     setOpen(false);
                     form.reset();
@@ -67,13 +71,13 @@ export function AssignTicketSheet({ ticketId }: AssignTicketSheetProps) {
             <SheetTrigger asChild>
                 <Button variant="outline" size="sm">
                     <UserPlusIcon />
-                    Assign
+                    {t("assign.assignButton")}
                 </Button>
             </SheetTrigger>
             <SheetContent>
                 <SheetHeader>
-                    <SheetTitle>Assign Ticket</SheetTitle>
-                    <SheetDescription>Select a user to assign this ticket to.</SheetDescription>
+                    <SheetTitle>{t("assign.sheetTitle")}</SheetTitle>
+                    <SheetDescription>{t("assign.sheetDescription")}</SheetDescription>
                 </SheetHeader>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="px-6">
                     <FieldGroup>
@@ -82,13 +86,19 @@ export function AssignTicketSheet({ ticketId }: AssignTicketSheetProps) {
                             control={form.control}
                             render={({ field, fieldState }) => (
                                 <Field>
-                                    <FieldLabel htmlFor="assigned_to">Assign To</FieldLabel>
+                                    <FieldLabel htmlFor="assigned_to">
+                                        {t("assign.assignToLabel")}
+                                    </FieldLabel>
                                     <Select value={field.value} onValueChange={field.onChange}>
                                         <SelectTrigger id="assigned_to">
-                                            <SelectValue placeholder="Select user" />
+                                            <SelectValue
+                                                placeholder={t("common:form.selectUser")}
+                                            />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="__none__">Select a user</SelectItem>
+                                            <SelectItem value="__none__">
+                                                {t("common:form.selectUser")}
+                                            </SelectItem>
                                             {assignableUsers.map((user) => (
                                                 <SelectItem key={user.id} value={user.id}>
                                                     {user.name}
@@ -104,10 +114,10 @@ export function AssignTicketSheet({ ticketId }: AssignTicketSheetProps) {
                 </form>
                 <SheetFooter>
                     <Button variant="ghost" onClick={() => setOpen(false)} disabled={isPending}>
-                        Cancel
+                        {t("common:actions.cancel")}
                     </Button>
                     <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
-                        Assign
+                        {t("assign.assignButton")}
                     </Button>
                 </SheetFooter>
             </SheetContent>

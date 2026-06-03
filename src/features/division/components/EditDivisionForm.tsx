@@ -8,6 +8,7 @@ import { handleFormError } from "@/lib/handle-form-error";
 import { useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useUpdateDivisionMutation } from "../mutation/division.mutation";
@@ -20,6 +21,7 @@ interface EditDivisionFormProps {
 }
 
 export function EditDivisionForm({ id, division }: EditDivisionFormProps) {
+    const { t } = useTranslation("division");
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { mutate: updateDivision, isPending } = useUpdateDivisionMutation();
@@ -37,8 +39,8 @@ export function EditDivisionForm({ id, division }: EditDivisionFormProps) {
             { id, payload },
             {
                 onSuccess: async () => {
-                    toast.success("Success", {
-                        description: "Division updated successfully",
+                    toast.success(t("common:toast.success"), {
+                        description: t("edit.savedSuccess"),
                     });
                     await queryClient.invalidateQueries({
                         queryKey: DIVISION_QUERY_KEYS.ROOT,
@@ -55,8 +57,8 @@ export function EditDivisionForm({ id, division }: EditDivisionFormProps) {
     return (
         <Card className="mx-auto max-w-lg">
             <CardHeader>
-                <CardTitle>Edit Division</CardTitle>
-                <CardDescription>Please fill all required fields</CardDescription>
+                <CardTitle>{t("edit.cardTitle")}</CardTitle>
+                <CardDescription>{t("common:form.fillRequired")}</CardDescription>
             </CardHeader>
             <CardContent>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -67,14 +69,14 @@ export function EditDivisionForm({ id, division }: EditDivisionFormProps) {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="name">
-                                        Name
+                                        {t("create.nameLabel")}
                                         <span className="text-red-500">*</span>
                                     </FieldLabel>
                                     <Input
                                         {...field}
                                         id={field.name}
                                         autoComplete="off"
-                                        placeholder="Engineering"
+                                        placeholder={t("create.namePlaceholder")}
                                     />
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
                                 </Field>
@@ -91,7 +93,9 @@ export function EditDivisionForm({ id, division }: EditDivisionFormProps) {
                                         checked={field.value}
                                         onCheckedChange={field.onChange}
                                     />
-                                    <FieldLabel htmlFor={field.name}>Active</FieldLabel>
+                                    <FieldLabel htmlFor={field.name}>
+                                        {t("edit.activeLabel")}
+                                    </FieldLabel>
                                 </Field>
                             )}
                         />
@@ -103,10 +107,10 @@ export function EditDivisionForm({ id, division }: EditDivisionFormProps) {
                                 disabled={isPending}
                                 onClick={() => navigate(ROUTES.DIVISION.INDEX)}
                             >
-                                Cancel
+                                {t("common:actions.cancel")}
                             </Button>
                             <Button type="submit" variant="default" disabled={isPending}>
-                                Save
+                                {t("common:actions.save")}
                             </Button>
                         </Field>
                     </FieldGroup>

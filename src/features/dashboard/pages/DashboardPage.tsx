@@ -25,23 +25,13 @@ import {
     ListCollapseIcon,
     TicketIcon,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { Bar, BarChart, Pie, PieChart, XAxis, YAxis } from "recharts";
 import {
     dashboardRecentTicketsQueryOption,
     dashboardSummaryQueryOption,
 } from "../queries/dashboard.query";
-
-const statusChartConfig = {
-    open: { label: "Open", color: "#3b82f6" },
-    in_progress: { label: "In Progress", color: "#eab308" },
-    resolved: { label: "Resolved", color: "#22c55e" },
-    closed: { label: "Closed", color: "#94a3b8" },
-} satisfies ChartConfig;
-
-const priorityChartConfig = {
-    count: { label: "Tickets" },
-} satisfies ChartConfig;
 
 function StatCard({
     label,
@@ -76,6 +66,7 @@ function StatCard({
 }
 
 export function DashboardPage() {
+    const { t } = useTranslation("dashboard");
     const { data: summaryData, isLoading: isSummaryLoading } = useQuery(
         dashboardSummaryQueryOption()
     );
@@ -85,6 +76,17 @@ export function DashboardPage() {
 
     const summary = summaryData?.data;
     const recentTickets = recentData?.data ?? [];
+
+    const statusChartConfig = {
+        open: { label: t("charts.open"), color: "#3b82f6" },
+        in_progress: { label: t("charts.inProgress"), color: "#eab308" },
+        resolved: { label: t("charts.resolved"), color: "#22c55e" },
+        closed: { label: t("charts.closed"), color: "#94a3b8" },
+    } satisfies ChartConfig;
+
+    const priorityChartConfig = {
+        count: { label: t("charts.tickets") },
+    } satisfies ChartConfig;
 
     const statusPieData = summary
         ? [
@@ -97,60 +99,59 @@ export function DashboardPage() {
 
     const priorityBarData = summary
         ? [
-              { priority: "Low", count: summary.priority.low, fill: "#22c55e" },
-              { priority: "Medium", count: summary.priority.medium, fill: "#eab308" },
-              { priority: "High", count: summary.priority.high, fill: "#f97316" },
-              { priority: "Urgent", count: summary.priority.urgent, fill: "#ef4444" },
+              { priority: t("charts.low"), count: summary.priority.low, fill: "#22c55e" },
+              { priority: t("charts.medium"), count: summary.priority.medium, fill: "#eab308" },
+              { priority: t("charts.high"), count: summary.priority.high, fill: "#f97316" },
+              { priority: t("charts.urgent"), count: summary.priority.urgent, fill: "#ef4444" },
           ]
         : [];
 
     return (
         <PageLayout>
-            <PageLayout.Header title="Dashboard" description="Helpdesk overview" />
+            <PageLayout.Header title={t("page.title")} description={t("page.description")} />
             <PageLayout.Content>
-                {/* Stat cards */}
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
                     <StatCard
-                        label="Total Tickets"
+                        label={t("stats.totalTickets")}
                         value={summary?.status.total}
                         icon={<TicketIcon className="size-4" />}
                         isLoading={isSummaryLoading}
                     />
                     <StatCard
-                        label="Open"
+                        label={t("stats.open")}
                         value={summary?.status.open}
                         icon={<InboxIcon className="size-4" />}
                         valueClass="text-blue-600"
                         isLoading={isSummaryLoading}
                     />
                     <StatCard
-                        label="In Progress"
+                        label={t("stats.inProgress")}
                         value={summary?.status.in_progress}
                         icon={<CircleDotIcon className="size-4" />}
                         valueClass="text-yellow-600"
                         isLoading={isSummaryLoading}
                     />
                     <StatCard
-                        label="Resolved"
+                        label={t("stats.resolved")}
                         value={summary?.status.resolved}
                         icon={<CheckCircle2Icon className="size-4" />}
                         valueClass="text-green-600"
                         isLoading={isSummaryLoading}
                     />
                     <StatCard
-                        label="Closed"
+                        label={t("stats.closed")}
                         value={summary?.status.closed}
                         icon={<ClockIcon className="size-4" />}
                         isLoading={isSummaryLoading}
                     />
                 </div>
 
-                {/* Charts row */}
                 <div className="grid gap-4 lg:grid-cols-2">
-                    {/* Status donut */}
                     <Card>
                         <CardHeader className="pb-2">
-                            <CardTitle className="text-sm font-medium">Tickets by Status</CardTitle>
+                            <CardTitle className="text-sm font-medium">
+                                {t("charts.byStatus")}
+                            </CardTitle>
                         </CardHeader>
                         <CardContent>
                             {isSummaryLoading ? (
@@ -179,11 +180,10 @@ export function DashboardPage() {
                         </CardContent>
                     </Card>
 
-                    {/* Priority bar chart */}
                     <Card>
                         <CardHeader className="pb-2">
                             <CardTitle className="text-sm font-medium">
-                                Active Tickets by Priority
+                                {t("charts.byPriority")}
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
@@ -225,12 +225,11 @@ export function DashboardPage() {
                     </Card>
                 </div>
 
-                {/* Recent tickets */}
                 <Card>
                     <CardHeader className="pb-2">
                         <CardTitle className="flex items-center gap-2 text-sm font-medium">
                             <AlertCircleIcon className="size-4 text-muted-foreground" />
-                            Recent Open &amp; In Progress
+                            {t("recent.title")}
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -242,49 +241,49 @@ export function DashboardPage() {
                             </div>
                         ) : !recentTickets.length ? (
                             <p className="py-8 text-center text-sm text-muted-foreground">
-                                No open tickets
+                                {t("recent.noTickets")}
                             </p>
                         ) : (
                             <div className="flex flex-col divide-y">
-                                {recentTickets.map((t) => (
+                                {recentTickets.map((ticket) => (
                                     <div
-                                        key={t.id}
+                                        key={ticket.id}
                                         className="flex items-center justify-between gap-3 py-3"
                                     >
                                         <div className="flex min-w-0 flex-col gap-1">
                                             <span className="truncate text-sm font-medium">
-                                                {t.title}
+                                                {ticket.title}
                                             </span>
                                             <div className="flex items-center gap-2">
                                                 <TicketStatusBadge
-                                                    status={t.status as TicketStatus}
+                                                    status={ticket.status as TicketStatus}
                                                 />
                                                 <TicketPriorityBadge
                                                     priority={
-                                                        t.priority
-                                                            ? (t.priority as TicketPriority)
+                                                        ticket.priority
+                                                            ? (ticket.priority as TicketPriority)
                                                             : null
                                                     }
                                                 />
                                                 <span className="text-[11px] text-muted-foreground">
-                                                    {formatDate(t.created_at)}
+                                                    {formatDate(ticket.created_at)}
                                                 </span>
                                             </div>
                                         </div>
                                         <div className="flex shrink-0 items-center gap-2">
-                                            {t.assigned_to ? (
+                                            {ticket.assigned_to ? (
                                                 <Badge variant="outline" className="text-[11px]">
-                                                    {t.assigned_to}
+                                                    {ticket.assigned_to}
                                                 </Badge>
                                             ) : (
                                                 <span className="text-[11px] text-muted-foreground">
-                                                    Unassigned
+                                                    {t("recent.unassigned")}
                                                 </span>
                                             )}
                                             <NavLink
                                                 to={ROUTES.TICKET.DETAIL.replace(
                                                     ":id",
-                                                    String(t.id)
+                                                    String(ticket.id)
                                                 )}
                                             >
                                                 <Button variant="ghost" size="sm">

@@ -7,6 +7,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { type SortingState } from "@tanstack/react-table";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { getTicketColumns } from "../config/ticketColumn";
 import { TicketFilters, type TicketFiltersState } from "../components/TicketFilters";
@@ -14,6 +15,7 @@ import { listTicketQueryOption } from "../queries/ticket.query";
 import type { SortType, TicketSortBy } from "../types";
 
 export function TicketPage() {
+    const { t } = useTranslation("ticket");
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [filters, setFilters] = useState<TicketFiltersState>({});
@@ -46,18 +48,18 @@ export function TicketPage() {
 
     const tickets = data?.data;
     const pagination = data?.meta.pagination;
-    const columns = getTicketColumns((page - 1) * limit);
+    const columns = getTicketColumns(t, (page - 1) * limit);
 
     return (
         <PageLayout>
             <PageLayout.Header
-                title="Tickets"
-                description="All active helpdesk tickets"
+                title={t("page.title")}
+                description={t("page.description")}
                 actions={
                     <NavLink to={ROUTES.TICKET.CREATE}>
                         <Button variant="outline" className="cursor-pointer">
                             <PlusIcon />
-                            Submit ticket
+                            {t("page.submitButton")}
                         </Button>
                     </NavLink>
                 }

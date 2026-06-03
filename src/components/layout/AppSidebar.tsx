@@ -9,6 +9,7 @@ import {
     UserIcon,
 } from "lucide-react";
 import type { ComponentProps } from "react";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { SidebarNav } from "../SidebarNav";
 import {
@@ -21,49 +22,51 @@ import {
     SidebarMenuItem,
 } from "../ui/sidebar";
 
-const data = {
-    navMain: [
-        {
-            name: "Dashboard",
-            url: ROUTES.DASHBOARD,
-            icon: GaugeIcon,
-        },
-        {
-            name: "Tickets",
-            url: ROUTES.TICKET.INDEX,
-            icon: TicketIcon,
-        },
-    ],
-    navMaster: [
-        {
-            name: "Category",
-            url: ROUTES.CATEGORY.INDEX,
-            icon: BlocksIcon,
-        },
-        {
-            name: "Division",
-            url: ROUTES.DIVISION.INDEX,
-            icon: PresentationIcon,
-        },
-    ],
-    navAuth: [
-        {
-            name: "Users",
-            url: ROUTES.USER.INDEX,
-            icon: UserIcon,
-        },
-    ],
-    navEtc: [
-        {
-            is_blank: true,
-            name: "Contact",
-            url: "https://github.com/riyanamanda",
-            icon: SmartphoneNfcIcon,
-        },
-    ],
-};
-
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
+    const { t } = useTranslation("common");
+
+    const data = {
+        navMain: [
+            {
+                name: t("nav.dashboard"),
+                url: ROUTES.DASHBOARD,
+                icon: GaugeIcon,
+            },
+            {
+                name: t("nav.tickets"),
+                url: ROUTES.TICKET.INDEX,
+                icon: TicketIcon,
+            },
+        ],
+        navMaster: [
+            {
+                name: t("nav.category"),
+                url: ROUTES.CATEGORY.INDEX,
+                icon: BlocksIcon,
+            },
+            {
+                name: t("nav.division"),
+                url: ROUTES.DIVISION.INDEX,
+                icon: PresentationIcon,
+            },
+        ],
+        navAuth: [
+            {
+                name: t("nav.users"),
+                url: ROUTES.USER.INDEX,
+                icon: UserIcon,
+            },
+        ],
+        navEtc: [
+            {
+                is_blank: true,
+                name: t("nav.contact"),
+                url: "https://github.com/riyanamanda",
+                icon: SmartphoneNfcIcon,
+            },
+        ],
+    };
+
     return (
         <Sidebar collapsible="offcanvas" {...props}>
             <SidebarHeader>
@@ -75,8 +78,8 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                                     <HeartHandshakeIcon className="size-4" />
                                 </div>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate font-bold">IT Helpdesk</span>
-                                    <span className="truncate text-xs">Erba ticketing system</span>
+                                    <span className="truncate font-bold">{t("appName")}</span>
+                                    <span className="truncate text-xs">{t("appTagline")}</span>
                                 </div>
                             </NavLink>
                         </SidebarMenuButton>
@@ -85,8 +88,8 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
             </SidebarHeader>
             <SidebarContent className="gap-3">
                 <SidebarNav items={data.navMain} />
-                <SidebarNav label="Master" items={data.navMaster} />
-                <SidebarNav label="Auth" items={data.navAuth} />
+                <SidebarNav label={t("nav.master")} items={data.navMaster} />
+                <SidebarNav label={t("nav.auth")} items={data.navAuth} />
                 <SidebarNav items={data.navEtc} className="mt-auto" />
             </SidebarContent>
             <SidebarFooter />

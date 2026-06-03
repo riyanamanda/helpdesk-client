@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Input } from "@/components/ui/input";
 import {
     Select,
@@ -20,14 +21,15 @@ import type { AxiosError } from "axios";
 import { CircleQuestionMarkIcon, PaperclipIcon } from "lucide-react";
 import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useCreateTicketMutation } from "../mutation/ticket.mutation";
 import { TICKET_QUERY_KEYS } from "../queries";
 import type { TicketCreateFormData } from "../types";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 
 export function CreateTicketForm() {
+    const { t } = useTranslation("ticket");
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { mutate, isPending } = useCreateTicketMutation();
@@ -50,8 +52,8 @@ export function CreateTicketForm() {
             { data, file: file ?? undefined },
             {
                 onSuccess: async () => {
-                    toast.success("Success", {
-                        description: "Ticket created successfully",
+                    toast.success(t("common:toast.success"), {
+                        description: t("create.createdSuccess"),
                     });
                     await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
                     await queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEYS.ROOT });
@@ -67,8 +69,8 @@ export function CreateTicketForm() {
     return (
         <Card className="mx-auto max-w-2xl">
             <CardHeader>
-                <CardTitle>Submit New Ticket</CardTitle>
-                <CardDescription>Please fill all required fields</CardDescription>
+                <CardTitle>{t("create.cardTitle")}</CardTitle>
+                <CardDescription>{t("common:form.fillRequired")}</CardDescription>
             </CardHeader>
             <CardContent>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -79,18 +81,17 @@ export function CreateTicketForm() {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="title">
-                                        Title
+                                        {t("create.titleLabel")}
                                         <span className="text-destructive">*</span>
                                         <HoverCard>
                                             <HoverCardTrigger>
                                                 <CircleQuestionMarkIcon className="size-3.5 cursor-help text-muted-foreground" />
                                             </HoverCardTrigger>
                                             <HoverCardContent className="text-sm">
-                                                A short, clear summary of your issue. Max 100
-                                                characters.
+                                                {t("create.titleHint")}
                                                 <br />
                                                 <span className="text-muted-foreground">
-                                                    Example: "Printer not working on Poly"
+                                                    {t("create.titleHintExample")}
                                                 </span>
                                             </HoverCardContent>
                                         </HoverCard>
@@ -99,7 +100,7 @@ export function CreateTicketForm() {
                                         {...field}
                                         id={field.name}
                                         autoComplete="off"
-                                        placeholder="Brief summary of the issue"
+                                        placeholder={t("create.titlePlaceholder")}
                                         maxLength={100}
                                     />
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
@@ -113,16 +114,14 @@ export function CreateTicketForm() {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="description">
-                                        Description
+                                        {t("create.descriptionLabel")}
                                         <span className="text-destructive">*</span>
                                         <HoverCard>
                                             <HoverCardTrigger>
                                                 <CircleQuestionMarkIcon className="size-3.5 cursor-help text-muted-foreground" />
                                             </HoverCardTrigger>
                                             <HoverCardContent className="text-sm">
-                                                Describe your issue in detail. Include what
-                                                happened, what you expected, and any steps to
-                                                reproduce it.
+                                                {t("create.descriptionHint")}
                                             </HoverCardContent>
                                         </HoverCard>
                                     </FieldLabel>
@@ -130,7 +129,7 @@ export function CreateTicketForm() {
                                         {...field}
                                         id={field.name}
                                         rows={4}
-                                        placeholder="Describe the issue in detail"
+                                        placeholder={t("create.descriptionPlaceholder")}
                                         maxLength={255}
                                     />
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
@@ -145,15 +144,14 @@ export function CreateTicketForm() {
                                 render={({ field, fieldState }) => (
                                     <Field>
                                         <FieldLabel htmlFor="category">
-                                            Category
+                                            {t("create.categoryLabel")}
                                             <span className="text-destructive">*</span>
                                             <HoverCard>
                                                 <HoverCardTrigger>
                                                     <CircleQuestionMarkIcon className="size-3.5 cursor-help text-muted-foreground" />
                                                 </HoverCardTrigger>
                                                 <HoverCardContent className="text-sm">
-                                                    Select the type of issue. This helps route your
-                                                    ticket to the right support team.
+                                                    {t("create.categoryHint")}
                                                 </HoverCardContent>
                                             </HoverCard>
                                         </FieldLabel>
@@ -162,11 +160,13 @@ export function CreateTicketForm() {
                                             onValueChange={(v) => field.onChange(Number(v))}
                                         >
                                             <SelectTrigger id="category_id">
-                                                <SelectValue placeholder="Select category" />
+                                                <SelectValue
+                                                    placeholder={t("common:form.selectCategory")}
+                                                />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="__none__">
-                                                    Select a category
+                                                    {t("common:form.selectCategory")}
                                                 </SelectItem>
                                                 {categoryOptions.map((category) => (
                                                     <SelectItem
@@ -191,15 +191,14 @@ export function CreateTicketForm() {
                                 render={({ field, fieldState }) => (
                                     <Field>
                                         <FieldLabel htmlFor="division">
-                                            Division
+                                            {t("create.divisionLabel")}
                                             <span className="text-destructive">*</span>
                                             <HoverCard>
                                                 <HoverCardTrigger>
                                                     <CircleQuestionMarkIcon className="size-3.5 cursor-help text-muted-foreground" />
                                                 </HoverCardTrigger>
                                                 <HoverCardContent className="text-sm">
-                                                    Select your division so the support team knows
-                                                    which department is affected.
+                                                    {t("create.divisionHint")}
                                                 </HoverCardContent>
                                             </HoverCard>
                                         </FieldLabel>
@@ -208,11 +207,13 @@ export function CreateTicketForm() {
                                             onValueChange={(v) => field.onChange(Number(v))}
                                         >
                                             <SelectTrigger id="division_id">
-                                                <SelectValue placeholder="Select division" />
+                                                <SelectValue
+                                                    placeholder={t("common:form.selectDivision")}
+                                                />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="__none__">
-                                                    Select a division
+                                                    {t("common:form.selectDivision")}
                                                 </SelectItem>
                                                 {divisionOptions.map((divison) => (
                                                     <SelectItem
@@ -233,7 +234,7 @@ export function CreateTicketForm() {
                         </div>
 
                         <Field>
-                            <FieldLabel>Attachment (optional)</FieldLabel>
+                            <FieldLabel>{t("create.attachmentLabel")}</FieldLabel>
                             <div className="flex items-center gap-2">
                                 <Button
                                     type="button"
@@ -242,7 +243,7 @@ export function CreateTicketForm() {
                                     onClick={() => fileRef.current?.click()}
                                 >
                                     <PaperclipIcon />
-                                    {file ? file.name : "Choose image"}
+                                    {file ? file.name : t("create.chooseImage")}
                                 </Button>
                                 {file && (
                                     <button
@@ -253,7 +254,7 @@ export function CreateTicketForm() {
                                             if (fileRef.current) fileRef.current.value = "";
                                         }}
                                     >
-                                        Remove
+                                        {t("create.remove")}
                                     </button>
                                 )}
                             </div>
@@ -264,7 +265,9 @@ export function CreateTicketForm() {
                                 className="hidden"
                                 onChange={(e) => setFile(e.target.files?.[0] ?? null)}
                             />
-                            <p className="text-xs text-muted-foreground">JPEG/PNG, max 2MB</p>
+                            <p className="text-xs text-muted-foreground">
+                                {t("create.imageConstraints")}
+                            </p>
                         </Field>
 
                         <Field orientation="horizontal" className="justify-end">
@@ -274,10 +277,10 @@ export function CreateTicketForm() {
                                 disabled={isPending}
                                 onClick={() => navigate(ROUTES.TICKET.INDEX)}
                             >
-                                Cancel
+                                {t("common:actions.cancel")}
                             </Button>
                             <Button type="submit" disabled={isPending}>
-                                Submit Ticket
+                                {t("create.submitButton")}
                             </Button>
                         </Field>
                     </FieldGroup>

@@ -9,6 +9,7 @@ import {
 import { ROUTES } from "@/constants";
 import { EditIcon, KeyRoundIcon, MoreHorizontalIcon } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import type { User } from "../types";
 import { UpdateUserPasswordDialog } from "./UpdateUserPasswordDialog";
@@ -18,6 +19,7 @@ interface UserActionsProps {
 }
 
 export function UserActions({ user }: UserActionsProps) {
+    const { t } = useTranslation("user");
     const [passwordOpen, setPasswordOpen] = useState(false);
 
     return (
@@ -36,13 +38,13 @@ export function UserActions({ user }: UserActionsProps) {
                     <DropdownMenuItem asChild>
                         <NavLink to={ROUTES.USER.EDIT.replace(":id", user.id)}>
                             <EditIcon />
-                            Edit
+                            {t("actions.edit")}
                         </NavLink>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onSelect={() => setPasswordOpen(true)}>
                         <KeyRoundIcon />
-                        Change Password
+                        {t("actions.changePassword")}
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

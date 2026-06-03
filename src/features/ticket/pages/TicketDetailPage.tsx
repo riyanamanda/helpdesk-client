@@ -21,6 +21,7 @@ import {
     UsersIcon,
     XCircleIcon,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { NavLink, useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 import { AssignTicketSheet } from "../components/AssignTicketSheet";
@@ -68,6 +69,7 @@ function TimelineStep({
     label,
     date,
     person,
+    by,
     isDone,
     isActive,
     isLast,
@@ -75,6 +77,7 @@ function TimelineStep({
     label: string;
     date: string | null;
     person?: string | null;
+    by: string;
     isDone: boolean;
     isActive?: boolean;
     isLast?: boolean;
@@ -120,7 +123,9 @@ function TimelineStep({
                     <p className="mt-0.5 text-[11px] text-muted-foreground">{formatDate(date)}</p>
                 )}
                 {isDone && person && (
-                    <p className="text-[11px] text-muted-foreground">by {person}</p>
+                    <p className="text-[11px] text-muted-foreground">
+                        {by} {person}
+                    </p>
                 )}
             </div>
         </div>
@@ -129,6 +134,7 @@ function TimelineStep({
 
 export function TicketDetailPage() {
     const { id } = useParams();
+    const { t } = useTranslation("ticket");
     const ticketId = Number(id);
     const navigate = useNavigate();
     const queryClient = useQueryClient();
@@ -141,12 +147,16 @@ export function TicketDetailPage() {
     const handleClose = () => {
         closeTicket(ticketId, {
             onSuccess: async () => {
-                toast.success("Success", { description: "Ticket closed successfully" });
+                toast.success(t("common:toast.success"), {
+                    description: t("close.closedSuccess"),
+                });
                 await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
                 navigate(ROUTES.TICKET.INDEX, { replace: true });
             },
             onError: () => {
-                toast.error("Failed", { description: "Could not close the ticket" });
+                toast.error(t("common:toast.operationFailed"), {
+                    description: t("close.closeFailed"),
+                });
             },
         });
     };
@@ -164,13 +174,12 @@ export function TicketDetailPage() {
                     <NavLink to={ROUTES.TICKET.INDEX}>
                         <Button variant="ghost" size="sm">
                             <ArrowLeftIcon />
-                            Back to tickets
+                            {t("detail.backToTickets")}
                         </Button>
                     </NavLink>
                 }
             />
             <PageLayout.Content>
-                {/* Hero banner */}
                 <Card className={cn("border-l-4", STATUS_ACCENT[ticket.status])}>
                     <CardContent className="py-4">
                         <div className="flex flex-wrap items-start justify-between gap-4">
@@ -206,13 +215,12 @@ export function TicketDetailPage() {
                 </Card>
 
                 <div className="grid gap-4 lg:grid-cols-3">
-                    {/* Left — main content */}
                     <div className="flex flex-col gap-4 lg:col-span-2">
                         <Card>
                             <CardHeader className="pb-2">
                                 <CardTitle className="flex items-center gap-2 text-sm font-medium">
                                     <AlignLeftIcon className="size-4 text-muted-foreground" />
-                                    Description
+                                    {t("detail.description")}
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
@@ -227,7 +235,7 @@ export function TicketDetailPage() {
                                 <CardHeader className="pb-2">
                                     <CardTitle className="flex items-center gap-2 text-sm font-medium">
                                         <CheckCircle2Icon className="size-4 text-green-500" />
-                                        Resolution
+                                        {t("detail.resolution")}
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent>
@@ -250,10 +258,16 @@ export function TicketDetailPage() {
                                 <CardHeader className="pb-2">
                                     <CardTitle className="flex items-center gap-2 text-sm font-medium">
                                         <PaperclipIcon className="size-4 text-muted-foreground" />
-                                        Attachments
+                                        {t("detail.attachments")}
                                         <span className="ml-auto text-xs font-normal text-muted-foreground">
-                                            {reportAttachments.length} file
-                                            {reportAttachments.length !== 1 ? "s" : ""}
+                                            {reportAttachments.length}{" "}
+                                            {reportAttachments.length !== 1
+                                                ? t("detail.filesCount_other", {
+                                                      count: reportAttachments.length,
+                                                  })
+                                                : t("detail.filesCount_one", {
+                                                      count: reportAttachments.length,
+                                                  })}
                                         </span>
                                     </CardTitle>
                                 </CardHeader>
@@ -266,59 +280,72 @@ export function TicketDetailPage() {
                         )}
                     </div>
 
-                    {/* Right — sidebar */}
                     <div className="flex flex-col gap-4">
-                        {/* People */}
                         <Card>
                             <CardHeader className="pb-2">
                                 <CardTitle className="flex items-center gap-2 text-sm font-medium">
                                     <UsersIcon className="size-4 text-muted-foreground" />
-                                    People
+                                    {t("detail.people")}
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="flex flex-col gap-3">
-                                <PersonRow label="Reporter" name={ticket.created_by?.name} />
-                                <PersonRow label="Assignee" name={ticket.assigned_to?.name} />
-                                <PersonRow label="Resolved by" name={ticket.resolved_by?.name} />
-                                <PersonRow label="Closed by" name={ticket.closed_by?.name} />
+                                <PersonRow
+                                    label={t("detail.reporter")}
+                                    name={ticket.created_by?.name}
+                                />
+                                <PersonRow
+                                    label={t("detail.assignee")}
+                                    name={ticket.assigned_to?.name}
+                                />
+                                <PersonRow
+                                    label={t("detail.resolvedBy")}
+                                    name={ticket.resolved_by?.name}
+                                />
+                                <PersonRow
+                                    label={t("detail.closedBy")}
+                                    name={ticket.closed_by?.name}
+                                />
                             </CardContent>
                         </Card>
 
-                        {/* Timeline */}
                         <Card>
                             <CardHeader className="pb-2">
                                 <CardTitle className="flex items-center gap-2 text-sm font-medium">
                                     <ClockIcon className="size-4 text-muted-foreground" />
-                                    Timeline
+                                    {t("detail.timeline")}
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <TimelineStep
-                                    label="Created"
+                                    label={t("detail.created")}
                                     date={ticket.created_at}
                                     person={ticket.created_by?.name}
+                                    by={t("detail.by")}
                                     isDone
                                 />
                                 <TimelineStep
-                                    label="Assigned"
+                                    label={t("detail.assigned")}
                                     date={ticket.assigned_at}
                                     person={ticket.assigned_to?.name}
+                                    by={t("detail.by")}
                                     isDone={!!ticket.assigned_at}
                                     isActive={
                                         ticket.status === "IN_PROGRESS" && !ticket.assigned_at
                                     }
                                 />
                                 <TimelineStep
-                                    label="Resolved"
+                                    label={t("detail.resolved")}
                                     date={ticket.resolved_at}
                                     person={ticket.resolved_by?.name}
+                                    by={t("detail.by")}
                                     isDone={!!ticket.resolved_at}
                                     isActive={ticket.status === "IN_PROGRESS"}
                                 />
                                 <TimelineStep
-                                    label="Closed"
+                                    label={t("detail.closed")}
                                     date={ticket.closed_at}
                                     person={ticket.closed_by?.name}
+                                    by={t("detail.by")}
                                     isDone={!!ticket.closed_at}
                                     isActive={ticket.status === "RESOLVED"}
                                     isLast
@@ -326,11 +353,12 @@ export function TicketDetailPage() {
                             </CardContent>
                         </Card>
 
-                        {/* Actions */}
                         {ticket.status !== "CLOSED" && (
                             <Card>
                                 <CardHeader className="pb-2">
-                                    <CardTitle className="text-sm font-medium">Actions</CardTitle>
+                                    <CardTitle className="text-sm font-medium">
+                                        {t("detail.actions")}
+                                    </CardTitle>
                                 </CardHeader>
                                 <CardContent className="flex flex-col gap-2">
                                     {ticket.status === "OPEN" && (
@@ -348,12 +376,12 @@ export function TicketDetailPage() {
                                     )}
                                     {ticket.status === "RESOLVED" && (
                                         <DeleteDialog
-                                            title="Close Ticket?"
-                                            description="This will permanently close the ticket. This action cannot be undone."
+                                            title={t("close.dialogTitle")}
+                                            description={t("close.dialogDescription")}
                                             onConfirm={handleClose}
                                             isPending={isClosing}
-                                            confirmLabel="Close Ticket"
-                                            pendingLabel="Closing..."
+                                            confirmLabel={t("close.confirmLabel")}
+                                            pendingLabel={t("close.pendingLabel")}
                                             icon={<XCircleIcon />}
                                             trigger={
                                                 <Button
@@ -362,7 +390,7 @@ export function TicketDetailPage() {
                                                     className="w-full"
                                                 >
                                                     <XCircleIcon />
-                                                    Close Ticket
+                                                    {t("close.closeButton")}
                                                 </Button>
                                             }
                                         />

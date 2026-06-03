@@ -15,21 +15,23 @@ import { handleFormError } from "@/lib/handle-form-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useCreateUserMutation } from "../mutation/user.mutation";
 import { USER_QUERY_KEYS } from "../queries";
 import type { UserFormData, UserRole } from "../types";
 
-const ROLES: { label: string; value: UserRole }[] = [
-    { label: "Admin", value: "ADMIN" },
-    { label: "Employee", value: "EMPLOYEE" },
-];
-
 export function CreateUserForm() {
+    const { t } = useTranslation("user");
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { mutate, isPending } = useCreateUserMutation();
+
+    const ROLES: { label: string; value: UserRole }[] = [
+        { label: t("roles.admin"), value: "ADMIN" },
+        { label: t("roles.employee"), value: "EMPLOYEE" },
+    ];
 
     const { data: divisionOptionData } = useQuery(listDivisionOptionsQueryOption());
     const divisionOptions = divisionOptionData?.data ?? [];
@@ -49,8 +51,8 @@ export function CreateUserForm() {
     const onSubmit = (payload: UserFormData) => {
         mutate(payload, {
             onSuccess: async () => {
-                toast.success("Success", {
-                    description: "User created successfully",
+                toast.success(t("common:toast.success"), {
+                    description: t("create.createdSuccess"),
                 });
                 await queryClient.invalidateQueries({
                     queryKey: USER_QUERY_KEYS.ROOT,
@@ -66,8 +68,8 @@ export function CreateUserForm() {
     return (
         <Card className="mx-auto max-w-lg">
             <CardHeader>
-                <CardTitle>Add New User</CardTitle>
-                <CardDescription>Please fill all required fields</CardDescription>
+                <CardTitle>{t("create.cardTitle")}</CardTitle>
+                <CardDescription>{t("common:form.fillRequired")}</CardDescription>
             </CardHeader>
             <CardContent>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -78,14 +80,14 @@ export function CreateUserForm() {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="name">
-                                        Name
+                                        {t("create.nameLabel")}
                                         <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Input
                                         {...field}
                                         id={field.name}
                                         autoComplete="off"
-                                        placeholder="John Doe"
+                                        placeholder={t("create.namePlaceholder")}
                                     />
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
                                 </Field>
@@ -98,7 +100,7 @@ export function CreateUserForm() {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="email">
-                                        Email
+                                        {t("create.emailLabel")}
                                         <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Input
@@ -106,7 +108,7 @@ export function CreateUserForm() {
                                         id={field.name}
                                         type="email"
                                         autoComplete="off"
-                                        placeholder="john@example.com"
+                                        placeholder={t("create.emailPlaceholder")}
                                     />
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
                                 </Field>
@@ -120,12 +122,12 @@ export function CreateUserForm() {
                                 render={({ field, fieldState }) => (
                                     <Field>
                                         <FieldLabel htmlFor="role">
-                                            Role
+                                            {t("create.roleLabel")}
                                             <span className="text-destructive">*</span>
                                         </FieldLabel>
                                         <Select value={field.value} onValueChange={field.onChange}>
                                             <SelectTrigger id="role">
-                                                <SelectValue placeholder="Select role" />
+                                                <SelectValue placeholder={t("roles.placeholder")} />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {ROLES.map((r) => (
@@ -148,7 +150,7 @@ export function CreateUserForm() {
                                 render={({ field, fieldState }) => (
                                     <Field>
                                         <FieldLabel htmlFor="division">
-                                            Division
+                                            {t("create.divisionLabel")}
                                             <span className="text-destructive">*</span>
                                         </FieldLabel>
                                         <Select
@@ -156,11 +158,13 @@ export function CreateUserForm() {
                                             onValueChange={(v) => field.onChange(Number(v))}
                                         >
                                             <SelectTrigger id="division">
-                                                <SelectValue placeholder="Select division" />
+                                                <SelectValue
+                                                    placeholder={t("create.divisionPlaceholder")}
+                                                />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="__none__">
-                                                    Select a division
+                                                    {t("common:form.selectDivision")}
                                                 </SelectItem>
                                                 {divisionOptions.map((d) => (
                                                     <SelectItem key={d.id} value={String(d.id)}>
@@ -183,7 +187,7 @@ export function CreateUserForm() {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="gender">
-                                        Gender
+                                        {t("common:gender.placeholder")}
                                         <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Select
@@ -191,12 +195,17 @@ export function CreateUserForm() {
                                         onValueChange={field.onChange}
                                     >
                                         <SelectTrigger id="gender">
-                                            <SelectValue placeholder="Select gender" />
+                                            <SelectValue
+                                                placeholder={t("common:gender.placeholder")}
+                                            />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="MALE">Male</SelectItem>
-
-                                            <SelectItem value="FEMALE">Female</SelectItem>
+                                            <SelectItem value="MALE">
+                                                {t("common:gender.male")}
+                                            </SelectItem>
+                                            <SelectItem value="FEMALE">
+                                                {t("common:gender.female")}
+                                            </SelectItem>
                                         </SelectContent>
                                     </Select>
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
@@ -210,7 +219,7 @@ export function CreateUserForm() {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="password">
-                                        Password
+                                        {t("create.passwordLabel")}
                                         <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Input
@@ -232,10 +241,10 @@ export function CreateUserForm() {
                                 disabled={isPending}
                                 onClick={() => navigate(ROUTES.USER.INDEX)}
                             >
-                                Cancel
+                                {t("common:actions.cancel")}
                             </Button>
                             <Button type="submit" variant="default" disabled={isPending}>
-                                Create
+                                {t("common:actions.create")}
                             </Button>
                         </Field>
                     </FieldGroup>

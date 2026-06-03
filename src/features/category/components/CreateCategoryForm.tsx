@@ -7,6 +7,7 @@ import { handleFormError } from "@/lib/handle-form-error";
 import { useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useCreateCategoryMutation } from "../mutation/category.mutation";
@@ -14,6 +15,7 @@ import { CATEGORY_QUERY_KEYS } from "../queries";
 import type { CategoryFormData } from "../types";
 
 export function CreateCategoryForm() {
+    const { t } = useTranslation("category");
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { mutate, isPending } = useCreateCategoryMutation();
@@ -28,8 +30,8 @@ export function CreateCategoryForm() {
     const onSubmit = (payload: Pick<CategoryFormData, "name">) => {
         mutate(payload, {
             onSuccess: async () => {
-                toast.success("Success", {
-                    description: "Category created successfully",
+                toast.success(t("common:toast.success"), {
+                    description: t("create.createdSuccess"),
                 });
                 await queryClient.invalidateQueries({
                     queryKey: CATEGORY_QUERY_KEYS.ROOT,
@@ -45,8 +47,8 @@ export function CreateCategoryForm() {
     return (
         <Card className="mx-auto max-w-lg">
             <CardHeader>
-                <CardTitle>Add New Category</CardTitle>
-                <CardDescription>Please fill all required fields</CardDescription>
+                <CardTitle>{t("create.cardTitle")}</CardTitle>
+                <CardDescription>{t("common:form.fillRequired")}</CardDescription>
             </CardHeader>
             <CardContent>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -57,14 +59,14 @@ export function CreateCategoryForm() {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="name">
-                                        Name
+                                        {t("create.nameLabel")}
                                         <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Input
                                         {...field}
                                         id={field.name}
                                         autoComplete="off"
-                                        placeholder="Hardware"
+                                        placeholder={t("create.namePlaceholder")}
                                     />
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
                                 </Field>
@@ -78,10 +80,10 @@ export function CreateCategoryForm() {
                                 disabled={isPending}
                                 onClick={() => navigate(ROUTES.CATEGORY.INDEX)}
                             >
-                                Cancel
+                                {t("common:actions.cancel")}
                             </Button>
                             <Button type="submit" variant="default" disabled={isPending}>
-                                Create
+                                {t("common:actions.create")}
                             </Button>
                         </Field>
                     </FieldGroup>

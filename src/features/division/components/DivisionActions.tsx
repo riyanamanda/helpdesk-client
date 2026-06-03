@@ -9,6 +9,7 @@ import {
 import { ROUTES } from "@/constants";
 import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { toast } from "sonner";
 import { useDeleteDivisionMutation } from "../mutation/division.mutation";
@@ -20,22 +21,23 @@ interface DivisionActionsProps {
 }
 
 export function DivisionActions({ division }: DivisionActionsProps) {
+    const { t } = useTranslation("division");
     const queryClient = useQueryClient();
     const { mutate: deleteDivision, isPending } = useDeleteDivisionMutation();
 
     const handleDelete = () => {
         deleteDivision(division.id, {
             onSuccess: async () => {
-                toast.success("Success", {
-                    description: "Division deleted successfully",
+                toast.success(t("common:toast.success"), {
+                    description: t("delete.deletedSuccess"),
                 });
                 await queryClient.invalidateQueries({
                     queryKey: DIVISION_QUERY_KEYS.ROOT,
                 });
             },
             onError: () => {
-                toast.error("Operation failed", {
-                    description: "Failed to delete division",
+                toast.error(t("common:toast.operationFailed"), {
+                    description: t("delete.deleteFailed"),
                 });
             },
         });
@@ -51,12 +53,12 @@ export function DivisionActions({ division }: DivisionActionsProps) {
             <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
                     <NavLink to={ROUTES.DIVISION.EDIT.replace(":id", String(division.id))}>
-                        Edit
+                        {t("actions.edit")}
                     </NavLink>
                 </DropdownMenuItem>
                 <DeleteDialog
-                    title="Delete Division?"
-                    description={`"${division.name}" will be permanently deleted and cannot be recovered.`}
+                    title={t("delete.title")}
+                    description={t("delete.description", { name: division.name })}
                     onConfirm={handleDelete}
                     isPending={isPending}
                     trigger={
@@ -65,7 +67,7 @@ export function DivisionActions({ division }: DivisionActionsProps) {
                             className="cursor-pointer"
                             onSelect={(e) => e.preventDefault()}
                         >
-                            Delete
+                            {t("actions.delete")}
                         </DropdownMenuItem>
                     }
                 />

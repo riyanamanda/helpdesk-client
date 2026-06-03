@@ -6,6 +6,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { handleFormError } from "@/lib/handle-form-error";
 import type { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { useUpdatePasswordMutation } from "../mutation/profile.mutation";
 import type { UpdatePasswordRequest } from "../types";
@@ -15,6 +16,7 @@ interface UpdatePasswordFormData extends UpdatePasswordRequest {
 }
 
 export function UpdatePasswordCard() {
+    const { t } = useTranslation("auth");
     const { mutate, isPending } = useUpdatePasswordMutation();
 
     const form = useForm<UpdatePasswordFormData>({
@@ -26,7 +28,7 @@ export function UpdatePasswordCard() {
             { current_password, new_password },
             {
                 onSuccess: () => {
-                    toast.success("Password updated successfully");
+                    toast.success(t("password.updatedSuccess"));
                     form.reset();
                 },
                 onError: (error) => {
@@ -39,7 +41,7 @@ export function UpdatePasswordCard() {
     return (
         <Card>
             <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium">Change Password</CardTitle>
+                <CardTitle className="text-sm font-medium">{t("password.changeTitle")}</CardTitle>
             </CardHeader>
             <CardContent>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -47,11 +49,12 @@ export function UpdatePasswordCard() {
                         <Controller
                             name="current_password"
                             control={form.control}
-                            rules={{ required: "Current password is required" }}
+                            rules={{ required: t("password.currentRequired") }}
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor={field.name}>
-                                        Current Password <span className="text-destructive">*</span>
+                                        {t("password.currentPassword")}{" "}
+                                        <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Input
                                         {...field}
@@ -67,11 +70,12 @@ export function UpdatePasswordCard() {
                         <Controller
                             name="new_password"
                             control={form.control}
-                            rules={{ required: "New password is required" }}
+                            rules={{ required: t("password.newRequired") }}
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor={field.name}>
-                                        New Password <span className="text-destructive">*</span>
+                                        {t("password.newPassword")}{" "}
+                                        <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Input
                                         {...field}
@@ -88,15 +92,15 @@ export function UpdatePasswordCard() {
                             name="confirm_new_password"
                             control={form.control}
                             rules={{
-                                required: "Please confirm your new password",
+                                required: t("password.confirmRequired"),
                                 validate: (value) =>
                                     value === form.getValues("new_password") ||
-                                    "Passwords do not match",
+                                    t("password.mismatch"),
                             }}
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor={field.name}>
-                                        Confirm New Password{" "}
+                                        {t("password.confirmPassword")}{" "}
                                         <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Input
@@ -114,10 +118,10 @@ export function UpdatePasswordCard() {
                             <Button type="submit" disabled={isPending}>
                                 {isPending ? (
                                     <>
-                                        <Spinner /> Saving...
+                                        <Spinner /> {t("password.saving")}
                                     </>
                                 ) : (
-                                    "Update Password"
+                                    t("password.updateButton")
                                 )}
                             </Button>
                         </Field>

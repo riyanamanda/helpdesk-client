@@ -18,6 +18,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import type { OnChangeFn, SortingState } from "@tanstack/react-table";
 import { PlusIcon } from "lucide-react";
 import { startTransition, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { getUserColumns } from "../config/userColumn";
 import { listUserQueryOption } from "../queries/user.query";
@@ -27,6 +28,7 @@ type SortBy = NonNullable<UserListParams["sort_by"]>;
 type SortType = NonNullable<UserListParams["sort_type"]>;
 
 export function UserPage() {
+    const { t } = useTranslation("user");
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [search, setSearch] = useState("");
@@ -60,7 +62,7 @@ export function UserPage() {
 
     const users = data?.data;
     const pagination = data?.meta.pagination;
-    const columns = getUserColumns((page - 1) * limit, me?.data?.id);
+    const columns = getUserColumns(t, (page - 1) * limit, me?.data?.id);
 
     function handleSearchChange(value: string) {
         setSearch(value);
@@ -100,13 +102,13 @@ export function UserPage() {
     return (
         <PageLayout>
             <PageLayout.Header
-                title="Users"
-                description="All registered users in the system"
+                title={t("page.title")}
+                description={t("page.description")}
                 actions={
                     <NavLink to={ROUTES.USER.CREATE}>
                         <Button variant="outline" className="cursor-pointer">
                             <PlusIcon />
-                            Create new user
+                            {t("page.createButton")}
                         </Button>
                     </NavLink>
                 }
@@ -114,7 +116,7 @@ export function UserPage() {
             <PageLayout.Content>
                 <div className="flex flex-wrap items-center gap-2">
                     <Input
-                        placeholder="Search users..."
+                        placeholder={t("page.searchPlaceholder")}
                         value={search}
                         onChange={(e) => handleSearchChange(e.target.value)}
                         className="max-w-xs"
@@ -124,10 +126,10 @@ export function UserPage() {
                         onValueChange={handleDivisionChange}
                     >
                         <SelectTrigger className="w-40">
-                            <SelectValue placeholder="Division" />
+                            <SelectValue placeholder={t("columns.division")} />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">All Divisions</SelectItem>
+                            <SelectItem value="all">{t("filters.allDivisions")}</SelectItem>
                             {divisionOptions.map((d) => (
                                 <SelectItem key={d.id} value={String(d.id)}>
                                     {d.name}
@@ -137,12 +139,12 @@ export function UserPage() {
                     </Select>
                     <Select value={role ?? "all"} onValueChange={handleRoleChange}>
                         <SelectTrigger className="w-36">
-                            <SelectValue placeholder="Role" />
+                            <SelectValue placeholder={t("columns.role")} />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">All Roles</SelectItem>
-                            <SelectItem value="ADMIN">Admin</SelectItem>
-                            <SelectItem value="EMPLOYEE">Employee</SelectItem>
+                            <SelectItem value="all">{t("filters.allRoles")}</SelectItem>
+                            <SelectItem value="ADMIN">{t("roles.admin")}</SelectItem>
+                            <SelectItem value="EMPLOYEE">{t("roles.employee")}</SelectItem>
                         </SelectContent>
                     </Select>
                     <Select
@@ -150,12 +152,12 @@ export function UserPage() {
                         onValueChange={handleIsActiveChange}
                     >
                         <SelectTrigger className="w-36">
-                            <SelectValue placeholder="Status" />
+                            <SelectValue placeholder={t("common:table.status")} />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">All Status</SelectItem>
-                            <SelectItem value="true">Active</SelectItem>
-                            <SelectItem value="false">Inactive</SelectItem>
+                            <SelectItem value="all">{t("filters.allStatus")}</SelectItem>
+                            <SelectItem value="true">{t("common:status.active")}</SelectItem>
+                            <SelectItem value="false">{t("common:status.inactive")}</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>

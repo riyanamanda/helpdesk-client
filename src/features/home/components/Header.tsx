@@ -1,11 +1,14 @@
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Button } from "@/components/ui/button";
 import { COOKIES, ROUTES } from "@/constants";
 import { cookies } from "@/lib/cookies";
 import { TicketIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 
 export function Header() {
+    const { t } = useTranslation("home");
     const isLoggedIn = !!cookies.get(COOKIES.TOKEN_KEY);
 
     return (
@@ -16,14 +19,19 @@ export function Header() {
                         <TicketIcon className="h-3.5 w-3.5 text-primary-foreground sm:h-4 sm:w-4" />
                     </div>
 
-                    <span className="text-sm font-semibold tracking-tight">IT Helpdesk</span>
+                    <span className="text-sm font-semibold tracking-tight">
+                        {t("header.appName")}
+                    </span>
                 </div>
 
                 <div className="flex items-center gap-2 sm:gap-3">
+                    <LanguageSwitcher />
                     <ModeToggle />
 
                     <NavLink to={isLoggedIn ? ROUTES.DASHBOARD : ROUTES.LOGIN}>
-                        <Button size="sm">{isLoggedIn ? "Dashboard" : "Sign In"}</Button>
+                        <Button size="sm">
+                            {isLoggedIn ? t("header.dashboard") : t("header.signIn")}
+                        </Button>
                     </NavLink>
                 </div>
             </div>

@@ -1,0 +1,115 @@
+{
+    "page": {
+        "title": "Tiket",
+        "description": "Lihat dan kelola semua tiket helpdesk",
+        "submitButton": "Tiket Baru"
+    },
+    "detail": {
+        "backToTickets": "Kembali ke Tiket",
+        "description": "Deskripsi",
+        "resolution": "Resolusi",
+        "attachments": "Lampiran",
+        "filesCount_one": "{{count}} file",
+        "filesCount_other": "{{count}} file",
+        "people": "Pihak Terkait",
+        "timeline": "Linimasa",
+        "actions": "Tindakan",
+        "unassigned": "Belum Ditugaskan",
+        "reporter": "Pelapor",
+        "assignee": "Penanggung Jawab",
+        "resolvedBy": "Diselesaikan Oleh",
+        "closedBy": "Ditutup Oleh",
+        "created": "Dibuat",
+        "assigned": "Ditugaskan",
+        "resolved": "Diselesaikan",
+        "closed": "Ditutup",
+        "by": "oleh"
+    },
+    "status": {
+        "OPEN": "Terbuka",
+        "IN_PROGRESS": "Sedang Diproses",
+        "RESOLVED": "Selesai",
+        "CLOSED": "Ditutup",
+        "allStatuses": "Semua Status"
+    },
+    "priority": {
+        "LOW": "Rendah",
+        "MEDIUM": "Sedang",
+        "HIGH": "Tinggi",
+        "URGENT": "Mendesak",
+        "allPriorities": "Semua Prioritas"
+    },
+    "filters": {
+        "allCategories": "Semua Kategori",
+        "allRooms": "Semua Ruangan",
+        "allAssignees": "Semua Penanggung Jawab"
+    },
+    "columns": {
+        "title": "Judul",
+        "category": "Kategori",
+        "room": "Ruangan",
+        "reportedBy": "Dilaporkan Oleh",
+        "priority": "Prioritas",
+        "assignedTo": "Penanggung Jawab",
+        "resolvedBy": "Diselesaikan Oleh",
+        "closedBy": "Ditutup Oleh",
+        "detail": "Lihat Detail"
+    },
+    "create": {
+        "cardTitle": "Buat Tiket Baru",
+        "titleLabel": "Judul",
+        "titleHint": "Berikan ringkasan singkat dan jelas tentang masalah Anda. Maksimal 100 karakter.",
+        "titleHintExample": "Contoh: \"Printer tidak berfungsi di lantai 3\"",
+        "titlePlaceholder": "Ringkasan singkat masalah",
+        "descriptionLabel": "Deskripsi",
+        "descriptionHint": "Jelaskan masalah secara detail. Sertakan apa yang terjadi, apa yang Anda harapkan, dan langkah untuk mereproduksinya.",
+        "descriptionPlaceholder": "Berikan deskripsi lengkap mengenai masalah",
+        "categoryLabel": "Kategori",
+        "categoryHint": "Pilih jenis masalah untuk membantu mengarahkan tiket ke tim dukungan yang tepat.",
+        "divisionLabel": "Divisi",
+        "divisionHint": "Pilih divisi Anda agar tim dukungan mengetahui departemen yang terdampak.",
+        "attachmentLabel": "Lampiran (opsional)",
+        "chooseImage": "Pilih Gambar",
+        "imageConstraints": "JPEG/PNG, maksimal 2MB",
+        "remove": "Hapus",
+        "submitButton": "Kirim Tiket",
+        "createdSuccess": "Tiket berhasil dikirim"
+    },
+    "assign": {
+        "sheetTitle": "Tugaskan Tiket",
+        "sheetDescription": "Pilih teknisi untuk menangani tiket ini.",
+        "assignToLabel": "Tugaskan Kepada",
+        "assignButton": "Tugaskan",
+        "assignedSuccess": "Tiket berhasil ditugaskan"
+    },
+    "resolve": {
+        "sheetTitle": "Selesaikan Tiket",
+        "sheetDescription": "Berikan ringkasan resolusi dan lampirkan bukti pendukung jika diperlukan.",
+        "resolutionLabel": "Resolusi",
+        "resolutionPlaceholder": "Jelaskan bagaimana masalah diselesaikan",
+        "attachmentLabel": "Lampiran (opsional)",
+        "chooseImage": "Pilih Gambar",
+        "remove": "Hapus",
+        "resolveButton": "Selesaikan",
+        "submitButton": "Kirim Resolusi",
+        "resolvedSuccess": "Tiket berhasil diselesaikan"
+    },
+    "setPriority": {
+        "sheetTitle": "Atur Prioritas",
+        "sheetDescription": "Pilih tingkat prioritas yang sesuai untuk tiket ini.",
+        "priorityLabel": "Tingkat Prioritas",
+        "priorityPlaceholder": "Pilih prioritas",
+        "setButton": "Atur Prioritas",
+        "saveButton": "Simpan",
+        "updatedSuccess": "Prioritas berhasil diperbarui"
+    },
+    "close": {
+        "dialogTitle": "Tutup Tiket?",
+        "dialogDescription": "Tiket ini akan ditutup secara permanen. Tindakan ini tidak dapat dibatalkan.",
+        "confirmLabel": "Tutup Tiket",
+        "pendingLabel": "Menutup...",
+        "closeButton": "Tutup Tiket",
+        "closedSuccess": "Tiket berhasil ditutup",
+        "closeFailed": "Gagal menutup tiket"
+    }
+}

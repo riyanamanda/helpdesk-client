@@ -1,0 +1,115 @@
+{
+    "page": {
+        "title": "Tickets",
+        "description": "View and manage all helpdesk tickets",
+        "submitButton": "New Ticket"
+    },
+    "detail": {
+        "backToTickets": "Back to Tickets",
+        "description": "Description",
+        "resolution": "Resolution",
+        "attachments": "Attachments",
+        "filesCount_one": "{{count}} file",
+        "filesCount_other": "{{count}} files",
+        "people": "People",
+        "timeline": "Timeline",
+        "actions": "Actions",
+        "unassigned": "Unassigned",
+        "reporter": "Reporter",
+        "assignee": "Assignee",
+        "resolvedBy": "Resolved By",
+        "closedBy": "Closed By",
+        "created": "Created",
+        "assigned": "Assigned",
+        "resolved": "Resolved",
+        "closed": "Closed",
+        "by": "by"
+    },
+    "status": {
+        "OPEN": "Open",
+        "IN_PROGRESS": "In Progress",
+        "RESOLVED": "Resolved",
+        "CLOSED": "Closed",
+        "allStatuses": "All Statuses"
+    },
+    "priority": {
+        "LOW": "Low",
+        "MEDIUM": "Medium",
+        "HIGH": "High",
+        "URGENT": "Urgent",
+        "allPriorities": "All Priorities"
+    },
+    "filters": {
+        "allCategories": "All Categories",
+        "allRooms": "All Rooms",
+        "allAssignees": "All Assignees"
+    },
+    "columns": {
+        "title": "Title",
+        "category": "Category",
+        "room": "Room",
+        "reportedBy": "Reported By",
+        "priority": "Priority",
+        "assignedTo": "Assigned To",
+        "resolvedBy": "Resolved By",
+        "closedBy": "Closed By",
+        "detail": "View Details"
+    },
+    "create": {
+        "cardTitle": "Create New Ticket",
+        "titleLabel": "Title",
+        "titleHint": "Provide a short, clear summary of your issue. Maximum 100 characters.",
+        "titleHintExample": "Example: \"Printer not working on 3rd floor\"",
+        "titlePlaceholder": "Brief summary of the issue",
+        "descriptionLabel": "Description",
+        "descriptionHint": "Describe the issue in detail. Include what happened, what you expected, and steps to reproduce it.",
+        "descriptionPlaceholder": "Provide a detailed description of the issue",
+        "categoryLabel": "Category",
+        "categoryHint": "Select the issue type. This helps route your ticket to the appropriate support team.",
+        "divisionLabel": "Division",
+        "divisionHint": "Select your division so the support team knows which department is affected.",
+        "attachmentLabel": "Attachment (optional)",
+        "chooseImage": "Choose Image",
+        "imageConstraints": "JPEG/PNG, maximum 2MB",
+        "remove": "Remove",
+        "submitButton": "Submit Ticket",
+        "createdSuccess": "Ticket submitted successfully"
+    },
+    "assign": {
+        "sheetTitle": "Assign Ticket",
+        "sheetDescription": "Select a technician to assign this ticket to.",
+        "assignToLabel": "Assign To",
+        "assignButton": "Assign",
+        "assignedSuccess": "Ticket assigned successfully"
+    },
+    "resolve": {
+        "sheetTitle": "Resolve Ticket",
+        "sheetDescription": "Provide a resolution summary and optionally attach supporting proof.",
+        "resolutionLabel": "Resolution",
+        "resolutionPlaceholder": "Describe how the issue was resolved",
+        "attachmentLabel": "Attachment (optional)",
+        "chooseImage": "Choose Image",
+        "remove": "Remove",
+        "resolveButton": "Resolve",
+        "submitButton": "Submit Resolution",
+        "resolvedSuccess": "Ticket resolved successfully"
+    },
+    "setPriority": {
+        "sheetTitle": "Set Priority",
+        "sheetDescription": "Choose the appropriate priority level for this ticket.",
+        "priorityLabel": "Priority Level",
+        "priorityPlaceholder": "Select priority",
+        "setButton": "Set Priority",
+        "saveButton": "Save",
+        "updatedSuccess": "Priority updated successfully"
+    },
+    "close": {
+        "dialogTitle": "Close Ticket?",
+        "dialogDescription": "This will permanently close the ticket. This action cannot be undone.",
+        "confirmLabel": "Close Ticket",
+        "pendingLabel": "Closing...",
+        "closeButton": "Close Ticket",
+        "closedSuccess": "Ticket closed successfully",
+        "closeFailed": "Failed to close the ticket"
+    }
+}

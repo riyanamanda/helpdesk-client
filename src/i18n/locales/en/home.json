@@ -1,0 +1,19 @@
+{
+    "header": {
+        "appName": "IT Helpdesk",
+        "signIn": "Sign In",
+        "dashboard": "Dashboard"
+    },
+    "hero": {
+        "systemsOperational": "All systems operational",
+        "headline1": "Faster Support",
+        "headline2": "Better Experience",
+        "subheadline": "The internal IT helpdesk for Erba employees. Submit tickets, track progress, and get help — all in one place.",
+        "goToDashboard": "Go to Dashboard"
+    },
+    "footer": {
+        "appName": "IT Helpdesk",
+        "tagline": "Erba Ticketing System",
+        "rights": "© {{year}} All rights reserved."
+    }
+}

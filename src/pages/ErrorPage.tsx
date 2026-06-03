@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants";
 import { type Variants, motion } from "motion/react";
-import { Link, useRouteError, isRouteErrorResponse } from "react-router";
+import { useTranslation } from "react-i18next";
+import { Link, isRouteErrorResponse, useRouteError } from "react-router";
 
 const bubbles = [
     { cls: "h-3 w-3", pos: "top-[15%] left-[10%]", duration: 5, delay: 0 },
@@ -25,11 +26,12 @@ const itemVariants: Variants = {
 };
 
 export function ErrorPage() {
+    const { t } = useTranslation("common");
     const error = useRouteError();
 
     let statusCode = "500";
-    let title = "Something went wrong";
-    let description = "An unexpected error occurred. Please try again later.";
+    let title = t("errors.errorTitle");
+    let description = t("errors.errorDescription");
 
     if (isRouteErrorResponse(error)) {
         statusCode = String(error.status);
@@ -84,10 +86,10 @@ export function ErrorPage() {
 
                 <motion.div className="flex gap-3" variants={itemVariants}>
                     <Button asChild size="lg">
-                        <Link to={ROUTES.HOME}>Go to Home</Link>
+                        <Link to={ROUTES.HOME}>{t("errors.goToHome")}</Link>
                     </Button>
                     <Button variant="outline" size="lg" onClick={() => window.location.reload()}>
-                        Try Again
+                        {t("errors.tryAgain")}
                     </Button>
                 </motion.div>
             </motion.div>

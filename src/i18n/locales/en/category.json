@@ -1,0 +1,36 @@
+{
+    "page": {
+        "title": "Category",
+        "description": "Manage and organize ticket categories",
+        "createButton": "Add Category",
+        "searchPlaceholder": "Search categories..."
+    },
+    "filters": {
+        "allStatus": "All Status"
+    },
+    "columns": {
+        "active": "Active",
+        "inactive": "Inactive"
+    },
+    "delete": {
+        "title": "Delete Category?",
+        "description": "\"{{name}}\" will be permanently deleted and cannot be recovered.",
+        "deletedSuccess": "Category deleted successfully",
+        "deleteFailed": "Failed to delete category"
+    },
+    "create": {
+        "cardTitle": "Add New Category",
+        "nameLabel": "Category Name",
+        "namePlaceholder": "e.g. Hardware",
+        "createdSuccess": "Category created successfully"
+    },
+    "edit": {
+        "cardTitle": "Edit Category",
+        "activeLabel": "Active",
+        "savedSuccess": "Category updated successfully"
+    },
+    "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+    }
+}

@@ -1,6 +1,7 @@
 import { Spinner } from "@/components/ui/spinner";
 import { Trash2Icon } from "lucide-react";
 import { useState, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -26,16 +27,21 @@ interface DeleteDialogProps {
 }
 
 export function DeleteDialog({
-    title = "Are you sure?",
+    title,
     description,
     onConfirm,
     isPending = false,
     trigger,
-    confirmLabel = "Delete",
-    pendingLabel = "Deleting...",
+    confirmLabel,
+    pendingLabel,
     icon = <Trash2Icon />,
 }: DeleteDialogProps) {
+    const { t } = useTranslation("common");
     const [open, setOpen] = useState(false);
+
+    const resolvedTitle = title ?? t("dialog.areYouSure");
+    const resolvedConfirmLabel = confirmLabel ?? t("dialog.deleteConfirm");
+    const resolvedPendingLabel = pendingLabel ?? t("dialog.deleting");
 
     const handleOpenChange = (next: boolean) => {
         if (!next && isPending) return;
@@ -50,13 +56,13 @@ export function DeleteDialog({
                     <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
                         {icon}
                     </AlertDialogMedia>
-                    <AlertDialogTitle>{title}</AlertDialogTitle>
+                    <AlertDialogTitle>{resolvedTitle}</AlertDialogTitle>
                     <AlertDialogDescription>{description}</AlertDialogDescription>
                 </AlertDialogHeader>
 
                 <AlertDialogFooter>
                     <AlertDialogCancel variant="outline" disabled={isPending}>
-                        Cancel
+                        {t("actions.cancel")}
                     </AlertDialogCancel>
                     <AlertDialogAction
                         variant="destructive"
@@ -64,7 +70,7 @@ export function DeleteDialog({
                         onClick={onConfirm}
                     >
                         {isPending && <Spinner data-icon="inline-start" />}
-                        {isPending ? pendingLabel : confirmLabel}
+                        {isPending ? resolvedPendingLabel : resolvedConfirmLabel}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

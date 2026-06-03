@@ -8,6 +8,7 @@ import { handleFormError } from "@/lib/handle-form-error";
 import { useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useUpdateCategoryMutation } from "../mutation/category.mutation";
@@ -20,6 +21,7 @@ interface EditCategoryFormProps {
 }
 
 export function EditCategoryForm({ id, category }: EditCategoryFormProps) {
+    const { t } = useTranslation("category");
     const navigate = useNavigate();
     const queryClient = useQueryClient();
 
@@ -38,8 +40,8 @@ export function EditCategoryForm({ id, category }: EditCategoryFormProps) {
             { id, payload },
             {
                 onSuccess: async () => {
-                    toast.success("Success", {
-                        description: "Category updated successfully",
+                    toast.success(t("common:toast.success"), {
+                        description: t("edit.savedSuccess"),
                     });
                     await queryClient.invalidateQueries({
                         queryKey: CATEGORY_QUERY_KEYS.ROOT,
@@ -56,8 +58,8 @@ export function EditCategoryForm({ id, category }: EditCategoryFormProps) {
     return (
         <Card className="mx-auto max-w-lg">
             <CardHeader>
-                <CardTitle>Edit Category</CardTitle>
-                <CardDescription>Please fill all required fields</CardDescription>
+                <CardTitle>{t("edit.cardTitle")}</CardTitle>
+                <CardDescription>{t("common:form.fillRequired")}</CardDescription>
             </CardHeader>
             <CardContent>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -68,14 +70,14 @@ export function EditCategoryForm({ id, category }: EditCategoryFormProps) {
                             render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="name">
-                                        Name
+                                        {t("create.nameLabel")}
                                         <span className="text-destructive">*</span>
                                     </FieldLabel>
                                     <Input
                                         {...field}
                                         id={field.name}
                                         autoComplete="off"
-                                        placeholder="Hardware"
+                                        placeholder={t("create.namePlaceholder")}
                                     />
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
                                 </Field>
@@ -93,7 +95,9 @@ export function EditCategoryForm({ id, category }: EditCategoryFormProps) {
                                         onCheckedChange={field.onChange}
                                     />
 
-                                    <FieldLabel htmlFor={field.name}>Active</FieldLabel>
+                                    <FieldLabel htmlFor={field.name}>
+                                        {t("edit.activeLabel")}
+                                    </FieldLabel>
                                 </Field>
                             )}
                         />
@@ -105,10 +109,10 @@ export function EditCategoryForm({ id, category }: EditCategoryFormProps) {
                                 disabled={isPending}
                                 onClick={() => navigate(ROUTES.CATEGORY.INDEX)}
                             >
-                                Cancel
+                                {t("common:actions.cancel")}
                             </Button>
                             <Button type="submit" variant="default" disabled={isPending}>
-                                Save
+                                {t("common:actions.save")}
                             </Button>
                         </Field>
                     </FieldGroup>

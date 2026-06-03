@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants";
 import { type Variants, motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router";
 
 const bubbles = [
@@ -25,11 +26,11 @@ const itemVariants: Variants = {
 };
 
 export function NotFoundPage() {
+    const { t } = useTranslation("common");
     const navigate = useNavigate();
 
     return (
         <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background text-foreground">
-            {/* Dot grid */}
             <div
                 className="pointer-events-none absolute inset-0 opacity-25"
                 style={{
@@ -39,10 +40,8 @@ export function NotFoundPage() {
                 }}
             />
 
-            {/* Radial vignette */}
             <div className="pointer-events-none absolute inset-0 bg-radial from-transparent to-background" />
 
-            {/* Floating bubbles */}
             {bubbles.map((b, i) => (
                 <motion.div
                     key={i}
@@ -57,7 +56,6 @@ export function NotFoundPage() {
                 />
             ))}
 
-            {/* Content */}
             <motion.div
                 className="relative z-10 flex flex-col items-center gap-6 px-4 text-center"
                 variants={containerVariants}
@@ -73,19 +71,19 @@ export function NotFoundPage() {
 
                 <motion.div className="flex flex-col gap-2" variants={itemVariants}>
                     <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                        Page not found
+                        {t("errors.notFoundTitle")}
                     </h1>
                     <p className="max-w-sm text-sm text-muted-foreground">
-                        The page you're looking for doesn't exist or has been moved.
+                        {t("errors.notFoundDescription")}
                     </p>
                 </motion.div>
 
                 <motion.div className="flex gap-3" variants={itemVariants}>
                     <Button asChild size="lg">
-                        <Link to={ROUTES.DASHBOARD}>Go to Dashboard</Link>
+                        <Link to={ROUTES.DASHBOARD}>{t("errors.goToDashboard")}</Link>
                     </Button>
                     <Button variant="outline" size="lg" onClick={() => navigate(-1)}>
-                        Go Back
+                        {t("errors.goBack")}
                     </Button>
                 </motion.div>
             </motion.div>
