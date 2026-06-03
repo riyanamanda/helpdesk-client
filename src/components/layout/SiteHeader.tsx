@@ -4,7 +4,7 @@ import { meQueryOption } from "@/features/auth/queries/auth.query";
 import { getInitials } from "@/lib/formatters";
 import { resolveMediaUrl } from "@/lib/media-url";
 import { useQuery } from "@tanstack/react-query";
-import { LogOutIcon, UserCircleIcon } from "lucide-react";
+import { KeyRoundIcon, LogOutIcon, UserCircleIcon } from "lucide-react";
 import { useNavigate } from "react-router";
 import { ModeToggle } from "../ModeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -67,6 +67,13 @@ export function SiteHeader() {
                             >
                                 <UserCircleIcon />
                                 Profile
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                                className="cursor-pointer"
+                                onClick={() => navigate(ROUTES.PROFILE_UPDATE_PASSWORD)}
+                            >
+                                <KeyRoundIcon />
+                                Change Password
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />

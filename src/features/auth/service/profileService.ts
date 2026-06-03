@@ -1,6 +1,6 @@
 import { http } from "@/api";
 import type { User } from "@/features/user/types";
-import type { UpdateProfileRequest } from "../types";
+import type { UpdatePasswordRequest, UpdateProfileRequest } from "../types";
 
 export const profileService = {
     getProfile: async (): Promise<{ data: User }> => {
@@ -18,6 +18,10 @@ export const profileService = {
         await http.patch("/api/v1/profile/avatar", form, {
             headers: { "Content-Type": "multipart/form-data" },
         });
+    },
+
+    updatePassword: async (payload: UpdatePasswordRequest): Promise<void> => {
+        await http.patch("/api/v1/profile/update-password", payload);
     },
 
     syncGoogle: async (payload: { id_token: string }): Promise<void> => {

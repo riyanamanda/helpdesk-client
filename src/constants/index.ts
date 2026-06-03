@@ -51,4 +51,5 @@ export const ROUTES = {
     },
 
     PROFILE: "/profile",
+    PROFILE_UPDATE_PASSWORD: "/profile/update-password",
 } as const;

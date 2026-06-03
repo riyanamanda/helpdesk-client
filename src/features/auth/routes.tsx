@@ -19,4 +19,11 @@ export const profileRoutes: RouteObject[] = [
             return { Component: ProfilePage };
         },
     },
+    {
+        path: ROUTES.PROFILE_UPDATE_PASSWORD,
+        lazy: async () => {
+            const { UpdatePasswordPage } = await import("./pages/UpdatePasswordPage");
+            return { Component: UpdatePasswordPage };
+        },
+    },
 ];

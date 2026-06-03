@@ -4,7 +4,7 @@ import { signInWithPopup } from "firebase/auth";
 import { toast } from "sonner";
 import { AUTH_QUERY_KEYS, PROFILE_QUERY_KEYS } from "../queries/queryKeys";
 import { profileService } from "../service/profileService";
-import type { UpdateProfileRequest } from "../types";
+import type { UpdatePasswordRequest, UpdateProfileRequest } from "../types";
 
 export function useUpdateProfileMutation() {
     const queryClient = useQueryClient();
@@ -28,6 +28,12 @@ export function useUpdateAvatarMutation() {
             queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEYS.ME });
             toast.success("Avatar updated successfully");
         },
+    });
+}
+
+export function useUpdatePasswordMutation() {
+    return useMutation({
+        mutationFn: (payload: UpdatePasswordRequest) => profileService.updatePassword(payload),
     });
 }
 
