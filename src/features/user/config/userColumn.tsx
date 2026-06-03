@@ -12,7 +12,7 @@ import {
 import { UserActions } from "../components/UserActions";
 import type { User } from "../types";
 
-export const getUserColumns = (pageOffset = 0): ColumnDef<User>[] => [
+export const getUserColumns = (pageOffset = 0, loggedUserId?: string): ColumnDef<User>[] => [
     {
         id: "no",
         header: "No.",
@@ -146,7 +146,10 @@ export const getUserColumns = (pageOffset = 0): ColumnDef<User>[] => [
     },
     {
         id: "action",
-        cell: ({ row }) => <UserActions user={row.original} />,
+        cell: ({ row }) => {
+            if (row.original.id === loggedUserId) return null;
+            return <UserActions user={row.original} />;
+        },
         enableSorting: false,
     },
 ];

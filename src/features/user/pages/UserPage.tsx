@@ -13,6 +13,7 @@ import {
 import { ROUTES } from "@/constants";
 import { listDivisionOptionsQueryOption } from "@/features/division/queries/division.query";
 import { useDebounce } from "@/hooks/use-debounce";
+import { meQueryOption } from "@/features/auth/queries/auth.query";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import type { OnChangeFn, SortingState } from "@tanstack/react-table";
 import { PlusIcon } from "lucide-react";
@@ -34,6 +35,7 @@ export function UserPage() {
     const [divisionId, setDivisionId] = useState<number | undefined>(undefined);
     const [isActive, setIsActive] = useState<boolean | undefined>(undefined);
 
+    const { data: me } = useQuery(meQueryOption());
     const { data: divisionOptionsData } = useQuery(listDivisionOptionsQueryOption());
     const divisionOptions = divisionOptionsData?.data ?? [];
 
@@ -58,7 +60,7 @@ export function UserPage() {
 
     const users = data?.data;
     const pagination = data?.meta.pagination;
-    const columns = getUserColumns((page - 1) * limit);
+    const columns = getUserColumns((page - 1) * limit, me?.data?.id);
 
     function handleSearchChange(value: string) {
         setSearch(value);
