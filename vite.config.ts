@@ -13,6 +13,13 @@ export default defineConfig({
     },
     server: {
         port: 3000,
+        proxy: {
+            "/storage": {
+                target: "http://localhost:9000",
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/storage/, ""),
+            },
+        },
     },
     build: {
         rollupOptions: {
