@@ -47,7 +47,7 @@ export function TicketPage() {
     });
 
     const tickets = data?.data;
-    const pagination = data?.meta.pagination;
+    const pagination = data?.pagination;
     const columns = getTicketColumns(t, (page - 1) * limit);
 
     return (

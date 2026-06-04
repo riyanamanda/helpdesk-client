@@ -51,7 +51,7 @@ export function CategoryPage() {
     });
 
     const categories = data?.data;
-    const pagination = data?.meta.pagination;
+    const pagination = data?.pagination;
     const columns = getCategoryColumns(t, (page - 1) * limit);
 
     function handleSearchChange(value: string) {

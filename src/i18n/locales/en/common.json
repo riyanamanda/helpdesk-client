@@ -63,7 +63,11 @@
     },
     "toast": {
         "success": "Success",
-        "operationFailed": "Operation Failed"
+        "operationFailed": "Operation Failed",
+        "serverError": "Server Error",
+        "serverErrorDescription": "An unexpected server error occurred. Report this to support.",
+        "requestId": "Request ID: {{id}}",
+        "copyId": "Copy ID"
     },
     "errors": {
         "notFoundTitle": "Page Not Found",
@@ -74,5 +78,29 @@
         "goToHome": "Go to Home",
         "goBack": "Go Back",
         "tryAgain": "Try Again"
+    },
+    "validation": {
+        "required": "This field is required",
+        "email": "Invalid email address",
+        "min": "Minimum {{count}} characters",
+        "max": "Maximum {{count}} characters",
+        "gte": "Must be at least {{count}}",
+        "lte": "Must be at most {{count}}",
+        "url": "Invalid URL",
+        "uuid": "Invalid ID format",
+        "default": "Invalid value"
+    },
+    "errorCodes": {
+        "NOT_FOUND": "The requested resource was not found",
+        "ALREADY_EXISTS": "This resource already exists",
+        "FORBIDDEN": "You do not have permission to perform this action",
+        "UNAUTHORIZED": "Authentication required",
+        "INVALID_TOKEN": "Authentication required",
+        "TOKEN_EXPIRED": "Authentication required",
+        "MISSING_TOKEN": "Authentication required",
+        "VALIDATION_ERROR": "Please check the form for errors",
+        "BAD_REQUEST": "Invalid request",
+        "INTERNAL_SERVER_ERROR": "An unexpected error occurred",
+        "default": "Something went wrong"
     }
 }

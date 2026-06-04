@@ -1,6 +1,8 @@
 import { CONFIG, COOKIES, ERROR_CODES, ROUTES, SESSION_STORAGE_KEYS } from "@/constants";
+import i18n from "@/i18n";
 import { cookies } from "@/lib/cookies";
 import Axios from "axios";
+import { toast } from "sonner";
 
 export const http = Axios.create({
     baseURL: CONFIG.API_BASE_URL,
@@ -26,6 +28,21 @@ http.interceptors.request.use(
 http.interceptors.response.use(
     (response) => response,
     async (error) => {
+        if (error.response && error.response.status >= 500) {
+            const requestId = error.response.headers?.["x-request-id"] as string | undefined;
+            toast.error(i18n.t("toast.serverError"), {
+                description: requestId
+                    ? `${i18n.t("toast.serverErrorDescription")}\n${i18n.t("toast.requestId", { id: requestId })}`
+                    : i18n.t("toast.serverErrorDescription"),
+                ...(requestId && {
+                    action: {
+                        label: i18n.t("toast.copyId"),
+                        onClick: () => navigator.clipboard.writeText(requestId),
+                    },
+                }),
+            });
+        }
+
         if (error.response && error.response.status === 401) {
             const error_code = error.response?.data?.error.code;
 

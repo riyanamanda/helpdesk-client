@@ -1,8 +1,3 @@
-interface Meta {
-    timestamp: string;
-    request_id: string;
-}
-
 export interface Pagination {
     page: number;
     limit: number;
@@ -12,14 +7,21 @@ export interface Pagination {
 
 export interface PaginatedResponse<T> {
     data: T[];
-    meta: Meta & { pagination: Pagination };
+    pagination: Pagination;
+}
+
+export interface SuccessResponse<T> {
+    data: T;
+}
+
+export interface ValidationFieldError {
+    code: string;
+    param?: string;
 }
 
 export interface ServerErrorResponse {
     error: {
         code?: string;
-        message?: string;
-        details?: Record<string, string | string[]>;
+        details?: Record<string, ValidationFieldError>;
     };
-    meta: Pick<Meta, "request_id" | "timestamp">;
 }

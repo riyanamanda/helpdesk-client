@@ -63,7 +63,11 @@
     },
     "toast": {
         "success": "Berhasil",
-        "operationFailed": "Operasi Gagal"
+        "operationFailed": "Operasi Gagal",
+        "serverError": "Kesalahan Server",
+        "serverErrorDescription": "Terjadi kesalahan pada server. Laporkan ini ke tim support.",
+        "requestId": "ID Permintaan: {{id}}",
+        "copyId": "Salin ID"
     },
     "errors": {
         "notFoundTitle": "Halaman Tidak Ditemukan",
@@ -74,5 +78,29 @@
         "goToHome": "Ke Beranda",
         "goBack": "Kembali",
         "tryAgain": "Coba Lagi"
+    },
+    "validation": {
+        "required": "Kolom ini wajib diisi",
+        "email": "Alamat email tidak valid",
+        "min": "Minimal {{count}} karakter",
+        "max": "Maksimal {{count}} karakter",
+        "gte": "Harus minimal {{count}}",
+        "lte": "Harus maksimal {{count}}",
+        "url": "URL tidak valid",
+        "uuid": "Format ID tidak valid",
+        "default": "Nilai tidak valid"
+    },
+    "errorCodes": {
+        "NOT_FOUND": "Data yang diminta tidak ditemukan",
+        "ALREADY_EXISTS": "Data ini sudah ada",
+        "FORBIDDEN": "Anda tidak memiliki izin untuk melakukan tindakan ini",
+        "UNAUTHORIZED": "Autentikasi diperlukan",
+        "INVALID_TOKEN": "Autentikasi diperlukan",
+        "TOKEN_EXPIRED": "Autentikasi diperlukan",
+        "MISSING_TOKEN": "Autentikasi diperlukan",
+        "VALIDATION_ERROR": "Harap periksa kembali formulir Anda",
+        "BAD_REQUEST": "Permintaan tidak valid",
+        "INTERNAL_SERVER_ERROR": "Terjadi kesalahan yang tidak terduga",
+        "default": "Terjadi kesalahan"
     }
 }

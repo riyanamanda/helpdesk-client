@@ -1,7 +1,20 @@
+import i18n from "@/i18n";
 import type { ServerErrorResponse } from "@/types";
 import { AxiosError } from "axios";
 import { type FieldValues, type Path, type UseFormReturn } from "react-hook-form";
 import { toast } from "sonner";
+
+function tField(code: string, param?: string): string {
+    const key = `validation.${code}`;
+    const fallback = i18n.t("validation.default");
+    return i18n.exists(key) ? i18n.t(key, { count: param ? Number(param) : undefined }) : fallback;
+}
+
+function tErrorCode(code?: string): string {
+    if (!code) return i18n.t("errorCodes.default");
+    const key = `errorCodes.${code}`;
+    return i18n.exists(key) ? i18n.t(key) : i18n.t("errorCodes.default");
+}
 
 export function handleFormError<TFieldValues extends FieldValues>(
     error: AxiosError,
@@ -13,19 +26,28 @@ export function handleFormError<TFieldValues extends FieldValues>(
 
     if (resp.error?.details) {
         Object.entries(resp.error.details).forEach(([key, val]) => {
-            const message = Array.isArray(val) ? String(val[0]) : String(val);
             form.setError(key as Path<TFieldValues>, {
                 type: "server",
-                message,
+                message: tField(val.code, val.param),
             });
         });
 
         return;
     }
 
-    const errorMessage = resp.error?.message ?? error?.message ?? "Something went wrong";
+    if (error.response && error.response.status >= 500) return;
 
-    toast.error("Operation failed", {
-        description: errorMessage,
+    const requestId = error.response?.headers?.["x-request-id"] as string | undefined;
+
+    toast.error(i18n.t("toast.operationFailed"), {
+        description: requestId
+            ? `${tErrorCode(resp.error?.code)}\n${i18n.t("toast.requestId", { id: requestId })}`
+            : tErrorCode(resp.error?.code),
+        ...(requestId && {
+            action: {
+                label: i18n.t("toast.copyId"),
+                onClick: () => navigator.clipboard.writeText(requestId),
+            },
+        }),
     });
 }

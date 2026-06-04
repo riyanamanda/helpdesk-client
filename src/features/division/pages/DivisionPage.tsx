@@ -51,7 +51,7 @@ export function DivisionPage() {
     });
 
     const divisions = data?.data;
-    const pagination = data?.meta.pagination;
+    const pagination = data?.pagination;
     const columns = getDivisionColumns(t, (page - 1) * limit);
 
     function handleSearchChange(value: string) {

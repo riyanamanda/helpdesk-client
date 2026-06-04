@@ -61,7 +61,7 @@ export function UserPage() {
     });
 
     const users = data?.data;
-    const pagination = data?.meta.pagination;
+    const pagination = data?.pagination;
     const columns = getUserColumns(t, (page - 1) * limit, me?.data?.id);
 
     function handleSearchChange(value: string) {
