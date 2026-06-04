@@ -8,6 +8,7 @@ import { homeRoutes } from "@/features/home/routes";
 import type { RouteObject } from "react-router";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { NotFoundPage } from "@/pages/NotFoundPage";
+import { AdminRoute } from "./AdminRoute";
 import { GuestRoutes } from "./GuestRoutes";
 import { NavigationProgress } from "./NavigationProgress";
 import { ProtectedRoutes } from "./ProtectedRoutes";
@@ -26,11 +27,12 @@ export const appRoutes: RouteObject[] = [
                 element: <ProtectedRoutes />,
                 children: [
                     ...dashboardRoutes,
-                    ...categoryRoutes,
-                    ...divisionRoutes,
-                    ...userRoutes,
                     ...ticketRoutes,
                     ...profileRoutes,
+                    {
+                        element: <AdminRoute />,
+                        children: [...categoryRoutes, ...divisionRoutes, ...userRoutes],
+                    },
                 ],
             },
             {

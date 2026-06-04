@@ -1,4 +1,5 @@
 import { ROUTES } from "@/constants";
+import { useIsAdmin } from "@/hooks/use-current-user";
 import {
     BlocksIcon,
     GaugeIcon,
@@ -24,48 +25,21 @@ import {
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
     const { t } = useTranslation("common");
+    const isAdmin = useIsAdmin();
 
-    const data = {
-        navMain: [
-            {
-                name: t("nav.dashboard"),
-                url: ROUTES.DASHBOARD,
-                icon: GaugeIcon,
-            },
-            {
-                name: t("nav.tickets"),
-                url: ROUTES.TICKET.INDEX,
-                icon: TicketIcon,
-            },
-        ],
-        navMaster: [
-            {
-                name: t("nav.category"),
-                url: ROUTES.CATEGORY.INDEX,
-                icon: BlocksIcon,
-            },
-            {
-                name: t("nav.division"),
-                url: ROUTES.DIVISION.INDEX,
-                icon: PresentationIcon,
-            },
-        ],
-        navAuth: [
-            {
-                name: t("nav.users"),
-                url: ROUTES.USER.INDEX,
-                icon: UserIcon,
-            },
-        ],
-        navEtc: [
-            {
-                is_blank: true,
-                name: t("nav.contact"),
-                url: "https://github.com/riyanamanda",
-                icon: SmartphoneNfcIcon,
-            },
-        ],
-    };
+    const navMain = [
+        { name: t("nav.dashboard"), url: ROUTES.DASHBOARD, icon: GaugeIcon },
+        { name: t("nav.tickets"), url: ROUTES.TICKET.INDEX, icon: TicketIcon },
+    ];
+
+    const navEtc = [
+        {
+            is_blank: true,
+            name: t("nav.contact"),
+            url: "https://github.com/riyanamanda",
+            icon: SmartphoneNfcIcon,
+        },
+    ];
 
     return (
         <Sidebar collapsible="offcanvas" {...props}>
@@ -87,10 +61,33 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent className="gap-3">
-                <SidebarNav items={data.navMain} />
-                <SidebarNav label={t("nav.master")} items={data.navMaster} />
-                <SidebarNav label={t("nav.auth")} items={data.navAuth} />
-                <SidebarNav items={data.navEtc} className="mt-auto" />
+                <SidebarNav items={navMain} />
+                {isAdmin && (
+                    <>
+                        <SidebarNav
+                            label={t("nav.master")}
+                            items={[
+                                {
+                                    name: t("nav.category"),
+                                    url: ROUTES.CATEGORY.INDEX,
+                                    icon: BlocksIcon,
+                                },
+                                {
+                                    name: t("nav.division"),
+                                    url: ROUTES.DIVISION.INDEX,
+                                    icon: PresentationIcon,
+                                },
+                            ]}
+                        />
+                        <SidebarNav
+                            label={t("nav.auth")}
+                            items={[
+                                { name: t("nav.users"), url: ROUTES.USER.INDEX, icon: UserIcon },
+                            ]}
+                        />
+                    </>
+                )}
+                <SidebarNav items={navEtc} className="mt-auto" />
             </SidebarContent>
             <SidebarFooter />
         </Sidebar>

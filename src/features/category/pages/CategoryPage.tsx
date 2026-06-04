@@ -11,6 +11,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { ROUTES } from "@/constants";
+import { useIsAdmin } from "@/hooks/use-current-user";
 import { useDebounce } from "@/hooks/use-debounce";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import type { OnChangeFn, SortingState } from "@tanstack/react-table";
@@ -27,6 +28,7 @@ type SortType = NonNullable<CategoryListParams["sort_type"]>;
 
 export function CategoryPage() {
     const { t } = useTranslation("category");
+    const isAdmin = useIsAdmin();
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [search, setSearch] = useState("");
@@ -81,12 +83,14 @@ export function CategoryPage() {
                 title={t("page.title")}
                 description={t("page.description")}
                 actions={
-                    <NavLink to={ROUTES.CATEGORY.CREATE}>
-                        <Button variant="outline" className="cursor-pointer">
-                            <PlusIcon />
-                            {t("page.createButton")}
-                        </Button>
-                    </NavLink>
+                    isAdmin && (
+                        <NavLink to={ROUTES.CATEGORY.CREATE}>
+                            <Button variant="outline" className="cursor-pointer">
+                                <PlusIcon />
+                                {t("page.createButton")}
+                            </Button>
+                        </NavLink>
+                    )
                 }
             />
             <PageLayout.Content>

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ROUTES } from "@/constants";
 import { DeleteDialog } from "@/components/DeleteDialog";
+import { useIsAdmin } from "@/hooks/use-current-user";
 import { formatDate } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
@@ -141,6 +142,7 @@ export function TicketDetailPage() {
 
     const { data: response } = useSuspenseQuery(getTicketQueryOption(ticketId));
     const ticket = response.data;
+    const isAdmin = useIsAdmin();
 
     const { mutate: closeTicket, isPending: isClosing } = useCloseTicketMutation();
 
@@ -353,7 +355,7 @@ export function TicketDetailPage() {
                             </CardContent>
                         </Card>
 
-                        {ticket.status !== "CLOSED" && (
+                        {isAdmin && ticket.status !== "CLOSED" && (
                             <Card>
                                 <CardHeader className="pb-2">
                                     <CardTitle className="text-sm font-medium">

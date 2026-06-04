@@ -7,6 +7,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ROUTES } from "@/constants";
+import { useIsAdmin } from "@/hooks/use-current-user";
 import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -22,8 +23,11 @@ interface DivisionActionsProps {
 
 export function DivisionActions({ division }: DivisionActionsProps) {
     const { t } = useTranslation("division");
+    const isAdmin = useIsAdmin();
     const queryClient = useQueryClient();
     const { mutate: deleteDivision, isPending } = useDeleteDivisionMutation();
+
+    if (!isAdmin) return null;
 
     const handleDelete = () => {
         deleteDivision(division.id, {

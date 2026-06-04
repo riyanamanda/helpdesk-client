@@ -37,17 +37,7 @@ export function handleFormError<TFieldValues extends FieldValues>(
 
     if (error.response && error.response.status >= 500) return;
 
-    const requestId = error.response?.headers?.["x-request-id"] as string | undefined;
-
     toast.error(i18n.t("toast.operationFailed"), {
-        description: requestId
-            ? `${tErrorCode(resp.error?.code)}\n${i18n.t("toast.requestId", { id: requestId })}`
-            : tErrorCode(resp.error?.code),
-        ...(requestId && {
-            action: {
-                label: i18n.t("toast.copyId"),
-                onClick: () => navigator.clipboard.writeText(requestId),
-            },
-        }),
+        description: tErrorCode(resp.error?.code),
     });
 }

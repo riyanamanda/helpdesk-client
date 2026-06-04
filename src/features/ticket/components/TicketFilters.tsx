@@ -8,7 +8,8 @@ import {
 } from "@/components/ui/select";
 import { listCategoryOptionsQueryOption } from "@/features/category/queries/category.query";
 import { listDivisionOptionsQueryOption } from "@/features/division/queries/division.query";
-import { listUserQueryOption } from "@/features/user/queries/user.query";
+import { listAssignableUserQueryOption } from "@/features/user/queries/user.query";
+import { useIsAdmin } from "@/hooks/use-current-user";
 import { useQuery } from "@tanstack/react-query";
 import { XIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -26,6 +27,7 @@ interface TicketFiltersProps {
 
 export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) {
     const { t } = useTranslation("ticket");
+    const isAdmin = useIsAdmin();
 
     const STATUS_OPTIONS: { value: TicketStatus; label: string }[] = [
         { value: "OPEN", label: t("status.OPEN") },
@@ -43,11 +45,11 @@ export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) 
 
     const { data: categoryOptionsData } = useQuery(listCategoryOptionsQueryOption());
     const { data: divisionOptionsData } = useQuery(listDivisionOptionsQueryOption());
-    const { data: usersData } = useQuery(listUserQueryOption({ page: 1, limit: 100 }));
+    const { data: usersData } = useQuery({ ...listAssignableUserQueryOption(), enabled: isAdmin });
 
     const categoryOptions = categoryOptionsData?.data ?? [];
     const divisionOptions = divisionOptionsData?.data ?? [];
-    const users = (usersData?.data ?? []).filter((u) => u.division.name === "IT");
+    const users = usersData?.data ?? [];
 
     const hasActiveFilters = Object.values(filters).some((v) => v !== undefined);
 
@@ -129,22 +131,24 @@ export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) 
                 </SelectContent>
             </Select>
 
-            <Select
-                value={filters.assigned_to_id ?? "all"}
-                onValueChange={(v) => set("assigned_to_id", v === "all" ? undefined : v)}
-            >
-                <SelectTrigger className="h-8 w-40 text-xs">
-                    <SelectValue placeholder={t("filters.allAssignees")} />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="all">{t("filters.allAssignees")}</SelectItem>
-                    {users.map((u) => (
-                        <SelectItem key={u.id} value={u.id}>
-                            {u.name}
-                        </SelectItem>
-                    ))}
-                </SelectContent>
-            </Select>
+            {isAdmin && (
+                <Select
+                    value={filters.assigned_to_id ?? "all"}
+                    onValueChange={(v) => set("assigned_to_id", v === "all" ? undefined : v)}
+                >
+                    <SelectTrigger className="h-8 w-40 text-xs">
+                        <SelectValue placeholder={t("filters.allAssignees")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">{t("filters.allAssignees")}</SelectItem>
+                        {users.map((u) => (
+                            <SelectItem key={u.id} value={u.id}>
+                                {u.name}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            )}
 
             {hasActiveFilters && (
                 <Button variant="ghost" size="sm" className="h-8 px-2 text-xs" onClick={clear}>
