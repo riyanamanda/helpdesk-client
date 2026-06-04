@@ -32,7 +32,3 @@ export interface UpdatePasswordRequest {
     current_password: string;
     new_password: string;
 }
-
-export interface LoginResponse {
-    access_token: string;
-}

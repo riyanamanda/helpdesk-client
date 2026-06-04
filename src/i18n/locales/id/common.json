@@ -99,7 +99,7 @@
         "TOKEN_EXPIRED": "Autentikasi diperlukan",
         "MISSING_TOKEN": "Autentikasi diperlukan",
         "VALIDATION_ERROR": "Harap periksa kembali formulir Anda",
-        "BAD_REQUEST": "Permintaan tidak valid",
+        "BAD_REQUEST": "Email atau Password salah",
         "INTERNAL_SERVER_ERROR": "Terjadi kesalahan yang tidak terduga",
         "default": "Terjadi kesalahan"
     }

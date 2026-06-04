@@ -3,21 +3,19 @@ import { DataTablePagination } from "@/components/DataTablePagination";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants";
-import { useIsAdmin } from "@/hooks/use-current-user";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { type SortingState } from "@tanstack/react-table";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
-import { getTicketColumns } from "../config/ticketColumn";
 import { TicketFilters, type TicketFiltersState } from "../components/TicketFilters";
+import { getTicketColumns } from "../config/ticketColumn";
 import { listTicketQueryOption } from "../queries/ticket.query";
 import type { SortType, TicketSortBy } from "../types";
 
 export function TicketPage() {
     const { t } = useTranslation("ticket");
-    const isAdmin = useIsAdmin();
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [filters, setFilters] = useState<TicketFiltersState>({});
@@ -58,14 +56,12 @@ export function TicketPage() {
                 title={t("page.title")}
                 description={t("page.description")}
                 actions={
-                    !isAdmin && (
-                        <NavLink to={ROUTES.TICKET.CREATE}>
-                            <Button variant="outline" className="cursor-pointer">
-                                <PlusIcon />
-                                {t("page.submitButton")}
-                            </Button>
-                        </NavLink>
-                    )
+                    <NavLink to={ROUTES.TICKET.CREATE}>
+                        <Button variant="outline" className="cursor-pointer">
+                            <PlusIcon />
+                            {t("page.submitButton")}
+                        </Button>
+                    </NavLink>
                 }
             />
             <PageLayout.Content>

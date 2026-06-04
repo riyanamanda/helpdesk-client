@@ -4,7 +4,7 @@ import type { User } from "@/features/user/types";
 
 export type TicketStatus = "OPEN" | "IN_PROGRESS" | "RESOLVED" | "CLOSED";
 export type TicketPriority = "LOW" | "MEDIUM" | "HIGH" | "URGENT";
-export type AttachmentType = "REPORT" | "RESOLUTION";
+type AttachmentType = "REPORT" | "RESOLUTION";
 export type TicketSortBy = "created_at" | "updated_at" | "status" | "priority";
 export type SortType = "ASC" | "DESC";
 
