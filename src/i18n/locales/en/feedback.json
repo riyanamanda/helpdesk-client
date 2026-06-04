@@ -1,0 +1,52 @@
+{
+    "page": {
+        "title": "My Feedback",
+        "description": "Submit and track your feedback, feature requests, and bug reports",
+        "titleAdmin": "All Feedback",
+        "descriptionAdmin": "Review and manage all submitted feedback from users",
+        "createButton": "Submit Feedback"
+    },
+    "filters": {
+        "allTypes": "All Types",
+        "allStatuses": "All Statuses"
+    },
+    "columns": {
+        "title": "Title",
+        "description": "Description",
+        "type": "Type",
+        "submittedBy": "Submitted By",
+        "reviewedBy": "Reviewed By",
+        "reviewedAt": "Reviewed At"
+    },
+    "type": {
+        "FEATURE_REQUEST": "Feature Request",
+        "IMPROVEMENT": "Improvement",
+        "BUG_REPORT": "Bug Report"
+    },
+    "status": {
+        "OPEN": "Open",
+        "IN_REVIEW": "In Review",
+        "ACCEPTED": "Accepted",
+        "REJECTED": "Rejected",
+        "DELIVERED": "Delivered"
+    },
+    "create": {
+        "pageTitle": "Submit Feedback",
+        "pageDescription": "Share your ideas, improvements, or report a bug",
+        "cardTitle": "New Feedback",
+        "typeLabel": "Type",
+        "typePlaceholder": "Select feedback type",
+        "titleLabel": "Title",
+        "titlePlaceholder": "Brief summary of your feedback",
+        "descriptionLabel": "Description",
+        "descriptionPlaceholder": "Describe your feedback in detail",
+        "createdSuccess": "Feedback submitted successfully"
+    },
+    "updateStatus": {
+        "sheetTitle": "Update Status",
+        "sheetDescription": "Change the review status of this feedback.",
+        "statusLabel": "Status",
+        "statusPlaceholder": "Select a status",
+        "updatedSuccess": "Feedback status updated successfully"
+    }
+}

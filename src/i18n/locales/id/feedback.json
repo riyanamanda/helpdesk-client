@@ -1,0 +1,52 @@
+{
+    "page": {
+        "title": "Umpan Balik Saya",
+        "description": "Kirim dan pantau umpan balik, permintaan fitur, dan laporan bug Anda",
+        "titleAdmin": "Semua Umpan Balik",
+        "descriptionAdmin": "Tinjau dan kelola semua umpan balik yang dikirimkan pengguna",
+        "createButton": "Kirim Umpan Balik"
+    },
+    "filters": {
+        "allTypes": "Semua Tipe",
+        "allStatuses": "Semua Status"
+    },
+    "columns": {
+        "title": "Judul",
+        "description": "Deskripsi",
+        "type": "Tipe",
+        "submittedBy": "Dikirim Oleh",
+        "reviewedBy": "Ditinjau Oleh",
+        "reviewedAt": "Ditinjau Pada"
+    },
+    "type": {
+        "FEATURE_REQUEST": "Permintaan Fitur",
+        "IMPROVEMENT": "Peningkatan",
+        "BUG_REPORT": "Laporan Bug"
+    },
+    "status": {
+        "OPEN": "Terbuka",
+        "IN_REVIEW": "Ditinjau",
+        "ACCEPTED": "Diterima",
+        "REJECTED": "Ditolak",
+        "DELIVERED": "Terkirim"
+    },
+    "create": {
+        "pageTitle": "Kirim Umpan Balik",
+        "pageDescription": "Bagikan ide, peningkatan, atau laporkan bug",
+        "cardTitle": "Umpan Balik Baru",
+        "typeLabel": "Tipe",
+        "typePlaceholder": "Pilih tipe umpan balik",
+        "titleLabel": "Judul",
+        "titlePlaceholder": "Ringkasan singkat umpan balik Anda",
+        "descriptionLabel": "Deskripsi",
+        "descriptionPlaceholder": "Jelaskan umpan balik Anda secara detail",
+        "createdSuccess": "Umpan balik berhasil dikirim"
+    },
+    "updateStatus": {
+        "sheetTitle": "Perbarui Status",
+        "sheetDescription": "Ubah status tinjauan umpan balik ini.",
+        "statusLabel": "Status",
+        "statusPlaceholder": "Pilih status",
+        "updatedSuccess": "Status umpan balik berhasil diperbarui"
+    }
+}

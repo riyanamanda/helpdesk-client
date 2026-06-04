@@ -15,7 +15,8 @@ import {
     type OnChangeFn,
     type SortingState,
 } from "@tanstack/react-table";
-import { ArrowDownIcon, ArrowUpIcon, ChevronsUpDownIcon } from "lucide-react";
+import { ArrowDownIcon, ArrowUpIcon, ChevronsUpDownIcon, DatabaseIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -32,6 +33,7 @@ export function DataTable<TData, TValue>({
     sorting,
     onSortingChange,
 }: DataTableProps<TData, TValue>) {
+    const { t } = useTranslation("common");
     // eslint-disable-next-line react-hooks/incompatible-library
     const table = useReactTable({
         data: data ?? [],
@@ -105,9 +107,13 @@ export function DataTable<TData, TValue>({
                             </TableRow>
                         ))
                     ) : (
-                        <TableRow>
-                            <TableCell colSpan={columns.length} className="h-24 text-center">
-                                No results.
+                        <TableRow className="hover:bg-transparent">
+                            <TableCell colSpan={columns.length} className="h-36">
+                                <div className="flex flex-col items-center justify-center gap-2 text-muted-foreground">
+                                    <DatabaseIcon className="size-8 opacity-40" />
+                                    <p className="text-sm font-medium">{t("table.empty")}</p>
+                                    <p className="text-xs">{t("table.emptyHint")}</p>
+                                </div>
                             </TableCell>
                         </TableRow>
                     )}

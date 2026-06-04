@@ -37,7 +37,9 @@
         "status": "Status",
         "createdAt": "Created At",
         "updatedAt": "Updated At",
-        "action": "Action"
+        "action": "Action",
+        "empty": "No data found",
+        "emptyHint": "Try adjusting your filters or search keyword"
     },
     "form": {
         "required": "Required",
@@ -59,7 +61,8 @@
         "users": "Users",
         "contact": "Contact",
         "master": "Master Data",
-        "auth": "Access Control"
+        "auth": "Access Control",
+        "feedback": "Feedback"
     },
     "toast": {
         "success": "Success",

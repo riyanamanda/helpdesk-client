@@ -50,6 +50,11 @@ export const ROUTES = {
         DETAIL: "/ticket/:id",
     },
 
+    FEEDBACK: {
+        INDEX: "/feedback",
+        CREATE: "/feedback/create",
+    },
+
     PROFILE: "/profile",
     PROFILE_UPDATE_PASSWORD: "/profile/update-password",
 } as const;

@@ -37,7 +37,9 @@
         "status": "Status",
         "createdAt": "Dibuat Pada",
         "updatedAt": "Diperbarui Pada",
-        "action": "Aksi"
+        "action": "Aksi",
+        "empty": "Data tidak ditemukan",
+        "emptyHint": "Coba ubah filter atau kata kunci pencarian"
     },
     "form": {
         "required": "Wajib diisi",
@@ -59,7 +61,8 @@
         "users": "Pengguna",
         "contact": "Kontak",
         "master": "Data Master",
-        "auth": "Kontrol Akses"
+        "auth": "Kontrol Akses",
+        "feedback": "Saran"
     },
     "toast": {
         "success": "Berhasil",

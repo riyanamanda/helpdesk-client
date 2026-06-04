@@ -4,6 +4,7 @@ import {
     BlocksIcon,
     GaugeIcon,
     HeartHandshakeIcon,
+    MessageSquareTextIcon,
     PresentationIcon,
     SmartphoneNfcIcon,
     TicketIcon,
@@ -27,20 +28,6 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
     const { t } = useTranslation("common");
     const isAdmin = useIsAdmin();
 
-    const navMain = [
-        { name: t("nav.dashboard"), url: ROUTES.DASHBOARD, icon: GaugeIcon },
-        { name: t("nav.tickets"), url: ROUTES.TICKET.INDEX, icon: TicketIcon },
-    ];
-
-    const navEtc = [
-        {
-            is_blank: true,
-            name: t("nav.contact"),
-            url: "https://github.com/riyanamanda",
-            icon: SmartphoneNfcIcon,
-        },
-    ];
-
     return (
         <Sidebar collapsible="offcanvas" {...props}>
             <SidebarHeader>
@@ -61,7 +48,12 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent className="gap-3">
-                <SidebarNav items={navMain} />
+                <SidebarNav
+                    items={[
+                        { name: t("nav.dashboard"), url: ROUTES.DASHBOARD, icon: GaugeIcon },
+                        { name: t("nav.tickets"), url: ROUTES.TICKET.INDEX, icon: TicketIcon },
+                    ]}
+                />
                 {isAdmin && (
                     <>
                         <SidebarNav
@@ -85,9 +77,38 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                                 { name: t("nav.users"), url: ROUTES.USER.INDEX, icon: UserIcon },
                             ]}
                         />
+                        <SidebarNav
+                            label={"Customer Support"}
+                            items={[
+                                {
+                                    name: t("nav.feedback"),
+                                    url: ROUTES.FEEDBACK.INDEX,
+                                    icon: MessageSquareTextIcon,
+                                },
+                            ]}
+                        />
                     </>
                 )}
-                <SidebarNav items={navEtc} className="mt-auto" />
+                <SidebarNav
+                    items={[
+                        ...(!isAdmin
+                            ? [
+                                  {
+                                      name: t("nav.feedback"),
+                                      url: ROUTES.FEEDBACK.INDEX,
+                                      icon: MessageSquareTextIcon,
+                                  },
+                              ]
+                            : []),
+                        {
+                            is_blank: true,
+                            name: t("nav.contact"),
+                            url: "https://github.com",
+                            icon: SmartphoneNfcIcon,
+                        },
+                    ]}
+                    className="mt-auto"
+                />
             </SidebarContent>
             <SidebarFooter />
         </Sidebar>

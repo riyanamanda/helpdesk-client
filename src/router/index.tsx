@@ -2,6 +2,7 @@ import { authRoutes, profileRoutes } from "@/features/auth/routes";
 import { categoryRoutes } from "@/features/category/routes";
 import { dashboardRoutes } from "@/features/dashboard/routes";
 import { divisionRoutes } from "@/features/division/routes";
+import { feedbackRoutes } from "@/features/feedback/routes";
 import { ticketRoutes } from "@/features/ticket/routes";
 import { userRoutes } from "@/features/user/routes";
 import { homeRoutes } from "@/features/home/routes";
@@ -28,6 +29,7 @@ export const appRoutes: RouteObject[] = [
                 children: [
                     ...dashboardRoutes,
                     ...ticketRoutes,
+                    ...feedbackRoutes,
                     ...profileRoutes,
                     {
                         element: <AdminRoute />,

@@ -9,6 +9,7 @@ import enCategory from "./locales/en/category.json";
 import enDivision from "./locales/en/division.json";
 import enUser from "./locales/en/user.json";
 import enDashboard from "./locales/en/dashboard.json";
+import enFeedback from "./locales/en/feedback.json";
 import enHome from "./locales/en/home.json";
 
 import idCommon from "./locales/id/common.json";
@@ -18,6 +19,7 @@ import idCategory from "./locales/id/category.json";
 import idDivision from "./locales/id/division.json";
 import idUser from "./locales/id/user.json";
 import idDashboard from "./locales/id/dashboard.json";
+import idFeedback from "./locales/id/feedback.json";
 import idHome from "./locales/id/home.json";
 
 i18n.use(LanguageDetector)
@@ -32,6 +34,7 @@ i18n.use(LanguageDetector)
                 division: enDivision,
                 user: enUser,
                 dashboard: enDashboard,
+                feedback: enFeedback,
                 home: enHome,
             },
             id: {
@@ -42,6 +45,7 @@ i18n.use(LanguageDetector)
                 division: idDivision,
                 user: idUser,
                 dashboard: idDashboard,
+                feedback: idFeedback,
                 home: idHome,
             },
         },
