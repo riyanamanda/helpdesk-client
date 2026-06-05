@@ -33,7 +33,7 @@ export function SiteHeader() {
     }
 
     return (
-        <header className="flex h-16 shrink-0 items-center gap-2">
+        <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center gap-2 border-b border-border/40 bg-background/60 backdrop-blur-md">
             <div className="flex w-full items-center gap-2 px-4">
                 <SidebarTrigger className="-ml-1" size="icon-lg" />
 

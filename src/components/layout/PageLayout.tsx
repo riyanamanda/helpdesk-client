@@ -32,6 +32,12 @@ export const PageLayout = Object.assign(
     function PageLayout({ children }: PropsWithChildren) {
         return (
             <SidebarProvider>
+                {/* fixed ambient glows — provide the background glass blurs against */}
+                <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+                    <div className="absolute top-1/4 left-1/4 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-destructive/6 blur-3xl" />
+                    <div className="absolute top-1/2 right-1/4 h-80 w-80 rounded-full bg-accent-foreground/6 blur-3xl" />
+                    <div className="absolute bottom-1/4 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/6 blur-3xl" />
+                </div>
                 <AppSidebar variant="inset" />
                 <SidebarInset>
                     <SiteHeader />

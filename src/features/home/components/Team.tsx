@@ -29,7 +29,7 @@ export function Team() {
     return (
         <div className="relative mt-8 h-72 w-full overflow-visible sm:mt-12 sm:h-88 lg:mt-16 lg:h-105">
             <motion.p
-                className="text-center text-xs font-semibold tracking-[0.2em] text-primary uppercase"
+                className="text-center text-xs font-semibold tracking-[0.2em] text-accent-foreground uppercase"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
@@ -38,7 +38,7 @@ export function Team() {
             </motion.p>
 
             {/* glow */}
-            <div className="absolute top-1/2 left-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl" />
+            <div className="absolute top-1/2 left-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-foreground/8 blur-3xl" />
 
             <div className="relative flex h-full items-start justify-center pt-6 sm:pt-8">
                 {team.map((member, i) => {

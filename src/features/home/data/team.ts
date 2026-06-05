@@ -52,7 +52,7 @@ export const team = [
     },
     {
         name: "Nabila",
-        role: "IT Support",
+        role: "IT Helpdesk",
         image: NabilaImg,
     },
 ];

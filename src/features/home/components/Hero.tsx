@@ -26,11 +26,11 @@ export function Hero() {
         <>
             <motion.div
                 variants={heroItem}
-                className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3 py-1.5 text-xs font-medium backdrop-blur-sm sm:px-4"
+                className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-3 py-1.5 text-xs font-medium backdrop-blur-sm sm:px-4"
             >
                 <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
                 </span>
                 {t("hero.systemsOperational")}
             </motion.div>
@@ -40,7 +40,7 @@ export function Hero() {
                 className="max-w-4xl text-3xl font-extrabold tracking-tight text-balance sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
             >
                 {t("hero.headline1")}{" "}
-                <span className="bg-linear-to-r from-primary via-primary/75 to-primary/40 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-destructive via-accent-foreground to-primary bg-clip-text text-transparent">
                     {t("hero.headline2")}
                 </span>
             </motion.h1>

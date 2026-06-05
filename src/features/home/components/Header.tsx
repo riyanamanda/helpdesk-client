@@ -12,10 +12,10 @@ export function Header() {
     const isLoggedIn = !!cookies.get(COOKIES.TOKEN_KEY);
 
     return (
-        <header className="relative z-50 flex-none border-b border-border/40 bg-background/80 backdrop-blur-md">
+        <header className="relative z-50 flex-none border-b border-border/40 bg-transparent backdrop-blur-3xl">
             <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6">
                 <div className="flex items-center gap-2.5">
-                    <img src={LogoImg} alt="IT Helpdesk" className="h-10" />
+                    <img src={LogoImg} alt="IT Helpdesk" className="h-8" />
 
                     <span className="text-sm font-semibold tracking-tight">
                         {t("header.appName")}
