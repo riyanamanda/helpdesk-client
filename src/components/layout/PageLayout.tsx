@@ -25,7 +25,7 @@ function PageLayoutHeader({ title, description, actions }: PageLayoutHeaderProps
 }
 
 function PageLayoutContent({ children }: PropsWithChildren) {
-    return <div className="space-y-4">{children}</div>;
+    return <div className="min-w-0 space-y-4">{children}</div>;
 }
 
 export const PageLayout = Object.assign(
@@ -35,7 +35,7 @@ export const PageLayout = Object.assign(
                 <AppSidebar variant="inset" />
                 <SidebarInset>
                     <SiteHeader />
-                    <main className="flex flex-1 flex-col gap-4 px-4 py-1">{children}</main>
+                    <main className="flex min-w-0 flex-1 flex-col gap-4 px-4 py-1">{children}</main>
                 </SidebarInset>
             </SidebarProvider>
         );
