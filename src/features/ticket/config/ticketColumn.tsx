@@ -8,7 +8,11 @@ import { NavLink } from "react-router";
 import { TicketPriorityBadge, TicketStatusBadge } from "../components/TicketBadges";
 import type { Ticket } from "../types";
 
-export const getTicketColumns = (t: TFunction<"ticket">, pageOffset = 0): ColumnDef<Ticket>[] => [
+export const getTicketColumns = (
+    t: TFunction<"ticket">,
+    pageOffset = 0,
+    currentLanguage = "id"
+): ColumnDef<Ticket>[] => [
     {
         id: "no",
         header: t("common:table.no"),
@@ -73,13 +77,17 @@ export const getTicketColumns = (t: TFunction<"ticket">, pageOffset = 0): Column
     {
         accessorKey: "created_at",
         header: t("common:table.createdAt"),
-        cell: ({ row }) => <div>{formatRelativeDate(row.getValue("created_at"))}</div>,
+        cell: ({ row }) => (
+            <div>{formatRelativeDate(row.getValue("created_at"), currentLanguage)}</div>
+        ),
         enableSorting: true,
     },
     {
         accessorKey: "updated_at",
         header: t("common:table.updatedAt"),
-        cell: ({ row }) => <div>{formatRelativeDate(row.getValue("updated_at"))}</div>,
+        cell: ({ row }) => (
+            <div>{formatRelativeDate(row.getValue("updated_at"), currentLanguage)}</div>
+        ),
         enableSorting: true,
     },
     {

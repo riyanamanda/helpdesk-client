@@ -53,7 +53,7 @@
         "assignedTo": "Penanggung Jawab",
         "resolvedBy": "Diselesaikan Oleh",
         "closedBy": "Ditutup Oleh",
-        "detail": "Lihat Detail"
+        "detail": "Detail"
     },
     "create": {
         "cardTitle": "Buat Tiket Baru",

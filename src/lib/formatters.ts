@@ -27,7 +27,7 @@ export const formatDate = (
 
 export const formatRelativeDate = (
     date: string | Date | undefined | null,
-    currentLocale: "id" | "en" = "id"
+    currentLocale: string = "id"
 ): string => {
     if (!date) return "-";
 
@@ -39,8 +39,10 @@ export const formatRelativeDate = (
         en: enUS,
     };
 
+    const normalizedLocale = currentLocale.toLowerCase().startsWith("id") ? "id" : "en";
+
     return formatDistanceToNow(dateObj, {
         addSuffix: true,
-        locale: localeMap[currentLocale],
+        locale: localeMap[normalizedLocale],
     });
 };

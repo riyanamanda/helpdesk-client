@@ -53,7 +53,7 @@
         "assignedTo": "Assigned To",
         "resolvedBy": "Resolved By",
         "closedBy": "Closed By",
-        "detail": "View Details"
+        "detail": "Details"
     },
     "create": {
         "cardTitle": "Create New Ticket",

@@ -15,7 +15,7 @@ import { listTicketQueryOption } from "../queries/ticket.query";
 import type { SortType, TicketSortBy } from "../types";
 
 export function TicketPage() {
-    const { t } = useTranslation("ticket");
+    const { t, i18n } = useTranslation("ticket");
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [filters, setFilters] = useState<TicketFiltersState>({});
@@ -48,7 +48,7 @@ export function TicketPage() {
 
     const tickets = data?.data;
     const pagination = data?.pagination;
-    const columns = getTicketColumns(t, (page - 1) * limit);
+    const columns = getTicketColumns(t, (page - 1) * limit, i18n.resolvedLanguage);
 
     return (
         <PageLayout>
