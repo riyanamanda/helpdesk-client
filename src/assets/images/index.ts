@@ -1,3 +1,4 @@
+import LogoImg from "./logo.png";
 import RiyanImg from "./riyan.jpg";
 import ErbaImg from "./erba.jpg";
 import LedyImg from "./ledy.jpeg";
@@ -9,6 +10,7 @@ import NabilaImg from "./nabila.png";
 import GunawanImg from "./gunawan.jpeg";
 
 export {
+    LogoImg,
     RiyanImg,
     ErbaImg,
     LedyImg,

@@ -3,7 +3,6 @@ import { useIsAdmin } from "@/hooks/use-current-user";
 import {
     BlocksIcon,
     GaugeIcon,
-    HeartHandshakeIcon,
     MessageSquareTextIcon,
     PresentationIcon,
     SmartphoneNfcIcon,
@@ -23,6 +22,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "../ui/sidebar";
+import { LogoImg } from "@/assets/images";
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
     const { t } = useTranslation("common");
@@ -35,9 +35,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <NavLink to={ROUTES.HOME}>
-                                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                                    <HeartHandshakeIcon className="size-4" />
-                                </div>
+                                <img src={LogoImg} alt="IT Helpdesk" className="h-10" />
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     <span className="truncate font-bold">{t("appName")}</span>
                                     <span className="truncate text-xs">{t("appTagline")}</span>
