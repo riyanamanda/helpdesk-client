@@ -59,7 +59,11 @@ export const getUserColumns = (
                 ADMIN: "default",
                 EMPLOYEE: "outline",
             };
-            return <Badge variant={variantMap[role] ?? "outline"}>{role}</Badge>;
+            return (
+                <Badge variant={variantMap[role] ?? "outline"} className="capitalize">
+                    {role.toLowerCase()}
+                </Badge>
+            );
         },
         enableSorting: true,
     },

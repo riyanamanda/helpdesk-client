@@ -132,6 +132,7 @@ export function CreateFeedbackForm() {
                                         id={field.name}
                                         rows={4}
                                         placeholder={t("create.descriptionPlaceholder")}
+                                        className="h-48"
                                     />
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
                                 </Field>

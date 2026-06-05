@@ -48,6 +48,13 @@ export interface TicketCreateFormData {
     division: number;
 }
 
+export interface TicketUpdateFormData {
+    title: string;
+    description: string;
+    category: number;
+    division: number;
+}
+
 export interface TicketAssignFormData {
     assigned_to: string;
 }

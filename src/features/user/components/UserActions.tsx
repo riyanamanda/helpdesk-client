@@ -3,11 +3,10 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ROUTES } from "@/constants";
-import { EditIcon, KeyRoundIcon, MoreHorizontalIcon } from "lucide-react";
+import { MoreHorizontalIcon } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
@@ -37,13 +36,11 @@ export function UserActions({ user }: UserActionsProps) {
                 >
                     <DropdownMenuItem asChild>
                         <NavLink to={ROUTES.USER.EDIT.replace(":id", user.id)}>
-                            <EditIcon />
                             {t("actions.edit")}
                         </NavLink>
                     </DropdownMenuItem>
-                    <DropdownMenuSeparator />
+
                     <DropdownMenuItem onSelect={() => setPasswordOpen(true)}>
-                        <KeyRoundIcon />
                         {t("actions.changePassword")}
                     </DropdownMenuItem>
                 </DropdownMenuContent>

@@ -8,6 +8,7 @@ import type {
     TicketListParams,
     TicketPriorityFormData,
     TicketResolutionFormData,
+    TicketUpdateFormData,
 } from "../types";
 
 export const ticketService = {
@@ -33,6 +34,16 @@ export const ticketService = {
         formData.append("division", String(data.division));
         formData.append("attachment", file);
         const response = await http.post("/api/v1/tickets", formData);
+        return response.data;
+    },
+
+    update: async (id: number, payload: TicketUpdateFormData) => {
+        const response = await http.put(`/api/v1/tickets/${id}`, payload);
+        return response.data;
+    },
+
+    delete: async (id: number) => {
+        const response = await http.delete(`/api/v1/tickets/${id}`);
         return response.data;
     },
 

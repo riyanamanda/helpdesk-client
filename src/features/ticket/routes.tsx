@@ -20,6 +20,13 @@ export const ticketRoutes: RouteObject[] = [
                 },
             },
             {
+                path: ROUTES.TICKET.EDIT,
+                lazy: async () => {
+                    const { EditTicketPage } = await import("./pages/EditTicketPage");
+                    return { Component: EditTicketPage };
+                },
+            },
+            {
                 path: ROUTES.TICKET.DETAIL,
                 lazy: async () => {
                     const { TicketDetailPage } = await import("./pages/TicketDetailPage");

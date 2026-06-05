@@ -47,7 +47,9 @@ export const ROUTES = {
     TICKET: {
         INDEX: "/ticket",
         CREATE: "/ticket/create",
+        EDIT: "/ticket/:id/edit",
         DETAIL: "/ticket/:id",
+        DELETE: "/ticket/:id",
     },
 
     FEEDBACK: {

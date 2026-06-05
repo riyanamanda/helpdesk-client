@@ -52,8 +52,7 @@
         "priority": "Priority",
         "assignedTo": "Assigned To",
         "resolvedBy": "Resolved By",
-        "closedBy": "Closed By",
-        "detail": "Details"
+        "closedBy": "Closed By"
     },
     "create": {
         "cardTitle": "Create New Ticket",
@@ -74,6 +73,11 @@
         "remove": "Remove",
         "submitButton": "Submit Ticket",
         "createdSuccess": "Ticket submitted successfully"
+    },
+    "edit": {
+        "cardTitle": "Edit Ticket",
+        "pageDescription": "Update ticket information",
+        "savedSuccess": "Ticket updated successfully"
     },
     "assign": {
         "sheetTitle": "Assign Ticket",
@@ -111,5 +115,15 @@
         "closeButton": "Close Ticket",
         "closedSuccess": "Ticket closed successfully",
         "closeFailed": "Failed to close the ticket"
+    },
+    "delete": {
+        "title": "Delete Ticket?",
+        "description": "\"{{name}}\" will be permanently deleted and cannot be recovered.",
+        "deletedSuccess": "Ticket deleted successfully",
+        "deleteFailed": "Failed to delete ticket"
+    },
+    "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
     }
 }

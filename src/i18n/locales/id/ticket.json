@@ -52,8 +52,7 @@
         "priority": "Prioritas",
         "assignedTo": "Penanggung Jawab",
         "resolvedBy": "Diselesaikan Oleh",
-        "closedBy": "Ditutup Oleh",
-        "detail": "Detail"
+        "closedBy": "Ditutup Oleh"
     },
     "create": {
         "cardTitle": "Buat Tiket Baru",
@@ -74,6 +73,11 @@
         "remove": "Hapus",
         "submitButton": "Kirim Tiket",
         "createdSuccess": "Tiket berhasil dikirim"
+    },
+    "edit": {
+        "cardTitle": "Edit Tiket",
+        "pageDescription": "Perbarui informasi tiket",
+        "savedSuccess": "Tiket berhasil diperbarui"
     },
     "assign": {
         "sheetTitle": "Tugaskan Tiket",
@@ -111,5 +115,15 @@
         "closeButton": "Tutup Tiket",
         "closedSuccess": "Tiket berhasil ditutup",
         "closeFailed": "Gagal menutup tiket"
+    },
+    "delete": {
+        "title": "Hapus Ticket?",
+        "description": "\"{{name}}\" akan dihapus secara permanen dan tidak dapat dipulihkan.",
+        "deletedSuccess": "Ticket berhasil dihapus",
+        "deleteFailed": "Gagal menghapus ticket"
+    },
+    "actions": {
+        "edit": "Edit",
+        "delete": "Hapus"
     }
 }

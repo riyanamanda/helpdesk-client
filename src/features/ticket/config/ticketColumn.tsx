@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants";
-import { formatRelativeDate } from "@/lib/formatters";
+import { formatDate, formatRelativeDate } from "@/lib/formatters";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
-import { ListCollapseIcon } from "lucide-react";
 import { NavLink } from "react-router";
+import { TicketActions } from "../components/TicketActions";
 import { TicketPriorityBadge, TicketStatusBadge } from "../components/TicketBadges";
 import type { Ticket } from "../types";
 
@@ -77,9 +77,7 @@ export const getTicketColumns = (
     {
         accessorKey: "created_at",
         header: t("common:table.createdAt"),
-        cell: ({ row }) => (
-            <div>{formatRelativeDate(row.getValue("created_at"), currentLanguage)}</div>
-        ),
+        cell: ({ row }) => <div>{formatDate(row.getValue("created_at"), currentLanguage)}</div>,
         enableSorting: true,
     },
     {
@@ -98,14 +96,9 @@ export const getTicketColumns = (
     },
     {
         id: "action",
-        cell: ({ row }) => (
-            <NavLink to={ROUTES.TICKET.DETAIL.replace(":id", String(row.original.id))}>
-                <Button variant="ghost">
-                    <ListCollapseIcon />
-                    {t("columns.detail")}
-                </Button>
-            </NavLink>
-        ),
+        cell: ({ row }) => {
+            return <TicketActions ticket={row.original} />;
+        },
         enableSorting: false,
     },
 ];

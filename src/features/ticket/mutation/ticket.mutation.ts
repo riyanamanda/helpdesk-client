@@ -5,12 +5,26 @@ import type {
     TicketCreateFormData,
     TicketPriorityFormData,
     TicketResolutionFormData,
+    TicketUpdateFormData,
 } from "../types";
 
 export function useCreateTicketMutation() {
     return useMutation({
         mutationFn: ({ data, file }: { data: TicketCreateFormData; file?: File }) =>
             ticketService.create(data, file),
+    });
+}
+
+export function useUpdateTicketMutation() {
+    return useMutation({
+        mutationFn: ({ id, payload }: { id: number; payload: TicketUpdateFormData }) =>
+            ticketService.update(id, payload),
+    });
+}
+
+export function useDeleteTicketMutation() {
+    return useMutation({
+        mutationFn: (id: number) => ticketService.delete(id),
     });
 }
 

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
@@ -39,9 +39,10 @@ export function UpdatePasswordCard() {
     };
 
     return (
-        <Card>
-            <CardHeader className="pb-3">
+        <Card className="mx-auto max-w-xl">
+            <CardHeader>
                 <CardTitle className="text-sm font-medium">{t("password.changeTitle")}</CardTitle>
+                <CardDescription>{t("common:form.fillRequired")}</CardDescription>
             </CardHeader>
             <CardContent>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -67,53 +68,59 @@ export function UpdatePasswordCard() {
                                 </Field>
                             )}
                         />
-                        <Controller
-                            name="new_password"
-                            control={form.control}
-                            rules={{ required: t("password.newRequired") }}
-                            render={({ field, fieldState }) => (
-                                <Field>
-                                    <FieldLabel htmlFor={field.name}>
-                                        {t("password.newPassword")}{" "}
-                                        <span className="text-destructive">*</span>
-                                    </FieldLabel>
-                                    <Input
-                                        {...field}
-                                        id={field.name}
-                                        type="password"
-                                        autoComplete="new-password"
-                                        placeholder="••••••••"
-                                    />
-                                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
-                                </Field>
-                            )}
-                        />
-                        <Controller
-                            name="confirm_new_password"
-                            control={form.control}
-                            rules={{
-                                required: t("password.confirmRequired"),
-                                validate: (value) =>
-                                    value === form.getValues("new_password") ||
-                                    t("password.mismatch"),
-                            }}
-                            render={({ field, fieldState }) => (
-                                <Field>
-                                    <FieldLabel htmlFor={field.name}>
-                                        {t("password.confirmPassword")}{" "}
-                                        <span className="text-destructive">*</span>
-                                    </FieldLabel>
-                                    <Input
-                                        {...field}
-                                        id={field.name}
-                                        type="password"
-                                        autoComplete="new-password"
-                                        placeholder="••••••••"
-                                    />
-                                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
-                                </Field>
-                            )}
-                        />
+                        <div className="grid grid-cols-2 gap-4">
+                            <Controller
+                                name="new_password"
+                                control={form.control}
+                                rules={{ required: t("password.newRequired") }}
+                                render={({ field, fieldState }) => (
+                                    <Field>
+                                        <FieldLabel htmlFor={field.name}>
+                                            {t("password.newPassword")}{" "}
+                                            <span className="text-destructive">*</span>
+                                        </FieldLabel>
+                                        <Input
+                                            {...field}
+                                            id={field.name}
+                                            type="password"
+                                            autoComplete="new-password"
+                                            placeholder="••••••••"
+                                        />
+                                        {fieldState.error && (
+                                            <FieldError errors={[fieldState.error]} />
+                                        )}
+                                    </Field>
+                                )}
+                            />
+                            <Controller
+                                name="confirm_new_password"
+                                control={form.control}
+                                rules={{
+                                    required: t("password.confirmRequired"),
+                                    validate: (value) =>
+                                        value === form.getValues("new_password") ||
+                                        t("password.mismatch"),
+                                }}
+                                render={({ field, fieldState }) => (
+                                    <Field>
+                                        <FieldLabel htmlFor={field.name}>
+                                            {t("password.confirmPassword")}{" "}
+                                            <span className="text-destructive">*</span>
+                                        </FieldLabel>
+                                        <Input
+                                            {...field}
+                                            id={field.name}
+                                            type="password"
+                                            autoComplete="new-password"
+                                            placeholder="••••••••"
+                                        />
+                                        {fieldState.error && (
+                                            <FieldError errors={[fieldState.error]} />
+                                        )}
+                                    </Field>
+                                )}
+                            />
+                        </div>
                         <Field orientation="horizontal" className="justify-end">
                             <Button type="submit" disabled={isPending}>
                                 {isPending ? (
