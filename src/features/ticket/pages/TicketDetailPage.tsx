@@ -7,7 +7,7 @@ import { useCurrentUser, useIsAdmin } from "@/hooks/use-current-user";
 import { formatDate } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { ArrowLeftIcon, Building2Icon, TagIcon } from "lucide-react";
+import { ArrowLeftIcon, Building2Icon, CalendarIcon, PencilLineIcon, TagIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { NavLink, useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
@@ -15,6 +15,7 @@ import { TicketDetailContent } from "../components/TicketDetailContent";
 import { TicketDetailSidebar } from "../components/TicketDetailSidebar";
 import { TicketPriorityBadge, TicketStatusBadge } from "../components/TicketBadges";
 import { useCloseTicketMutation, useDeleteTicketMutation } from "../mutation/ticket.mutation";
+import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
 import { TICKET_QUERY_KEYS } from "../queries";
 import { getTicketQueryOption } from "../queries/ticket.query";
 import type { TicketStatus } from "../types";
@@ -52,6 +53,7 @@ export function TicketDetailPage() {
                     description: t("close.closedSuccess"),
                 });
                 await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
+                await queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEYS.ROOT });
                 navigate(ROUTES.TICKET.INDEX, { replace: true });
             },
             onError: () => {
@@ -69,6 +71,7 @@ export function TicketDetailPage() {
                     description: t("delete.deletedSuccess"),
                 });
                 await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
+                await queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEYS.ROOT });
                 navigate(ROUTES.TICKET.INDEX, { replace: true });
             },
             onError: () => {
@@ -124,12 +127,22 @@ export function TicketDetailPage() {
                                     </Badge>
                                 </div>
                             </div>
-                            <div className="flex flex-col items-end gap-1 text-right">
-                                <span className="text-[11px] text-muted-foreground">
-                                    Created {formatDate(ticket.created_at)}
+                            <div className="flex flex-col items-end gap-1.5 text-right">
+                                <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                                    <CalendarIcon className="size-3 shrink-0" />
+                                    <span className="font-medium text-foreground/60">
+                                        {t("detail.created")}
+                                    </span>
+                                    <span className="mx-0.5 opacity-40">·</span>
+                                    {formatDate(ticket.created_at)}
                                 </span>
-                                <span className="text-[11px] text-muted-foreground">
-                                    Updated {formatDate(ticket.updated_at)}
+                                <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                                    <PencilLineIcon className="size-3 shrink-0" />
+                                    <span className="font-medium text-foreground/60">
+                                        {t("detail.updated")}
+                                    </span>
+                                    <span className="mx-0.5 opacity-40">·</span>
+                                    {formatDate(ticket.updated_at)}
                                 </span>
                             </div>
                         </div>

@@ -26,6 +26,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { useAssignTicketMutation } from "../mutation/ticket.mutation";
+import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
 import { TICKET_QUERY_KEYS } from "../queries";
 import type { TicketAssignFormData } from "../types";
 
@@ -56,6 +57,7 @@ export function AssignTicketSheet({ ticketId }: AssignTicketSheetProps) {
                         description: t("assign.assignedSuccess"),
                     });
                     await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
+                    await queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEYS.ROOT });
                     setOpen(false);
                     form.reset();
                 },

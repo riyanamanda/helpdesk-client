@@ -13,6 +13,7 @@ import { MoreHorizontalIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { toast } from "sonner";
+import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
 import { useDeleteTicketMutation } from "../mutation/ticket.mutation";
 import { TICKET_QUERY_KEYS } from "../queries/queryKeys";
 import type { Ticket } from "../types";
@@ -43,6 +44,7 @@ export function TicketActions({ ticket }: TicketActionProps) {
                     description: t("delete.deletedSuccess"),
                 });
                 await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
+                await queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEYS.ROOT });
             },
             onError: () => {
                 toast.error(t("common:toast.operationFailed"), {

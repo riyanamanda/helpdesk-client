@@ -1,8 +1,4 @@
 {
-    "page": {
-        "title": "Dasbor",
-        "description": "Ikhtisar aktivitas helpdesk"
-    },
     "stats": {
         "totalTickets": "Total Tiket",
         "open": "Terbuka",
@@ -26,6 +22,33 @@
     "recent": {
         "title": "Tiket Terbuka & Sedang Diproses",
         "noTickets": "Tidak ada tiket terbuka saat ini",
-        "unassigned": "Belum Ditugaskan"
+        "unassigned": "Belum Ditugaskan",
+        "col": {
+            "title": "Judul",
+            "status": "Status",
+            "priority": "Prioritas",
+            "assignedTo": "Ditugaskan Ke",
+            "date": "Tanggal"
+        }
+    },
+    "trend": {
+        "title": "Tren Tiket Bulanan",
+        "submitted": "Dikirim",
+        "resolved": "Diselesaikan",
+        "closed": "Ditutup",
+        "months": {
+            "jan": "Jan",
+            "feb": "Feb",
+            "mar": "Mar",
+            "apr": "Apr",
+            "may": "Mei",
+            "jun": "Jun",
+            "jul": "Jul",
+            "aug": "Agu",
+            "sep": "Sep",
+            "oct": "Okt",
+            "nov": "Nov",
+            "dec": "Des"
+        }
     }
 }

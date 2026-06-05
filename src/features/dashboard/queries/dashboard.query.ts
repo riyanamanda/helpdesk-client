@@ -17,3 +17,10 @@ export function dashboardRecentTicketsQueryOption() {
         queryFn: () => dashboardService.getRecentTickets(),
     });
 }
+
+export function dashboardMonthlyTrendQueryOption(year: number) {
+    return queryOptions({
+        queryKey: DASHBOARD_QUERY_KEYS.MONTHLY_TREND(year),
+        queryFn: () => dashboardService.getMonthlyTrend(year),
+    });
+}

@@ -27,3 +27,10 @@ export interface RecentTicket {
     assigned_to: string | null;
     created_at: string;
 }
+
+export interface MonthlyTicketTrend {
+    month: number;
+    submitted: number;
+    resolved: number;
+    closed: number;
+}

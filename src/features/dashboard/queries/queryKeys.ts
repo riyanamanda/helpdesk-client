@@ -4,4 +4,5 @@ export const DASHBOARD_QUERY_KEYS = {
     ROOT: DASHBOARD_ROOT_KEY,
     SUMMARY: [...DASHBOARD_ROOT_KEY, "summary"] as const,
     RECENT_TICKETS: [...DASHBOARD_ROOT_KEY, "recent-tickets"] as const,
+    MONTHLY_TREND: (year: number) => [...DASHBOARD_ROOT_KEY, "monthly-trend", year] as const,
 };

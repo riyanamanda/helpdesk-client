@@ -1,8 +1,4 @@
 {
-    "page": {
-        "title": "Dashboard",
-        "description": "Overview of helpdesk activity"
-    },
     "stats": {
         "totalTickets": "Total Tickets",
         "open": "Open",
@@ -26,6 +22,33 @@
     "recent": {
         "title": "Recent Open & In Progress",
         "noTickets": "No open tickets at this time",
-        "unassigned": "Unassigned"
+        "unassigned": "Unassigned",
+        "col": {
+            "title": "Title",
+            "status": "Status",
+            "priority": "Priority",
+            "assignedTo": "Assigned To",
+            "date": "Date"
+        }
+    },
+    "trend": {
+        "title": "Monthly Ticket Trend",
+        "submitted": "Submitted",
+        "resolved": "Resolved",
+        "closed": "Closed",
+        "months": {
+            "jan": "Jan",
+            "feb": "Feb",
+            "mar": "Mar",
+            "apr": "Apr",
+            "may": "May",
+            "jun": "Jun",
+            "jul": "Jul",
+            "aug": "Aug",
+            "sep": "Sep",
+            "oct": "Oct",
+            "nov": "Nov",
+            "dec": "Dec"
+        }
     }
 }
