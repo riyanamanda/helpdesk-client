@@ -1,15 +1,16 @@
 import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "@/components/ui/sheet";
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
+import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
 import { handleFormError } from "@/lib/handle-form-error";
 import { useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
@@ -19,7 +20,6 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { useResolveTicketMutation } from "../mutation/ticket.mutation";
-import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
 import { TICKET_QUERY_KEYS } from "../queries";
 import type { TicketResolutionFormData } from "../types";
 
@@ -62,19 +62,23 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
     };
 
     return (
-        <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
                 <Button variant="outline" size="sm">
                     <CheckCircleIcon />
                     {t("resolve.resolveButton")}
                 </Button>
-            </SheetTrigger>
-            <SheetContent>
-                <SheetHeader>
-                    <SheetTitle>{t("resolve.sheetTitle")}</SheetTitle>
-                    <SheetDescription>{t("resolve.sheetDescription")}</SheetDescription>
-                </SheetHeader>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="px-6">
+            </DialogTrigger>
+            <DialogContent
+                className="sm:max-w-xl"
+                onInteractOutside={(e) => e.preventDefault()}
+                onEscapeKeyDown={(e) => e.preventDefault()}
+            >
+                <DialogHeader>
+                    <DialogTitle>{t("resolve.sheetTitle")}</DialogTitle>
+                    <DialogDescription>{t("resolve.sheetDescription")}</DialogDescription>
+                </DialogHeader>
+                <form onSubmit={form.handleSubmit(onSubmit)}>
                     <FieldGroup>
                         <Controller
                             name="resolution"
@@ -91,6 +95,7 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
                                         rows={5}
                                         placeholder={t("resolve.resolutionPlaceholder")}
                                         maxLength={1000}
+                                        className="h-48"
                                     />
                                     {fieldState.error && <FieldError errors={[fieldState.error]} />}
                                 </Field>
@@ -132,15 +137,15 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
                         </Field>
                     </FieldGroup>
                 </form>
-                <SheetFooter>
+                <DialogFooter>
                     <Button variant="ghost" onClick={() => setOpen(false)} disabled={isPending}>
                         {t("common:actions.cancel")}
                     </Button>
                     <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
                         {t("resolve.submitButton")}
                     </Button>
-                </SheetFooter>
-            </SheetContent>
-        </Sheet>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     );
 }

@@ -1,34 +1,19 @@
 import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "@/components/ui/sheet";
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
 import { listAssignableUserQueryOption } from "@/features/user/queries/user.query";
-import { handleFormError } from "@/lib/handle-form-error";
+import { handleApiError } from "@/lib/handle-form-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import type { AxiosError } from "axios";
 import { UserPlusIcon } from "lucide-react";
-import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { useAssignTicketMutation } from "../mutation/ticket.mutation";
-import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
 import { TICKET_QUERY_KEYS } from "../queries";
-import type { TicketAssignFormData } from "../types";
 
 interface AssignTicketSheetProps {
     ticketId: number;
@@ -36,21 +21,15 @@ interface AssignTicketSheetProps {
 
 export function AssignTicketSheet({ ticketId }: AssignTicketSheetProps) {
     const { t } = useTranslation("ticket");
-    const [open, setOpen] = useState(false);
     const queryClient = useQueryClient();
     const { mutate, isPending } = useAssignTicketMutation();
 
     const { data: assignableUsersData } = useQuery(listAssignableUserQueryOption());
     const assignableUsers = assignableUsersData?.data ?? [];
 
-    const form = useForm<TicketAssignFormData>({
-        defaultValues: { assigned_to: "" },
-        mode: "onSubmit",
-    });
-
-    const onSubmit = (payload: TicketAssignFormData) => {
+    const handleSelect = (userId: string) => {
         mutate(
-            { id: ticketId, payload },
+            { id: ticketId, payload: { assigned_to: userId } },
             {
                 onSuccess: async () => {
                     toast.success(t("common:toast.success"), {
@@ -58,71 +37,30 @@ export function AssignTicketSheet({ ticketId }: AssignTicketSheetProps) {
                     });
                     await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
                     await queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEYS.ROOT });
-                    setOpen(false);
-                    form.reset();
                 },
-                onError: (error) => {
-                    handleFormError(error as AxiosError, form);
-                },
+                onError: (error) => handleApiError(error),
             }
         );
     };
 
     return (
-        <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
-                <Button variant="outline" size="sm">
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" disabled={isPending}>
                     <UserPlusIcon />
                     {t("assign.assignButton")}
                 </Button>
-            </SheetTrigger>
-            <SheetContent>
-                <SheetHeader>
-                    <SheetTitle>{t("assign.sheetTitle")}</SheetTitle>
-                    <SheetDescription>{t("assign.sheetDescription")}</SheetDescription>
-                </SheetHeader>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="px-6">
-                    <FieldGroup>
-                        <Controller
-                            name="assigned_to"
-                            control={form.control}
-                            render={({ field, fieldState }) => (
-                                <Field>
-                                    <FieldLabel htmlFor="assigned_to">
-                                        {t("assign.assignToLabel")}
-                                    </FieldLabel>
-                                    <Select value={field.value} onValueChange={field.onChange}>
-                                        <SelectTrigger id="assigned_to">
-                                            <SelectValue
-                                                placeholder={t("common:form.selectUser")}
-                                            />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="__none__">
-                                                {t("common:form.selectUser")}
-                                            </SelectItem>
-                                            {assignableUsers.map((user) => (
-                                                <SelectItem key={user.id} value={user.id}>
-                                                    {user.name}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
-                                </Field>
-                            )}
-                        />
-                    </FieldGroup>
-                </form>
-                <SheetFooter>
-                    <Button variant="ghost" onClick={() => setOpen(false)} disabled={isPending}>
-                        {t("common:actions.cancel")}
-                    </Button>
-                    <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
-                        {t("assign.assignButton")}
-                    </Button>
-                </SheetFooter>
-            </SheetContent>
-        </Sheet>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+                {assignableUsers.map((user) => (
+                    <DropdownMenuItem key={user.id} onSelect={() => handleSelect(user.id)}>
+                        {user.name}
+                    </DropdownMenuItem>
+                ))}
+                {assignableUsers.length === 0 && (
+                    <DropdownMenuItem disabled>{t("common:form.selectUser")}</DropdownMenuItem>
+                )}
+            </DropdownMenuContent>
+        </DropdownMenu>
     );
 }

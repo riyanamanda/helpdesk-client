@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { TicketDetailContent } from "../components/TicketDetailContent";
 import { TicketDetailSidebar } from "../components/TicketDetailSidebar";
 import { TicketPriorityBadge, TicketStatusBadge } from "../components/TicketBadges";
+import { handleApiError } from "@/lib/handle-form-error";
 import { useCloseTicketMutation, useDeleteTicketMutation } from "../mutation/ticket.mutation";
 import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
 import { TICKET_QUERY_KEYS } from "../queries";
@@ -42,6 +43,8 @@ export function TicketDetailPage() {
     const canEdit = currentUser?.id === ticket.created_by?.id && ticket.status === "OPEN";
     const canDelete =
         ticket.status === "OPEN" && (isAdmin || currentUser?.id === ticket.created_by?.id);
+    const canClose =
+        ticket.status === "RESOLVED" && (isAdmin || currentUser?.id === ticket.created_by?.id);
 
     const { mutate: closeTicket, isPending: isClosing } = useCloseTicketMutation();
     const { mutate: deleteTicket, isPending: isDeleting } = useDeleteTicketMutation();
@@ -56,11 +59,7 @@ export function TicketDetailPage() {
                 await queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEYS.ROOT });
                 navigate(ROUTES.TICKET.INDEX, { replace: true });
             },
-            onError: () => {
-                toast.error(t("common:toast.operationFailed"), {
-                    description: t("close.closeFailed"),
-                });
-            },
+            onError: (error) => handleApiError(error),
         });
     };
 
@@ -74,11 +73,7 @@ export function TicketDetailPage() {
                 await queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEYS.ROOT });
                 navigate(ROUTES.TICKET.INDEX, { replace: true });
             },
-            onError: () => {
-                toast.error(t("common:toast.operationFailed"), {
-                    description: t("delete.deleteFailed"),
-                });
-            },
+            onError: (error) => handleApiError(error),
         });
     };
 
@@ -156,6 +151,7 @@ export function TicketDetailPage() {
                         ticket={ticket}
                         ticketId={ticketId}
                         isAdmin={isAdmin}
+                        canClose={canClose}
                         canDelete={canDelete}
                         onClose={handleClose}
                         onDelete={handleDelete}

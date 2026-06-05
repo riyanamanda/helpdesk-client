@@ -23,6 +23,7 @@ interface TicketDetailSidebarProps {
     ticket: TicketDetail;
     ticketId: number;
     isAdmin: boolean;
+    canClose: boolean;
     canDelete: boolean;
     onClose: () => void;
     onDelete: () => void;
@@ -126,6 +127,7 @@ export function TicketDetailSidebar({
     ticket,
     ticketId,
     isAdmin,
+    canClose,
     canDelete,
     onClose,
     onDelete,
@@ -192,7 +194,7 @@ export function TicketDetailSidebar({
                 </CardContent>
             </Card>
 
-            {(isAdmin || canDelete) && (
+            {(isAdmin || canClose || canDelete) && (
                 <Card>
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-medium">{t("detail.actions")}</CardTitle>
@@ -211,7 +213,7 @@ export function TicketDetailSidebar({
                         {isAdmin && ticket.status === "IN_PROGRESS" && (
                             <ResolveTicketSheet ticketId={ticketId} />
                         )}
-                        {isAdmin && ticket.status === "RESOLVED" && (
+                        {canClose && (
                             <DeleteDialog
                                 title={t("close.dialogTitle")}
                                 description={t("close.dialogDescription")}

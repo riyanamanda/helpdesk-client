@@ -16,6 +16,15 @@ function tErrorCode(code?: string): string {
     return i18n.exists(key) ? i18n.t(key) : i18n.t("errorCodes.default");
 }
 
+export function handleApiError(error: unknown) {
+    const axiosError = error as AxiosError;
+    if (axiosError.response && axiosError.response.status >= 500) return;
+    const resp = (axiosError.response?.data as ServerErrorResponse) || {};
+    toast.error(i18n.t("toast.operationFailed"), {
+        description: tErrorCode(resp.error?.code),
+    });
+}
+
 export function handleFormError<TFieldValues extends FieldValues>(
     error: AxiosError,
     form: UseFormReturn<TFieldValues>

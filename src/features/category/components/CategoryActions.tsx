@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ROUTES } from "@/constants";
 import { useIsAdmin } from "@/hooks/use-current-user";
+import { handleApiError } from "@/lib/handle-form-error";
 import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -39,11 +40,7 @@ export function CategoryActions({ category }: CategoryActionsProps) {
                     queryKey: CATEGORY_QUERY_KEYS.ROOT,
                 });
             },
-            onError: () => {
-                toast.error(t("common:toast.operationFailed"), {
-                    description: t("delete.deleteFailed"),
-                });
-            },
+            onError: (error) => handleApiError(error),
         });
     };
 
