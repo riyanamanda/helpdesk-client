@@ -59,14 +59,12 @@ export function FeedbackPage() {
                 title={isAdmin ? t("page.titleAdmin") : t("page.title")}
                 description={isAdmin ? t("page.descriptionAdmin") : t("page.description")}
                 actions={
-                    !isAdmin && (
-                        <NavLink to={ROUTES.FEEDBACK.CREATE}>
-                            <Button variant="outline" className="cursor-pointer">
-                                <PlusIcon />
-                                {t("page.createButton")}
-                            </Button>
-                        </NavLink>
-                    )
+                    <NavLink to={ROUTES.FEEDBACK.CREATE}>
+                        <Button variant="outline" className="cursor-pointer">
+                            <PlusIcon />
+                            {t("page.createButton")}
+                        </Button>
+                    </NavLink>
                 }
             />
             <PageLayout.Content>
