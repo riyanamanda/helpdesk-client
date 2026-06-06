@@ -101,7 +101,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                         {
                             is_blank: true,
                             name: t("nav.contact"),
-                            url: "https://github.com",
+                            url: "https://github.com/riyanamanda",
                             icon: SmartphoneNfcIcon,
                         },
                     ]}
