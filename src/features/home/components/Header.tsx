@@ -1,4 +1,3 @@
-import { LogoImg } from "@/assets/images";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Button } from "@/components/ui/button";
@@ -15,7 +14,7 @@ export function Header() {
         <header className="relative z-50 flex-none border-b border-border/40 bg-transparent backdrop-blur-3xl">
             <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6">
                 <div className="flex items-center gap-2.5">
-                    <img src={LogoImg} alt="IT Helpdesk" className="h-8" />
+                    <img src="/logo.svg" alt="IT Helpdesk" className="h-8" width={32} height={32} />
 
                     <span className="text-sm font-semibold tracking-tight">
                         {t("header.appName")}

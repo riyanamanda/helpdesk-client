@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 
@@ -24,7 +24,7 @@ export function Hero() {
 
     return (
         <>
-            <motion.div
+            <m.div
                 variants={heroItem}
                 className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-3 py-1.5 text-xs font-medium backdrop-blur-sm sm:px-4"
             >
@@ -33,9 +33,9 @@ export function Hero() {
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
                 </span>
                 {t("hero.systemsOperational")}
-            </motion.div>
+            </m.div>
 
-            <motion.h1
+            <m.h1
                 variants={heroItem}
                 className="max-w-4xl text-3xl font-extrabold tracking-tight text-balance sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
             >
@@ -43,16 +43,16 @@ export function Hero() {
                 <span className="bg-linear-to-r from-destructive via-accent-foreground to-primary bg-clip-text text-transparent">
                     {t("hero.headline2")}
                 </span>
-            </motion.h1>
+            </m.h1>
 
-            <motion.p
+            <m.p
                 variants={heroItem}
                 className="mt-3 max-w-xl text-sm text-balance text-muted-foreground sm:mt-4 sm:text-base"
             >
                 {t("hero.subheadline")}
-            </motion.p>
+            </m.p>
 
-            <motion.div
+            <m.div
                 variants={heroItem}
                 className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:mt-6"
             >
@@ -61,7 +61,7 @@ export function Hero() {
                         {t("hero.goToDashboard")}
                     </Button>
                 </NavLink>
-            </motion.div>
+            </m.div>
         </>
     );
 }

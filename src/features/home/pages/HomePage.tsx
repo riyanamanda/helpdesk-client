@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { domAnimation, LazyMotion, m } from "motion/react";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { Hero } from "../components/Hero";
@@ -91,31 +91,33 @@ export function HomePage() {
             <div className="pointer-events-none absolute top-1/3 right-1/6 h-96 w-96 rounded-full bg-accent-foreground/6 blur-3xl" />
             <div className="pointer-events-none absolute bottom-1/4 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-primary/6 blur-3xl" />
 
-            {bubbles.map((b, i) => (
-                <motion.div
-                    key={i}
-                    className={`pointer-events-none absolute ${b.cls} ${b.pos} rounded-full border ${b.color}`}
-                    animate={{ y: [0, -22, 0], x: [0, 6, 0] }}
-                    transition={{
-                        duration: b.duration,
-                        delay: b.delay,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
-                />
-            ))}
+            <LazyMotion features={domAnimation}>
+                {bubbles.map((b, i) => (
+                    <m.div
+                        key={i}
+                        className={`pointer-events-none absolute ${b.cls} ${b.pos} rounded-full border ${b.color}`}
+                        animate={{ y: [0, -22, 0], x: [0, 6, 0] }}
+                        transition={{
+                            duration: b.duration,
+                            delay: b.delay,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                        }}
+                    />
+                ))}
 
-            <Header />
+                <Header />
 
-            <motion.section
-                className="relative z-10 flex flex-1 flex-col items-center px-4 pt-8 text-center sm:px-6 lg:pt-8"
-                variants={heroVariants}
-                initial="hidden"
-                animate="visible"
-            >
-                <Hero />
-                <Team />
-            </motion.section>
+                <m.section
+                    className="relative z-10 flex flex-1 flex-col items-center px-4 pt-8 text-center sm:px-6 lg:pt-8"
+                    variants={heroVariants}
+                    initial="hidden"
+                    animate="visible"
+                >
+                    <Hero />
+                    <Team />
+                </m.section>
+            </LazyMotion>
 
             <Footer />
         </div>

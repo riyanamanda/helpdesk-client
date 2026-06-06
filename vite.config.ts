@@ -22,6 +22,8 @@ export default defineConfig({
         },
     },
     build: {
+        target: "esnext",
+        cssMinify: true,
         rollupOptions: {
             output: {
                 manualChunks: {
@@ -31,6 +33,7 @@ export default defineConfig({
                     table: ["@tanstack/react-table"],
                     motion: ["motion/react"],
                     form: ["react-hook-form"],
+                    firebase: ["firebase/app", "firebase/auth"],
                 },
             },
         },

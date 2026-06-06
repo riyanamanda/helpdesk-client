@@ -1,5 +1,5 @@
 import { getInitials } from "@/lib/formatters";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { useEffect, useState } from "react";
 import { team } from "../data/team";
 import { stackConfigs } from "../config/config";
@@ -28,14 +28,14 @@ export function Team() {
 
     return (
         <div className="relative mt-8 h-72 w-full overflow-visible sm:mt-12 sm:h-88 lg:mt-16 lg:h-105">
-            <motion.p
+            <m.p
                 className="text-center text-xs font-semibold tracking-[0.2em] text-accent-foreground uppercase"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
             >
                 Meet the IT Crew
-            </motion.p>
+            </m.p>
 
             {/* glow */}
             <div className="absolute top-1/2 left-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-foreground/8 blur-3xl" />
@@ -47,7 +47,7 @@ export function Team() {
                     const isHidden = opacity === 0;
 
                     return (
-                        <motion.div
+                        <m.div
                             key={member.name}
                             className="absolute"
                             initial={{ opacity: 0, y: 60, scale: 0.7 }}
@@ -89,6 +89,9 @@ export function Team() {
                                             src={member.image}
                                             alt={member.name}
                                             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            loading={isFeatured ? "eager" : "lazy"}
+                                            decoding={isFeatured ? "sync" : "async"}
+                                            fetchPriority={isFeatured ? "high" : "low"}
                                         />
                                     ) : (
                                         <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-primary/20 via-muted to-background">
@@ -119,7 +122,7 @@ export function Team() {
                                     </p>
                                 </div>
                             </div>
-                        </motion.div>
+                        </m.div>
                     );
                 })}
             </div>

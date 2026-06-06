@@ -1,16 +1,14 @@
-import LogoImg from "./logo.png";
-import RiyanImg from "./riyan.jpg";
-import ErbaImg from "./erba.jpg";
-import LedyImg from "./ledy.jpeg";
-import AdriImg from "./adri.png";
-import RahmatImg from "./rahmat.jpeg";
-import RendraImg from "./rendra.jpeg";
-import DetiImg from "./deti.jpeg";
-import NabilaImg from "./nabila.png";
-import GunawanImg from "./gunawan.jpeg";
+import RiyanImg from "./riyan.avif";
+import ErbaImg from "./erba.avif";
+import LedyImg from "./ledy.avif";
+import AdriImg from "./adri.avif";
+import RahmatImg from "./rahmat.avif";
+import RendraImg from "./rendra.avif";
+import DetiImg from "./deti.avif";
+import NabilaImg from "./nabila.avif";
+import GunawanImg from "./gunawan.avif";
 
 export {
-    LogoImg,
     RiyanImg,
     ErbaImg,
     LedyImg,
