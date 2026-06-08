@@ -1,0 +1,17 @@
+{
+    "title": "Notifikasi",
+    "empty": "Belum ada notifikasi",
+    "unreadCount": "{{count}} belum dibaca",
+    "markAllRead": "Tandai semua dibaca",
+    "types": {
+        "NEW_TICKET": "{{actor_name}} mengajukan tiket baru",
+        "TICKET_ASSIGNED": "{{actor_name}} menugaskan Anda pada sebuah tiket",
+        "TICKET_CLOSED": "Tiket Anda telah ditutup",
+        "FEEDBACK_STATUS_UPDATED": {
+            "IN_REVIEW": "{{actor_name}} sedang meninjau masukan Anda",
+            "ACCEPTED": "Masukan Anda telah diterima",
+            "REJECTED": "Masukan Anda telah ditolak",
+            "DELIVERED": "Masukan Anda telah disampaikan"
+        }
+    }
+}

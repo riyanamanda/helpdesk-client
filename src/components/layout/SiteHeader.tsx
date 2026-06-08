@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { KeyRoundIcon, LogOutIcon, UserCircleIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { NotificationBell } from "@/features/notification/components/NotificationBell";
 import { LanguageSwitcher } from "../LanguageSwitcher";
 import { ModeToggle } from "../ModeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -38,6 +39,7 @@ export function SiteHeader() {
                 <SidebarTrigger className="-ml-1" size="icon-lg" />
 
                 <div className="ml-auto flex items-center gap-2">
+                    <NotificationBell />
                     <LanguageSwitcher />
                     <ModeToggle />
                 </div>

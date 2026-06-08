@@ -11,6 +11,7 @@ import enUser from "./locales/en/user.json";
 import enDashboard from "./locales/en/dashboard.json";
 import enFeedback from "./locales/en/feedback.json";
 import enHome from "./locales/en/home.json";
+import enNotification from "./locales/en/notification.json";
 
 import idCommon from "./locales/id/common.json";
 import idAuth from "./locales/id/auth.json";
@@ -21,6 +22,7 @@ import idUser from "./locales/id/user.json";
 import idDashboard from "./locales/id/dashboard.json";
 import idFeedback from "./locales/id/feedback.json";
 import idHome from "./locales/id/home.json";
+import idNotification from "./locales/id/notification.json";
 
 i18n.use(LanguageDetector)
     .use(initReactI18next)
@@ -36,6 +38,7 @@ i18n.use(LanguageDetector)
                 dashboard: enDashboard,
                 feedback: enFeedback,
                 home: enHome,
+                notification: enNotification,
             },
             id: {
                 common: idCommon,
@@ -47,6 +50,7 @@ i18n.use(LanguageDetector)
                 dashboard: idDashboard,
                 feedback: idFeedback,
                 home: idHome,
+                notification: idNotification,
             },
         },
         defaultNS: "common",

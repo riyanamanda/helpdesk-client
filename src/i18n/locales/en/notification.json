@@ -1,0 +1,17 @@
+{
+    "title": "Notifications",
+    "empty": "No notifications yet",
+    "unreadCount": "{{count}} unread",
+    "markAllRead": "Mark all read",
+    "types": {
+        "NEW_TICKET": "{{actor_name}} submitted a new ticket",
+        "TICKET_ASSIGNED": "{{actor_name}} assigned you to a ticket",
+        "TICKET_CLOSED": "Your ticket has been closed",
+        "FEEDBACK_STATUS_UPDATED": {
+            "IN_REVIEW": "{{actor_name}} is reviewing your feedback",
+            "ACCEPTED": "Your feedback has been accepted",
+            "REJECTED": "Your feedback has been rejected",
+            "DELIVERED": "Your feedback has been delivered"
+        }
+    }
+}
