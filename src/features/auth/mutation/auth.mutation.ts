@@ -2,7 +2,7 @@ import { COOKIES, ROUTES, SESSION_STORAGE_KEYS } from "@/constants";
 import { auth, googleProvider } from "@/lib/firebase";
 import { cookies } from "@/lib/cookies";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithCredential, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router";
 import { meQueryOption } from "../queries/auth.query";
 import { authService } from "../service/authService";
@@ -27,8 +27,11 @@ export function useGoogleOneTapMutation() {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async (idToken: string) => {
-            const loginData = await authService.loginWithGoogle({ id_token: idToken });
+        mutationFn: async (googleIdToken: string) => {
+            const credential = GoogleAuthProvider.credential(googleIdToken);
+            const userCredential = await signInWithCredential(auth, credential);
+            const firebaseIdToken = await userCredential.user.getIdToken();
+            const loginData = await authService.loginWithGoogle({ id_token: firebaseIdToken });
             cookies.set(COOKIES.TOKEN_KEY, loginData.data.access_token, {
                 path: COOKIES.PATH,
             });
