@@ -15,12 +15,14 @@ import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { toast } from "sonner";
 import { useGoogleLoginMutation, useLoginMutation } from "../mutation/auth.mutation";
+import { useGoogleOneTap } from "../hooks/useGoogleOneTap";
 import type { LoginRequest } from "../types";
 
 export function LoginForm({ className, ...props }: ComponentProps<"div">) {
     const { t } = useTranslation("auth");
     const { mutate: login, isPending } = useLoginMutation();
     const { mutate: googleLogin, isPending: isGooglePending } = useGoogleLoginMutation();
+    useGoogleOneTap();
 
     const form = useForm<LoginRequest>({
         defaultValues: {

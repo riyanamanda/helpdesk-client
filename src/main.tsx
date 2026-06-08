@@ -1,9 +1,9 @@
 import "@/i18n/index.ts";
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { ThemeProvider } from "@/components/ThemeProvider.tsx";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { StrictMode } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { TopLoaderProvider } from "./components/top-loader/TopLoaderProvider.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";

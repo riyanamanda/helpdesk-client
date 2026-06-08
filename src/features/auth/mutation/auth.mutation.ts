@@ -22,6 +22,34 @@ export function useLogoutMutation() {
     });
 }
 
+export function useGoogleOneTapMutation() {
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async (idToken: string) => {
+            const loginData = await authService.loginWithGoogle({ id_token: idToken });
+            cookies.set(COOKIES.TOKEN_KEY, loginData.data.access_token, {
+                path: COOKIES.PATH,
+            });
+            return loginData;
+        },
+        onSuccess: (loginData) => {
+            queryClient.setQueryData(meQueryOption().queryKey, {
+                data: loginData.data.user,
+            });
+
+            const redirectPath = sessionStorage.getItem(SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN);
+            if (redirectPath) {
+                sessionStorage.removeItem(SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN);
+                navigate(redirectPath, { replace: true });
+            } else {
+                navigate(ROUTES.DASHBOARD);
+            }
+        },
+    });
+}
+
 export function useGoogleLoginMutation() {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
