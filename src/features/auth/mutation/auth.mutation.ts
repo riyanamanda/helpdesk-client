@@ -6,6 +6,8 @@ import { GoogleAuthProvider, signInWithCredential, signInWithPopup } from "fireb
 import { useNavigate } from "react-router";
 import { meQueryOption } from "../queries/auth.query";
 import { authService } from "../service/authService";
+import { deviceService } from "@/features/notification/service/deviceService";
+import { getActiveFCMToken } from "@/hooks/useFCMToken";
 import type { LoginRequest } from "../types";
 
 export function useLogoutMutation() {
@@ -13,7 +15,11 @@ export function useLogoutMutation() {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: () => authService.logout(),
+        mutationFn: async () => {
+            const token = getActiveFCMToken();
+            if (token) await deviceService.unregister(token).catch(() => {});
+            return authService.logout();
+        },
         onSettled: () => {
             cookies.remove(COOKIES.TOKEN_KEY, { path: COOKIES.PATH });
             queryClient.clear();

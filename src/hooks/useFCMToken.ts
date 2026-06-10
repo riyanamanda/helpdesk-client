@@ -9,6 +9,12 @@ import { NOTIFICATION_QUERY_KEYS } from "@/features/notification/queries/queryKe
 
 const VAPID_KEY = import.meta.env.VITE_FIREBASE_VAPID_KEY as string;
 
+let activeFCMToken: string | null = null;
+
+export function getActiveFCMToken() {
+    return activeFCMToken;
+}
+
 const SW_PARAMS = new URLSearchParams({
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
     authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -57,6 +63,7 @@ export function useFCMToken() {
 
             if (!token || token === tokenRef.current) return;
             tokenRef.current = token;
+            activeFCMToken = token;
 
             await deviceService.register(token);
 
