@@ -14,7 +14,7 @@ export const appRoutes: RouteObject[] = [
     },
     {
         element: <ProtectedRoutes />,
-        children: [...dashboardRoutes, ...categoryRoutes],
+        children: [...dashboardRoutes, ...categoryRoutes, ...divisionRoutes],
     },
     {
         path: "*",

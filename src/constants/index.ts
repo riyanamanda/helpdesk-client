@@ -30,4 +30,10 @@ export const ROUTES = {
         CREATE: "/category/create",
         EDIT: "/category/:id/edit",
     },
+
+    DIVISION: {
+        INDEX: "/division",
+        CREATE: "/division/create",
+        EDIT: "/division/:id/edit",
+    },
 } as const;
