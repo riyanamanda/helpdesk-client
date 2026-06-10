@@ -3,6 +3,13 @@
     "empty": "Belum ada notifikasi",
     "unreadCount": "{{count}} belum dibaca",
     "markAllRead": "Tandai semua dibaca",
+    "view": "Lihat",
+    "titles": {
+        "NEW_TICKET": "Tiket Baru",
+        "TICKET_ASSIGNED": "Tiket Ditugaskan",
+        "TICKET_CLOSED": "Tiket Ditutup",
+        "FEEDBACK_STATUS_UPDATED": "Masukan Diperbarui"
+    },
     "types": {
         "NEW_TICKET": "{{actor_name}} mengajukan tiket baru",
         "TICKET_ASSIGNED": "{{actor_name}} menugaskan Anda pada sebuah tiket",

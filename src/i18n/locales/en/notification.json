@@ -3,6 +3,13 @@
     "empty": "No notifications yet",
     "unreadCount": "{{count}} unread",
     "markAllRead": "Mark all read",
+    "view": "View",
+    "titles": {
+        "NEW_TICKET": "New Ticket",
+        "TICKET_ASSIGNED": "Ticket Assigned",
+        "TICKET_CLOSED": "Ticket Closed",
+        "FEEDBACK_STATUS_UPDATED": "Feedback Updated"
+    },
     "types": {
         "NEW_TICKET": "{{actor_name}} submitted a new ticket",
         "TICKET_ASSIGNED": "{{actor_name}} assigned you to a ticket",

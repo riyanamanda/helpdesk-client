@@ -3,6 +3,7 @@ import type { PropsWithChildren, ReactNode } from "react";
 import { SidebarInset, SidebarProvider } from "../ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { SiteHeader } from "./SiteHeader";
+import { useFCMToken } from "@/hooks/useFCMToken";
 
 interface PageLayoutHeaderProps {
     title: string;
@@ -30,6 +31,8 @@ function PageLayoutContent({ children }: PropsWithChildren) {
 
 export const PageLayout = Object.assign(
     function PageLayout({ children }: PropsWithChildren) {
+        useFCMToken();
+
         return (
             <SidebarProvider>
                 {/* fixed ambient glows — provide the background glass blurs against */}
