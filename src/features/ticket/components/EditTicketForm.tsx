@@ -13,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ROUTES } from "@/constants";
 import { listCategoryOptionsQueryOption } from "@/features/category/queries/category.query";
 import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
-import { listDivisionOptionsQueryOption } from "@/features/division/queries/division.query";
+import { DivisionCombobox } from "@/features/division/components/DivisionCombobox";
 import { handleFormError } from "@/lib/handle-form-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
@@ -38,9 +38,6 @@ export function EditTicketForm({ id, ticket }: EditTicketFormProps) {
 
     const { data: categoryOptionsData } = useQuery(listCategoryOptionsQueryOption());
     const categoryOptions = categoryOptionsData?.data ?? [];
-
-    const { data: divisionOptionsData } = useQuery(listDivisionOptionsQueryOption());
-    const divisionOptions = divisionOptionsData?.data ?? [];
 
     const form = useForm<TicketUpdateFormData>({
         defaultValues: {
@@ -169,26 +166,10 @@ export function EditTicketForm({ id, ticket }: EditTicketFormProps) {
                                             {t("create.divisionLabel")}
                                             <span className="text-destructive">*</span>
                                         </FieldLabel>
-                                        <Select
-                                            value={field.value ? String(field.value) : ""}
-                                            onValueChange={(v) => field.onChange(Number(v))}
-                                        >
-                                            <SelectTrigger id="division">
-                                                <SelectValue
-                                                    placeholder={t("common:form.selectDivision")}
-                                                />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {divisionOptions.map((division) => (
-                                                    <SelectItem
-                                                        key={division.id}
-                                                        value={String(division.id)}
-                                                    >
-                                                        {division.name}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
+                                        <DivisionCombobox
+                                            value={field.value}
+                                            onChange={field.onChange}
+                                        />
                                         {fieldState.error && (
                                             <FieldError errors={[fieldState.error]} />
                                         )}

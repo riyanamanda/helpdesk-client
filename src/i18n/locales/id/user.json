@@ -33,6 +33,8 @@
         "roleLabel": "Peran",
         "divisionLabel": "Divisi",
         "divisionPlaceholder": "Pilih divisi",
+        "divisionSearchPlaceholder": "Cari divisi...",
+        "divisionNotFound": "Divisi tidak ditemukan",
         "passwordLabel": "Kata Sandi",
         "createdSuccess": "Akun pengguna berhasil dibuat"
     },

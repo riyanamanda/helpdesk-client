@@ -33,6 +33,8 @@
         "roleLabel": "Role",
         "divisionLabel": "Division",
         "divisionPlaceholder": "Select division",
+        "divisionSearchPlaceholder": "Search division...",
+        "divisionNotFound": "No division found",
         "passwordLabel": "Password",
         "createdSuccess": "User account created successfully"
     },

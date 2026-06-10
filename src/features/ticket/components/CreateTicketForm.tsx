@@ -14,7 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ROUTES } from "@/constants";
 import { listCategoryOptionsQueryOption } from "@/features/category/queries/category.query";
 import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
-import { listDivisionOptionsQueryOption } from "@/features/division/queries/division.query";
+import { DivisionCombobox } from "@/features/division/components/DivisionCombobox";
 import { handleFormError } from "@/lib/handle-form-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
@@ -38,9 +38,6 @@ export function CreateTicketForm() {
 
     const { data: categoryOptionsData } = useQuery(listCategoryOptionsQueryOption());
     const categoryOptions = categoryOptionsData?.data ?? [];
-
-    const { data: divisionOptionsData } = useQuery(listDivisionOptionsQueryOption());
-    const divisionOptions = divisionOptionsData?.data ?? [];
 
     const form = useForm<TicketCreateFormData>({
         defaultValues: { title: "", description: "", category: undefined, division: undefined },
@@ -203,29 +200,10 @@ export function CreateTicketForm() {
                                                 </HoverCardContent>
                                             </HoverCard>
                                         </FieldLabel>
-                                        <Select
-                                            value={field.value ? String(field.value) : ""}
-                                            onValueChange={(v) => field.onChange(Number(v))}
-                                        >
-                                            <SelectTrigger id="division_id">
-                                                <SelectValue
-                                                    placeholder={t("common:form.selectDivision")}
-                                                />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="__none__">
-                                                    {t("common:form.selectDivision")}
-                                                </SelectItem>
-                                                {divisionOptions.map((divison) => (
-                                                    <SelectItem
-                                                        key={divison.id}
-                                                        value={String(divison.id)}
-                                                    >
-                                                        {divison.name}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
+                                        <DivisionCombobox
+                                            value={field.value}
+                                            onChange={field.onChange}
+                                        />
                                         {fieldState.error && (
                                             <FieldError errors={[fieldState.error]} />
                                         )}

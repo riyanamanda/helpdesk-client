@@ -10,9 +10,9 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { ROUTES } from "@/constants";
-import { listDivisionOptionsQueryOption } from "@/features/division/queries/division.query";
+import { DivisionCombobox } from "@/features/division/components/DivisionCombobox";
 import { handleFormError } from "@/lib/handle-form-error";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -32,9 +32,6 @@ export function CreateUserForm() {
         { label: t("roles.admin"), value: "ADMIN" },
         { label: t("roles.employee"), value: "EMPLOYEE" },
     ];
-
-    const { data: divisionOptionData } = useQuery(listDivisionOptionsQueryOption());
-    const divisionOptions = divisionOptionData?.data ?? [];
 
     const form = useForm<UserFormData>({
         defaultValues: {
@@ -153,26 +150,10 @@ export function CreateUserForm() {
                                             {t("create.divisionLabel")}
                                             <span className="text-destructive">*</span>
                                         </FieldLabel>
-                                        <Select
-                                            value={field.value ? String(field.value) : ""}
-                                            onValueChange={(v) => field.onChange(Number(v))}
-                                        >
-                                            <SelectTrigger id="division">
-                                                <SelectValue
-                                                    placeholder={t("create.divisionPlaceholder")}
-                                                />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="__none__">
-                                                    {t("common:form.selectDivision")}
-                                                </SelectItem>
-                                                {divisionOptions.map((d) => (
-                                                    <SelectItem key={d.id} value={String(d.id)}>
-                                                        {d.name}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
+                                        <DivisionCombobox
+                                            value={field.value}
+                                            onChange={field.onChange}
+                                        />
                                         {fieldState.error && (
                                             <FieldError errors={[fieldState.error]} />
                                         )}
