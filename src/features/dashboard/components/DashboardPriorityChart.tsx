@@ -1,15 +1,17 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
     ChartContainer,
+    ChartLegend,
+    ChartLegendContent,
     ChartTooltip,
     ChartTooltipContent,
     type ChartConfig,
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
-import { ChartBarIcon } from "lucide-react";
+import { ChartPieIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Bar, BarChart, XAxis, YAxis } from "recharts";
+import { Pie, PieChart } from "recharts";
 import { dashboardSummaryQueryOption } from "../queries/dashboard.query";
 
 export function DashboardPriorityChart() {
@@ -18,15 +20,18 @@ export function DashboardPriorityChart() {
     const summary = data?.data;
 
     const chartConfig = {
-        count: { label: t("charts.tickets") },
+        low: { label: t("charts.low"), color: "#22c55e" },
+        medium: { label: t("charts.medium"), color: "#eab308" },
+        high: { label: t("charts.high"), color: "#f97316" },
+        urgent: { label: t("charts.urgent"), color: "#ef4444" },
     } satisfies ChartConfig;
 
-    const barData = summary
+    const pieData = summary
         ? [
-              { priority: t("charts.low"), count: summary.priority.low, fill: "#22c55e" },
-              { priority: t("charts.medium"), count: summary.priority.medium, fill: "#eab308" },
-              { priority: t("charts.high"), count: summary.priority.high, fill: "#f97316" },
-              { priority: t("charts.urgent"), count: summary.priority.urgent, fill: "#ef4444" },
+              { name: "low", value: summary.priority.low, fill: "#22c55e" },
+              { name: "medium", value: summary.priority.medium, fill: "#eab308" },
+              { name: "high", value: summary.priority.high, fill: "#f97316" },
+              { name: "urgent", value: summary.priority.urgent, fill: "#ef4444" },
           ]
         : [];
 
@@ -35,37 +40,28 @@ export function DashboardPriorityChart() {
             <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium">
                     <span className="flex items-center gap-1.5">
-                        <ChartBarIcon className="size-3.5 text-muted-foreground" />
+                        <ChartPieIcon className="size-3.5 text-muted-foreground" />
                         {t("charts.byPriority")}
                     </span>
                 </CardTitle>
             </CardHeader>
             <CardContent>
                 {isLoading ? (
-                    <div className="flex h-48 items-end gap-4 px-4">
-                        {[60, 90, 40, 70].map((h, i) => (
-                            <Skeleton key={i} className="flex-1" style={{ height: `${h}%` }} />
-                        ))}
-                    </div>
+                    <Skeleton className="mx-auto h-48 w-48 rounded-full" />
                 ) : (
-                    <ChartContainer config={chartConfig} className="max-h-56 w-full">
-                        <BarChart data={barData} barSize={36}>
-                            <XAxis
-                                dataKey="priority"
-                                tickLine={false}
-                                axisLine={false}
-                                tick={{ fontSize: 12 }}
+                    <ChartContainer config={chartConfig} className="mx-auto max-h-56">
+                        <PieChart>
+                            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+                            <Pie
+                                data={pieData}
+                                dataKey="value"
+                                nameKey="name"
+                                innerRadius={55}
+                                outerRadius={80}
+                                strokeWidth={2}
                             />
-                            <YAxis
-                                tickLine={false}
-                                axisLine={false}
-                                allowDecimals={false}
-                                tick={{ fontSize: 12 }}
-                                width={24}
-                            />
-                            <ChartTooltip content={<ChartTooltipContent />} />
-                            <Bar dataKey="count" radius={[4, 4, 0, 0]} />
-                        </BarChart>
+                            <ChartLegend content={<ChartLegendContent nameKey="name" />} />
+                        </PieChart>
                     </ChartContainer>
                 )}
             </CardContent>

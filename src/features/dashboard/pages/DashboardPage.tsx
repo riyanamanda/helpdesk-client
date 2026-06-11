@@ -1,10 +1,10 @@
 import { PageLayout } from "@/components/layout/PageLayout";
 import { useState } from "react";
 import { DashboardAgentWorkload } from "../components/DashboardAgentWorkload";
+import { DashboardCategoryChart } from "../components/DashboardCategoryChart";
 import { DashboardPriorityChart } from "../components/DashboardPriorityChart";
 import { DashboardRecentTickets } from "../components/DashboardRecentTickets";
 import { DashboardStatCards } from "../components/DashboardStatCards";
-import { DashboardStatusChart } from "../components/DashboardStatusChart";
 import { TicketTrendChart } from "../components/TicketTrendChart";
 
 export function DashboardPage() {
@@ -16,13 +16,14 @@ export function DashboardPage() {
                 <DashboardStatCards />
 
                 <div className="grid gap-4 lg:grid-cols-2">
-                    <DashboardStatusChart />
                     <DashboardPriorityChart />
+                    <DashboardCategoryChart />
                 </div>
 
-                <DashboardAgentWorkload />
-
-                <TicketTrendChart year={trendYear} onYearChange={setTrendYear} />
+                <div className="grid gap-4 lg:grid-cols-2">
+                    <TicketTrendChart year={trendYear} onYearChange={setTrendYear} />
+                    <DashboardAgentWorkload />
+                </div>
 
                 <DashboardRecentTickets />
             </PageLayout.Content>

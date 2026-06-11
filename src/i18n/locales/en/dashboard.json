@@ -1,10 +1,11 @@
 {
     "stats": {
         "totalTickets": "Total Tickets",
-        "open": "Open",
         "inProgress": "In Progress",
         "resolved": "Resolved",
-        "closed": "Closed"
+        "closed": "Closed",
+        "unassigned": "Unassigned",
+        "stale": "Stale (3d+)"
     },
     "charts": {
         "byStatus": "Tickets by Status",
@@ -22,6 +23,7 @@
     "recent": {
         "title": "Recent Open & In Progress",
         "noTickets": "No open tickets at this time",
+        "viewAll": "View all",
         "unassigned": "Unassigned",
         "col": {
             "title": "Title",
@@ -30,6 +32,11 @@
             "assignedTo": "Assigned To",
             "date": "Date"
         }
+    },
+    "categoryChart": {
+        "title": "Active Tickets by Category",
+        "tickets": "Tickets",
+        "noData": "No active tickets"
     },
     "agentWorkload": {
         "title": "Tickets by Agent",

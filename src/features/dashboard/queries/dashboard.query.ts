@@ -31,3 +31,10 @@ export function dashboardAgentWorkloadQueryOption() {
         queryFn: () => dashboardService.getAgentWorkload(),
     });
 }
+
+export function dashboardTicketsByCategoryQueryOption() {
+    return queryOptions({
+        queryKey: DASHBOARD_QUERY_KEYS.TICKETS_BY_CATEGORY,
+        queryFn: () => dashboardService.getTicketsByCategory(),
+    });
+}
