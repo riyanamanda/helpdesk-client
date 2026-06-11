@@ -1,4 +1,5 @@
 export interface TicketStatusStats {
+    open: number;
     in_progress: number;
     resolved: number;
     closed: number;
