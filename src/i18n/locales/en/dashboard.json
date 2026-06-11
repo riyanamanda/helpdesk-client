@@ -31,6 +31,13 @@
             "date": "Date"
         }
     },
+    "agentWorkload": {
+        "title": "Tickets by Agent",
+        "inProgress": "In Progress",
+        "resolved": "Resolved This Month",
+        "topN": "Top 10 by activity",
+        "noData": "No assigned tickets"
+    },
     "trend": {
         "title": "Monthly Ticket Trend",
         "submitted": "Submitted",

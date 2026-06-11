@@ -31,6 +31,13 @@
             "date": "Tanggal"
         }
     },
+    "agentWorkload": {
+        "title": "Tiket per Agen",
+        "inProgress": "Sedang Diproses",
+        "resolved": "Diselesaikan Bulan Ini",
+        "topN": "Top 10 berdasarkan aktivitas",
+        "noData": "Tidak ada tiket yang ditugaskan"
+    },
     "trend": {
         "title": "Tren Tiket Bulanan",
         "submitted": "Dikirim",

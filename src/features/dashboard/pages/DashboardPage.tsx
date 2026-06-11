@@ -1,5 +1,6 @@
 import { PageLayout } from "@/components/layout/PageLayout";
 import { useState } from "react";
+import { DashboardAgentWorkload } from "../components/DashboardAgentWorkload";
 import { DashboardPriorityChart } from "../components/DashboardPriorityChart";
 import { DashboardRecentTickets } from "../components/DashboardRecentTickets";
 import { DashboardStatCards } from "../components/DashboardStatCards";
@@ -18,6 +19,8 @@ export function DashboardPage() {
                     <DashboardStatusChart />
                     <DashboardPriorityChart />
                 </div>
+
+                <DashboardAgentWorkload />
 
                 <TicketTrendChart year={trendYear} onYearChange={setTrendYear} />
 

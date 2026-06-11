@@ -24,3 +24,10 @@ export function dashboardMonthlyTrendQueryOption(year: number) {
         queryFn: () => dashboardService.getMonthlyTrend(year),
     });
 }
+
+export function dashboardAgentWorkloadQueryOption() {
+    return queryOptions({
+        queryKey: DASHBOARD_QUERY_KEYS.AGENT_WORKLOAD,
+        queryFn: () => dashboardService.getAgentWorkload(),
+    });
+}

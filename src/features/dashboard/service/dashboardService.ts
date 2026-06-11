@@ -1,5 +1,5 @@
 import { http } from "@/api";
-import type { DashboardSummary, MonthlyTicketTrend, RecentTicket } from "../types";
+import type { AgentWorkload, DashboardSummary, MonthlyTicketTrend, RecentTicket } from "../types";
 
 export const dashboardService = {
     getSummary: async () => {
@@ -15,5 +15,10 @@ export const dashboardService = {
     getMonthlyTrend: async (year: number) => {
         const response = await http.get("/api/v1/dashboard/monthly-trend", { params: { year } });
         return response.data as { data: MonthlyTicketTrend[] };
+    },
+
+    getAgentWorkload: async () => {
+        const response = await http.get("/api/v1/dashboard/agent-workload");
+        return response.data as { data: AgentWorkload[] };
     },
 };

@@ -34,3 +34,10 @@ export interface MonthlyTicketTrend {
     resolved: number;
     closed: number;
 }
+
+export interface AgentWorkload {
+    agent_id: string;
+    agent_name: string;
+    in_progress: number;
+    resolved: number;
+}
