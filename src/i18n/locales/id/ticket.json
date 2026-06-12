@@ -8,6 +8,7 @@
         "backToTickets": "Kembali ke Tiket",
         "description": "Deskripsi",
         "resolution": "Resolusi",
+        "assignNote": "Catatan dari Admin",
         "attachments": "Lampiran",
         "filesCount_one": "{{count}} file",
         "filesCount_other": "{{count}} file",
@@ -84,7 +85,10 @@
         "sheetTitle": "Tugaskan Tiket",
         "sheetDescription": "Pilih teknisi untuk menangani tiket ini.",
         "assignToLabel": "Tugaskan Kepada",
+        "noteLabel": "Catatan (opsional)",
+        "notePlaceholder": "Tambahkan catatan untuk penanggung jawab...",
         "assignButton": "Tugaskan",
+        "submitButton": "Tugaskan Tiket",
         "assignedSuccess": "Tiket berhasil ditugaskan"
     },
     "resolve": {

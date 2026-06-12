@@ -7,12 +7,14 @@
     "titles": {
         "NEW_TICKET": "New Ticket",
         "TICKET_ASSIGNED": "Ticket Assigned",
+        "TICKET_IN_PROGRESS": "Ticket In Progress",
         "TICKET_CLOSED": "Ticket Closed",
         "FEEDBACK_STATUS_UPDATED": "Feedback Updated"
     },
     "types": {
         "NEW_TICKET": "{{actor_name}} submitted a new ticket",
         "TICKET_ASSIGNED": "{{actor_name}} assigned you to a ticket",
+        "TICKET_IN_PROGRESS": "Your ticket is now being handled by our technician",
         "TICKET_CLOSED": "Your ticket has been closed",
         "FEEDBACK_STATUS_UPDATED": {
             "IN_REVIEW": "{{actor_name}} is reviewing your feedback",

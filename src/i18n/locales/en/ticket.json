@@ -8,6 +8,7 @@
         "backToTickets": "Back to Tickets",
         "description": "Description",
         "resolution": "Resolution",
+        "assignNote": "Note from Admin",
         "attachments": "Attachments",
         "filesCount_one": "{{count}} file",
         "filesCount_other": "{{count}} files",
@@ -84,7 +85,10 @@
         "sheetTitle": "Assign Ticket",
         "sheetDescription": "Select a technician to assign this ticket to.",
         "assignToLabel": "Assign To",
+        "noteLabel": "Note (optional)",
+        "notePlaceholder": "Add a note for the assignee...",
         "assignButton": "Assign",
+        "submitButton": "Assign Ticket",
         "assignedSuccess": "Ticket assigned successfully"
     },
     "resolve": {
