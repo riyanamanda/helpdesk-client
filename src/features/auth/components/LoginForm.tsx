@@ -22,7 +22,9 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
     const { t } = useTranslation("auth");
     const { mutate: login, isPending } = useLoginMutation();
     const { mutate: googleLogin, isPending: isGooglePending } = useGoogleLoginMutation();
-    useGoogleOneTap();
+    const { isPending: isOneTapPending } = useGoogleOneTap();
+
+    const isAnyPending = isPending || isGooglePending || isOneTapPending;
 
     const form = useForm<LoginRequest>({
         defaultValues: {
@@ -110,7 +112,7 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                             />
 
                             <Field>
-                                <Button type="submit" disabled={isPending}>
+                                <Button type="submit" disabled={isAnyPending}>
                                     {isPending ? (
                                         <>
                                             <Spinner /> {t("login.loggingIn")}
@@ -127,7 +129,7 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                                 <Button
                                     variant="outline"
                                     type="button"
-                                    disabled={isPending || isGooglePending}
+                                    disabled={isAnyPending}
                                     onClick={() => handleGoogleLogin()}
                                 >
                                     {isGooglePending ? (
