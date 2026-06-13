@@ -7,12 +7,14 @@
     "titles": {
         "NEW_TICKET": "Tiket Baru",
         "TICKET_ASSIGNED": "Tiket Ditugaskan",
+        "TICKET_IN_PROGRESS": "Tiket Sedang Diproses",
         "TICKET_CLOSED": "Tiket Ditutup",
         "FEEDBACK_STATUS_UPDATED": "Masukan Diperbarui"
     },
     "types": {
         "NEW_TICKET": "{{actor_name}} mengajukan tiket baru",
         "TICKET_ASSIGNED": "{{actor_name}} menugaskan Anda pada sebuah tiket",
+        "TICKET_IN_PROGRESS": "Tiket Anda sedang ditangani oleh teknisi kami",
         "TICKET_CLOSED": "Tiket Anda telah ditutup",
         "FEEDBACK_STATUS_UPDATED": {
             "IN_REVIEW": "{{actor_name}} sedang meninjau masukan Anda",

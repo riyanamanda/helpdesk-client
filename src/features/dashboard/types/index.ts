@@ -4,6 +4,8 @@ export interface TicketStatusStats {
     resolved: number;
     closed: number;
     total: number;
+    unassigned: number;
+    stale: number;
 }
 
 export interface TicketPriorityStats {
@@ -33,4 +35,17 @@ export interface MonthlyTicketTrend {
     submitted: number;
     resolved: number;
     closed: number;
+}
+
+export interface AgentWorkload {
+    agent_id: string;
+    agent_name: string;
+    in_progress: number;
+    resolved: number;
+}
+
+export interface CategoryTickets {
+    category_id: number;
+    category_name: string;
+    total: number;
 }

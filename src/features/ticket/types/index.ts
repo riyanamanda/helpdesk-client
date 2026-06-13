@@ -27,9 +27,11 @@ export interface Ticket {
     priority: TicketPriority | null;
     created_by: Pick<User, "id" | "name">;
     assigned_to: Pick<User, "id" | "name"> | null;
+    assigned_by: Pick<User, "id" | "name"> | null;
     resolved_by: Pick<User, "id" | "name"> | null;
     closed_by: Pick<User, "id" | "name"> | null;
     resolution: string | null;
+    assign_note: string | null;
     assigned_at: string | null;
     resolved_at: string | null;
     closed_at: string | null;
@@ -57,6 +59,7 @@ export interface TicketUpdateFormData {
 
 export interface TicketAssignFormData {
     assigned_to: string;
+    note?: string;
 }
 
 export interface TicketPriorityFormData {

@@ -14,7 +14,7 @@ import { TicketPriorityBadge, TicketStatusBadge } from "@/features/ticket/compon
 import type { TicketPriority, TicketStatus } from "@/features/ticket/types";
 import { formatDate } from "@/lib/formatters";
 import { useQuery } from "@tanstack/react-query";
-import { AlertCircleIcon, ListCollapseIcon } from "lucide-react";
+import { AlertCircleIcon, ArrowRightIcon, ListCollapseIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { dashboardRecentTicketsQueryOption } from "../queries/dashboard.query";
@@ -27,9 +27,18 @@ export function DashboardRecentTickets() {
     return (
         <Card>
             <CardHeader className="pb-2">
-                <CardTitle className="flex items-center gap-2 text-sm font-medium">
-                    <AlertCircleIcon className="size-4 text-muted-foreground" />
-                    {t("recent.title")}
+                <CardTitle className="flex items-center justify-between text-sm font-medium">
+                    <span className="flex items-center gap-2">
+                        <AlertCircleIcon className="size-4 text-muted-foreground" />
+                        {t("recent.title")}
+                    </span>
+                    <NavLink
+                        to={ROUTES.TICKET.INDEX}
+                        className="flex items-center gap-1 text-xs font-normal text-muted-foreground hover:text-foreground"
+                    >
+                        {t("recent.viewAll")}
+                        <ArrowRightIcon className="size-3" />
+                    </NavLink>
                 </CardTitle>
             </CardHeader>
             <CardContent className="px-0 pb-0">

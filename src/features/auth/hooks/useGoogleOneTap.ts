@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useGoogleOneTapMutation } from "../mutation/auth.mutation";
 
 export function useGoogleOneTap() {
-    const { mutate } = useGoogleOneTapMutation();
+    const { mutate, isPending } = useGoogleOneTapMutation();
     const skipRef = useRef(false);
 
     useEffect(() => {
@@ -38,4 +38,6 @@ export function useGoogleOneTap() {
             window.google?.accounts.id.cancel();
         };
     }, [mutate]);
+
+    return { isPending };
 }

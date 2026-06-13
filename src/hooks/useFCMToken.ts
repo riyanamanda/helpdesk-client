@@ -44,8 +44,9 @@ export function useFCMToken() {
     }, [i18n]);
 
     useEffect(() => {
-        if (!("Notification" in window) || !("serviceWorker" in navigator)) return;
+        if (!messaging || !("Notification" in window) || !("serviceWorker" in navigator)) return;
 
+        const msg = messaging;
         let unsubscribeMessage: (() => void) | undefined;
 
         async function init() {
@@ -56,7 +57,7 @@ export function useFCMToken() {
                 `/firebase-messaging-sw.js?${SW_PARAMS.toString()}`
             );
 
-            const token = await getToken(messaging, {
+            const token = await getToken(msg, {
                 vapidKey: VAPID_KEY,
                 serviceWorkerRegistration: registration,
             });
@@ -67,7 +68,7 @@ export function useFCMToken() {
 
             await deviceService.register(token);
 
-            unsubscribeMessage = onMessage(messaging, (payload) => {
+            unsubscribeMessage = onMessage(msg, (payload) => {
                 const data = payload.data as Record<string, string> | undefined;
                 if (!data) return;
 

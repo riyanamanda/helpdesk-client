@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { TFunction } from "i18next";
-import { AlignLeftIcon, CheckCircle2Icon, PaperclipIcon } from "lucide-react";
+import { AlignLeftIcon, CheckCircle2Icon, MessageCircleIcon, PaperclipIcon } from "lucide-react";
 import { AttachmentViewer } from "./AttachmentViewer";
 import type { TicketDetail } from "../types";
 
@@ -30,6 +30,27 @@ export function TicketDetailContent({ ticket, t }: TicketDetailContentProps) {
                     </p>
                 </CardContent>
             </Card>
+
+            {ticket.assign_note && (
+                <Card className="border-blue-500/30">
+                    <CardHeader className="pb-2">
+                        <CardTitle className="flex items-center gap-2 text-sm font-medium">
+                            <MessageCircleIcon className="size-4 text-blue-500" />
+                            {t("detail.assignNote")}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-sm leading-relaxed whitespace-pre-wrap text-muted-foreground">
+                            {ticket.assign_note}
+                        </p>
+                        {ticket.assigned_by && (
+                            <p className="mt-2 text-xs text-muted-foreground">
+                                — {ticket.assigned_by.name}
+                            </p>
+                        )}
+                    </CardContent>
+                </Card>
+            )}
 
             {ticket.resolution && (
                 <Card className="border-green-500/30">

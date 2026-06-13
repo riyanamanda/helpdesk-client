@@ -1,10 +1,11 @@
 {
     "stats": {
         "totalTickets": "Total Tiket",
-        "open": "Terbuka",
         "inProgress": "Sedang Diproses",
         "resolved": "Selesai",
-        "closed": "Ditutup"
+        "closed": "Ditutup",
+        "unassigned": "Belum Ditugaskan",
+        "stale": "Terbengkalai (3h+)"
     },
     "charts": {
         "byStatus": "Tiket Berdasarkan Status",
@@ -22,6 +23,7 @@
     "recent": {
         "title": "Tiket Terbuka & Sedang Diproses",
         "noTickets": "Tidak ada tiket terbuka saat ini",
+        "viewAll": "Lihat semua",
         "unassigned": "Belum Ditugaskan",
         "col": {
             "title": "Judul",
@@ -30,6 +32,18 @@
             "assignedTo": "Ditugaskan Ke",
             "date": "Tanggal"
         }
+    },
+    "categoryChart": {
+        "title": "Tiket Aktif per Kategori",
+        "tickets": "Tiket",
+        "noData": "Tidak ada tiket aktif"
+    },
+    "agentWorkload": {
+        "title": "Tiket per Agen",
+        "inProgress": "Sedang Diproses",
+        "resolved": "Diselesaikan Bulan Ini",
+        "topN": "Top 10 berdasarkan aktivitas",
+        "noData": "Tidak ada tiket yang ditugaskan"
     },
     "trend": {
         "title": "Tren Tiket Bulanan",
