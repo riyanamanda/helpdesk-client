@@ -51,7 +51,7 @@ export function CategoryActions({ category }: CategoryActionsProps) {
                     <MoreHorizontalIcon />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent className="min-w-44 rounded-lg" align="end" sideOffset={4}>
                 <DropdownMenuItem asChild>
                     <NavLink to={ROUTES.CATEGORY.EDIT.replace(":id", String(category.id))}>
                         {t("actions.edit")}

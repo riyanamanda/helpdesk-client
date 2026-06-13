@@ -6,7 +6,8 @@ export type TicketStatus = "OPEN" | "IN_PROGRESS" | "RESOLVED" | "CLOSED";
 export type TicketPriority = "LOW" | "MEDIUM" | "HIGH" | "URGENT";
 type AttachmentType = "REPORT" | "RESOLUTION";
 export type TicketSortBy = "created_at" | "updated_at" | "status" | "priority";
-export type SortType = "ASC" | "DESC";
+export type { SortType } from "@/types";
+import type { SortType } from "@/types";
 
 export interface TicketAttachment {
     id: number;

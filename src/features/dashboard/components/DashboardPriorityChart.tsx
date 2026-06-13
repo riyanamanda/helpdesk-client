@@ -9,12 +9,13 @@ import {
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
+import { memo } from "react";
 import { ChartPieIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Pie, PieChart } from "recharts";
 import { dashboardSummaryQueryOption } from "../queries/dashboard.query";
 
-export function DashboardPriorityChart() {
+export const DashboardPriorityChart = memo(function DashboardPriorityChart() {
     const { t } = useTranslation("dashboard");
     const { data, isLoading } = useQuery(dashboardSummaryQueryOption());
     const summary = data?.data;
@@ -67,4 +68,4 @@ export function DashboardPriorityChart() {
             </CardContent>
         </Card>
     );
-}
+});

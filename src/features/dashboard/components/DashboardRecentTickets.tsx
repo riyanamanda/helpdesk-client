@@ -14,12 +14,13 @@ import { TicketPriorityBadge, TicketStatusBadge } from "@/features/ticket/compon
 import type { TicketPriority, TicketStatus } from "@/features/ticket/types";
 import { formatDate } from "@/lib/formatters";
 import { useQuery } from "@tanstack/react-query";
+import { memo } from "react";
 import { AlertCircleIcon, ArrowRightIcon, ListCollapseIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { dashboardRecentTicketsQueryOption } from "../queries/dashboard.query";
 
-export function DashboardRecentTickets() {
+export const DashboardRecentTickets = memo(function DashboardRecentTickets() {
     const { t } = useTranslation("dashboard");
     const { data, isLoading } = useQuery(dashboardRecentTicketsQueryOption());
     const recentTickets = data?.data ?? [];
@@ -112,4 +113,4 @@ export function DashboardRecentTickets() {
             </CardContent>
         </Card>
     );
-}
+});

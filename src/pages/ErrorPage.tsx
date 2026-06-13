@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants";
-import { type Variants, motion } from "motion/react";
+import { LazyMotion, domAnimation, m, type Variants } from "motion/react";
 import { useTranslation } from "react-i18next";
 import { Link, isRouteErrorResponse, useRouteError } from "react-router";
 
@@ -40,59 +40,65 @@ export function ErrorPage() {
     }
 
     return (
-        <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background text-foreground">
-            <div
-                className="pointer-events-none absolute inset-0 opacity-25"
-                style={{
-                    backgroundImage:
-                        "radial-gradient(circle at 1px 1px, oklch(1 0 0 / 0.35) 1px, transparent 0)",
-                    backgroundSize: "36px 36px",
-                }}
-            />
-
-            <div className="pointer-events-none absolute inset-0 bg-radial from-transparent to-background" />
-
-            {bubbles.map((b, i) => (
-                <motion.div
-                    key={i}
-                    className={`pointer-events-none absolute ${b.cls} ${b.pos} rounded-full border border-destructive/20 bg-destructive/10`}
-                    animate={{ y: [0, -22, 0], x: [0, 6, 0] }}
-                    transition={{
-                        duration: b.duration,
-                        delay: b.delay,
-                        repeat: Infinity,
-                        ease: "easeInOut",
+        <LazyMotion features={domAnimation}>
+            <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background text-foreground">
+                <div
+                    className="pointer-events-none absolute inset-0 opacity-25"
+                    style={{
+                        backgroundImage:
+                            "radial-gradient(circle at 1px 1px, oklch(1 0 0 / 0.35) 1px, transparent 0)",
+                        backgroundSize: "36px 36px",
                     }}
                 />
-            ))}
 
-            <motion.div
-                className="relative z-10 flex flex-col items-center gap-6 px-4 text-center"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-            >
-                <motion.p
-                    className="text-[9rem] leading-none font-black tracking-tighter text-destructive sm:text-[12rem]"
-                    variants={itemVariants}
+                <div className="pointer-events-none absolute inset-0 bg-radial from-transparent to-background" />
+
+                {bubbles.map((b, i) => (
+                    <m.div
+                        key={i}
+                        className={`pointer-events-none absolute ${b.cls} ${b.pos} rounded-full border border-destructive/20 bg-destructive/10`}
+                        animate={{ y: [0, -22, 0], x: [0, 6, 0] }}
+                        transition={{
+                            duration: b.duration,
+                            delay: b.delay,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                        }}
+                    />
+                ))}
+
+                <m.div
+                    className="relative z-10 flex flex-col items-center gap-6 px-4 text-center"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
                 >
-                    {statusCode}
-                </motion.p>
+                    <m.p
+                        className="text-[9rem] leading-none font-black tracking-tighter text-destructive sm:text-[12rem]"
+                        variants={itemVariants}
+                    >
+                        {statusCode}
+                    </m.p>
 
-                <motion.div className="flex flex-col gap-2" variants={itemVariants}>
-                    <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h1>
-                    <p className="max-w-sm text-sm text-muted-foreground">{description}</p>
-                </motion.div>
+                    <m.div className="flex flex-col gap-2" variants={itemVariants}>
+                        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h1>
+                        <p className="max-w-sm text-sm text-muted-foreground">{description}</p>
+                    </m.div>
 
-                <motion.div className="flex gap-3" variants={itemVariants}>
-                    <Button asChild size="lg">
-                        <Link to={ROUTES.HOME}>{t("errors.goToHome")}</Link>
-                    </Button>
-                    <Button variant="outline" size="lg" onClick={() => window.location.reload()}>
-                        {t("errors.tryAgain")}
-                    </Button>
-                </motion.div>
-            </motion.div>
-        </div>
+                    <m.div className="flex gap-3" variants={itemVariants}>
+                        <Button asChild size="lg">
+                            <Link to={ROUTES.HOME}>{t("errors.goToHome")}</Link>
+                        </Button>
+                        <Button
+                            variant="outline"
+                            size="lg"
+                            onClick={() => window.location.reload()}
+                        >
+                            {t("errors.tryAgain")}
+                        </Button>
+                    </m.div>
+                </m.div>
+            </div>
+        </LazyMotion>
     );
 }

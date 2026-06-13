@@ -5,7 +5,8 @@ import { Spinner } from "@/components/ui/spinner";
 import type { User } from "@/features/user/types";
 import { getInitials } from "@/lib/formatters";
 import { resolveMediaUrl } from "@/lib/media-url";
-import type { AxiosError } from "axios";
+import { handleApiError } from "@/lib/handle-form-error";
+import i18n from "@/i18n";
 import { CameraIcon, MailIcon } from "lucide-react";
 import { useRef } from "react";
 import { toast } from "sonner";
@@ -20,15 +21,14 @@ export function AvatarCard({ user }: { user: User }) {
         if (!file) return;
 
         if (file.size > 2 * 1024 * 1024) {
-            toast.error("File too large", { description: "Max size is 2MB" });
+            toast.error(i18n.t("auth:profile.fileTooLarge"), {
+                description: i18n.t("auth:profile.fileTooLargeDescription"),
+            });
             return;
         }
 
         updateAvatar(file, {
-            onError: (error) => {
-                const axiosError = error as AxiosError<{ error: { message: string } }>;
-                toast.error(axiosError.response?.data?.error?.message ?? "Failed to update avatar");
-            },
+            onError: (error) => handleApiError(error),
         });
 
         e.target.value = "";

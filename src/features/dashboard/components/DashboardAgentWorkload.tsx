@@ -7,12 +7,13 @@ import {
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
+import { memo } from "react";
 import { UsersIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { dashboardAgentWorkloadQueryOption } from "../queries/dashboard.query";
 
-export function DashboardAgentWorkload() {
+export const DashboardAgentWorkload = memo(function DashboardAgentWorkload() {
     const { t } = useTranslation("dashboard");
     const { data, isLoading } = useQuery(dashboardAgentWorkloadQueryOption());
     const agents = data?.data ?? [];
@@ -107,4 +108,4 @@ export function DashboardAgentWorkload() {
             </CardContent>
         </Card>
     );
-}
+});

@@ -3,10 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
 import type { User } from "@/features/user/types";
-import type { AxiosError } from "axios";
+import { handleApiError } from "@/lib/handle-form-error";
 import { LinkIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
 import { useRevokeGoogleMutation, useSyncGoogleMutation } from "../mutation/profile.mutation";
 
 export function GoogleSyncCard({ user }: { user: User }) {
@@ -16,19 +15,13 @@ export function GoogleSyncCard({ user }: { user: User }) {
 
     const handleSync = () => {
         syncGoogle(undefined, {
-            onError: (error) => {
-                const axiosError = error as AxiosError<{ error: { message: string } }>;
-                toast.error(axiosError.response?.data?.error?.message ?? t("google.failedLink"));
-            },
+            onError: (error) => handleApiError(error),
         });
     };
 
     const handleRevoke = () => {
         revokeGoogle(undefined, {
-            onError: (error) => {
-                const axiosError = error as AxiosError<{ error: { message: string } }>;
-                toast.error(axiosError.response?.data?.error?.message ?? t("google.failedUnlink"));
-            },
+            onError: (error) => handleApiError(error),
         });
     };
 

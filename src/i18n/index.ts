@@ -56,8 +56,9 @@ i18n.use(LanguageDetector)
         defaultNS: "common",
         fallbackLng: "en",
         supportedLngs: ["en", "id"],
+        load: "languageOnly",
         detection: {
-            order: ["localStorage"],
+            order: ["localStorage", "navigator"],
             lookupLocalStorage: "lang",
             caches: ["localStorage"],
         },

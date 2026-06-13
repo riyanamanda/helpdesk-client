@@ -11,10 +11,10 @@ import {
 } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
 import type { User } from "@/features/user/types";
-import type { AxiosError } from "axios";
+import { type AxiosError } from "axios";
+import { handleFormError } from "@/lib/handle-form-error";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
 import { useUpdateProfileMutation } from "../mutation/profile.mutation";
 import type { UpdateProfileRequest } from "../types";
 
@@ -35,12 +35,7 @@ export function EditProfileCard({ user }: { user: User }) {
         updateProfile(
             { name: data.name, email: data.email, phone: data.phone, gender: data.gender || null },
             {
-                onError: (error) => {
-                    const axiosError = error as AxiosError<{ error: { message: string } }>;
-                    toast.error(
-                        axiosError.response?.data?.error?.message ?? t("profile.failedUpdate")
-                    );
-                },
+                onError: (error) => handleFormError(error as AxiosError, form),
             }
         );
     };

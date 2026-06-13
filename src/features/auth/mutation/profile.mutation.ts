@@ -1,3 +1,4 @@
+import i18n from "@/i18n";
 import { auth, googleProvider } from "@/lib/firebase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signInWithPopup } from "firebase/auth";
@@ -11,9 +12,11 @@ export function useUpdateProfileMutation() {
 
     return useMutation({
         mutationFn: (payload: UpdateProfileRequest) => profileService.updateProfile(payload),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: PROFILE_QUERY_KEYS.ROOT });
-            toast.success("Profile updated successfully");
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: PROFILE_QUERY_KEYS.ROOT });
+            toast.success(i18n.t("common:toast.success"), {
+                description: i18n.t("auth:profile.updatedSuccess"),
+            });
         },
     });
 }
@@ -23,10 +26,12 @@ export function useUpdateAvatarMutation() {
 
     return useMutation({
         mutationFn: (file: File) => profileService.updateAvatar(file),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: PROFILE_QUERY_KEYS.ROOT });
-            queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEYS.ME });
-            toast.success("Avatar updated successfully");
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: PROFILE_QUERY_KEYS.ROOT });
+            await queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEYS.ME });
+            toast.success(i18n.t("common:toast.success"), {
+                description: i18n.t("auth:profile.avatarUpdatedSuccess"),
+            });
         },
     });
 }
@@ -44,12 +49,13 @@ export function useSyncGoogleMutation() {
         mutationFn: async () => {
             const credential = await signInWithPopup(auth, googleProvider);
             const idToken = await credential.user.getIdToken();
-
             await profileService.syncGoogle({ id_token: idToken });
         },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: PROFILE_QUERY_KEYS.ROOT });
-            toast.success("Google account linked successfully");
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: PROFILE_QUERY_KEYS.ROOT });
+            toast.success(i18n.t("common:toast.success"), {
+                description: i18n.t("auth:google.linkedSuccess"),
+            });
         },
     });
 }
@@ -59,9 +65,11 @@ export function useRevokeGoogleMutation() {
 
     return useMutation({
         mutationFn: async () => profileService.revokeGoogle(),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: PROFILE_QUERY_KEYS.ROOT });
-            toast.success("Google account unlinked successfully");
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: PROFILE_QUERY_KEYS.ROOT });
+            toast.success(i18n.t("common:toast.success"), {
+                description: i18n.t("auth:google.unlinkedSuccess"),
+            });
         },
     });
 }

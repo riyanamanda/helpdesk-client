@@ -7,12 +7,13 @@ import {
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
+import { memo } from "react";
 import { TagIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { dashboardTicketsByCategoryQueryOption } from "../queries/dashboard.query";
 
-export function DashboardCategoryChart() {
+export const DashboardCategoryChart = memo(function DashboardCategoryChart() {
     const { t } = useTranslation("dashboard");
     const { data, isLoading } = useQuery(dashboardTicketsByCategoryQueryOption());
     const categories = data?.data ?? [];
@@ -78,4 +79,4 @@ export function DashboardCategoryChart() {
             </CardContent>
         </Card>
     );
-}
+});

@@ -1,7 +1,8 @@
 export type FeedbackType = "FEATURE_REQUEST" | "IMPROVEMENT" | "BUG_REPORT";
 export type FeedbackStatus = "OPEN" | "IN_REVIEW" | "ACCEPTED" | "REJECTED" | "DELIVERED";
 export type FeedbackSortBy = "created_at" | "updated_at" | "status" | "type";
-export type SortType = "ASC" | "DESC";
+export type { SortType } from "@/types";
+import type { SortType } from "@/types";
 
 export interface FeedbackUser {
     id: string;

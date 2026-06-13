@@ -1,3 +1,5 @@
+export type SortType = "ASC" | "DESC";
+
 export interface Pagination {
     page: number;
     limit: number;

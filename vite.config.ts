@@ -27,13 +27,13 @@ export default defineConfig({
         rollupOptions: {
             output: {
                 manualChunks: {
-                    "react-vendor": ["react", "react-dom"],
                     router: ["react-router"],
                     query: ["@tanstack/react-query"],
                     table: ["@tanstack/react-table"],
                     motion: ["motion/react"],
                     form: ["react-hook-form"],
                     firebase: ["firebase/app", "firebase/auth"],
+                    recharts: ["recharts"],
                 },
             },
         },

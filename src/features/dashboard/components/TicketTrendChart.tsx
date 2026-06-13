@@ -15,6 +15,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { ChartLineIcon } from "lucide-react";
+import { memo, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { AreaChart, CartesianGrid, Line, XAxis, YAxis } from "recharts";
 import { dashboardMonthlyTrendQueryOption } from "../queries/dashboard.query";
@@ -25,56 +26,64 @@ interface TicketTrendChartProps {
 }
 
 const YEAR_RANGE = 4;
+const LEGEND_ITEMS = [
+    { key: "submitted", color: "#3b82f6" },
+    { key: "resolved", color: "#22c55e" },
+    { key: "closed", color: "#94a3b8" },
+] as const;
 
-function buildYearOptions() {
-    const current = new Date().getFullYear();
-    return Array.from({ length: YEAR_RANGE }, (_, i) => current - i);
-}
+const currentYear = new Date().getFullYear();
+const YEAR_OPTIONS = Array.from({ length: YEAR_RANGE }, (_, i) => currentYear - i);
 
-export function TicketTrendChart({ year, onYearChange }: TicketTrendChartProps) {
+export const TicketTrendChart = memo(function TicketTrendChart({
+    year,
+    onYearChange,
+}: TicketTrendChartProps) {
     const { t } = useTranslation("dashboard");
 
     const { data, isLoading } = useQuery(dashboardMonthlyTrendQueryOption(year));
     const rawTrend = data?.data ?? [];
 
-    const SHORT_MONTHS = [
-        t("trend.months.jan"),
-        t("trend.months.feb"),
-        t("trend.months.mar"),
-        t("trend.months.apr"),
-        t("trend.months.may"),
-        t("trend.months.jun"),
-        t("trend.months.jul"),
-        t("trend.months.aug"),
-        t("trend.months.sep"),
-        t("trend.months.oct"),
-        t("trend.months.nov"),
-        t("trend.months.dec"),
-    ];
+    const SHORT_MONTHS = useMemo(
+        () => [
+            t("trend.months.jan"),
+            t("trend.months.feb"),
+            t("trend.months.mar"),
+            t("trend.months.apr"),
+            t("trend.months.may"),
+            t("trend.months.jun"),
+            t("trend.months.jul"),
+            t("trend.months.aug"),
+            t("trend.months.sep"),
+            t("trend.months.oct"),
+            t("trend.months.nov"),
+            t("trend.months.dec"),
+        ],
+        [t]
+    );
 
-    const chartData = Array.from({ length: 12 }, (_, i) => {
-        const found = rawTrend.find((d) => d.month === i + 1);
-        return {
-            month: SHORT_MONTHS[i],
-            submitted: found?.submitted ?? 0,
-            resolved: found?.resolved ?? 0,
-            closed: found?.closed ?? 0,
-        };
-    });
+    const chartData = useMemo(
+        () =>
+            Array.from({ length: 12 }, (_, i) => {
+                const found = rawTrend.find((d) => d.month === i + 1);
+                return {
+                    month: SHORT_MONTHS[i],
+                    submitted: found?.submitted ?? 0,
+                    resolved: found?.resolved ?? 0,
+                    closed: found?.closed ?? 0,
+                };
+            }),
+        [rawTrend, SHORT_MONTHS]
+    );
 
-    const chartConfig: ChartConfig = {
-        submitted: { label: t("trend.submitted"), color: "#3b82f6" },
-        resolved: { label: t("trend.resolved"), color: "#22c55e" },
-        closed: { label: t("trend.closed"), color: "#94a3b8" },
-    };
-
-    const yearOptions = buildYearOptions();
-
-    const legendItems = [
-        { key: "submitted", color: "#3b82f6" },
-        { key: "resolved", color: "#22c55e" },
-        { key: "closed", color: "#94a3b8" },
-    ] as const;
+    const chartConfig = useMemo<ChartConfig>(
+        () => ({
+            submitted: { label: t("trend.submitted"), color: "#3b82f6" },
+            resolved: { label: t("trend.resolved"), color: "#22c55e" },
+            closed: { label: t("trend.closed"), color: "#94a3b8" },
+        }),
+        [t]
+    );
 
     return (
         <Card>
@@ -91,7 +100,7 @@ export function TicketTrendChart({ year, onYearChange }: TicketTrendChartProps) 
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                            {yearOptions.map((y) => (
+                            {YEAR_OPTIONS.map((y) => (
                                 <SelectItem key={y} value={String(y)}>
                                     {y}
                                 </SelectItem>
@@ -180,7 +189,7 @@ export function TicketTrendChart({ year, onYearChange }: TicketTrendChartProps) 
                 )}
 
                 <div className="flex items-center justify-center gap-4">
-                    {legendItems.map(({ key, color }) => (
+                    {LEGEND_ITEMS.map(({ key, color }) => (
                         <span
                             key={key}
                             className="flex items-center gap-1.5 text-xs text-muted-foreground"
@@ -198,4 +207,4 @@ export function TicketTrendChart({ year, onYearChange }: TicketTrendChartProps) 
             </CardContent>
         </Card>
     );
-}
+});

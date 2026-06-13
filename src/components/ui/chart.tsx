@@ -1,5 +1,11 @@
 import * as React from "react";
-import * as RechartsPrimitive from "recharts";
+import {
+    Legend,
+    ResponsiveContainer,
+    Tooltip,
+    type DefaultLegendContentProps,
+    type DefaultTooltipContentProps,
+} from "recharts";
 import type { TooltipValueType } from "recharts";
 
 import { cn } from "@/lib/utils";
@@ -46,7 +52,7 @@ function ChartContainer({
     ...props
 }: React.ComponentProps<"div"> & {
     config: ChartConfig;
-    children: React.ComponentProps<typeof RechartsPrimitive.ResponsiveContainer>["children"];
+    children: React.ComponentProps<typeof ResponsiveContainer>["children"];
     initialDimension?: {
         width: number;
         height: number;
@@ -67,9 +73,9 @@ function ChartContainer({
                 {...props}
             >
                 <ChartStyle id={chartId} config={config} />
-                <RechartsPrimitive.ResponsiveContainer initialDimension={initialDimension}>
+                <ResponsiveContainer initialDimension={initialDimension}>
                     {children}
-                </RechartsPrimitive.ResponsiveContainer>
+                </ResponsiveContainer>
             </div>
         </ChartContext.Provider>
     );
@@ -105,7 +111,7 @@ ${colorConfig
     );
 };
 
-const ChartTooltip = RechartsPrimitive.Tooltip;
+const ChartTooltip = Tooltip;
 
 function ChartTooltipContent({
     active,
@@ -121,17 +127,14 @@ function ChartTooltipContent({
     color,
     nameKey,
     labelKey,
-}: React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
+}: React.ComponentProps<typeof Tooltip> &
     React.ComponentProps<"div"> & {
         hideLabel?: boolean;
         hideIndicator?: boolean;
         indicator?: "line" | "dot" | "dashed";
         nameKey?: string;
         labelKey?: string;
-    } & Omit<
-        RechartsPrimitive.DefaultTooltipContentProps<TooltipValueType, TooltipNameType>,
-        "accessibilityLayer"
-    >) {
+    } & Omit<DefaultTooltipContentProps<TooltipValueType, TooltipNameType>, "accessibilityLayer">) {
     const { config } = useChart();
 
     const tooltipLabel = React.useMemo(() => {
@@ -251,7 +254,7 @@ function ChartTooltipContent({
     );
 }
 
-const ChartLegend = RechartsPrimitive.Legend;
+const ChartLegend = Legend;
 
 function ChartLegendContent({
     className,
@@ -262,7 +265,7 @@ function ChartLegendContent({
 }: React.ComponentProps<"div"> & {
     hideIcon?: boolean;
     nameKey?: string;
-} & RechartsPrimitive.DefaultLegendContentProps) {
+} & DefaultLegendContentProps) {
     const { config } = useChart();
 
     if (!payload?.length) {

@@ -19,7 +19,7 @@ export function getDivisionQueryOption(id: number) {
 
 export function listDivisionOptionsQueryOption() {
     return queryOptions({
-        queryKey: DIVISION_QUERY_KEYS.OPTION,
+        queryKey: DIVISION_QUERY_KEYS.OPTIONS,
         queryFn: () => divisionService.option(),
     });
 }

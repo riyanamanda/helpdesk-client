@@ -1,8 +1,7 @@
-import { Badge } from "@/components/ui/badge";
+import { ActiveStatusBadge } from "@/components/ActiveStatusBadge";
 import { formatDate } from "@/lib/formatters";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
-import { CircleCheckBigIcon, CircleXIcon } from "lucide-react";
 import { DivisionActions } from "../components/DivisionActions";
 import type { Division } from "../types";
 
@@ -25,24 +24,13 @@ export const getDivisionColumns = (
     {
         accessorKey: "is_active",
         header: t("common:table.status"),
-        cell: ({ row }) => {
-            const status = row.getValue("is_active");
-            return (
-                <Badge variant={status ? "success" : "destructive"} className="px-1.5">
-                    {status ? (
-                        <>
-                            <CircleCheckBigIcon />
-                            {t("columns.active")}
-                        </>
-                    ) : (
-                        <>
-                            <CircleXIcon />
-                            {t("columns.inactive")}
-                        </>
-                    )}
-                </Badge>
-            );
-        },
+        cell: ({ row }) => (
+            <ActiveStatusBadge
+                isActive={row.getValue("is_active")}
+                activeLabel={t("columns.active")}
+                inactiveLabel={t("columns.inactive")}
+            />
+        ),
         enableSorting: true,
     },
     {

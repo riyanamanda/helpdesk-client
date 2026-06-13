@@ -2,7 +2,7 @@ import { DeleteDialog } from "@/components/DeleteDialog";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatDate } from "@/lib/formatters";
+import { formatDate, getInitials } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 import type { TFunction } from "i18next";
 import {
@@ -29,15 +29,6 @@ interface TicketDetailSidebarProps {
     onDelete: () => void;
     isClosing: boolean;
     isDeleting: boolean;
-}
-
-function getInitials(name: string) {
-    return name
-        .split(" ")
-        .map((n) => n[0])
-        .slice(0, 2)
-        .join("")
-        .toUpperCase();
 }
 
 function PersonRow({ label, name }: { label: string; name?: string | null }) {

@@ -16,10 +16,3 @@ export function listAdminFeedbackQueryOption(params: FeedbackListParams = { page
         queryFn: () => feedbackService.adminList(params),
     });
 }
-
-export function getFeedbackQueryOption(id: number) {
-    return queryOptions({
-        queryKey: FEEDBACK_QUERY_KEYS.GET(id),
-        queryFn: () => feedbackService.get(id),
-    });
-}
