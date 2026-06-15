@@ -6,6 +6,8 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ROUTES } from "@/constants";
+import { PERMISSIONS } from "@/constants/permissions";
+import { useHasPermission } from "@/hooks/use-current-user";
 import { MoreHorizontalIcon } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -19,7 +21,10 @@ interface UserActionsProps {
 
 export function UserActions({ user }: UserActionsProps) {
     const { t } = useTranslation("user");
+    const canUpdate = useHasPermission(PERMISSIONS.USER.UPDATE);
     const [passwordOpen, setPasswordOpen] = useState(false);
+
+    if (!canUpdate) return null;
 
     return (
         <>

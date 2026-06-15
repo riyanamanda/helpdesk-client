@@ -1,5 +1,10 @@
-export type UserRole = "ADMIN" | "EMPLOYEE";
+export type RoleName = "ADMIN" | "EMPLOYEE";
 export type UserGender = "MALE" | "FEMALE";
+
+export interface UserRole {
+    id: number;
+    name: RoleName;
+}
 
 export interface UserBrief {
     id: string;
@@ -31,7 +36,7 @@ export interface UserFormData {
     name: string;
     email: string;
     password: string;
-    role: UserRole;
+    role: number;
     division: number;
     gender: UserGender;
     is_active: boolean;
@@ -48,7 +53,7 @@ export interface UserListParams {
     search?: string;
     sort_by?: "name" | "email" | "role" | "division" | "is_active" | "created_at";
     sort_type?: "ASC" | "DESC";
-    role?: UserRole;
+    role?: RoleName;
     division?: number;
     is_active?: boolean;
 }

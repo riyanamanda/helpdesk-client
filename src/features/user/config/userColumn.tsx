@@ -54,14 +54,14 @@ export const getUserColumns = (
         accessorKey: "role",
         header: t("columns.role"),
         cell: ({ row }) => {
-            const role = row.getValue("role") as string;
+            const role = row.original.role;
             const variantMap: Record<string, "default" | "secondary" | "outline"> = {
                 ADMIN: "default",
                 EMPLOYEE: "outline",
             };
             return (
-                <Badge variant={variantMap[role] ?? "outline"} className="capitalize">
-                    {role.toLowerCase()}
+                <Badge variant={variantMap[role.name] ?? "outline"} className="capitalize">
+                    {role.name.toLowerCase()}
                 </Badge>
             );
         },

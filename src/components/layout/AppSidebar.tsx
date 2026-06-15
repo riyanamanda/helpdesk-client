@@ -1,13 +1,15 @@
 import { ROUTES } from "@/constants";
-import { useIsAdmin } from "@/hooks/use-current-user";
+import { PERMISSIONS } from "@/constants/permissions";
+import { useHasPermission, useIsAdmin } from "@/hooks/use-current-user";
 import {
     BlocksIcon,
     GaugeIcon,
     MessageSquareTextIcon,
     PresentationIcon,
     SmartphoneNfcIcon,
+    SquareUserIcon,
     TicketIcon,
-    UserIcon,
+    UserRoundKeyIcon,
 } from "lucide-react";
 import type { ComponentProps } from "react";
 import { useTranslation } from "react-i18next";
@@ -25,7 +27,31 @@ import {
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
     const { t } = useTranslation("common");
+    const canViewTicket = useHasPermission(PERMISSIONS.TICKET.VIEW);
+    const canViewCategory = useHasPermission(PERMISSIONS.CATEGORY.VIEW);
+    const canViewDivision = useHasPermission(PERMISSIONS.DIVISION.VIEW);
+    const canViewUsers = useHasPermission(PERMISSIONS.USER.VIEW);
+    const canViewAccess = useHasPermission(PERMISSIONS.RBAC.VIEW);
+    const canViewFeedback = useHasPermission(PERMISSIONS.FEEDBACK.VIEW);
     const isAdmin = useIsAdmin();
+
+    const masterItems = [
+        canViewCategory && {
+            name: t("nav.category"),
+            url: ROUTES.CATEGORY.INDEX,
+            icon: BlocksIcon,
+        },
+        canViewDivision && {
+            name: t("nav.division"),
+            url: ROUTES.DIVISION.INDEX,
+            icon: PresentationIcon,
+        },
+    ].filter(Boolean) as { name: string; url: string; icon: typeof BlocksIcon }[];
+
+    const authItems = [
+        canViewUsers && { name: t("nav.users"), url: ROUTES.USER.INDEX, icon: SquareUserIcon },
+        canViewAccess && { name: t("nav.access"), url: ROUTES.RBAC.INDEX, icon: UserRoundKeyIcon },
+    ].filter(Boolean) as { name: string; url: string; icon: typeof SquareUserIcon }[];
 
     return (
         <Sidebar collapsible="offcanvas" {...props}>
@@ -54,47 +80,36 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                 <SidebarNav
                     items={[
                         { name: t("nav.dashboard"), url: ROUTES.DASHBOARD, icon: GaugeIcon },
-                        { name: t("nav.tickets"), url: ROUTES.TICKET.INDEX, icon: TicketIcon },
+                        ...(canViewTicket
+                            ? [
+                                  {
+                                      name: t("nav.tickets"),
+                                      url: ROUTES.TICKET.INDEX,
+                                      icon: TicketIcon,
+                                  },
+                              ]
+                            : []),
                     ]}
                 />
-                {isAdmin && (
-                    <>
-                        <SidebarNav
-                            label={t("nav.master")}
-                            items={[
-                                {
-                                    name: t("nav.category"),
-                                    url: ROUTES.CATEGORY.INDEX,
-                                    icon: BlocksIcon,
-                                },
-                                {
-                                    name: t("nav.division"),
-                                    url: ROUTES.DIVISION.INDEX,
-                                    icon: PresentationIcon,
-                                },
-                            ]}
-                        />
-                        <SidebarNav
-                            label={t("nav.auth")}
-                            items={[
-                                { name: t("nav.users"), url: ROUTES.USER.INDEX, icon: UserIcon },
-                            ]}
-                        />
-                        <SidebarNav
-                            label={"Customer Support"}
-                            items={[
-                                {
-                                    name: t("nav.feedback"),
-                                    url: ROUTES.FEEDBACK.INDEX,
-                                    icon: MessageSquareTextIcon,
-                                },
-                            ]}
-                        />
-                    </>
+                {masterItems.length > 0 && (
+                    <SidebarNav label={t("nav.master")} items={masterItems} />
+                )}
+                {authItems.length > 0 && <SidebarNav label={t("nav.auth")} items={authItems} />}
+                {isAdmin && canViewFeedback && (
+                    <SidebarNav
+                        label={"Customer Support"}
+                        items={[
+                            {
+                                name: t("nav.feedback"),
+                                url: ROUTES.FEEDBACK.INDEX,
+                                icon: MessageSquareTextIcon,
+                            },
+                        ]}
+                    />
                 )}
                 <SidebarNav
                     items={[
-                        ...(!isAdmin
+                        ...(!isAdmin && canViewFeedback
                             ? [
                                   {
                                       name: t("nav.feedback"),

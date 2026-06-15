@@ -2,6 +2,8 @@ import { DeleteDialog } from "@/components/DeleteDialog";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PERMISSIONS } from "@/constants/permissions";
+import { useHasPermission } from "@/hooks/use-current-user";
 import { formatDate, getInitials } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 import type { TFunction } from "i18next";
@@ -22,7 +24,6 @@ interface TicketDetailSidebarProps {
     t: TFunction<"ticket">;
     ticket: TicketDetail;
     ticketId: number;
-    isAdmin: boolean;
     canClose: boolean;
     canDelete: boolean;
     onClose: () => void;
@@ -117,7 +118,6 @@ export function TicketDetailSidebar({
     t,
     ticket,
     ticketId,
-    isAdmin,
     canClose,
     canDelete,
     onClose,
@@ -125,6 +125,10 @@ export function TicketDetailSidebar({
     isClosing,
     isDeleting,
 }: TicketDetailSidebarProps) {
+    const canSetPriority = useHasPermission(PERMISSIONS.TICKET.PRIORITY);
+    const canAssign = useHasPermission(PERMISSIONS.TICKET.ASSIGN);
+    const canResolve = useHasPermission(PERMISSIONS.TICKET.RESOLUTION);
+
     return (
         <div className="flex flex-col gap-4">
             <Card>
@@ -185,23 +189,23 @@ export function TicketDetailSidebar({
                 </CardContent>
             </Card>
 
-            {(isAdmin || canClose || canDelete) && (
+            {(canSetPriority || canAssign || canResolve || canClose || canDelete) && (
                 <Card>
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-medium">{t("detail.actions")}</CardTitle>
                     </CardHeader>
                     <CardContent className="flex flex-col gap-2">
-                        {isAdmin && ticket.status === "OPEN" && (
+                        {canSetPriority && ticket.status === "OPEN" && (
                             <SetPrioritySheet
                                 ticketId={ticketId}
                                 currentPriority={ticket.priority}
                             />
                         )}
-                        {isAdmin &&
+                        {canAssign &&
                             (ticket.status === "OPEN" || ticket.status === "IN_PROGRESS") && (
                                 <AssignTicketSheet ticketId={ticketId} />
                             )}
-                        {isAdmin && ticket.status === "IN_PROGRESS" && (
+                        {canResolve && ticket.status === "IN_PROGRESS" && (
                             <ResolveTicketSheet ticketId={ticketId} />
                         )}
                         {canClose && (

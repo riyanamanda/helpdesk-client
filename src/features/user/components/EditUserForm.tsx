@@ -19,8 +19,9 @@ import {
 } from "@/components/ui/select";
 import { ROUTES } from "@/constants";
 import { DivisionCombobox } from "@/features/division/components/DivisionCombobox";
+import { listRolesQueryOption } from "@/features/rbac/queries/rbac.query";
 import { handleFormError } from "@/lib/handle-form-error";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -28,7 +29,7 @@ import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useUpdateUserMutation } from "../mutation/user.mutation";
 import { USER_QUERY_KEYS } from "../queries";
-import type { User, UserFormData, UserGender, UserRole } from "../types";
+import type { User, UserFormData, UserGender } from "../types";
 
 interface EditUserFormProps {
     user: User;
@@ -39,17 +40,14 @@ export function EditUserForm({ user }: EditUserFormProps) {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { mutate: updateUser, isPending } = useUpdateUserMutation();
-
-    const ROLES: { label: string; value: UserRole }[] = [
-        { label: t("roles.admin"), value: "ADMIN" },
-        { label: t("roles.employee"), value: "EMPLOYEE" },
-    ];
+    const { data: rolesData } = useQuery(listRolesQueryOption());
+    const roles = rolesData?.data ?? [];
 
     const form = useForm<Omit<UserFormData, "password">>({
         defaultValues: {
             name: user.name,
             email: user.email,
-            role: user.role,
+            role: user.role.id,
             division: user.division.id,
             gender: user.gender,
             is_active: user.is_active,
@@ -125,14 +123,17 @@ export function EditUserForm({ user }: EditUserFormProps) {
                                         <FieldLabel htmlFor="role">
                                             {t("edit.roleLabel")}
                                         </FieldLabel>
-                                        <Select value={field.value} onValueChange={field.onChange}>
+                                        <Select
+                                            value={field.value ? String(field.value) : ""}
+                                            onValueChange={(v) => field.onChange(Number(v))}
+                                        >
                                             <SelectTrigger id="role">
                                                 <SelectValue placeholder={t("roles.placeholder")} />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                {ROLES.map((r) => (
-                                                    <SelectItem key={r.value} value={r.value}>
-                                                        {r.label}
+                                                {roles.map((r) => (
+                                                    <SelectItem key={r.id} value={String(r.id)}>
+                                                        {t(`roles.${r.code.toLowerCase()}`, r.code)}
                                                     </SelectItem>
                                                 ))}
                                             </SelectContent>

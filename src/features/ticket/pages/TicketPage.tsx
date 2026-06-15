@@ -3,6 +3,8 @@ import { DataTablePagination } from "@/components/DataTablePagination";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants";
+import { PERMISSIONS } from "@/constants/permissions";
+import { useHasPermission } from "@/hooks/use-current-user";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { type SortingState } from "@tanstack/react-table";
 import { PlusIcon } from "lucide-react";
@@ -16,6 +18,7 @@ import type { SortType, TicketSortBy } from "../types";
 
 export function TicketPage() {
     const { t, i18n } = useTranslation("ticket");
+    const canCreate = useHasPermission(PERMISSIONS.TICKET.CREATE);
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [filters, setFilters] = useState<TicketFiltersState>({});
@@ -56,12 +59,14 @@ export function TicketPage() {
                 title={t("page.title")}
                 description={t("page.description")}
                 actions={
-                    <NavLink to={ROUTES.TICKET.CREATE}>
-                        <Button variant="outline" className="cursor-pointer">
-                            <PlusIcon />
-                            {t("page.submitButton")}
-                        </Button>
-                    </NavLink>
+                    canCreate && (
+                        <NavLink to={ROUTES.TICKET.CREATE}>
+                            <Button variant="outline" className="cursor-pointer">
+                                <PlusIcon />
+                                {t("page.submitButton")}
+                            </Button>
+                        </NavLink>
+                    )
                 }
             />
             <PageLayout.Content>

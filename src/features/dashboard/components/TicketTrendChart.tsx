@@ -42,7 +42,6 @@ export const TicketTrendChart = memo(function TicketTrendChart({
     const { t } = useTranslation("dashboard");
 
     const { data, isLoading } = useQuery(dashboardMonthlyTrendQueryOption(year));
-    const rawTrend = data?.data ?? [];
 
     const SHORT_MONTHS = useMemo(
         () => [
@@ -62,19 +61,19 @@ export const TicketTrendChart = memo(function TicketTrendChart({
         [t]
     );
 
-    const chartData = useMemo(
-        () =>
-            Array.from({ length: 12 }, (_, i) => {
-                const found = rawTrend.find((d) => d.month === i + 1);
-                return {
-                    month: SHORT_MONTHS[i],
-                    submitted: found?.submitted ?? 0,
-                    resolved: found?.resolved ?? 0,
-                    closed: found?.closed ?? 0,
-                };
-            }),
-        [rawTrend, SHORT_MONTHS]
-    );
+    const chartData = useMemo(() => {
+        const rawTrend = data?.data ?? [];
+
+        return Array.from({ length: 12 }, (_, i) => {
+            const found = rawTrend.find((d) => d.month === i + 1);
+            return {
+                month: SHORT_MONTHS[i],
+                submitted: found?.submitted ?? 0,
+                resolved: found?.resolved ?? 0,
+                closed: found?.closed ?? 0,
+            };
+        });
+    }, [data?.data, SHORT_MONTHS]);
 
     const chartConfig = useMemo<ChartConfig>(
         () => ({

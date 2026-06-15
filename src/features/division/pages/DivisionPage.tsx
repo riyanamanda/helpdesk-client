@@ -11,7 +11,8 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { ROUTES } from "@/constants";
-import { useIsAdmin } from "@/hooks/use-current-user";
+import { PERMISSIONS } from "@/constants/permissions";
+import { useHasPermission } from "@/hooks/use-current-user";
 import { useDebounce } from "@/hooks/use-debounce";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import type { OnChangeFn, SortingState } from "@tanstack/react-table";
@@ -28,7 +29,7 @@ type SortType = NonNullable<DivisionListParams["sort_type"]>;
 
 export function DivisionPage() {
     const { t } = useTranslation("division");
-    const isAdmin = useIsAdmin();
+    const canCreate = useHasPermission(PERMISSIONS.DIVISION.CREATE);
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [search, setSearch] = useState("");
@@ -83,7 +84,7 @@ export function DivisionPage() {
                 title={t("page.title")}
                 description={t("page.description")}
                 actions={
-                    isAdmin && (
+                    canCreate && (
                         <NavLink to={ROUTES.DIVISION.CREATE}>
                             <Button variant="outline" className="cursor-pointer">
                                 <PlusIcon />

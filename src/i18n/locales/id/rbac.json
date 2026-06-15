@@ -1,0 +1,26 @@
+{
+    "page": {
+        "title": "Kontrol Akses Berbasis Peran",
+        "description": "Kelola izin yang ditetapkan untuk setiap peran"
+    },
+    "roles": {
+        "listTitle": "Daftar Peran"
+    },
+    "editor": {
+        "title": "Editor Izin",
+        "subtitle": "Mengubah hak akses untuk Peran {{roleName}}",
+        "unsavedChanges": "Ada perubahan belum disimpan",
+        "discard": "Batalkan Perubahan",
+        "save": "Simpan Perubahan",
+        "updatedSuccess": "Izin untuk {{roleName}} telah diperbarui."
+    },
+    "module": {
+        "category": "Manajemen Kategori",
+        "division": "Manajemen Divisi",
+        "user": "Manajemen Pengguna",
+        "ticket": "Manajemen Tiket",
+        "feedback": "Manajemen Umpan Balik",
+        "dashboard": "Dasbor",
+        "rbac": "Manajemen RBAC"
+    }
+}

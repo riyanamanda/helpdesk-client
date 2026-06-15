@@ -11,5 +11,11 @@ export function useCurrentUser() {
 
 export function useIsAdmin() {
     const user = useCurrentUser();
-    return user?.role === "ADMIN";
+    return user?.role?.name === "ADMIN";
+}
+
+export function useHasPermission(...permissions: string[]) {
+    const user = useCurrentUser();
+    if (!user) return false;
+    return permissions.some((p) => user.permissions?.includes(p));
 }

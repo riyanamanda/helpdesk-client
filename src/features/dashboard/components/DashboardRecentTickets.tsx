@@ -10,8 +10,10 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { ROUTES } from "@/constants";
+import { PERMISSIONS } from "@/constants/permissions";
 import { TicketPriorityBadge, TicketStatusBadge } from "@/features/ticket/components/TicketBadges";
 import type { TicketPriority, TicketStatus } from "@/features/ticket/types";
+import { useHasPermission } from "@/hooks/use-current-user";
 import { formatDate } from "@/lib/formatters";
 import { useQuery } from "@tanstack/react-query";
 import { memo } from "react";
@@ -22,6 +24,7 @@ import { dashboardRecentTicketsQueryOption } from "../queries/dashboard.query";
 
 export const DashboardRecentTickets = memo(function DashboardRecentTickets() {
     const { t } = useTranslation("dashboard");
+    const canViewTicket = useHasPermission(PERMISSIONS.TICKET.VIEW);
     const { data, isLoading } = useQuery(dashboardRecentTicketsQueryOption());
     const recentTickets = data?.data ?? [];
 
@@ -33,13 +36,15 @@ export const DashboardRecentTickets = memo(function DashboardRecentTickets() {
                         <AlertCircleIcon className="size-4 text-muted-foreground" />
                         {t("recent.title")}
                     </span>
-                    <NavLink
-                        to={ROUTES.TICKET.INDEX}
-                        className="flex items-center gap-1 text-xs font-normal text-muted-foreground hover:text-foreground"
-                    >
-                        {t("recent.viewAll")}
-                        <ArrowRightIcon className="size-3" />
-                    </NavLink>
+                    {canViewTicket && (
+                        <NavLink
+                            to={ROUTES.TICKET.INDEX}
+                            className="flex items-center gap-1 text-xs font-normal text-muted-foreground hover:text-foreground"
+                        >
+                            {t("recent.viewAll")}
+                            <ArrowRightIcon className="size-3" />
+                        </NavLink>
+                    )}
                 </CardTitle>
             </CardHeader>
             <CardContent className="px-0 pb-0">
@@ -94,16 +99,18 @@ export const DashboardRecentTickets = memo(function DashboardRecentTickets() {
                                         {formatDate(ticket.created_at)}
                                     </TableCell>
                                     <TableCell className="pr-6 text-right">
-                                        <NavLink
-                                            to={ROUTES.TICKET.DETAIL.replace(
-                                                ":id",
-                                                String(ticket.id)
-                                            )}
-                                        >
-                                            <Button variant="ghost" size="sm">
-                                                <ListCollapseIcon className="size-3.5" />
-                                            </Button>
-                                        </NavLink>
+                                        {canViewTicket && (
+                                            <NavLink
+                                                to={ROUTES.TICKET.DETAIL.replace(
+                                                    ":id",
+                                                    String(ticket.id)
+                                                )}
+                                            >
+                                                <Button variant="ghost" size="sm">
+                                                    <ListCollapseIcon className="size-3.5" />
+                                                </Button>
+                                            </NavLink>
+                                        )}
                                     </TableCell>
                                 </TableRow>
                             ))}

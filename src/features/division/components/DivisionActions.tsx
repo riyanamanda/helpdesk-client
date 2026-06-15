@@ -7,7 +7,8 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ROUTES } from "@/constants";
-import { useIsAdmin } from "@/hooks/use-current-user";
+import { PERMISSIONS } from "@/constants/permissions";
+import { useHasPermission } from "@/hooks/use-current-user";
 import { handleApiError } from "@/lib/handle-form-error";
 import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react";
@@ -24,11 +25,12 @@ interface DivisionActionsProps {
 
 export function DivisionActions({ division }: DivisionActionsProps) {
     const { t } = useTranslation("division");
-    const isAdmin = useIsAdmin();
+    const canUpdate = useHasPermission(PERMISSIONS.DIVISION.UPDATE);
+    const canDelete = useHasPermission(PERMISSIONS.DIVISION.DELETE);
     const queryClient = useQueryClient();
     const { mutate: deleteDivision, isPending } = useDeleteDivisionMutation();
 
-    if (!isAdmin) return null;
+    if (!canUpdate && !canDelete) return null;
 
     const handleDelete = () => {
         deleteDivision(division.id, {
@@ -52,26 +54,30 @@ export function DivisionActions({ division }: DivisionActionsProps) {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="min-w-44 rounded-lg" align="end" sideOffset={4}>
-                <DropdownMenuItem asChild>
-                    <NavLink to={ROUTES.DIVISION.EDIT.replace(":id", String(division.id))}>
-                        {t("actions.edit")}
-                    </NavLink>
-                </DropdownMenuItem>
-                <DeleteDialog
-                    title={t("delete.title")}
-                    description={t("delete.description", { name: division.name })}
-                    onConfirm={handleDelete}
-                    isPending={isPending}
-                    trigger={
-                        <DropdownMenuItem
-                            variant="destructive"
-                            className="cursor-pointer"
-                            onSelect={(e) => e.preventDefault()}
-                        >
-                            {t("actions.delete")}
-                        </DropdownMenuItem>
-                    }
-                />
+                {canUpdate && (
+                    <DropdownMenuItem asChild>
+                        <NavLink to={ROUTES.DIVISION.EDIT.replace(":id", String(division.id))}>
+                            {t("actions.edit")}
+                        </NavLink>
+                    </DropdownMenuItem>
+                )}
+                {canDelete && (
+                    <DeleteDialog
+                        title={t("delete.title")}
+                        description={t("delete.description", { name: division.name })}
+                        onConfirm={handleDelete}
+                        isPending={isPending}
+                        trigger={
+                            <DropdownMenuItem
+                                variant="destructive"
+                                className="cursor-pointer"
+                                onSelect={(e) => e.preventDefault()}
+                            >
+                                {t("actions.delete")}
+                            </DropdownMenuItem>
+                        }
+                    />
+                )}
             </DropdownMenuContent>
         </DropdownMenu>
     );

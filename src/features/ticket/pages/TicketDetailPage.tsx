@@ -3,7 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ROUTES } from "@/constants";
-import { useCurrentUser, useIsAdmin } from "@/hooks/use-current-user";
+import { PERMISSIONS } from "@/constants/permissions";
+import { useCurrentUser, useHasPermission, useIsAdmin } from "@/hooks/use-current-user";
 import { formatDate } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
@@ -37,14 +38,16 @@ export function TicketDetailPage() {
 
     const { data: response } = useSuspenseQuery(getTicketQueryOption(ticketId));
     const ticket = response.data;
-    const isAdmin = useIsAdmin();
     const currentUser = useCurrentUser();
+    const canUpdatePermission = useHasPermission(PERMISSIONS.TICKET.UPDATE);
+    const canDeletePermission = useHasPermission(PERMISSIONS.TICKET.DELETE);
+    const canClosePermission = useHasPermission(PERMISSIONS.TICKET.CLOSE);
 
-    const canEdit = currentUser?.id === ticket.created_by?.id && ticket.status === "OPEN";
-    const canDelete =
-        ticket.status === "OPEN" && (isAdmin || currentUser?.id === ticket.created_by?.id);
-    const canClose =
-        ticket.status === "RESOLVED" && (isAdmin || currentUser?.id === ticket.created_by?.id);
+    const isAdmin = useIsAdmin();
+    const isOwner = currentUser?.id === ticket.created_by?.id;
+    const canEdit = ticket.status === "OPEN" && canUpdatePermission && (isOwner || isAdmin);
+    const canDelete = ticket.status === "OPEN" && canDeletePermission && (isOwner || isAdmin);
+    const canClose = ticket.status === "RESOLVED" && canClosePermission && (isOwner || isAdmin);
 
     const { mutate: closeTicket, isPending: isClosing } = useCloseTicketMutation();
     const { mutate: deleteTicket, isPending: isDeleting } = useDeleteTicketMutation();
@@ -150,7 +153,6 @@ export function TicketDetailPage() {
                         t={t}
                         ticket={ticket}
                         ticketId={ticketId}
-                        isAdmin={isAdmin}
                         canClose={canClose}
                         canDelete={canDelete}
                         onClose={handleClose}

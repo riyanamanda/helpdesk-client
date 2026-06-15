@@ -1,0 +1,26 @@
+{
+    "page": {
+        "title": "Role Based Access Control",
+        "description": "Manage permissions assigned to each role"
+    },
+    "roles": {
+        "listTitle": "Roles List"
+    },
+    "editor": {
+        "title": "Permissions Editor",
+        "subtitle": "Modifying privileges for the {{roleName}} Role",
+        "unsavedChanges": "Unsaved changes",
+        "discard": "Discard Changes",
+        "save": "Save Changes",
+        "updatedSuccess": "Permissions for {{roleName}} have been updated."
+    },
+    "module": {
+        "category": "Category Management",
+        "division": "Division Management",
+        "user": "User Management",
+        "ticket": "Ticket Management",
+        "feedback": "Feedback Management",
+        "dashboard": "Dashboard",
+        "rbac": "RBAC Management"
+    }
+}

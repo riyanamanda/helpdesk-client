@@ -3,7 +3,8 @@ import { DataTablePagination } from "@/components/DataTablePagination";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants";
-import { useIsAdmin } from "@/hooks/use-current-user";
+import { PERMISSIONS } from "@/constants/permissions";
+import { useHasPermission } from "@/hooks/use-current-user";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import type { OnChangeFn, SortingState } from "@tanstack/react-table";
 import { PlusIcon } from "lucide-react";
@@ -17,7 +18,8 @@ import type { FeedbackSortBy, SortType } from "../types";
 
 export function FeedbackPage() {
     const { t } = useTranslation("feedback");
-    const isAdmin = useIsAdmin();
+    const canManage = useHasPermission(PERMISSIONS.FEEDBACK.UPDATE);
+    const canCreate = useHasPermission(PERMISSIONS.FEEDBACK.CREATE);
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [filters, setFilters] = useState<FeedbackFiltersState>({});
@@ -29,7 +31,7 @@ export function FeedbackPage() {
     const queryParams = { page, limit, sort_by: sortBy, sort_type: sortType, ...filters };
 
     const { data, isLoading } = useQuery({
-        ...(isAdmin
+        ...(canManage
             ? listAdminFeedbackQueryOption(queryParams)
             : listFeedbackQueryOption(queryParams)),
         placeholderData: keepPreviousData,
@@ -37,7 +39,7 @@ export function FeedbackPage() {
 
     const feedbacks = data?.data;
     const pagination = data?.pagination;
-    const columns = getFeedbackColumns(t, (page - 1) * limit, isAdmin);
+    const columns = getFeedbackColumns(t, (page - 1) * limit, canManage);
 
     const handleFiltersChange = (next: FeedbackFiltersState) => {
         setFilters(next);
@@ -56,15 +58,17 @@ export function FeedbackPage() {
     return (
         <PageLayout>
             <PageLayout.Header
-                title={isAdmin ? t("page.titleAdmin") : t("page.title")}
-                description={isAdmin ? t("page.descriptionAdmin") : t("page.description")}
+                title={canManage ? t("page.titleAdmin") : t("page.title")}
+                description={canManage ? t("page.descriptionAdmin") : t("page.description")}
                 actions={
-                    <NavLink to={ROUTES.FEEDBACK.CREATE}>
-                        <Button variant="outline" className="cursor-pointer">
-                            <PlusIcon />
-                            {t("page.createButton")}
-                        </Button>
-                    </NavLink>
+                    canCreate && (
+                        <NavLink to={ROUTES.FEEDBACK.CREATE}>
+                            <Button variant="outline" className="cursor-pointer">
+                                <PlusIcon />
+                                {t("page.createButton")}
+                            </Button>
+                        </NavLink>
+                    )
                 }
             />
             <PageLayout.Content>

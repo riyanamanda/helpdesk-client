@@ -44,6 +44,10 @@ export const ROUTES = {
         EDIT: "/user/:id/edit",
     },
 
+    RBAC: {
+        INDEX: "/rbac",
+    },
+
     TICKET: {
         INDEX: "/ticket",
         CREATE: "/ticket/create",

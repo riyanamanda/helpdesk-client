@@ -7,7 +7,8 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ROUTES } from "@/constants";
-import { useCurrentUser, useIsAdmin } from "@/hooks/use-current-user";
+import { PERMISSIONS } from "@/constants/permissions";
+import { useCurrentUser, useHasPermission, useIsAdmin } from "@/hooks/use-current-user";
 import { handleApiError } from "@/lib/handle-form-error";
 import { useQueryClient } from "@tanstack/react-query";
 import { MoreHorizontalIcon } from "lucide-react";
@@ -26,13 +27,15 @@ interface TicketActionProps {
 export function TicketActions({ ticket }: TicketActionProps) {
     const { t } = useTranslation("ticket");
     const currentUser = useCurrentUser();
-    const isAdmin = useIsAdmin();
+    const canUpdatePermission = useHasPermission(PERMISSIONS.TICKET.UPDATE);
+    const canDeletePermission = useHasPermission(PERMISSIONS.TICKET.DELETE);
     const queryClient = useQueryClient();
     const { mutate: deleteTicket, isPending } = useDeleteTicketMutation();
 
-    const canEdit = currentUser?.id === ticket.created_by?.id && ticket.status === "OPEN";
-    const canDelete =
-        ticket.status === "OPEN" && (isAdmin || currentUser?.id === ticket.created_by?.id);
+    const isAdmin = useIsAdmin();
+    const isOwner = currentUser?.id === ticket.created_by?.id;
+    const canEdit = ticket.status === "OPEN" && canUpdatePermission && (isOwner || isAdmin);
+    const canDelete = ticket.status === "OPEN" && canDeletePermission && (isOwner || isAdmin);
 
     if (!canEdit && !canDelete) {
         return null;

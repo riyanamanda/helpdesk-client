@@ -1,15 +1,16 @@
-import type { UserGender } from "@/features/user/types";
+import type { UserGender, UserRole } from "@/features/user/types";
 
 export interface CurrentUser {
     id: string;
     name: string;
     email: string;
-    role: "ADMIN" | "EMPLOYEE";
+    role: UserRole;
     avatar_url: string | null;
     division: {
         id: number;
         name: string;
     };
+    permissions: string[];
 }
 
 export interface LoginRequest {

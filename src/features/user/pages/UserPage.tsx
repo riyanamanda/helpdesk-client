@@ -11,8 +11,10 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { ROUTES } from "@/constants";
+import { PERMISSIONS } from "@/constants/permissions";
 import { listDivisionOptionsQueryOption } from "@/features/division/queries/division.query";
 import { useDebounce } from "@/hooks/use-debounce";
+import { useHasPermission } from "@/hooks/use-current-user";
 import { meQueryOption } from "@/features/auth/queries/auth.query";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import type { OnChangeFn, SortingState } from "@tanstack/react-table";
@@ -22,7 +24,7 @@ import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { getUserColumns } from "../config/userColumn";
 import { listUserQueryOption } from "../queries/user.query";
-import type { UserListParams, UserRole } from "../types";
+import type { RoleName, UserListParams } from "../types";
 
 type SortBy = NonNullable<UserListParams["sort_by"]>;
 type SortType = NonNullable<UserListParams["sort_type"]>;
@@ -33,10 +35,11 @@ export function UserPage() {
     const [limit, setLimit] = useState(10);
     const [search, setSearch] = useState("");
     const [sorting, setSorting] = useState<SortingState>([{ id: "created_at", desc: true }]);
-    const [role, setRole] = useState<UserRole | undefined>(undefined);
+    const [role, setRole] = useState<RoleName | undefined>(undefined);
     const [divisionId, setDivisionId] = useState<number | undefined>(undefined);
     const [isActive, setIsActive] = useState<boolean | undefined>(undefined);
 
+    const canCreate = useHasPermission(PERMISSIONS.USER.CREATE);
     const { data: me } = useQuery(meQueryOption());
     const { data: divisionOptionsData } = useQuery(listDivisionOptionsQueryOption());
     const divisionOptions = divisionOptionsData?.data ?? [];
@@ -71,7 +74,11 @@ export function UserPage() {
 
     function handleRoleChange(value: string) {
         startTransition(() => {
-            setRole(value === "all" ? undefined : (value as UserRole));
+            if (value === "all") {
+                setRole(undefined);
+            } else if (value === "ADMIN" || value === "EMPLOYEE") {
+                setRole(value);
+            }
             setPage(1);
         });
     }
@@ -105,12 +112,14 @@ export function UserPage() {
                 title={t("page.title")}
                 description={t("page.description")}
                 actions={
-                    <NavLink to={ROUTES.USER.CREATE}>
-                        <Button variant="outline" className="cursor-pointer">
-                            <PlusIcon />
-                            {t("page.createButton")}
-                        </Button>
-                    </NavLink>
+                    canCreate && (
+                        <NavLink to={ROUTES.USER.CREATE}>
+                            <Button variant="outline" className="cursor-pointer">
+                                <PlusIcon />
+                                {t("page.createButton")}
+                            </Button>
+                        </NavLink>
+                    )
                 }
             />
             <PageLayout.Content>

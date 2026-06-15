@@ -8,7 +8,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { useIsAdmin } from "@/hooks/use-current-user";
+import { PERMISSIONS } from "@/constants/permissions";
+import { useHasPermission } from "@/hooks/use-current-user";
 import { ChevronDownIcon, EyeIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { Feedback, FeedbackStatus, FeedbackType } from "../types";
@@ -73,8 +74,8 @@ export function FeedbackDescriptionCell({ feedback }: { feedback: Feedback }) {
 }
 
 export function FeedbackStatusCell({ feedback }: { feedback: Feedback }) {
-    const isAdmin = useIsAdmin();
-    if (!isAdmin) return <FeedbackStatusBadge status={feedback.status} />;
+    const canUpdate = useHasPermission(PERMISSIONS.FEEDBACK.UPDATE);
+    if (!canUpdate) return <FeedbackStatusBadge status={feedback.status} />;
     return (
         <UpdateFeedbackStatusPopover
             feedbackId={feedback.id}

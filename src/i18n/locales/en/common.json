@@ -59,6 +59,7 @@
         "category": "Category",
         "division": "Division",
         "users": "Users",
+        "access": "Access",
         "contact": "Contact",
         "master": "Master Data",
         "auth": "Access Control",

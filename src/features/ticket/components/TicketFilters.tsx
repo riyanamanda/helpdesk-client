@@ -9,7 +9,8 @@ import {
 import { listCategoryOptionsQueryOption } from "@/features/category/queries/category.query";
 import { listDivisionOptionsQueryOption } from "@/features/division/queries/division.query";
 import { listAssignableUserQueryOption } from "@/features/user/queries/user.query";
-import { useIsAdmin } from "@/hooks/use-current-user";
+import { PERMISSIONS } from "@/constants/permissions";
+import { useHasPermission } from "@/hooks/use-current-user";
 import { useQuery } from "@tanstack/react-query";
 import { XIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -27,7 +28,7 @@ interface TicketFiltersProps {
 
 export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) {
     const { t } = useTranslation("ticket");
-    const isAdmin = useIsAdmin();
+    const canAssign = useHasPermission(PERMISSIONS.TICKET.ASSIGN);
 
     const STATUS_OPTIONS: { value: TicketStatus; label: string }[] = [
         { value: "OPEN", label: t("status.OPEN") },
@@ -45,7 +46,10 @@ export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) 
 
     const { data: categoryOptionsData } = useQuery(listCategoryOptionsQueryOption());
     const { data: divisionOptionsData } = useQuery(listDivisionOptionsQueryOption());
-    const { data: usersData } = useQuery({ ...listAssignableUserQueryOption(), enabled: isAdmin });
+    const { data: usersData } = useQuery({
+        ...listAssignableUserQueryOption(),
+        enabled: canAssign,
+    });
 
     const categoryOptions = categoryOptionsData?.data ?? [];
     const divisionOptions = divisionOptionsData?.data ?? [];
@@ -131,7 +135,7 @@ export function TicketFilters({ filters, onFiltersChange }: TicketFiltersProps) 
                 </SelectContent>
             </Select>
 
-            {isAdmin && (
+            {canAssign && (
                 <Select
                     value={filters.assigned_to_id ?? "all"}
                     onValueChange={(v) => set("assigned_to_id", v === "all" ? undefined : v)}

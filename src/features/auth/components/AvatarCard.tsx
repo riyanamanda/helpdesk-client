@@ -34,7 +34,7 @@ export function AvatarCard({ user }: { user: User }) {
         e.target.value = "";
     };
 
-    const roleLabel = user.role === "ADMIN" ? "Admin" : "Employee";
+    const roleLabel = user.role.name === "ADMIN" ? "Admin" : "Employee";
 
     return (
         <Card>
@@ -70,7 +70,7 @@ export function AvatarCard({ user }: { user: User }) {
                     <div className="flex items-center gap-2">
                         <Badge
                             className={
-                                user.role === "ADMIN"
+                                user.role.name === "ADMIN"
                                     ? "bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400"
                                     : "bg-secondary text-secondary-foreground"
                             }
