@@ -64,7 +64,12 @@ export function RbacPage() {
     const { data: rolesData, isLoading: rolesLoading } = useQuery(listRolesQueryOption());
     const { data: permissionsData } = useQuery(listPermissionsQueryOption());
 
-    const roles = useMemo(() => rolesData?.data ?? [], [rolesData]);
+    const roles = useMemo(() => {
+        const data = rolesData?.data ?? [];
+        return [...data]
+            .filter((r) => r.code !== "SUPERADMIN")
+            .sort((a, b) => (a.code === "EMPLOYEE" ? -1 : b.code === "EMPLOYEE" ? 1 : 0));
+    }, [rolesData]);
     const allPermissions = useMemo(() => permissionsData?.data ?? [], [permissionsData]);
 
     const effectiveRoleId = selectedRoleId ?? roles[0]?.id ?? null;
