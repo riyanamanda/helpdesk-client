@@ -11,7 +11,7 @@ export function useCurrentUser() {
 
 export function useIsAdmin() {
     const user = useCurrentUser();
-    return user?.role?.name === "ADMIN";
+    return user?.role?.name === "ADMIN" || user?.role?.name === "SUPERADMIN";
 }
 
 export function useHasPermission(...permissions: string[]) {

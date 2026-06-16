@@ -1,4 +1,4 @@
-export type RoleName = "ADMIN" | "EMPLOYEE";
+export type RoleName = "ADMIN" | "EMPLOYEE" | "SUPERADMIN";
 export type UserGender = "MALE" | "FEMALE";
 
 export interface UserRole {
