@@ -20,6 +20,7 @@ export function SidebarNav({
         name: string;
         url: string;
         icon: LucideIcon;
+        iconClassName?: string;
     }[];
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
     const { pathname } = useLocation();
@@ -42,8 +43,8 @@ export function SidebarNav({
                                 isActive={isActive(item.url)}
                             >
                                 <NavLink to={item.url} target={item.is_blank ? "_blank" : "_self"}>
-                                    <item.icon />
-                                    <span>{item.name}</span>
+                                    <item.icon className={item.iconClassName} />
+                                    <span className={item.iconClassName}>{item.name}</span>
                                 </NavLink>
                             </SidebarMenuButton>
                         </SidebarMenuItem>

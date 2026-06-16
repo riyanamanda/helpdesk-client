@@ -49,8 +49,18 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
     ].filter(Boolean) as { name: string; url: string; icon: typeof BlocksIcon }[];
 
     const authItems = [
-        canViewUsers && { name: t("nav.users"), url: ROUTES.USER.INDEX, icon: SquareUserIcon },
-        canViewAccess && { name: t("nav.access"), url: ROUTES.RBAC.INDEX, icon: UserRoundKeyIcon },
+        canViewUsers && {
+            name: t("nav.users"),
+            url: ROUTES.USER.INDEX,
+            icon: SquareUserIcon,
+            iconClassName: "text-yellow-300",
+        },
+        canViewAccess && {
+            name: t("nav.access"),
+            url: ROUTES.RBAC.INDEX,
+            icon: UserRoundKeyIcon,
+            iconClassName: "text-red-400",
+        },
     ].filter(Boolean) as { name: string; url: string; icon: typeof SquareUserIcon }[];
 
     return (
