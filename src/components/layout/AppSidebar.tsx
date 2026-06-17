@@ -34,6 +34,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
     const canViewUsers = useHasPermission(PERMISSIONS.USER.VIEW);
     const canViewAccess = useHasPermission(PERMISSIONS.RBAC.VIEW);
     const canViewFeedback = useHasPermission(PERMISSIONS.FEEDBACK.VIEW);
+    const canViewIHS = useHasPermission(PERMISSIONS.IHS.VIEW);
     const isAdmin = useIsAdmin();
 
     const masterItems = [
@@ -106,7 +107,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                     <SidebarNav label={t("nav.master")} items={masterItems} />
                 )}
                 {authItems.length > 0 && <SidebarNav label={t("nav.auth")} items={authItems} />}
-                {isAdmin && (
+                {canViewIHS && (
                     <SidebarNav
                         label="SIMRS"
                         items={[

@@ -25,6 +25,23 @@ export const formatDate = (
     return dateObj.toLocaleDateString(locale, options);
 };
 
+export const formatDateTime = (
+    date: string | Date | undefined | null,
+    locale: string = "id-ID",
+    options: Intl.DateTimeFormatOptions = {
+        year: "numeric",
+        month: "2-digit",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+    }
+): string => {
+    if (!date) return "-";
+    const dateObj = typeof date === "string" ? new Date(date) : date;
+    if (isNaN(dateObj.getTime())) return "-";
+    return dateObj.toLocaleString(locale, options);
+};
+
 export const formatRelativeDate = (
     date: string | Date | undefined | null,
     currentLocale: string = "id"

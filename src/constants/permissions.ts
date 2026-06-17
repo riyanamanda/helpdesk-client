@@ -42,4 +42,7 @@ export const PERMISSIONS = {
         UPDATE: "rbac:update",
         DELETE: "rbac:delete",
     },
+    IHS: {
+        VIEW: "ihs:view",
+    },
 } as const;

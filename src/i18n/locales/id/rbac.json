@@ -21,6 +21,7 @@
         "ticket": "Manajemen Tiket",
         "feedback": "Manajemen Umpan Balik",
         "dashboard": "Dasbor",
-        "rbac": "Manajemen RBAC"
+        "rbac": "Manajemen RBAC",
+        "ihs": "Pasien Satu Sehat"
     }
 }

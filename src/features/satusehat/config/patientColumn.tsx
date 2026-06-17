@@ -1,6 +1,11 @@
+import { CopyButton } from "@/components/CopyButton";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { formatDateTime } from "@/lib/formatters";
 import type { ColumnDef } from "@tanstack/react-table";
-import type { Patient } from "../types";
 import type { TFunction } from "i18next";
+import { NavLink } from "react-router";
+import type { Patient } from "../types";
 
 export const getPatientColumns = (
     t: TFunction<"satuSehat">,
@@ -13,21 +18,65 @@ export const getPatientColumns = (
         enableSorting: false,
     },
     {
-        accessorKey: "name",
-        header: t("column.name"),
-        cell: ({ row }) => <div>{row.getValue("name")}</div>,
+        accessorKey: "norm",
+        header: t("column.norm"),
+        cell: ({ row }) => {
+            const norm = row.getValue("norm") as string;
+
+            return (
+                <div className="flex items-center gap-2">
+                    <span>{norm}</span>
+                    <CopyButton text={norm} />
+                </div>
+            );
+        },
         enableSorting: false,
     },
     {
-        accessorKey: "ktp",
-        header: "KTP",
-        cell: ({ row }) => <div>{row.getValue("ktp")}</div>,
+        accessorKey: "name",
+        header: t("column.name"),
+        cell: ({ row }) => (
+            <NavLink to="">
+                <Button variant="link">{row.getValue("name")}</Button>
+            </NavLink>
+        ),
+        enableSorting: false,
+    },
+    {
+        accessorKey: "nik",
+        header: t("column.nik"),
+        cell: ({ row }) => {
+            const nik = row.getValue("nik") as string;
+
+            return (
+                <div className="flex items-center gap-2">
+                    <span>{nik}</span>
+                    <CopyButton text={nik} />
+                </div>
+            );
+        },
         enableSorting: false,
     },
     {
         accessorKey: "http_method",
         header: t("column.httpMethod"),
-        cell: ({ row }) => <div>{row.getValue("http_method")}</div>,
-        enableSorting: false,
+        cell: ({ row }) => {
+            const method = row.getValue("http_method") as string;
+            return (
+                <Badge
+                    variant="ghost"
+                    className={method === "GET" ? "text-green-500" : "text-yellow-500"}
+                >
+                    {method}
+                </Badge>
+            );
+        },
+        enableSorting: true,
+    },
+    {
+        accessorKey: "get_date",
+        header: t("column.getDate"),
+        cell: ({ row }) => <div>{formatDateTime(row.getValue("get_date"))}</div>,
+        enableSorting: true,
     },
 ];

@@ -1,13 +1,13 @@
 import { ROUTES } from "@/constants";
 import { useLogoutMutation } from "@/features/auth/mutation/auth.mutation";
 import { meQueryOption } from "@/features/auth/queries/auth.query";
+import { NotificationBell } from "@/features/notification/components/NotificationBell";
 import { getInitials } from "@/lib/formatters";
 import { resolveMediaUrl } from "@/lib/media-url";
 import { useQuery } from "@tanstack/react-query";
 import { KeyRoundIcon, LogOutIcon, UserCircleIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { NotificationBell } from "@/features/notification/components/NotificationBell";
 import { LanguageSwitcher } from "../LanguageSwitcher";
 import { ModeToggle } from "../ModeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -34,7 +34,7 @@ export function SiteHeader() {
     }
 
     return (
-        <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center gap-2 border-b border-border/40 bg-background/60 backdrop-blur-md">
+        <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center gap-2 bg-transparent backdrop-blur-md">
             <div className="flex w-full items-center gap-2 px-4">
                 <SidebarTrigger className="-ml-1" size="icon-lg" />
 

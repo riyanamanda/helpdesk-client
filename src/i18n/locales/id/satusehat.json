@@ -2,10 +2,16 @@
     "page": {
         "title": "Satu Sehat",
         "description": "Pasien Satu Sehat yang belum mendapatkan ID",
-        "searchPlaceholder": "Cari no rekam medis..."
+        "searchPlaceholder": "Cari nama atau NIK..."
+    },
+    "filters": {
+        "allMethods": "Semua Metode"
     },
     "column": {
+        "norm": "Nomor Rekam Medis",
         "name": "Nama",
-        "httpMethod": "Metode HTTP"
+        "nik": "Nomor Induk Kependudukan",
+        "httpMethod": "Metode HTTP",
+        "getDate": "Diambil Tanggal"
     }
 }

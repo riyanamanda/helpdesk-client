@@ -21,6 +21,7 @@
         "ticket": "Ticket Management",
         "feedback": "Feedback Management",
         "dashboard": "Dashboard",
-        "rbac": "RBAC Management"
+        "rbac": "RBAC Management",
+        "ihs": "IHS Patients"
     }
 }
