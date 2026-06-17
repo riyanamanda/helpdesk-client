@@ -61,6 +61,10 @@ export const ROUTES = {
         CREATE: "/feedback/create",
     },
 
+    SATUSEHAT: {
+        INDEX: "/satu-sehat",
+    },
+
     PROFILE: "/profile",
     PROFILE_UPDATE_PASSWORD: "/profile/update-password",
 } as const;

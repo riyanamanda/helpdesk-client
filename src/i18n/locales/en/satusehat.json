@@ -1,0 +1,11 @@
+{
+    "page": {
+        "title": "Indonesia Health Service",
+        "description": "Unregistered IHS patients",
+        "searchPlaceholder": "Search medical record number..."
+    },
+    "column": {
+        "name": "Name",
+        "httpMethod": "HTTP Method"
+    }
+}

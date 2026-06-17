@@ -15,6 +15,7 @@ import { GuestRoutes } from "./GuestRoutes";
 import { NavigationProgress } from "./NavigationProgress";
 import { PermissionRoute } from "./PermissionRoute";
 import { ProtectedRoutes } from "./ProtectedRoutes";
+import { satuSehatRoutes } from "@/features/satusehat/routes";
 
 export const appRoutes: RouteObject[] = [
     {
@@ -54,6 +55,9 @@ export const appRoutes: RouteObject[] = [
                     {
                         element: <PermissionRoute permission={PERMISSIONS.RBAC.VIEW} />,
                         children: [...rbacRoutes],
+                    },
+                    {
+                        children: [...satuSehatRoutes],
                     },
                 ],
             },

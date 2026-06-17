@@ -4,6 +4,7 @@ import { useHasPermission, useIsAdmin } from "@/hooks/use-current-user";
 import {
     BlocksIcon,
     GaugeIcon,
+    HeartCrackIcon,
     MessageSquareTextIcon,
     PresentationIcon,
     SmartphoneNfcIcon,
@@ -105,6 +106,18 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                     <SidebarNav label={t("nav.master")} items={masterItems} />
                 )}
                 {authItems.length > 0 && <SidebarNav label={t("nav.auth")} items={authItems} />}
+                {isAdmin && (
+                    <SidebarNav
+                        label="SIMRS"
+                        items={[
+                            {
+                                name: "Satu Sehat",
+                                url: ROUTES.SATUSEHAT.INDEX,
+                                icon: HeartCrackIcon,
+                            },
+                        ]}
+                    />
+                )}
                 {isAdmin && canViewFeedback && (
                     <SidebarNav
                         label={"Customer Support"}

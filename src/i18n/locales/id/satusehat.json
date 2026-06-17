@@ -1,0 +1,11 @@
+{
+    "page": {
+        "title": "Satu Sehat",
+        "description": "Pasien Satu Sehat yang belum mendapatkan ID",
+        "searchPlaceholder": "Cari no rekam medis..."
+    },
+    "column": {
+        "name": "Nama",
+        "httpMethod": "Metode HTTP"
+    }
+}
