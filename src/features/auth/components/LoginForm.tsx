@@ -79,6 +79,8 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                                             id={field.name}
                                             type="email"
                                             placeholder={t("login.emailPlaceholder")}
+                                            tabIndex={1}
+                                            autoFocus
                                         />
                                         {fieldState.error && (
                                             <FieldError errors={[fieldState.error]} />
@@ -99,11 +101,17 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                                             <NavLink
                                                 to="#"
                                                 className="ml-auto text-xs underline-offset-2 hover:underline"
+                                                tabIndex={6}
                                             >
                                                 {t("login.forgotPassword")}
                                             </NavLink>
                                         </div>
-                                        <Input {...field} id={field.name} type="password" />
+                                        <Input
+                                            {...field}
+                                            id={field.name}
+                                            type="password"
+                                            tabIndex={2}
+                                        />
                                         {fieldState.error && (
                                             <FieldError errors={[fieldState.error]} />
                                         )}
@@ -112,7 +120,7 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                             />
 
                             <Field>
-                                <Button type="submit" disabled={isAnyPending}>
+                                <Button type="submit" disabled={isAnyPending} tabIndex={3}>
                                     {isPending ? (
                                         <>
                                             <Spinner /> {t("login.loggingIn")}
@@ -131,6 +139,7 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                                     type="button"
                                     disabled={isAnyPending}
                                     onClick={() => handleGoogleLogin()}
+                                    tabIndex={5}
                                 >
                                     {isGooglePending ? (
                                         <>

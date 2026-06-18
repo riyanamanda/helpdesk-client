@@ -7,13 +7,21 @@
     "detail": {
         "title": "Detail Pasien",
         "description": "Profil lengkap pasien mencakup data biografis dan informasi kartu identitas.",
+        "alert": {
+            "title": "Data Pasien Bersifat Rahasia",
+            "description": "Halaman ini memuat informasi sensitif termasuk NIK. Pembuatan data IHS bersifat satu arah dan tidak dapat dibatalkan — data pasien akan dikirimkan ke sistem kesehatan nasional."
+        },
         "createDialog": {
             "button": "Buat IHS",
             "title": "Buat Pasien IHS?",
             "description": "Ini membuat komunikasi satu arah ke IHS dan tidak dapat dibatalkan.",
             "confirm": "Buat",
             "creating": "Membuat...",
-            "success": "Pasien IHS berhasil dibuat."
+            "success": "Pasien IHS berhasil diajukan, mohon periksa berkala pada SIMGOS."
+        },
+        "notFound": {
+            "title": "Pasien Tidak Ditemukan",
+            "description": "Data pasien tidak ditemukan untuk nomor rekam medis ini. Pasien mungkin tidak terdaftar atau terjadi kesalahan pada server."
         },
         "status": {
             "active": "Aktif"

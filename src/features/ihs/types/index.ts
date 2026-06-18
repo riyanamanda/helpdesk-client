@@ -15,7 +15,7 @@ export interface PatientListParams {
 export interface Patient {
     norm: string;
     name: string;
-    nik: string;
+    identity_number: string;
     http_method: string;
     get_date: string;
 }
@@ -23,17 +23,21 @@ export interface Patient {
 export interface PatientDetail {
     norm: string;
     name: string;
-    nik: string;
     birth_place: string;
     birth_date: string;
     marital_status: string;
     citizenship: string;
-    status: string;
+    status: boolean;
+    identity_card: IdentityCard;
+}
+
+export interface IdentityCard {
+    identity_number: string;
     address: string;
     rt: string;
     rw: string;
-    province: string;
-    city: string;
-    district: string;
-    village: string;
+    province?: string;
+    city?: string;
+    district?: string;
+    sub_district?: string;
 }

@@ -7,13 +7,21 @@
     "detail": {
         "title": "Patient Detail",
         "description": "Complete patient profile including biographical and identity card information.",
+        "alert": {
+            "title": "Sensitive Patient Data",
+            "description": "This page contains confidential information including national identity numbers (NIK). Creating an IHS record is a one-way, irreversible action that submits patient data to the national health system."
+        },
         "createDialog": {
             "button": "Create IHS",
             "title": "Create IHS Patient?",
             "description": "This creates one-way communication to IHS and cannot be undone.",
             "confirm": "Create",
             "creating": "Creating...",
-            "success": "IHS patient has been created successfully."
+            "success": "The IHS patient has been submitted successfully, Please check on SIMGOS regularly."
+        },
+        "notFound": {
+            "title": "Patient Not Found",
+            "description": "No patient data was returned for this record number. The patient may not exist or the server encountered an error."
         },
         "status": {
             "active": "Active"

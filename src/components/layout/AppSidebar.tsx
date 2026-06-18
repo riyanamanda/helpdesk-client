@@ -55,7 +55,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
             name: t("nav.users"),
             url: ROUTES.USER.INDEX,
             icon: SquareUserIcon,
-            iconClassName: "text-yellow-300",
+            iconClassName: "text-amber-500",
         },
         canViewAccess && {
             name: t("nav.access"),

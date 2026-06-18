@@ -1,11 +1,21 @@
-import { PageLayout } from "@/components/layout/PageLayout";
 import { DeleteDialog } from "@/components/DeleteDialog";
+import { PageLayout } from "@/components/layout/PageLayout";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import {
+    Empty,
+    EmptyContent,
+    EmptyDescription,
+    EmptyHeader,
+    EmptyMedia,
+    EmptyTitle,
+} from "@/components/ui/empty";
+import { ROUTES } from "@/constants";
 import { handleApiError } from "@/lib/handle-form-error";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { EditIcon } from "lucide-react";
+import { ArrowLeftIcon, EditIcon, ShieldAlertIcon, UserXIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 import { PatientBioCard } from "../components/PatientBioCard";
 import { PatientHeader } from "../components/PatientHeader";
@@ -13,33 +23,15 @@ import { PatientKtpCard } from "../components/PatientKtpCard";
 import { detailPatientQueryOptions } from "../queries/patient.query";
 import { PATIENT_QUERY_KEYS } from "../queries/queryKeys";
 import { patientService } from "../service/patientService";
-import type { PatientDetail } from "../types";
-
-const DUMMY_PATIENT: PatientDetail = {
-    norm: "00123456",
-    name: "Budi Santoso",
-    nik: "3173012301900001",
-    birth_place: "Jakarta",
-    birth_date: "23 Januari 1990",
-    marital_status: "Menikah",
-    citizenship: "WNI",
-    status: "Aktif",
-    address: "Jl. Raya Kebon Jeruk No. 12",
-    rt: "005",
-    rw: "003",
-    province: "DKI Jakarta",
-    city: "Jakarta Barat",
-    district: "Kebon Jeruk",
-    village: "Kebon Jeruk",
-};
 
 export function DetailPatientPage() {
+    const navigate = useNavigate();
     const { norm } = useParams();
     const { t } = useTranslation("ihs");
     const queryClient = useQueryClient();
 
-    const { data, isLoading } = useQuery(detailPatientQueryOptions(norm!));
-    const patient = data ?? DUMMY_PATIENT;
+    const { data: patientData, isLoading, isError } = useQuery(detailPatientQueryOptions(norm!));
+    const patient = patientData;
 
     const { mutate: createIhs, isPending: isCreating } = useMutation({
         mutationFn: (value: string) => patientService.create(value),
@@ -55,6 +47,7 @@ export function DetailPatientPage() {
                 });
 
                 await queryClient.invalidateQueries({ queryKey: PATIENT_QUERY_KEYS.ROOT });
+                navigate(ROUTES.IHS.INDEX, { replace: true });
             },
             onError: (error) => handleApiError(error),
         });
@@ -85,12 +78,40 @@ export function DetailPatientPage() {
             />
 
             <PageLayout.Content>
-                <PatientHeader patient={patient} isLoading={isLoading} />
+                {isError ? (
+                    <Empty className="border border-dashed py-16">
+                        <EmptyHeader>
+                            <EmptyMedia variant="icon">
+                                <UserXIcon className="text-destructive" />
+                            </EmptyMedia>
+                            <EmptyTitle>{t("detail.notFound.title")}</EmptyTitle>
+                            <EmptyDescription>{t("detail.notFound.description")}</EmptyDescription>
+                        </EmptyHeader>
+                        <EmptyContent>
+                            <Button variant="outline" size="sm" onClick={() => navigate(-1)}>
+                                <ArrowLeftIcon />
+                                {t("common:back")}
+                            </Button>
+                        </EmptyContent>
+                    </Empty>
+                ) : (
+                    <>
+                        <Alert className="border-amber-500/30 bg-amber-500/10">
+                            <ShieldAlertIcon className="text-amber-500" />
+                            <AlertTitle className="text-amber-500">
+                                {t("detail.alert.title")}
+                            </AlertTitle>
+                            <AlertDescription>{t("detail.alert.description")}</AlertDescription>
+                        </Alert>
 
-                <div className="grid gap-4 md:grid-cols-2">
-                    <PatientBioCard patient={patient} isLoading={isLoading} />
-                    <PatientKtpCard patient={patient} isLoading={isLoading} />
-                </div>
+                        <PatientHeader patient={patient} isLoading={isLoading} />
+
+                        <div className="grid gap-3 md:grid-cols-2">
+                            <PatientBioCard patient={patient!} isLoading={isLoading} />
+                            <PatientKtpCard patient={patient!} isLoading={isLoading} />
+                        </div>
+                    </>
+                )}
             </PageLayout.Content>
         </PageLayout>
     );

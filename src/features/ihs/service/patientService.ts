@@ -9,14 +9,14 @@ export const patientService = {
     },
 
     detail: async (norm: string) => {
-        const response = await http.get(`/api/v1/patient/${norm}/detail`);
+        const response = await http.get(`/api/v1/patients/${norm}/detail`);
         return response.data.data as PatientDetail;
     },
 
     // it PATCH because this method is used for update value from GET to POST (httpRequest column)
     // that means from simgos perspective is creating ihs patient to ihs master index
     create: async (norm: string) => {
-        const response = await http.patch(`/api/v1/patient/${norm}`);
+        const response = await http.patch(`/api/v1/patients/${norm}`);
         return response.data;
     },
 };

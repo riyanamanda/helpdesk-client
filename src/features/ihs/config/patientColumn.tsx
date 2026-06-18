@@ -44,15 +44,15 @@ export const getPatientColumns = (
         enableSorting: false,
     },
     {
-        accessorKey: "nik",
-        header: t("column.nik"),
+        accessorKey: "identity_number",
+        header: t("column.identity_number"),
         cell: ({ row }) => {
-            const nik = row.getValue("nik") as string;
+            const identity_number = row.getValue("identity_number") as string;
 
             return (
                 <div className="flex items-center gap-2">
-                    <span>{nik}</span>
-                    <CopyButton text={nik} />
+                    <span>{identity_number}</span>
+                    <CopyButton text={identity_number} />
                 </div>
             );
         },
