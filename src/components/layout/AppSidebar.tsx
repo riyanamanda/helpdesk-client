@@ -113,7 +113,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                         items={[
                             {
                                 name: "Satu Sehat",
-                                url: ROUTES.SATUSEHAT.INDEX,
+                                url: ROUTES.IHS.INDEX,
                                 icon: HeartCrackIcon,
                             },
                         ]}

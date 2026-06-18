@@ -1,0 +1,51 @@
+{
+    "page": {
+        "title": "Indonesia Health Service",
+        "description": "Unregistered IHS patients",
+        "searchPlaceholder": "Search by name or identity number..."
+    },
+    "detail": {
+        "title": "Patient Detail",
+        "description": "Complete patient profile including biographical and identity card information.",
+        "createDialog": {
+            "button": "Create IHS",
+            "title": "Create IHS Patient?",
+            "description": "This creates one-way communication to IHS and cannot be undone.",
+            "confirm": "Create",
+            "creating": "Creating...",
+            "success": "IHS patient has been created successfully."
+        },
+        "status": {
+            "active": "Active"
+        },
+        "bio": {
+            "title": "Bio",
+            "name": "Name",
+            "birthPlace": "Place of Birth",
+            "birthDate": "Date of Birth",
+            "maritalStatus": "Marital Status",
+            "citizenship": "Citizenship",
+            "status": "Status"
+        },
+        "ktp": {
+            "title": "Identity Card",
+            "address": "Address",
+            "rt": "RT",
+            "rw": "RW",
+            "province": "Province",
+            "city": "City",
+            "district": "District",
+            "village": "Village"
+        }
+    },
+    "filters": {
+        "allMethods": "All Methods"
+    },
+    "column": {
+        "norm": "Medical Record Number",
+        "name": "Name",
+        "nik": "Identity ID",
+        "httpMethod": "HTTP Method",
+        "getDate": "Get Date"
+    }
+}

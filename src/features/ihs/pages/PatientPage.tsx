@@ -9,10 +9,10 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getPatientColumns } from "../config/patientColumn";
 import { PatientFilters, type PatientFiltersState } from "../components/PatientFilters";
-import { listPatientQueryOptions } from "../queries/ihs.query";
+import { listPatientQueryOptions } from "../queries/patient.query";
 import type { PatientSortBy, SortType } from "../types";
 
-export function SatuSehatPage() {
+export function PatientPage() {
     const { t } = useTranslation("satuSehat");
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);

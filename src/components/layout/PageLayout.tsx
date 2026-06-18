@@ -44,7 +44,9 @@ export const PageLayout = Object.assign(
                 <AppSidebar variant="sidebar" />
                 <SidebarInset>
                     <SiteHeader />
-                    <main className="flex min-w-0 flex-1 flex-col gap-4 px-4 py-1">{children}</main>
+                    <main className="flex min-w-0 flex-1 flex-col gap-4 px-4 pt-2 pb-10">
+                        {children}
+                    </main>
                 </SidebarInset>
             </SidebarProvider>
         );

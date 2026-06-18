@@ -19,3 +19,21 @@ export interface Patient {
     http_method: string;
     get_date: string;
 }
+
+export interface PatientDetail {
+    norm: string;
+    name: string;
+    nik: string;
+    birth_place: string;
+    birth_date: string;
+    marital_status: string;
+    citizenship: string;
+    status: string;
+    address: string;
+    rt: string;
+    rw: string;
+    province: string;
+    city: string;
+    district: string;
+    village: string;
+}

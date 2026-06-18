@@ -61,8 +61,9 @@ export const ROUTES = {
         CREATE: "/feedback/create",
     },
 
-    SATUSEHAT: {
-        INDEX: "/satu-sehat",
+    IHS: {
+        INDEX: "/ihs",
+        DETAIL: "/ihs/:norm/detail",
     },
 
     PROFILE: "/profile",

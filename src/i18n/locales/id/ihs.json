@@ -1,0 +1,51 @@
+{
+    "page": {
+        "title": "Indonesia Health Service",
+        "description": "Pasien IHS yang belum terdaftar",
+        "searchPlaceholder": "Cari nama atau NIK..."
+    },
+    "detail": {
+        "title": "Detail Pasien",
+        "description": "Profil lengkap pasien mencakup data biografis dan informasi kartu identitas.",
+        "createDialog": {
+            "button": "Buat IHS",
+            "title": "Buat Pasien IHS?",
+            "description": "Ini membuat komunikasi satu arah ke IHS dan tidak dapat dibatalkan.",
+            "confirm": "Buat",
+            "creating": "Membuat...",
+            "success": "Pasien IHS berhasil dibuat."
+        },
+        "status": {
+            "active": "Aktif"
+        },
+        "bio": {
+            "title": "Bio",
+            "name": "Nama",
+            "birthPlace": "Tempat Lahir",
+            "birthDate": "Tanggal Lahir",
+            "maritalStatus": "Status Perkawinan",
+            "citizenship": "Kewarganegaraan",
+            "status": "Status"
+        },
+        "ktp": {
+            "title": "KTP",
+            "address": "Alamat",
+            "rt": "RT",
+            "rw": "RW",
+            "province": "Provinsi",
+            "city": "Kota",
+            "district": "Kecamatan",
+            "village": "Kelurahan"
+        }
+    },
+    "filters": {
+        "allMethods": "Semua Metode"
+    },
+    "column": {
+        "norm": "Nomor Rekam Medis",
+        "name": "Nama",
+        "nik": "Nomor Induk Kependudukan",
+        "httpMethod": "Metode HTTP",
+        "getDate": "Diambil Tanggal"
+    }
+}

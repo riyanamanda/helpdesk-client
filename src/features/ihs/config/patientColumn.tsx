@@ -1,6 +1,7 @@
 import { CopyButton } from "@/components/CopyButton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ROUTES } from "@/constants";
 import { formatDateTime } from "@/lib/formatters";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
@@ -36,7 +37,7 @@ export const getPatientColumns = (
         accessorKey: "name",
         header: t("column.name"),
         cell: ({ row }) => (
-            <NavLink to="">
+            <NavLink to={ROUTES.IHS.DETAIL.replace(":norm", row.original.norm)}>
                 <Button variant="link">{row.getValue("name")}</Button>
             </NavLink>
         ),
@@ -63,12 +64,18 @@ export const getPatientColumns = (
         cell: ({ row }) => {
             const method = row.getValue("http_method") as string;
             return (
-                <Badge
-                    variant="ghost"
-                    className={method === "GET" ? "text-green-500" : "text-yellow-500"}
-                >
-                    {method}
-                </Badge>
+                <>
+                    <Badge
+                        variant="ghost"
+                        className={method === "GET" ? "text-green-500" : "text-yellow-500"}
+                    >
+                        {method}
+                    </Badge>
+
+                    {method === "POST" && (
+                        <Badge variant="destructive">Citizenship not found</Badge>
+                    )}
+                </>
             );
         },
         enableSorting: true,

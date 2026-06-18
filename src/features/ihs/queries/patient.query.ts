@@ -9,3 +9,10 @@ export function listPatientQueryOptions(params: PatientListParams = { page: 1, l
         queryFn: () => patientService.list(params),
     });
 }
+
+export function detailPatientQueryOptions(norm: string) {
+    return queryOptions({
+        queryKey: PATIENT_QUERY_KEYS.DETAIL(norm),
+        queryFn: () => patientService.detail(norm),
+    });
+}

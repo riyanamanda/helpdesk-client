@@ -5,6 +5,7 @@ import { dashboardRoutes } from "@/features/dashboard/routes";
 import { divisionRoutes } from "@/features/division/routes";
 import { feedbackRoutes } from "@/features/feedback/routes";
 import { homeRoutes } from "@/features/home/routes";
+import { ihsRoutes } from "@/features/ihs/routes";
 import { rbacRoutes } from "@/features/rbac/routes";
 import { ticketRoutes } from "@/features/ticket/routes";
 import { userRoutes } from "@/features/user/routes";
@@ -15,7 +16,6 @@ import { GuestRoutes } from "./GuestRoutes";
 import { NavigationProgress } from "./NavigationProgress";
 import { PermissionRoute } from "./PermissionRoute";
 import { ProtectedRoutes } from "./ProtectedRoutes";
-import { satuSehatRoutes } from "@/features/satusehat/routes";
 
 export const appRoutes: RouteObject[] = [
     {
@@ -57,7 +57,8 @@ export const appRoutes: RouteObject[] = [
                         children: [...rbacRoutes],
                     },
                     {
-                        children: [...satuSehatRoutes],
+                        element: <PermissionRoute permission={PERMISSIONS.IHS.VIEW} />,
+                        children: [...ihsRoutes],
                     },
                 ],
             },
