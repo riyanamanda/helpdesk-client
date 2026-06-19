@@ -63,7 +63,8 @@
         "contact": "Contact",
         "master": "Master Data",
         "auth": "Access Control",
-        "feedback": "Feedback"
+        "feedback": "Feedback",
+        "antrian": "Queue"
     },
     "toast": {
         "success": "Success",

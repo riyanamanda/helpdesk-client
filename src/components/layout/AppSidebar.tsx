@@ -3,6 +3,7 @@ import { PERMISSIONS } from "@/constants/permissions";
 import { useHasPermission, useIsAdmin } from "@/hooks/use-current-user";
 import {
     BlocksIcon,
+    ClipboardListIcon,
     GaugeIcon,
     HeartCrackIcon,
     MessageSquareTextIcon,
@@ -35,6 +36,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
     const canViewAccess = useHasPermission(PERMISSIONS.RBAC.VIEW);
     const canViewFeedback = useHasPermission(PERMISSIONS.FEEDBACK.VIEW);
     const canViewIHS = useHasPermission(PERMISSIONS.IHS.VIEW);
+    const canViewAntrian = useHasPermission(PERMISSIONS.ANTRIAN.VIEW);
     const isAdmin = useIsAdmin();
 
     const masterItems = [
@@ -107,15 +109,28 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                     <SidebarNav label={t("nav.master")} items={masterItems} />
                 )}
                 {authItems.length > 0 && <SidebarNav label={t("nav.auth")} items={authItems} />}
-                {canViewIHS && (
+                {(canViewIHS || canViewAntrian) && (
                     <SidebarNav
                         label="SIMRS"
                         items={[
-                            {
-                                name: "Satu Sehat",
-                                url: ROUTES.IHS.INDEX,
-                                icon: HeartCrackIcon,
-                            },
+                            ...(canViewIHS
+                                ? [
+                                      {
+                                          name: "Satu Sehat",
+                                          url: ROUTES.IHS.INDEX,
+                                          icon: HeartCrackIcon,
+                                      },
+                                  ]
+                                : []),
+                            ...(canViewAntrian
+                                ? [
+                                      {
+                                          name: t("nav.antrian"),
+                                          url: ROUTES.ANTRIAN.INDEX,
+                                          icon: ClipboardListIcon,
+                                      },
+                                  ]
+                                : []),
                         ]}
                     />
                 )}

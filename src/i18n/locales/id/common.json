@@ -63,7 +63,8 @@
         "contact": "Kontak",
         "master": "Data Master",
         "auth": "Kontrol Akses",
-        "feedback": "Saran"
+        "feedback": "Saran",
+        "antrian": "Antrian"
     },
     "toast": {
         "success": "Berhasil",

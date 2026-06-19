@@ -5,6 +5,7 @@ import { dashboardRoutes } from "@/features/dashboard/routes";
 import { divisionRoutes } from "@/features/division/routes";
 import { feedbackRoutes } from "@/features/feedback/routes";
 import { homeRoutes } from "@/features/home/routes";
+import { antrianRoutes } from "@/features/antrian/routes";
 import { ihsRoutes } from "@/features/ihs/routes";
 import { rbacRoutes } from "@/features/rbac/routes";
 import { ticketRoutes } from "@/features/ticket/routes";
@@ -59,6 +60,10 @@ export const appRoutes: RouteObject[] = [
                     {
                         element: <PermissionRoute permission={PERMISSIONS.IHS.VIEW} />,
                         children: [...ihsRoutes],
+                    },
+                    {
+                        element: <PermissionRoute permission={PERMISSIONS.ANTRIAN.VIEW} />,
+                        children: [...antrianRoutes],
                     },
                 ],
             },

@@ -1,0 +1,29 @@
+{
+    "page": {
+        "title": "Queue",
+        "description": "Today's patient queue list",
+        "searchPlaceholder": "Search by medical record number..."
+    },
+    "column": {
+        "kodeBooking": "Booking Code",
+        "noAntrian": "Queue No.",
+        "norm": "Medical Record No.",
+        "nama": "Name",
+        "noKartuBpjs": "BPJS Card No.",
+        "dokter": "Doctor",
+        "poli": "Clinic",
+        "status": "Status"
+    },
+    "checkin": {
+        "button": "Check In",
+        "loading": "Checking in...",
+        "success": "Patient has been checked in successfully.",
+        "error": "Failed to check in. Please try again."
+    },
+    "status": {
+        "notCheckedIn": "Not Checked In",
+        "checkedIn": "Checked In",
+        "registered": "Registered",
+        "cancelled": "Cancelled"
+    }
+}

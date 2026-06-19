@@ -15,6 +15,7 @@ import enNotification from "./locales/en/notification.json";
 import enRbac from "./locales/en/rbac.json";
 import enSatuSehat from "./locales/en/satusehat.json";
 import enIhs from "./locales/en/ihs.json";
+import enAntrian from "./locales/en/antrian.json";
 
 import idCommon from "./locales/id/common.json";
 import idAuth from "./locales/id/auth.json";
@@ -29,6 +30,7 @@ import idNotification from "./locales/id/notification.json";
 import idRbac from "./locales/id/rbac.json";
 import idSatuSehat from "./locales/id/satusehat.json";
 import idIhs from "./locales/id/ihs.json";
+import idAntrian from "./locales/id/antrian.json";
 
 i18n.use(LanguageDetector)
     .use(initReactI18next)
@@ -48,6 +50,7 @@ i18n.use(LanguageDetector)
                 rbac: enRbac,
                 satuSehat: enSatuSehat,
                 ihs: enIhs,
+                antrian: enAntrian,
             },
             id: {
                 common: idCommon,
@@ -63,6 +66,7 @@ i18n.use(LanguageDetector)
                 rbac: idRbac,
                 satuSehat: idSatuSehat,
                 ihs: idIhs,
+                antrian: idAntrian,
             },
         },
         defaultNS: "common",

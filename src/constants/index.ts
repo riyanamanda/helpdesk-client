@@ -66,6 +66,10 @@ export const ROUTES = {
         DETAIL: "/ihs/:norm/detail",
     },
 
+    ANTRIAN: {
+        INDEX: "/antrian",
+    },
+
     PROFILE: "/profile",
     PROFILE_UPDATE_PASSWORD: "/profile/update-password",
 } as const;

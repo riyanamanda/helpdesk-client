@@ -1,0 +1,29 @@
+{
+    "page": {
+        "title": "Antrian",
+        "description": "Daftar antrian pasien hari ini",
+        "searchPlaceholder": "Cari berdasarkan nomor rekam medis..."
+    },
+    "column": {
+        "kodeBooking": "Kode Booking",
+        "noAntrian": "No. Antrian",
+        "norm": "No. Rekam Medis",
+        "nama": "Nama",
+        "noKartuBpjs": "No. Kartu BPJS",
+        "dokter": "Dokter",
+        "poli": "Poli",
+        "status": "Status"
+    },
+    "checkin": {
+        "button": "Check In",
+        "loading": "Sedang check in...",
+        "success": "Pasien berhasil check in.",
+        "error": "Gagal check in. Silakan coba lagi."
+    },
+    "status": {
+        "notCheckedIn": "Belum Check In",
+        "checkedIn": "Sudah Check In",
+        "registered": "Sudah Terdaftar",
+        "cancelled": "Batal"
+    }
+}
