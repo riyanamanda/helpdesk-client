@@ -31,6 +31,21 @@ export interface PatientDetail {
     identity_card: IdentityCard;
 }
 
+export interface SendIhsResponse {
+    id?: string;
+    active: number;
+    address: string;
+    birthDate: string;
+    gender: string;
+    identifier: string;
+    maritalStatus: string;
+    meta: string;
+    multipleBirthBoolean: boolean;
+    name: string;
+    refId: number;
+    statusRequest: number;
+}
+
 export interface IdentityCard {
     identity_number: string;
     address: string;

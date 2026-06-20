@@ -23,7 +23,7 @@ const HTTP_METHOD_OPTIONS: { value: HttpMethod; label: string }[] = [
 ];
 
 export function PatientFilters({ filters, onFiltersChange }: PatientFiltersProps) {
-    const { t } = useTranslation("satuSehat");
+    const { t } = useTranslation("ihs");
 
     const hasActiveFilters = Object.values(filters).some((v) => v !== undefined);
 

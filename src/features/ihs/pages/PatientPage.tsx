@@ -13,7 +13,7 @@ import { listPatientQueryOptions } from "../queries/patient.query";
 import type { HttpMethod, PatientSortBy, SortType } from "../types";
 
 export function PatientPage() {
-    const { t } = useTranslation("satuSehat");
+    const { t } = useTranslation("ihs");
     const [searchParams, setSearchParams] = useSearchParams();
 
     const page = Number(searchParams.get("page") ?? "1");

@@ -1,10 +1,30 @@
 {
+    "page": {
+        "title": "Indonesia Health Service",
+        "description": "Pasien IHS yang belum terdaftar",
+        "searchPlaceholder": "Cari nama atau NIK..."
+    },
+    "filters": {
+        "allMethods": "Semua Metode"
+    },
+    "column": {
+        "norm": "Nomor Rekam Medis",
+        "name": "Nama",
+        "nik": "Nomor Induk Kependudukan",
+        "httpMethod": "Metode HTTP",
+        "getDate": "Diambil Tanggal",
+        "citizenshipNotFound": "Kewarganegaraan tidak ditemukan"
+    },
     "detail": {
         "title": "Detail Pasien",
         "description": "Profil lengkap pasien mencakup data biografis dan informasi kartu identitas.",
         "alert": {
             "title": "Data Pasien Bersifat Rahasia",
             "description": "Halaman ini memuat informasi sensitif termasuk NIK. Pembuatan data IHS bersifat satu arah dan tidak dapat dibatalkan — data pasien akan dikirimkan ke sistem kesehatan nasional."
+        },
+        "sendIhs": {
+            "success": "Pasien IHS berhasil diajukan, mohon periksa berkala pada SIMGOS.",
+            "citizenshipNotFound": "Kewarganegaraan tidak ditemukan — data pasien tidak dapat didaftarkan ke sistem kesehatan nasional."
         },
         "createDialog": {
             "button": "Buat IHS",

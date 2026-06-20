@@ -8,10 +8,7 @@ import type { TFunction } from "i18next";
 import { NavLink } from "react-router";
 import type { Patient } from "../types";
 
-export const getPatientColumns = (
-    t: TFunction<"satuSehat">,
-    pageOffset = 0
-): ColumnDef<Patient>[] => [
+export const getPatientColumns = (t: TFunction<"ihs">, pageOffset = 0): ColumnDef<Patient>[] => [
     {
         id: "no",
         header: t("common:table.no"),

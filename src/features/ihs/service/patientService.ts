@@ -1,6 +1,7 @@
 import { http } from "@/api";
 import type { PaginatedResponse } from "@/types";
-import type { Patient, PatientDetail, PatientListParams } from "../types";
+import axios from "axios";
+import type { Patient, PatientDetail, PatientListParams, SendIhsResponse } from "../types";
 
 export const patientService = {
     list: async (params?: PatientListParams) => {
@@ -17,6 +18,13 @@ export const patientService = {
     // that means from simgos perspective is creating ihs patient to ihs master index
     create: async (norm: string) => {
         const response = await http.patch(`/api/v1/patients/${norm}`);
+        return response.data;
+    },
+
+    sendIhs: async (): Promise<SendIhsResponse> => {
+        const response = await axios.get(
+            "http://192.168.50.5/webservice/kemkes/ihs/patient/postIhs"
+        );
         return response.data;
     },
 };

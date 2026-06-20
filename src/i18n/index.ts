@@ -13,7 +13,6 @@ import enFeedback from "./locales/en/feedback.json";
 import enHome from "./locales/en/home.json";
 import enNotification from "./locales/en/notification.json";
 import enRbac from "./locales/en/rbac.json";
-import enSatuSehat from "./locales/en/satusehat.json";
 import enIhs from "./locales/en/ihs.json";
 import enAntrian from "./locales/en/antrian.json";
 
@@ -28,7 +27,6 @@ import idFeedback from "./locales/id/feedback.json";
 import idHome from "./locales/id/home.json";
 import idNotification from "./locales/id/notification.json";
 import idRbac from "./locales/id/rbac.json";
-import idSatuSehat from "./locales/id/satusehat.json";
 import idIhs from "./locales/id/ihs.json";
 import idAntrian from "./locales/id/antrian.json";
 
@@ -48,7 +46,6 @@ i18n.use(LanguageDetector)
                 home: enHome,
                 notification: enNotification,
                 rbac: enRbac,
-                satuSehat: enSatuSehat,
                 ihs: enIhs,
                 antrian: enAntrian,
             },
@@ -64,7 +61,6 @@ i18n.use(LanguageDetector)
                 home: idHome,
                 notification: idNotification,
                 rbac: idRbac,
-                satuSehat: idSatuSehat,
                 ihs: idIhs,
                 antrian: idAntrian,
             },
