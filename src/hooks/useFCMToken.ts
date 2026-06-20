@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { messaging } from "@/lib/firebase";
 import { deviceService } from "@/features/notification/service/deviceService";
-import { NOTIFICATION_QUERY_KEYS } from "@/features/notification/queries/queryKeys";
+import { NOTIFICATION_QUERY_KEYS } from "@/features/notification/queries";
 
 const VAPID_KEY = import.meta.env.VITE_FIREBASE_VAPID_KEY as string;
 

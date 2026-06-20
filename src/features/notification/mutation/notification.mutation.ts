@@ -2,9 +2,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { NOTIFICATION_QUERY_KEYS } from "../queries";
 import { notificationService } from "../service/notificationService";
 
-function invalidateNotifications(queryClient: ReturnType<typeof useQueryClient>) {
-    queryClient.invalidateQueries({ queryKey: NOTIFICATION_QUERY_KEYS.LIST });
-    queryClient.invalidateQueries({ queryKey: NOTIFICATION_QUERY_KEYS.UNREAD_COUNT });
+async function invalidateNotifications(queryClient: ReturnType<typeof useQueryClient>) {
+    await queryClient.invalidateQueries({ queryKey: NOTIFICATION_QUERY_KEYS.LIST });
+    await queryClient.invalidateQueries({ queryKey: NOTIFICATION_QUERY_KEYS.UNREAD_COUNT });
 }
 
 export function useMarkAsReadMutation() {

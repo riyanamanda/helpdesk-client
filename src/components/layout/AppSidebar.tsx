@@ -75,7 +75,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                         <SidebarMenuButton size="lg" asChild>
                             <NavLink to={ROUTES.HOME}>
                                 <img
-                                    src="/logo.svg"
+                                    src="/favicon.svg"
                                     alt="IT Helpdesk"
                                     className="h-10"
                                     width={40}

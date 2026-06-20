@@ -22,7 +22,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useUpdateTicketMutation } from "../mutation/ticket.mutation";
-import { TICKET_QUERY_KEYS } from "../queries/queryKeys";
+import { TICKET_QUERY_KEYS } from "../queries";
 import type { TicketDetail, TicketUpdateFormData } from "../types";
 
 interface EditTicketFormProps {

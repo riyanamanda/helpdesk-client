@@ -7,8 +7,8 @@ export function useUpdateRolePermissionsMutation() {
     return useMutation({
         mutationFn: ({ roleId, permissionIds }: { roleId: number; permissionIds: number[] }) =>
             rbacService.updateRolePermissions(roleId, permissionIds),
-        onSuccess: (_, { roleId }) => {
-            queryClient.invalidateQueries({
+        onSuccess: async (_, { roleId }) => {
+            await queryClient.invalidateQueries({
                 queryKey: RBAC_QUERY_KEYS.ROLE_PERMISSIONS(roleId),
             });
         },

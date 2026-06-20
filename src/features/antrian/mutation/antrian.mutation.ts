@@ -10,11 +10,11 @@ export function useCheckInAntrian() {
 
     return useMutation({
         mutationFn: (kodeBooking: number) => antrianService.checkIn(kodeBooking),
-        onSuccess: () => {
+        onSuccess: async () => {
             toast.success(t("common:toast.success"), {
                 description: t("antrian:checkin.success"),
             });
-            queryClient.invalidateQueries({ queryKey: ANTRIAN_QUERY_KEYS.ROOT });
+            await queryClient.invalidateQueries({ queryKey: ANTRIAN_QUERY_KEYS.ROOT });
         },
         onError: () => {
             toast.error(t("toast.operationFailed"), {

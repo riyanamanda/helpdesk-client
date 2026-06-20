@@ -17,7 +17,7 @@ import { NavLink } from "react-router";
 import { toast } from "sonner";
 import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
 import { useDeleteTicketMutation } from "../mutation/ticket.mutation";
-import { TICKET_QUERY_KEYS } from "../queries/queryKeys";
+import { TICKET_QUERY_KEYS } from "../queries";
 import type { Ticket } from "../types";
 
 interface TicketActionProps {
