@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/formatters";
+import { ROLE_META } from "@/lib/role";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 import {
@@ -54,16 +55,8 @@ export const getUserColumns = (
         accessorKey: "role",
         header: t("columns.role"),
         cell: ({ row }) => {
-            const role = row.original.role;
-            const variantMap: Record<string, "default" | "secondary" | "outline"> = {
-                ADMIN: "default",
-                EMPLOYEE: "outline",
-            };
-            return (
-                <Badge variant={variantMap[role.name] ?? "outline"} className="capitalize">
-                    {role.name.toLowerCase()}
-                </Badge>
-            );
+            const { label, className } = ROLE_META[row.original.role.name];
+            return <Badge className={className}>{label}</Badge>;
         },
         enableSorting: true,
     },

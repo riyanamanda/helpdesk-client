@@ -1,3 +1,5 @@
+import { FloatingBubbles } from "@/components/FloatingBubbles";
+import { PageBackground } from "@/components/PageBackground";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants";
 import { LazyMotion, domAnimation, m, type Variants } from "motion/react";
@@ -32,30 +34,9 @@ export function NotFoundPage() {
     return (
         <LazyMotion features={domAnimation}>
             <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background text-foreground">
-                <div
-                    className="pointer-events-none absolute inset-0 opacity-25"
-                    style={{
-                        backgroundImage:
-                            "radial-gradient(circle at 1px 1px, oklch(1 0 0 / 0.35) 1px, transparent 0)",
-                        backgroundSize: "36px 36px",
-                    }}
-                />
+                <PageBackground />
 
-                <div className="pointer-events-none absolute inset-0 bg-radial from-transparent to-background" />
-
-                {bubbles.map((b, i) => (
-                    <m.div
-                        key={i}
-                        className={`pointer-events-none absolute ${b.cls} ${b.pos} rounded-full border border-primary/20 bg-primary/10`}
-                        animate={{ y: [0, -22, 0], x: [0, 6, 0] }}
-                        transition={{
-                            duration: b.duration,
-                            delay: b.delay,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                        }}
-                    />
-                ))}
+                <FloatingBubbles bubbles={bubbles} color="border-primary/20 bg-primary/10" />
 
                 <m.div
                     className="relative z-10 flex flex-col items-center gap-6 px-4 text-center"

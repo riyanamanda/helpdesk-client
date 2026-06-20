@@ -20,6 +20,7 @@
         "createdBy": "Created By"
     },
     "roles": {
+        "superadmin": "Super Admin",
         "admin": "Administrator",
         "employee": "Employee",
         "placeholder": "Select role"

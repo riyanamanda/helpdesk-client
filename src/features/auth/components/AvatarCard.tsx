@@ -6,14 +6,16 @@ import type { User } from "@/features/user/types";
 import { getInitials } from "@/lib/formatters";
 import { resolveMediaUrl } from "@/lib/media-url";
 import { handleApiError } from "@/lib/handle-form-error";
-import i18n from "@/i18n";
+import { ROLE_META } from "@/lib/role";
 import { CameraIcon, MailIcon } from "lucide-react";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { useUpdateAvatarMutation } from "../mutation/profile.mutation";
 
 export function AvatarCard({ user }: { user: User }) {
     const fileRef = useRef<HTMLInputElement>(null);
+    const { t } = useTranslation("auth");
     const { mutate: updateAvatar, isPending } = useUpdateAvatarMutation();
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,8 +23,8 @@ export function AvatarCard({ user }: { user: User }) {
         if (!file) return;
 
         if (file.size > 2 * 1024 * 1024) {
-            toast.error(i18n.t("auth:profile.fileTooLarge"), {
-                description: i18n.t("auth:profile.fileTooLargeDescription"),
+            toast.error(t("profile.fileTooLarge"), {
+                description: t("profile.fileTooLargeDescription"),
             });
             return;
         }
@@ -34,7 +36,7 @@ export function AvatarCard({ user }: { user: User }) {
         e.target.value = "";
     };
 
-    const roleLabel = user.role.name === "ADMIN" ? "Admin" : "Employee";
+    const { label: roleLabel, className: roleBadgeClass } = ROLE_META[user.role.name];
 
     return (
         <Card>
@@ -68,15 +70,7 @@ export function AvatarCard({ user }: { user: User }) {
                 <div className="flex flex-col gap-1.5">
                     <h2 className="text-lg font-bold">{user.name}</h2>
                     <div className="flex items-center gap-2">
-                        <Badge
-                            className={
-                                user.role.name === "ADMIN"
-                                    ? "bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400"
-                                    : "bg-secondary text-secondary-foreground"
-                            }
-                        >
-                            {roleLabel}
-                        </Badge>
+                        <Badge className={roleBadgeClass}>{roleLabel}</Badge>
                         <span className="text-sm text-muted-foreground">{user.division.name}</span>
                     </div>
                     <div className="flex items-center gap-1.5 text-xs text-muted-foreground">

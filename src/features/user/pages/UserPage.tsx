@@ -76,7 +76,7 @@ export function UserPage() {
         startTransition(() => {
             if (value === "all") {
                 setRole(undefined);
-            } else if (value === "ADMIN" || value === "EMPLOYEE") {
+            } else if (value === "ADMIN" || value === "EMPLOYEE" || value === "SUPERADMIN") {
                 setRole(value);
             }
             setPage(1);
@@ -152,6 +152,7 @@ export function UserPage() {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="all">{t("filters.allRoles")}</SelectItem>
+                            <SelectItem value="SUPERADMIN">{t("roles.superadmin")}</SelectItem>
                             <SelectItem value="ADMIN">{t("roles.admin")}</SelectItem>
                             <SelectItem value="EMPLOYEE">{t("roles.employee")}</SelectItem>
                         </SelectContent>

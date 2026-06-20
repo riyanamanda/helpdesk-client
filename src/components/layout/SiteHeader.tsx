@@ -4,6 +4,7 @@ import { meQueryOption } from "@/features/auth/queries/auth.query";
 import { NotificationBell } from "@/features/notification/components/NotificationBell";
 import { getInitials } from "@/lib/formatters";
 import { resolveMediaUrl } from "@/lib/media-url";
+import { ROLE_META } from "@/lib/role";
 import { useQuery } from "@tanstack/react-query";
 import { KeyRoundIcon, LogOutIcon, UserCircleIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -57,7 +58,7 @@ export function SiteHeader() {
                         <div className="grid flex-1 text-left text-sm leading-tight">
                             <span className="truncate font-medium">{user.name}</span>
                             <span className="truncate text-xs text-muted-foreground">
-                                {user.role.name}
+                                {ROLE_META[user.role.name].label}
                             </span>
                         </div>
                     </DropdownMenuTrigger>

@@ -11,45 +11,30 @@ import {
     EmptyTitle,
 } from "@/components/ui/empty";
 import { ROUTES } from "@/constants";
-import { handleApiError } from "@/lib/handle-form-error";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowLeftIcon, EditIcon, ShieldAlertIcon, UserXIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router";
-import { toast } from "sonner";
 import { PatientBioCard } from "../components/PatientBioCard";
 import { PatientHeader } from "../components/PatientHeader";
 import { PatientKtpCard } from "../components/PatientKtpCard";
+import { useCreateIhsMutation } from "../mutation/ihs.mutation";
 import { detailPatientQueryOptions } from "../queries/patient.query";
-import { PATIENT_QUERY_KEYS } from "../queries/queryKeys";
-import { patientService } from "../service/patientService";
 
 export function DetailPatientPage() {
     const navigate = useNavigate();
     const { norm } = useParams();
     const { t } = useTranslation("ihs");
-    const queryClient = useQueryClient();
 
     const { data: patientData, isLoading, isError } = useQuery(detailPatientQueryOptions(norm!));
     const patient = patientData;
 
-    const { mutate: createIhs, isPending: isCreating } = useMutation({
-        mutationFn: (value: string) => patientService.create(value),
-    });
+    const { mutate: createIhs, isPending: isCreating } = useCreateIhsMutation();
 
     const handleCreateIhs = () => {
         if (!norm) return;
-
         createIhs(norm, {
-            onSuccess: async () => {
-                toast.success(t("common:toast.success"), {
-                    description: t("detail.createDialog.success"),
-                });
-
-                await queryClient.invalidateQueries({ queryKey: PATIENT_QUERY_KEYS.ROOT });
-                navigate(ROUTES.IHS.INDEX, { replace: true });
-            },
-            onError: (error) => handleApiError(error),
+            onSuccess: () => navigate(ROUTES.IHS.INDEX, { replace: true }),
         });
     };
 

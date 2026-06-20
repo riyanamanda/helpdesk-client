@@ -20,6 +20,7 @@
         "createdBy": "Dibuat Oleh"
     },
     "roles": {
+        "superadmin": "Super Admin",
         "admin": "Administrator",
         "employee": "Karyawan",
         "placeholder": "Pilih peran"
