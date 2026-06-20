@@ -1,6 +1,5 @@
 import { http } from "@/api";
 import type { PaginatedResponse } from "@/types";
-import axios from "axios";
 import type { Patient, PatientDetail, PatientListParams, SendIhsResponse } from "../types";
 
 export const patientService = {
@@ -22,9 +21,7 @@ export const patientService = {
     },
 
     sendIhs: async (): Promise<SendIhsResponse> => {
-        const response = await axios.get(
-            "http://192.168.50.5/webservice/kemkes/ihs/patient/postIhs"
-        );
-        return response.data;
+        const response = await http.get("/api/v1/ihs/patient/send");
+        return response.data.data;
     },
 };
