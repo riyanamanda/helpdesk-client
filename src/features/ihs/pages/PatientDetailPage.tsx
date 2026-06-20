@@ -50,7 +50,7 @@ export function DetailPatientPage() {
         createIhs(norm, {
             onSuccess: async () => {
                 const res = await patientService.sendIhs();
-                if (!res.id) {
+                if (!res?.id) {
                     toast.warning(t("detail.sendIhs.citizenshipNotFound"));
                 } else {
                     toast.success(t("common:toast.success"), {
