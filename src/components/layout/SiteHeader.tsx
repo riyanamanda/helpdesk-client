@@ -5,8 +5,9 @@ import { NotificationBell } from "@/features/notification/components/Notificatio
 import { getInitials } from "@/lib/formatters";
 import { resolveMediaUrl } from "@/lib/media-url";
 import { ROLE_META } from "@/lib/role";
+import { usePWAInstall } from "@/hooks/use-pwa-install";
 import { useQuery } from "@tanstack/react-query";
-import { KeyRoundIcon, LogOutIcon, UserCircleIcon } from "lucide-react";
+import { DownloadIcon, KeyRoundIcon, LogOutIcon, UserCircleIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { LanguageSwitcher } from "../LanguageSwitcher";
@@ -20,6 +21,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { SidebarTrigger } from "../ui/sidebar";
 
@@ -28,6 +30,7 @@ export function SiteHeader() {
     const { t } = useTranslation("auth");
     const { data: userData, isFetching } = useQuery(meQueryOption());
     const { mutate: logout } = useLogoutMutation();
+    const { canInstall, install } = usePWAInstall();
     const user = userData?.data;
 
     if (isFetching || !user) {
@@ -40,6 +43,12 @@ export function SiteHeader() {
                 <SidebarTrigger className="-ml-1" size="icon-lg" />
 
                 <div className="ml-auto flex items-center gap-2">
+                    {canInstall && (
+                        <Button variant="outline" size="sm" onClick={install}>
+                            <DownloadIcon />
+                            {t("header.install")}
+                        </Button>
+                    )}
                     <NotificationBell />
                     <LanguageSwitcher />
                     <ModeToggle />
