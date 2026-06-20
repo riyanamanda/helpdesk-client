@@ -1,9 +1,4 @@
 {
-    "page": {
-        "title": "Indonesia Health Service",
-        "description": "Pasien IHS yang belum terdaftar",
-        "searchPlaceholder": "Cari nama atau NIK..."
-    },
     "detail": {
         "title": "Detail Pasien",
         "description": "Profil lengkap pasien mencakup data biografis dan informasi kartu identitas.",
@@ -30,6 +25,7 @@
             "title": "Bio",
             "name": "Nama",
             "birthPlace": "Tempat Lahir",
+            "birthPlaceNull": "Tidak tercatat",
             "birthDate": "Tanggal Lahir",
             "maritalStatus": "Status Perkawinan",
             "citizenship": "Kewarganegaraan",
@@ -45,15 +41,5 @@
             "district": "Kecamatan",
             "village": "Kelurahan"
         }
-    },
-    "filters": {
-        "allMethods": "Semua Metode"
-    },
-    "column": {
-        "norm": "Nomor Rekam Medis",
-        "name": "Nama",
-        "nik": "Nomor Induk Kependudukan",
-        "httpMethod": "Metode HTTP",
-        "getDate": "Diambil Tanggal"
     }
 }

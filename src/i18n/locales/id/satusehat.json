@@ -12,6 +12,7 @@
         "name": "Nama",
         "nik": "Nomor Induk Kependudukan",
         "httpMethod": "Metode HTTP",
-        "getDate": "Diambil Tanggal"
+        "getDate": "Diambil Tanggal",
+        "citizenshipNotFound": "Kewarganegaraan tidak ditemukan"
     }
 }

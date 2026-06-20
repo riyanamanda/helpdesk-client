@@ -1,9 +1,4 @@
 {
-    "page": {
-        "title": "Indonesia Health Service",
-        "description": "Unregistered IHS patients",
-        "searchPlaceholder": "Search by name or identity number..."
-    },
     "detail": {
         "title": "Patient Detail",
         "description": "Complete patient profile including biographical and identity card information.",
@@ -30,6 +25,7 @@
             "title": "Bio",
             "name": "Name",
             "birthPlace": "Place of Birth",
+            "birthPlaceNull": "Not recorded",
             "birthDate": "Date of Birth",
             "maritalStatus": "Marital Status",
             "citizenship": "Citizenship",
@@ -45,15 +41,5 @@
             "district": "District",
             "village": "Village"
         }
-    },
-    "filters": {
-        "allMethods": "All Methods"
-    },
-    "column": {
-        "norm": "Medical Record Number",
-        "name": "Name",
-        "nik": "Identity ID",
-        "httpMethod": "HTTP Method",
-        "getDate": "Get Date"
     }
 }

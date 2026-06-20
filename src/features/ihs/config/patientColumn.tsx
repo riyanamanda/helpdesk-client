@@ -45,7 +45,7 @@ export const getPatientColumns = (
     },
     {
         accessorKey: "identity_number",
-        header: t("column.identity_number"),
+        header: t("column.nik"),
         cell: ({ row }) => {
             const identity_number = row.getValue("identity_number") as string;
 
@@ -73,7 +73,7 @@ export const getPatientColumns = (
                     </Badge>
 
                     {method === "POST" && (
-                        <Badge variant="destructive">Citizenship not found</Badge>
+                        <Badge variant="destructive">{t("column.citizenshipNotFound")}</Badge>
                     )}
                 </>
             );

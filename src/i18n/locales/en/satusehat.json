@@ -12,6 +12,7 @@
         "name": "Name",
         "nik": "Identity ID",
         "httpMethod": "HTTP Method",
-        "getDate": "Get Date"
+        "getDate": "Get Date",
+        "citizenshipNotFound": "Citizenship not found"
     }
 }

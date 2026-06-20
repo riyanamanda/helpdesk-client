@@ -5,47 +5,62 @@ import { Input } from "@/components/ui/input";
 import { useDebounce } from "@/hooks/use-debounce";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { type SortingState } from "@tanstack/react-table";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { getPatientColumns } from "../config/patientColumn";
+import { useSearchParams } from "react-router";
 import { PatientFilters, type PatientFiltersState } from "../components/PatientFilters";
+import { getPatientColumns } from "../config/patientColumn";
 import { listPatientQueryOptions } from "../queries/patient.query";
-import type { PatientSortBy, SortType } from "../types";
+import type { HttpMethod, PatientSortBy, SortType } from "../types";
 
 export function PatientPage() {
     const { t } = useTranslation("satuSehat");
-    const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(10);
-    const [search, setSearch] = useState("");
-    const [sorting, setSorting] = useState<SortingState>([]);
-    const [filters, setFilters] = useState<PatientFiltersState>({});
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const page = Number(searchParams.get("page") ?? "1");
+    const limit = Number(searchParams.get("limit") ?? "10");
+    const search = searchParams.get("search") ?? "";
+    const sortById = searchParams.get("sort_by") ?? "";
+    const sortDesc = searchParams.get("sort_desc") === "true";
+    const httpMethod = (searchParams.get("http_method") as HttpMethod) || undefined;
+
+    const sorting: SortingState = sortById ? [{ id: sortById, desc: sortDesc }] : [];
+    const filters: PatientFiltersState = { http_method: httpMethod };
 
     const debouncedSearch = useDebounce(search, 300);
 
-    const handleSearchChange = (value: string) => {
-        setSearch(value);
-        setPage(1);
-    };
+    function update(changes: Record<string, string | null>, resetPage = false) {
+        setSearchParams(
+            (prev) => {
+                for (const [key, value] of Object.entries(changes)) {
+                    if (value === null || value === "") prev.delete(key);
+                    else prev.set(key, value);
+                }
+                if (resetPage) prev.delete("page");
+                return prev;
+            },
+            { replace: true }
+        );
+    }
 
-    const handleFiltersChange = (next: PatientFiltersState) => {
-        setFilters(next);
-        setPage(1);
-    };
+    function handleSearchChange(value: string) {
+        update({ search: value || null }, true);
+    }
 
-    const handleSortingChange = (
-        updater: SortingState | ((prev: SortingState) => SortingState)
-    ) => {
+    function handleFiltersChange(next: PatientFiltersState) {
+        update({ http_method: next.http_method ?? null }, true);
+    }
+
+    function handleSortingChange(updater: SortingState | ((prev: SortingState) => SortingState)) {
         const next = typeof updater === "function" ? updater(sorting) : updater;
-        setSorting(next);
-        setPage(1);
-    };
+        if (next[0]) {
+            update({ sort_by: next[0].id, sort_desc: String(next[0].desc) }, true);
+        } else {
+            update({ sort_by: null, sort_desc: null }, true);
+        }
+    }
 
-    const sort_by = sorting[0]?.id as PatientSortBy | undefined;
-    const sort_type: SortType | undefined = sorting[0]
-        ? sorting[0].desc
-            ? "DESC"
-            : "ASC"
-        : undefined;
+    const sort_by = sortById as PatientSortBy | undefined;
+    const sort_type: SortType | undefined = sortById ? (sortDesc ? "DESC" : "ASC") : undefined;
 
     const { data, isLoading } = useQuery({
         ...listPatientQueryOptions({
@@ -88,8 +103,8 @@ export function PatientPage() {
                 {pagination && (
                     <DataTablePagination
                         pagination={pagination}
-                        onPageChange={setPage}
-                        onLimitChange={setLimit}
+                        onPageChange={(p) => update({ page: String(p) })}
+                        onLimitChange={(l) => update({ limit: String(l), page: null })}
                     />
                 )}
             </PageLayout.Content>

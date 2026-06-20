@@ -31,6 +31,18 @@ export function DetailPatientPage() {
 
     const { mutate: createIhs, isPending: isCreating } = useCreateIhsMutation();
 
+    const hasIncompleteData =
+        !isLoading &&
+        !!patient &&
+        (!patient.birth_place ||
+            !patient.name ||
+            !patient.birth_date ||
+            !patient.marital_status ||
+            !patient.citizenship ||
+            !patient.identity_card?.address ||
+            !patient.identity_card?.rt ||
+            !patient.identity_card?.rw);
+
     const handleCreateIhs = () => {
         if (!norm) return;
         createIhs(norm, {
@@ -44,21 +56,31 @@ export function DetailPatientPage() {
                 title={t("detail.title")}
                 description={t("detail.description")}
                 actions={
-                    <DeleteDialog
-                        title={t("detail.createDialog.title")}
-                        description={t("detail.createDialog.description")}
-                        confirmLabel={t("detail.createDialog.confirm")}
-                        pendingLabel={t("detail.createDialog.creating")}
-                        icon={<EditIcon />}
-                        isPending={isCreating}
-                        onConfirm={handleCreateIhs}
-                        trigger={
-                            <Button variant="destructive" size="sm" disabled={isCreating}>
-                                <EditIcon />
-                                <span>{t("detail.createDialog.button")}</span>
-                            </Button>
-                        }
-                    />
+                    <div className="flex items-center gap-2">
+                        <Button variant="ghost" size="sm" onClick={() => navigate(-1)}>
+                            <ArrowLeftIcon />
+                            {t("common:back")}
+                        </Button>
+                        <DeleteDialog
+                            title={t("detail.createDialog.title")}
+                            description={t("detail.createDialog.description")}
+                            confirmLabel={t("detail.createDialog.confirm")}
+                            pendingLabel={t("detail.createDialog.creating")}
+                            icon={<EditIcon />}
+                            isPending={isCreating}
+                            onConfirm={handleCreateIhs}
+                            trigger={
+                                <Button
+                                    variant="destructive"
+                                    size="sm"
+                                    disabled={isCreating || hasIncompleteData}
+                                >
+                                    <EditIcon />
+                                    <span>{t("detail.createDialog.button")}</span>
+                                </Button>
+                            }
+                        />
+                    </div>
                 }
             />
 

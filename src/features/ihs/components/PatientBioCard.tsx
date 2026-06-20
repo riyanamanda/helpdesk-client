@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatDate } from "@/lib/formatters";
 import { UserRoundIcon } from "lucide-react";
@@ -34,7 +35,23 @@ export function PatientBioCard({ patient, isLoading }: Props) {
                     ) : (
                         <>
                             <Field label={t("detail.bio.name")} value={patient.name} wide />
-                            <Field label={t("detail.bio.birthPlace")} value={patient.birth_place} />
+                            <div>
+                                <p className="mb-0.5 text-[10px] font-semibold tracking-widest text-muted-foreground/50 uppercase">
+                                    {t("detail.bio.birthPlace")}
+                                </p>
+                                {patient.birth_place ? (
+                                    <p className="text-sm font-medium text-foreground">
+                                        {patient.birth_place}
+                                    </p>
+                                ) : (
+                                    <Badge
+                                        variant="outline"
+                                        className="border-orange-500/40 bg-orange-500/10 text-orange-500"
+                                    >
+                                        {t("detail.bio.birthPlaceNull")}
+                                    </Badge>
+                                )}
+                            </div>
                             <Field
                                 label={t("detail.bio.birthDate")}
                                 value={formatDate(patient.birth_date)}

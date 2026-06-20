@@ -23,7 +23,7 @@ export interface Patient {
 export interface PatientDetail {
     norm: string;
     name: string;
-    birth_place: string;
+    birth_place: string | null;
     birth_date: string;
     marital_status: string;
     citizenship: string;
