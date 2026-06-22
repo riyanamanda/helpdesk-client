@@ -3,6 +3,7 @@ import { getToken, onMessage } from "firebase/messaging";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import { useNavigate } from "react-router";
 import { messaging } from "@/lib/firebase";
 import { deviceService } from "@/features/notification/service/deviceService";
 import { NOTIFICATION_QUERY_KEYS } from "@/features/notification/queries";
@@ -33,6 +34,7 @@ async function persistLangToCache(lang: string) {
 export function useFCMToken() {
     const queryClient = useQueryClient();
     const { i18n } = useTranslation("notification");
+    const navigate = useNavigate();
     const tokenRef = useRef<string | null>(null);
 
     useEffect(() => {
@@ -93,7 +95,7 @@ export function useFCMToken() {
                     action: referenceId
                         ? {
                               label: i18n.t("view", { ns: "notification" }),
-                              onClick: () => window.location.assign(path),
+                              onClick: () => navigate(path),
                           }
                         : undefined,
                 });
@@ -107,5 +109,5 @@ export function useFCMToken() {
         return () => {
             unsubscribeMessage?.();
         };
-    }, [queryClient, i18n]);
+    }, [queryClient, i18n, navigate]);
 }
