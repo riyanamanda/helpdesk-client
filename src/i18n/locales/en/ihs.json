@@ -34,6 +34,14 @@
             "creating": "Creating...",
             "success": "The IHS patient has been submitted successfully, Please check on SIMGOS regularly."
         },
+        "sendDialog": {
+            "button": "Send IHS",
+            "title": "Send IHS Patient?",
+            "description": "This send one-way communication to IHS and cannot be undone.",
+            "confirm": "Send",
+            "creating": "Sending...",
+            "success": "The IHS patient has been sent successfully, Please check on SIMGOS regularly."
+        },
         "notFound": {
             "title": "Patient Not Found",
             "description": "No patient data was returned for this record number. The patient may not exist or the server encountered an error."

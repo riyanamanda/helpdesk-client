@@ -1,14 +1,19 @@
 import { DataTable } from "@/components/DataTable";
 import { DataTablePagination } from "@/components/DataTablePagination";
+import { DeleteDialog } from "@/components/DeleteDialog";
 import { PageLayout } from "@/components/layout/PageLayout";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useDebounce } from "@/hooks/use-debounce";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { type SortingState } from "@tanstack/react-table";
+import { SendIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router";
+import { toast } from "sonner";
 import { PatientFilters, type PatientFiltersState } from "../components/PatientFilters";
 import { getPatientColumns } from "../config/patientColumn";
+import { useSendIhsMutation } from "../mutation/ihs.mutation";
 import { listPatientQueryOptions } from "../queries/patient.query";
 import type { HttpMethod, PatientSortBy, SortType } from "../types";
 
@@ -78,9 +83,40 @@ export function PatientPage() {
     const pagination = data?.pagination;
     const columns = getPatientColumns(t, (page - 1) * limit);
 
+    const { mutate: sendingIHS, isPending: isSending } = useSendIhsMutation();
+    const handleSendIHS = () => {
+        sendingIHS(undefined, {
+            onSuccess: () => {
+                toast.success(t("common:toast.success"), {
+                    description: t("detail.sendIhs.success"),
+                });
+            },
+        });
+    };
+
     return (
         <PageLayout>
-            <PageLayout.Header title={t("page.title")} description={t("page.description")} />
+            <PageLayout.Header
+                title={t("page.title")}
+                description={t("page.description")}
+                actions={
+                    <DeleteDialog
+                        title={t("detail.sendDialog.title")}
+                        description={t("detail.sendDialog.description")}
+                        confirmLabel={t("detail.sendDialog.confirm")}
+                        pendingLabel={t("detail.sendDialog.creating")}
+                        icon={<SendIcon />}
+                        isPending={isSending}
+                        onConfirm={handleSendIHS}
+                        trigger={
+                            <Button variant="destructive" size="sm" disabled={isSending}>
+                                <SendIcon />
+                                <span>{t("detail.sendDialog.button")}</span>
+                            </Button>
+                        }
+                    />
+                }
+            />
             <PageLayout.Content>
                 <div className="flex flex-wrap items-center gap-2">
                     <Input

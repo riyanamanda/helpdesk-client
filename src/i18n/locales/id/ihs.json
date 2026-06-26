@@ -34,6 +34,14 @@
             "creating": "Membuat...",
             "success": "Pasien IHS berhasil diajukan, mohon periksa berkala pada SIMGOS."
         },
+        "sendDialog": {
+            "button": "Kirim IHS",
+            "title": "Kirim Pasien IHS?",
+            "description": "Ini mengirim komunikasi satu arah ke IHS dan tidak dapat dibatalkan.",
+            "confirm": "Kirim",
+            "creating": "Mengirim...",
+            "success": "Pasien IHS berhasil diajukan, mohon periksa berkala pada SIMGOS."
+        },
         "notFound": {
             "title": "Pasien Tidak Ditemukan",
             "description": "Data pasien tidak ditemukan untuk nomor rekam medis ini. Pasien mungkin tidak terdaftar atau terjadi kesalahan pada server."

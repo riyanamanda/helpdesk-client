@@ -21,7 +21,6 @@ import { PatientHeader } from "../components/PatientHeader";
 import { PatientKtpCard } from "../components/PatientKtpCard";
 import { useCreateIhsMutation } from "../mutation/ihs.mutation";
 import { detailPatientQueryOptions } from "../queries/patient.query";
-import { patientService } from "../service/patientService";
 
 export function DetailPatientPage() {
     const navigate = useNavigate();
@@ -49,14 +48,9 @@ export function DetailPatientPage() {
         if (!norm) return;
         createIhs(norm, {
             onSuccess: async () => {
-                const res = await patientService.sendIhs();
-                if (!res?.id) {
-                    toast.warning(t("detail.sendIhs.citizenshipNotFound"));
-                } else {
-                    toast.success(t("common:toast.success"), {
-                        description: t("detail.sendIhs.success"),
-                    });
-                }
+                toast.success(t("common:toast.success"), {
+                    description: t("detail.sendIhs.success"),
+                });
                 navigate(ROUTES.IHS.INDEX, { replace: true });
             },
         });
