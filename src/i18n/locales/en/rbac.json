@@ -22,6 +22,7 @@
         "feedback": "Feedback Management",
         "dashboard": "Dashboard",
         "rbac": "RBAC Management",
-        "ihs": "IHS Patients"
+        "ihs": "IHS Patients",
+        "antrian": "Queue BPJS"
     }
 }

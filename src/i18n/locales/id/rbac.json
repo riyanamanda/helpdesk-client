@@ -22,6 +22,7 @@
         "feedback": "Manajemen Umpan Balik",
         "dashboard": "Dasbor",
         "rbac": "Manajemen RBAC",
-        "ihs": "Pasien Satu Sehat"
+        "ihs": "Pasien Satu Sehat",
+        "antrian": "Antrian BPJS"
     }
 }
