@@ -8,28 +8,31 @@ import type {
 } from "../types";
 
 export const dashboardService = {
-    getSummary: async () => {
-        const response = await http.get("/api/v1/dashboard/summary");
+    getSummary: async (signal: AbortSignal) => {
+        const response = await http.get("/api/v1/dashboard/summary", { signal });
         return response.data as { data: DashboardSummary };
     },
 
-    getRecentTickets: async () => {
-        const response = await http.get("/api/v1/dashboard/recent-tickets");
+    getRecentTickets: async (signal: AbortSignal) => {
+        const response = await http.get("/api/v1/dashboard/recent-tickets", { signal });
         return response.data as { data: RecentTicket[] };
     },
 
-    getMonthlyTrend: async (year: number) => {
-        const response = await http.get("/api/v1/dashboard/monthly-trend", { params: { year } });
+    getMonthlyTrend: async (year: number, signal: AbortSignal) => {
+        const response = await http.get("/api/v1/dashboard/monthly-trend", {
+            params: { year },
+            signal,
+        });
         return response.data as { data: MonthlyTicketTrend[] };
     },
 
-    getAgentWorkload: async () => {
-        const response = await http.get("/api/v1/dashboard/agent-workload");
+    getAgentWorkload: async (signal: AbortSignal) => {
+        const response = await http.get("/api/v1/dashboard/agent-workload", { signal });
         return response.data as { data: AgentWorkload[] };
     },
 
-    getTicketsByCategory: async () => {
-        const response = await http.get("/api/v1/dashboard/tickets-by-category");
+    getTicketsByCategory: async (signal: AbortSignal) => {
+        const response = await http.get("/api/v1/dashboard/tickets-by-category", { signal });
         return response.data as { data: CategoryTickets[] };
     },
 };

@@ -1,20 +1,24 @@
-import { cn } from "@/lib/utils";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { useMarkAllAsReadMutation, useMarkAsReadMutation } from "../mutation/notification.mutation";
-import { useNotificationsQuery, useUnreadCountQuery } from "../queries";
-import type { Notification } from "../types";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
-import { id as idLocale, enUS } from "date-fns/locale";
+import { enUS, id as idLocale } from "date-fns/locale";
 import { BellIcon, CheckCheckIcon, LoaderCircleIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { useMarkAllAsReadMutation, useMarkAsReadMutation } from "../mutation/notification.mutation";
+import {
+    useNotificationsQueryOption,
+    useUnreadCountQueryOption,
+} from "../queries/notification.query";
+import type { Notification } from "../types";
 
 export function NotificationBell() {
     const { t, i18n } = useTranslation("notification");
     const navigate = useNavigate();
-    const { data: notifications = [], isLoading } = useNotificationsQuery();
-    const { data: unreadCount = 0 } = useUnreadCountQuery();
+    const { data: notifications = [], isLoading } = useQuery(useNotificationsQueryOption());
+    const { data: unreadCount = 0 } = useQuery(useUnreadCountQueryOption());
     const { mutate: markAsRead } = useMarkAsReadMutation();
     const { mutate: markAllAsRead, isPending: isMarkingAll } = useMarkAllAsReadMutation();
 

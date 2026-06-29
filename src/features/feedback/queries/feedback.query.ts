@@ -6,13 +6,13 @@ import { FEEDBACK_QUERY_KEYS } from "./queryKeys";
 export function listFeedbackQueryOption(params: FeedbackListParams = { page: 1, limit: 10 }) {
     return queryOptions({
         queryKey: FEEDBACK_QUERY_KEYS.LIST(params),
-        queryFn: () => feedbackService.list(params),
+        queryFn: ({ signal }) => feedbackService.list(params, signal),
     });
 }
 
 export function listAdminFeedbackQueryOption(params: FeedbackListParams = { page: 1, limit: 10 }) {
     return queryOptions({
         queryKey: FEEDBACK_QUERY_KEYS.ADMIN_LIST(params),
-        queryFn: () => feedbackService.adminList(params),
+        queryFn: ({ signal }) => feedbackService.adminList(params, signal),
     });
 }

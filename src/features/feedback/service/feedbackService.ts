@@ -8,18 +8,18 @@ import type {
 } from "../types";
 
 export const feedbackService = {
-    list: async (params?: FeedbackListParams) => {
-        const response = await http.get("/api/v1/feedbacks", { params });
+    list: async (params?: FeedbackListParams, signal?: AbortSignal) => {
+        const response = await http.get("/api/v1/feedbacks", { params, signal });
         return response.data as PaginatedResponse<Feedback>;
     },
 
-    adminList: async (params?: FeedbackListParams) => {
-        const response = await http.get("/api/v1/admin/feedbacks", { params });
+    adminList: async (params?: FeedbackListParams, signal?: AbortSignal) => {
+        const response = await http.get("/api/v1/admin/feedbacks", { params, signal });
         return response.data as PaginatedResponse<Feedback>;
     },
 
-    get: async (id: number) => {
-        const response = await http.get(`/api/v1/feedbacks/${id}`);
+    get: async (id: number, signal?: AbortSignal) => {
+        const response = await http.get(`/api/v1/feedbacks/${id}`, { signal });
         return response.data as SuccessResponse<Feedback>;
     },
 

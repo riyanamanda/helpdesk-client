@@ -3,13 +3,13 @@ import type { PaginatedResponse } from "@/types";
 import type { Patient, PatientDetail, PatientListParams, SendIhsResponse } from "../types";
 
 export const patientService = {
-    list: async (params?: PatientListParams) => {
-        const response = await http.get("/api/v1/patients", { params });
+    list: async (params?: PatientListParams, signal?: AbortSignal) => {
+        const response = await http.get("/api/v1/patients", { params, signal });
         return response.data as PaginatedResponse<Patient>;
     },
 
-    detail: async (norm: string) => {
-        const response = await http.get(`/api/v1/patients/${norm}/detail`);
+    detail: async (norm: string, signal?: AbortSignal) => {
+        const response = await http.get(`/api/v1/patients/${norm}/detail`, { signal });
         return response.data.data as PatientDetail;
     },
 

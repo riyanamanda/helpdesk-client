@@ -12,13 +12,13 @@ import type {
 } from "../types";
 
 export const ticketService = {
-    list: async (params?: TicketListParams) => {
-        const response = await http.get("/api/v1/tickets", { params });
+    list: async (params?: TicketListParams, signal?: AbortSignal) => {
+        const response = await http.get("/api/v1/tickets", { params, signal });
         return response.data as PaginatedResponse<Ticket>;
     },
 
-    get: async (id: number) => {
-        const response = await http.get(`/api/v1/tickets/${id}`);
+    get: async (id: number, signal?: AbortSignal) => {
+        const response = await http.get(`/api/v1/tickets/${id}`, { signal });
         return response.data as { data: TicketDetail };
     },
 

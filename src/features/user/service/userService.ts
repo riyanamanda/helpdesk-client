@@ -3,18 +3,18 @@ import type { PaginatedResponse } from "@/types";
 import type { User, UserBrief, UserFormData, UserListParams } from "../types";
 
 export const userService = {
-    list: async (params?: UserListParams) => {
-        const response = await http.get("/api/v1/users", { params });
+    list: async (params?: UserListParams, signal?: AbortSignal) => {
+        const response = await http.get("/api/v1/users", { params, signal });
         return response.data as PaginatedResponse<User>;
     },
 
-    listAssignableUser: async (): Promise<{ data: UserBrief[] }> => {
-        const response = await http.get("/api/v1/users/assignable");
+    listAssignableUser: async (signal?: AbortSignal): Promise<{ data: UserBrief[] }> => {
+        const response = await http.get("/api/v1/users/assignable", { signal });
         return response.data;
     },
 
-    get: async (id: string) => {
-        const response = await http.get(`/api/v1/users/${id}`);
+    get: async (id: string, signal: AbortSignal) => {
+        const response = await http.get(`/api/v1/users/${id}`, { signal });
         return response.data;
     },
 

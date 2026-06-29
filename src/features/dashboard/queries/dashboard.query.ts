@@ -7,34 +7,34 @@ export { DASHBOARD_QUERY_KEYS };
 export function dashboardSummaryQueryOption() {
     return queryOptions({
         queryKey: DASHBOARD_QUERY_KEYS.SUMMARY,
-        queryFn: () => dashboardService.getSummary(),
+        queryFn: ({ signal }) => dashboardService.getSummary(signal),
     });
 }
 
 export function dashboardRecentTicketsQueryOption() {
     return queryOptions({
         queryKey: DASHBOARD_QUERY_KEYS.RECENT_TICKETS,
-        queryFn: () => dashboardService.getRecentTickets(),
+        queryFn: ({ signal }) => dashboardService.getRecentTickets(signal),
     });
 }
 
 export function dashboardMonthlyTrendQueryOption(year: number) {
     return queryOptions({
         queryKey: DASHBOARD_QUERY_KEYS.MONTHLY_TREND(year),
-        queryFn: () => dashboardService.getMonthlyTrend(year),
+        queryFn: ({ signal }) => dashboardService.getMonthlyTrend(year, signal),
     });
 }
 
 export function dashboardAgentWorkloadQueryOption() {
     return queryOptions({
         queryKey: DASHBOARD_QUERY_KEYS.AGENT_WORKLOAD,
-        queryFn: () => dashboardService.getAgentWorkload(),
+        queryFn: ({ signal }) => dashboardService.getAgentWorkload(signal),
     });
 }
 
 export function dashboardTicketsByCategoryQueryOption() {
     return queryOptions({
         queryKey: DASHBOARD_QUERY_KEYS.TICKETS_BY_CATEGORY,
-        queryFn: () => dashboardService.getTicketsByCategory(),
+        queryFn: ({ signal }) => dashboardService.getTicketsByCategory(signal),
     });
 }
