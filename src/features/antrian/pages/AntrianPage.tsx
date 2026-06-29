@@ -1,9 +1,12 @@
 import { DataTable } from "@/components/DataTable";
 import { DataTablePagination } from "@/components/DataTablePagination";
 import { PageLayout } from "@/components/layout/PageLayout";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Spinner } from "@/components/ui/spinner";
 import { useDebounce } from "@/hooks/use-debounce";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { RefreshCcwIcon } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getAntrianColumns } from "../config/antrianColumn";
@@ -22,7 +25,7 @@ export function AntrianPage() {
         setPage(1);
     };
 
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, isFetching, refetch } = useQuery({
         ...listAntrianQueryOptions({
             page,
             limit,
@@ -46,6 +49,24 @@ export function AntrianPage() {
                         onChange={(e) => handleNormChange(e.target.value)}
                         className="max-w-xs"
                     />
+
+                    <Button
+                        variant="secondary"
+                        size="sm"
+                        className="ml-auto"
+                        onClick={() => refetch()}
+                    >
+                        {isFetching ? (
+                            <>
+                                <Spinner /> Fetching...
+                            </>
+                        ) : (
+                            <>
+                                <RefreshCcwIcon />
+                                Refetch
+                            </>
+                        )}
+                    </Button>
                 </div>
 
                 <DataTable columns={columns} data={antrian} isLoading={isLoading} />
