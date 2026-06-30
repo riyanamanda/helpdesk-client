@@ -1,8 +1,8 @@
 import { getInitials } from "@/lib/formatters";
 import { m } from "motion/react";
 import { useEffect, useState } from "react";
-import { team } from "../data/team";
 import { stackConfigs } from "../config/config";
+import { team } from "../data/team";
 
 function useWindowWidth() {
     const [width, setWidth] = useState(window.innerWidth);
@@ -70,7 +70,7 @@ export function Team() {
                             }}
                         >
                             <div
-                                className={`group relative w-40 overflow-hidden rounded-[1.5rem] border transition-all duration-100 sm:w-44 lg:w-52`}
+                                className={`group relative w-40 overflow-hidden rounded-[1.5rem] transition-all duration-100 sm:w-44 lg:w-52`}
                             >
                                 <div
                                     className={`pointer-events-none absolute inset-0 z-10 transition-all duration-300 ${
