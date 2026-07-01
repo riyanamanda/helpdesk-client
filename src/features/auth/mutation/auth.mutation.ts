@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 import { meQueryOption } from "../queries/auth.query";
 import { authService } from "../service/authService";
 import { deviceService } from "@/features/notification/service/deviceService";
-import { getActiveFCMToken } from "@/hooks/useFCMToken";
+import { getActiveFCMToken } from "@/hooks/use-fcm-token";
 import type { LoginRequest } from "../types";
 
 export function useLogoutMutation() {

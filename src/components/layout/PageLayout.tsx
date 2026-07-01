@@ -3,7 +3,7 @@ import type { PropsWithChildren, ReactNode } from "react";
 import { SidebarInset, SidebarProvider } from "../ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { SiteHeader } from "./SiteHeader";
-import { useFCMToken } from "@/hooks/useFCMToken";
+import { useFCMToken } from "@/hooks/use-fcm-token";
 
 interface PageLayoutHeaderProps {
     title: string;
