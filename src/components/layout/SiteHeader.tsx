@@ -2,10 +2,10 @@ import { ROUTES } from "@/constants";
 import { useLogoutMutation } from "@/features/auth/mutation/auth.mutation";
 import { meQueryOption } from "@/features/auth/queries/auth.query";
 import { NotificationBell } from "@/features/notification/components/NotificationBell";
-import { getInitials } from "@/lib/formatters";
+import { usePWAInstall } from "@/hooks/use-pwa-install";
+import { formatName, getInitials } from "@/lib/formatters";
 import { resolveMediaUrl } from "@/lib/media-url";
 import { ROLE_META } from "@/lib/role";
-import { usePWAInstall } from "@/hooks/use-pwa-install";
 import { useQuery } from "@tanstack/react-query";
 import { DownloadIcon, KeyRoundIcon, LogOutIcon, UserCircleIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -13,6 +13,7 @@ import { useNavigate } from "react-router";
 import { LanguageSwitcher } from "../LanguageSwitcher";
 import { ModeToggle } from "../ModeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Button } from "../ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -21,7 +22,6 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { SidebarTrigger } from "../ui/sidebar";
 
@@ -65,8 +65,8 @@ export function SiteHeader() {
                             </AvatarFallback>
                         </Avatar>
                         <div className="grid flex-1 text-left text-sm leading-tight">
-                            <span className="truncate font-medium">{user.name}</span>
-                            <span className="truncate text-xs text-muted-foreground">
+                            <span className="truncate font-medium">{formatName(user.name)}</span>
+                            <span className="truncate text-xs font-semibold text-primary">
                                 {ROLE_META[user.role.name].label}
                             </span>
                         </div>

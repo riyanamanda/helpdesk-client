@@ -63,3 +63,15 @@ export const formatRelativeDate = (
         locale: localeMap[normalizedLocale],
     });
 };
+
+export const formatName = (fullname: string) => {
+    const words = fullname.trim().split(/\s+/);
+
+    if (words.length <= 2) return fullname;
+
+    const firstname = words.shift();
+    const lastname = words.pop();
+    const middleInitials = words.map((word) => `${word.charAt(0)}.`);
+
+    return `${firstname} ${middleInitials.join("")} ${lastname}`;
+};
