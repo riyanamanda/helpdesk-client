@@ -1,30 +1,34 @@
 import { Badge } from "@/components/ui/badge";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
-import type { Antrian } from "../types";
 import { CheckInButton } from "../components/CheckInButton";
+import type { Antrian } from "../types";
 
-function getStatusBadge(status: number, waktuCheckIn: string | null, t: TFunction) {
-    if (status === 1 && !waktuCheckIn) {
-        return (
-            <Badge variant="ghost" className="text-yellow-500">
-                {t("status.notCheckedIn")}
-            </Badge>
-        );
+function getStatusBadge(status: number, t: TFunction) {
+    if (status === 0) {
+        return <Badge variant="destructive">{t("status.cancelled")}</Badge>;
     }
-    if (status === 1 && waktuCheckIn) {
+
+    if (status === 1) {
         return (
             <Badge variant="ghost" className="text-green-500">
                 {t("status.checkedIn")}
             </Badge>
         );
     }
-    if (status === 2 && waktuCheckIn) {
+
+    if (status === 2) {
         return <Badge variant="secondary">{t("status.registered")}</Badge>;
     }
-    if (status === 0 || status === 99) {
-        return <Badge variant="destructive">{t("status.cancelled")}</Badge>;
+
+    if (status === 99) {
+        return (
+            <Badge variant="ghost" className="text-yellow-500">
+                {t("status.notCheckedIn")}
+            </Badge>
+        );
     }
+
     return <span>-</span>;
 }
 
@@ -83,7 +87,7 @@ export const getAntrianColumns = (
     {
         accessorKey: "status",
         header: t("column.status"),
-        cell: ({ row }) => getStatusBadge(row.original.status, row.original.waktu_check_in, t),
+        cell: ({ row }) => getStatusBadge(row.original.status, t),
         enableSorting: false,
     },
     {

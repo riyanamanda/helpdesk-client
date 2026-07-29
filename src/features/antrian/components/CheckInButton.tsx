@@ -5,7 +5,7 @@ import { useCheckInAntrian } from "../mutation/antrian.mutation";
 
 export function CheckInButton({ antrian, t }: { antrian: Antrian; t: TFunction<"antrian"> }) {
     const { mutate, isPending } = useCheckInAntrian();
-    const canCheckIn = antrian.status !== 2 && !antrian.waktu_check_in;
+    const canCheckIn = antrian.status === 99 && !antrian.waktu_check_in;
 
     if (!canCheckIn) return <span>-</span>;
 
