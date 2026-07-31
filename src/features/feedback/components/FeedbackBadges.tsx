@@ -74,7 +74,9 @@ export function FeedbackDescriptionCell({ feedback }: { feedback: Feedback }) {
 }
 
 export function FeedbackStatusCell({ feedback }: { feedback: Feedback }) {
-    const canUpdate = useHasPermission(PERMISSIONS.FEEDBACK.UPDATE);
+    const canUpdate =
+        useHasPermission(PERMISSIONS.FEEDBACK.UPDATE) &&
+        !["delivered", "rejected"].includes(feedback.status.toLocaleLowerCase());
     if (!canUpdate) return <FeedbackStatusBadge status={feedback.status} />;
     return (
         <UpdateFeedbackStatusPopover
