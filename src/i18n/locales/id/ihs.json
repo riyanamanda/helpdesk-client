@@ -13,6 +13,7 @@
         "nik": "Nomor Induk Kependudukan",
         "httpMethod": "Metode HTTP",
         "getDate": "Diambil Tanggal",
+        "lastRegistration": "Pendaftaran Terakhir",
         "citizenshipNotFound": "Kewarganegaraan tidak ditemukan"
     },
     "detail": {
@@ -21,10 +22,6 @@
         "alert": {
             "title": "Data Pasien Bersifat Rahasia",
             "description": "Halaman ini memuat informasi sensitif termasuk NIK. Pembuatan data IHS bersifat satu arah dan tidak dapat dibatalkan — data pasien akan dikirimkan ke sistem kesehatan nasional."
-        },
-        "sendIhs": {
-            "success": "Pasien IHS berhasil diajukan, mohon periksa berkala pada SIMGOS.",
-            "citizenshipNotFound": "Kewarganegaraan tidak ditemukan — data pasien tidak dapat didaftarkan ke sistem kesehatan nasional."
         },
         "createDialog": {
             "button": "Buat IHS",

@@ -18,6 +18,7 @@ export interface Patient {
     identity_number: string;
     http_method: string;
     get_date: string;
+    last_registration: string;
 }
 
 export interface PatientDetail {

@@ -13,6 +13,7 @@
         "nik": "Identity ID",
         "httpMethod": "HTTP Method",
         "getDate": "Get Date",
+        "lastRegistration": "Last Registration",
         "citizenshipNotFound": "Citizenship not found"
     },
     "detail": {
@@ -21,10 +22,6 @@
         "alert": {
             "title": "Sensitive Patient Data",
             "description": "This page contains confidential information including national identity numbers (NIK). Creating an IHS record is a one-way, irreversible action that submits patient data to the national health system."
-        },
-        "sendIhs": {
-            "success": "The IHS patient has been submitted successfully, Please check on SIMGOS regularly.",
-            "citizenshipNotFound": "Citizenship not found — the patient's data could not be registered in the national health system."
         },
         "createDialog": {
             "button": "Create IHS",
