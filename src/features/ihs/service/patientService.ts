@@ -1,6 +1,6 @@
 import { http } from "@/api";
 import type { PaginatedResponse } from "@/types";
-import type { Patient, PatientDetail, PatientListParams, SendIhsResponse } from "../types";
+import type { Patient, PatientDetail, PatientListParams } from "../types";
 
 export const patientService = {
     list: async (params?: PatientListParams, signal?: AbortSignal) => {
@@ -18,10 +18,5 @@ export const patientService = {
     create: async (norm: string) => {
         const response = await http.patch(`/api/v1/patients/${norm}`);
         return response.data;
-    },
-
-    sendIhs: async (): Promise<SendIhsResponse> => {
-        const response = await http.get("/api/v1/ihs/patient/send");
-        return response.data.data;
     },
 };
