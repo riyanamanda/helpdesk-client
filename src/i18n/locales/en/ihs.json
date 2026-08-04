@@ -12,7 +12,6 @@
         "name": "Name",
         "nik": "Identity ID",
         "httpMethod": "HTTP Method",
-        "getDate": "Get Date",
         "lastRegistration": "Last Registration",
         "poly": "Poly/Room",
         "citizenshipNotFound": "Citizenship not found"
