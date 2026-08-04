@@ -14,6 +14,7 @@
         "httpMethod": "Metode HTTP",
         "getDate": "Diambil Tanggal",
         "lastRegistration": "Pendaftaran Terakhir",
+        "poly": "Poli/Ruangan",
         "citizenshipNotFound": "Kewarganegaraan tidak ditemukan"
     },
     "detail": {

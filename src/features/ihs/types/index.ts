@@ -19,6 +19,7 @@ export interface Patient {
     http_method: string;
     get_date: string;
     last_registration: string;
+    poly: string;
 }
 
 export interface PatientDetail {
