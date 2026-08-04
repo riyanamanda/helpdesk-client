@@ -2,7 +2,7 @@ import { CopyButton } from "@/components/CopyButton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants";
-import { formatDateTime, formatRelativeDate } from "@/lib/formatters";
+import { formatDate, formatDateTime, formatRelativeDate } from "@/lib/formatters";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 import { NavLink } from "react-router";
@@ -82,6 +82,12 @@ export const getPatientColumns = (t: TFunction<"ihs">, pageOffset = 0): ColumnDe
         header: t("column.getDate"),
         cell: ({ row }) => <div>{formatDateTime(row.getValue("get_date"))}</div>,
         enableSorting: true,
+    },
+    {
+        accessorKey: "last_registration",
+        header: t("column.lastRegistration"),
+        cell: ({ row }) => <div>{formatDate(row.getValue("last_registration"))}</div>,
+        enableSorting: false,
     },
     {
         accessorKey: "last_registration",
