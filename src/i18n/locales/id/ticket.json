@@ -94,6 +94,7 @@
     "resolve": {
         "sheetTitle": "Selesaikan Tiket",
         "sheetDescription": "Berikan ringkasan resolusi dan lampirkan bukti pendukung jika diperlukan.",
+        "resolutionBy": "Resolusi Oleh",
         "resolutionLabel": "Resolusi",
         "resolutionPlaceholder": "Jelaskan bagaimana masalah diselesaikan",
         "attachmentLabel": "Lampiran (opsional)",

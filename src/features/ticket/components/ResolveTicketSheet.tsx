@@ -9,10 +9,19 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { meQueryOption } from "@/features/auth/queries/auth.query";
 import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
+import { listAssignableUserQueryOption } from "@/features/user/queries/user.query";
 import { handleFormError } from "@/lib/handle-form-error";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { CheckCircleIcon, PaperclipIcon } from "lucide-react";
 import { useRef, useState } from "react";
@@ -33,10 +42,20 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
     const [file, setFile] = useState<File | null>(null);
     const fileRef = useRef<HTMLInputElement>(null);
     const queryClient = useQueryClient();
+
+    const { data: assignableUsersData } = useQuery(listAssignableUserQueryOption());
+    const assignableUsers = assignableUsersData?.data ?? [];
+
+    const { data: userData, isFetching: isUserFetching } = useQuery(meQueryOption());
+    const user = userData?.data;
+
     const { mutate, isPending } = useResolveTicketMutation();
 
     const form = useForm<TicketResolutionFormData>({
-        defaultValues: { resolution: "" },
+        defaultValues: {
+            resolved_by: isUserFetching ? undefined : user?.id,
+            resolution: "",
+        },
         mode: "onSubmit",
     });
 
@@ -80,6 +99,37 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
                 </DialogHeader>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <FieldGroup>
+                        <Controller
+                            name="resolved_by"
+                            control={form.control}
+                            render={({ field, fieldState }) => (
+                                <Field>
+                                    <FieldLabel htmlFor="resolved_by">
+                                        {t("resolve.resolutionBy")}
+                                        <span className="text-destructive">*</span>
+                                    </FieldLabel>
+                                    <Select
+                                        value={field.value ? String(field.value) : ""}
+                                        onValueChange={field.onChange}
+                                    >
+                                        <SelectTrigger id="resolved_by">
+                                            <SelectValue
+                                                placeholder={t("common:form.selectUser")}
+                                            />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {assignableUsers.map((user) => (
+                                                <SelectItem key={user.id} value={String(user.id)}>
+                                                    {user.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
+                                </Field>
+                            )}
+                        />
+
                         <Controller
                             name="resolution"
                             control={form.control}

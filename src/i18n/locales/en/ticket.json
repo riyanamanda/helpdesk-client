@@ -94,6 +94,7 @@
     "resolve": {
         "sheetTitle": "Resolve Ticket",
         "sheetDescription": "Provide a resolution summary and optionally attach supporting proof.",
+        "resolutionBy": "Resolve By",
         "resolutionLabel": "Resolution",
         "resolutionPlaceholder": "Describe how the issue was resolved",
         "attachmentLabel": "Attachment (optional)",

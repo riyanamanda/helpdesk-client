@@ -68,6 +68,7 @@ export interface TicketPriorityFormData {
 }
 
 export interface TicketResolutionFormData {
+    resolved_by: string;
     resolution: string;
 }
 

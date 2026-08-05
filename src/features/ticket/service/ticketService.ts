@@ -63,6 +63,7 @@ export const ticketService = {
             return response.data;
         }
         const formData = new FormData();
+        formData.append("resolved_by", data.resolved_by);
         formData.append("resolution", data.resolution);
         formData.append("attachment", file);
         const response = await http.patch(`/api/v1/tickets/${id}/resolution`, formData);
