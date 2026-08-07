@@ -32,4 +32,9 @@ export const feedbackService = {
         const response = await http.patch(`/api/v1/feedbacks/${id}/status`, payload);
         return response.data;
     },
+
+    delete: async (id: number) => {
+        const response = await http.delete(`/api/v1/feedbacks/${id}`);
+        return response.data;
+    },
 };

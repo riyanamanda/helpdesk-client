@@ -1,6 +1,7 @@
 import { formatDate } from "@/lib/formatters";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
+import { FeedbackActions } from "../components/FeedbackActions";
 import {
     FeedbackDescriptionCell,
     FeedbackStatusCell,
@@ -10,8 +11,7 @@ import type { Feedback } from "../types";
 
 export const getFeedbackColumns = (
     t: TFunction<"feedback">,
-    pageOffset = 0,
-    isAdmin = false
+    pageOffset = 0
 ): ColumnDef<Feedback>[] => [
     {
         id: "no",
@@ -54,44 +54,39 @@ export const getFeedbackColumns = (
         },
         enableSorting: false,
     },
-    ...(isAdmin
-        ? ([
-              {
-                  accessorKey: "reviewed_by",
-                  header: t("columns.reviewedBy"),
-                  cell: ({ row }) => {
-                      const reviewer = row.getValue<Feedback["reviewed_by"]>("reviewed_by");
-                      return (
-                          <div>
-                              {reviewer?.name ?? <span className="text-muted-foreground">—</span>}
-                          </div>
-                      );
-                  },
-                  enableSorting: false,
-              },
-              {
-                  accessorKey: "reviewed_at",
-                  header: t("columns.reviewedAt"),
-                  cell: ({ row }) => {
-                      const date = row.getValue<string | null>("reviewed_at");
-                      return (
-                          <div>
-                              {date ? (
-                                  formatDate(date)
-                              ) : (
-                                  <span className="text-muted-foreground">—</span>
-                              )}
-                          </div>
-                      );
-                  },
-                  enableSorting: false,
-              },
-          ] as ColumnDef<Feedback>[])
-        : []),
+    {
+        accessorKey: "reviewed_by",
+        header: t("columns.reviewedBy"),
+        cell: ({ row }) => {
+            const reviewer = row.getValue<Feedback["reviewed_by"]>("reviewed_by");
+            return <div>{reviewer?.name ?? <span className="text-muted-foreground">—</span>}</div>;
+        },
+        enableSorting: false,
+    },
+    {
+        accessorKey: "reviewed_at",
+        header: t("columns.reviewedAt"),
+        cell: ({ row }) => {
+            const date = row.getValue<string | null>("reviewed_at");
+            return (
+                <div>
+                    {date ? formatDate(date) : <span className="text-muted-foreground">—</span>}
+                </div>
+            );
+        },
+        enableSorting: false,
+    },
     {
         accessorKey: "created_at",
         header: t("common:table.createdAt"),
         cell: ({ row }) => <div>{formatDate(row.getValue("created_at"))}</div>,
         enableSorting: true,
+    },
+    {
+        id: "action",
+        cell: ({ row }) => {
+            return <FeedbackActions feedback={row.original} />;
+        },
+        enableSorting: false,
     },
 ];

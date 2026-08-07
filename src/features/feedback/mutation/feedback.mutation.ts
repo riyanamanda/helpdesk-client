@@ -14,3 +14,9 @@ export function useUpdateFeedbackStatusMutation() {
             feedbackService.updateStatus(id, payload),
     });
 }
+
+export function useDeleteFeedbackMutation() {
+    return useMutation({
+        mutationFn: (id: number) => feedbackService.delete(id),
+    });
+}

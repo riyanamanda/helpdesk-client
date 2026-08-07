@@ -48,5 +48,14 @@
         "statusLabel": "Status",
         "statusPlaceholder": "Select a status",
         "updatedSuccess": "Feedback status updated successfully"
+    },
+    "delete": {
+        "title": "Delete Feedback?",
+        "description": "\"{{name}}\" will be permanently deleted and cannot be recovered.",
+        "deletedSuccess": "Feedback deleted successfully",
+        "deleteFailed": "Failed to delete feedback"
+    },
+    "actions": {
+        "delete": "Delete"
     }
 }
