@@ -8,7 +8,11 @@ import type { TFunction } from "i18next";
 import { NavLink } from "react-router";
 import type { Patient } from "../types";
 
-export const getPatientColumns = (t: TFunction<"ihs">, pageOffset = 0): ColumnDef<Patient>[] => [
+export const getPatientColumns = (
+    t: TFunction<"ihs">,
+    pageOffset = 0,
+    currentLanguage = "id"
+): ColumnDef<Patient>[] => [
     {
         id: "no",
         header: t("common:table.no"),
@@ -84,18 +88,12 @@ export const getPatientColumns = (t: TFunction<"ihs">, pageOffset = 0): ColumnDe
             <div className="flex flex-col">
                 <span>{formatDateTime(row.getValue("last_registration"))}</span>
                 <span className="text-muted-foreground">
-                    {formatRelativeDate(row.getValue("last_registration"))}
+                    {formatRelativeDate(row.getValue("last_registration"), currentLanguage)}
                 </span>
             </div>
         ),
         enableSorting: false,
     },
-    // {
-    //     accessorKey: "last_registration",
-    //     header: t("column.lastRegistration"),
-    //     cell: ({ row }) => <div>{formatRelativeDate(row.getValue("last_registration"))}</div>,
-    //     enableSorting: false,
-    // },
     {
         accessorKey: "poly",
         header: t("column.poly"),

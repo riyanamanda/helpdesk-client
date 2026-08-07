@@ -20,6 +20,12 @@ export const getTicketColumns = (
         enableSorting: false,
     },
     {
+        id: "id",
+        header: "REF",
+        cell: ({ row }) => <div>#{row.original.id}</div>,
+        enableSorting: false,
+    },
+    {
         accessorKey: "title",
         header: t("columns.title"),
         cell: ({ row }) => (
