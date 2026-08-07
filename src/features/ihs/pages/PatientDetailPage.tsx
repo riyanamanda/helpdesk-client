@@ -11,6 +11,8 @@ import {
     EmptyTitle,
 } from "@/components/ui/empty";
 import { ROUTES } from "@/constants";
+import { PERMISSIONS } from "@/constants/permissions";
+import { useHasPermission } from "@/hooks/use-current-user";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeftIcon, EditIcon, ShieldAlertIcon, UserXIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -31,6 +33,7 @@ export function DetailPatientPage() {
     const patient = patientData;
 
     const { mutate: createIhs, isPending: isCreating } = useCreateIhsMutation();
+    const hasPermission = useHasPermission(PERMISSIONS.IHS.UPDATE);
 
     const hasIncompleteData =
         !isLoading &&
@@ -67,25 +70,27 @@ export function DetailPatientPage() {
                             <ArrowLeftIcon />
                             {t("common:back")}
                         </Button>
-                        <DeleteDialog
-                            title={t("detail.createDialog.title")}
-                            description={t("detail.createDialog.description")}
-                            confirmLabel={t("detail.createDialog.confirm")}
-                            pendingLabel={t("detail.createDialog.creating")}
-                            icon={<EditIcon />}
-                            isPending={isCreating}
-                            onConfirm={handleCreateIhs}
-                            trigger={
-                                <Button
-                                    variant="destructive"
-                                    size="sm"
-                                    disabled={isCreating || hasIncompleteData}
-                                >
-                                    <EditIcon />
-                                    <span>{t("detail.createDialog.button")}</span>
-                                </Button>
-                            }
-                        />
+                        {hasPermission && (
+                            <DeleteDialog
+                                title={t("detail.createDialog.title")}
+                                description={t("detail.createDialog.description")}
+                                confirmLabel={t("detail.createDialog.confirm")}
+                                pendingLabel={t("detail.createDialog.creating")}
+                                icon={<EditIcon />}
+                                isPending={isCreating}
+                                onConfirm={handleCreateIhs}
+                                trigger={
+                                    <Button
+                                        variant="destructive"
+                                        size="sm"
+                                        disabled={isCreating || hasIncompleteData}
+                                    >
+                                        <EditIcon />
+                                        <span>{t("detail.createDialog.button")}</span>
+                                    </Button>
+                                }
+                            />
+                        )}
                     </div>
                 }
             />

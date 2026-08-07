@@ -44,6 +44,7 @@ export const PERMISSIONS = {
     },
     IHS: {
         VIEW: "ihs:view",
+        UPDATE: "ihs:update",
     },
     ANTRIAN: {
         VIEW: "antrian:view",
