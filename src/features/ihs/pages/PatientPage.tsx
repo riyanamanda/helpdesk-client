@@ -13,7 +13,7 @@ import { listPatientQueryOptions } from "../queries/patient.query";
 import type { HttpMethod, PatientSortBy, SortType } from "../types";
 
 export function PatientPage() {
-    const { t } = useTranslation("ihs");
+    const { t, i18n } = useTranslation("ihs");
     const [searchParams, setSearchParams] = useSearchParams();
 
     const page = Number(searchParams.get("page") ?? "1");
@@ -76,7 +76,7 @@ export function PatientPage() {
 
     const patients = data?.data;
     const pagination = data?.pagination;
-    const columns = getPatientColumns(t, (page - 1) * limit);
+    const columns = getPatientColumns(t, (page - 1) * limit, i18n.resolvedLanguage);
 
     return (
         <PageLayout>
