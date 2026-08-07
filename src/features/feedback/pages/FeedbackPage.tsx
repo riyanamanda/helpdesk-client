@@ -39,7 +39,7 @@ export function FeedbackPage() {
 
     const feedbacks = data?.data;
     const pagination = data?.pagination;
-    const columns = getFeedbackColumns(t, (page - 1) * limit, canManage);
+    const columns = getFeedbackColumns(t, (page - 1) * limit);
 
     const handleFiltersChange = (next: FeedbackFiltersState) => {
         setFilters(next);
