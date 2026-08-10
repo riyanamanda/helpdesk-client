@@ -11,13 +11,6 @@ export function dashboardSummaryQueryOption() {
     });
 }
 
-export function dashboardRecentTicketsQueryOption() {
-    return queryOptions({
-        queryKey: DASHBOARD_QUERY_KEYS.RECENT_TICKETS,
-        queryFn: ({ signal }) => dashboardService.getRecentTickets(signal),
-    });
-}
-
 export function dashboardMonthlyTrendQueryOption(year: number) {
     return queryOptions({
         queryKey: DASHBOARD_QUERY_KEYS.MONTHLY_TREND(year),

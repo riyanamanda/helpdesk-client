@@ -3,7 +3,6 @@ import { useState } from "react";
 import { DashboardAgentWorkload } from "../components/DashboardAgentWorkload";
 import { DashboardCategoryChart } from "../components/DashboardCategoryChart";
 import { DashboardPriorityChart } from "../components/DashboardPriorityChart";
-import { DashboardRecentTickets } from "../components/DashboardRecentTickets";
 import { DashboardStatCards } from "../components/DashboardStatCards";
 import { TicketTrendChart } from "../components/TicketTrendChart";
 
@@ -24,8 +23,6 @@ export function DashboardPage() {
                     <TicketTrendChart year={trendYear} onYearChange={setTrendYear} />
                     <DashboardAgentWorkload />
                 </div>
-
-                <DashboardRecentTickets />
             </PageLayout.Content>
         </PageLayout>
     );

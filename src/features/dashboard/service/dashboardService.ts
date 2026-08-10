@@ -4,18 +4,12 @@ import type {
     CategoryTickets,
     DashboardSummary,
     MonthlyTicketTrend,
-    RecentTicket,
 } from "../types";
 
 export const dashboardService = {
     getSummary: async (signal: AbortSignal) => {
         const response = await http.get("/api/v1/dashboard/summary", { signal });
         return response.data as { data: DashboardSummary };
-    },
-
-    getRecentTickets: async (signal: AbortSignal) => {
-        const response = await http.get("/api/v1/dashboard/recent-tickets", { signal });
-        return response.data as { data: RecentTicket[] };
     },
 
     getMonthlyTrend: async (year: number, signal: AbortSignal) => {

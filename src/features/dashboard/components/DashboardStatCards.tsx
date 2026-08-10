@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import {
     ArchiveIcon,
     CheckCircle2Icon,
-    ClockAlertIcon,
     LoaderCircleIcon,
     TicketIcon,
     UserXIcon,
@@ -17,12 +16,20 @@ export function DashboardStatCards() {
     const summary = data?.data;
 
     return (
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             <StatCard
                 label={t("stats.totalTickets")}
                 value={summary?.status.total}
                 icon={<TicketIcon className="size-4" />}
                 iconClass="bg-primary/10 text-primary"
+                isLoading={isLoading}
+            />
+            <StatCard
+                label={t("stats.unassigned")}
+                value={summary?.status.unassigned}
+                icon={<UserXIcon className="size-4" />}
+                valueClass="text-orange-600"
+                iconClass="bg-orange-50 text-orange-600 dark:bg-orange-950/50"
                 isLoading={isLoading}
             />
             <StatCard
@@ -46,22 +53,6 @@ export function DashboardStatCards() {
                 value={summary?.status.closed}
                 icon={<ArchiveIcon className="size-4" />}
                 iconClass="bg-slate-100 text-slate-500 dark:bg-slate-800"
-                isLoading={isLoading}
-            />
-            <StatCard
-                label={t("stats.unassigned")}
-                value={summary?.status.unassigned}
-                icon={<UserXIcon className="size-4" />}
-                valueClass="text-orange-600"
-                iconClass="bg-orange-50 text-orange-600 dark:bg-orange-950/50"
-                isLoading={isLoading}
-            />
-            <StatCard
-                label={t("stats.stale")}
-                value={summary?.status.stale}
-                icon={<ClockAlertIcon className="size-4" />}
-                valueClass="text-red-600"
-                iconClass="bg-red-50 text-red-600 dark:bg-red-950/50"
                 isLoading={isLoading}
             />
         </div>

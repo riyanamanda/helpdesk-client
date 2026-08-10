@@ -20,16 +20,6 @@ export interface DashboardSummary {
     priority: TicketPriorityStats;
 }
 
-export interface RecentTicket {
-    id: number;
-    title: string;
-    status: string;
-    priority: string | null;
-    created_by: string;
-    assigned_to: string | null;
-    created_at: string;
-}
-
 export interface MonthlyTicketTrend {
     month: number;
     submitted: number;
