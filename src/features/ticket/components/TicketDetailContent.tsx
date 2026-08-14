@@ -59,12 +59,12 @@ export function TicketDetailContent({ ticket, t }: TicketDetailContentProps) {
                                 <span>{t("detail.assignNote")}</span>
                             </div>
                             <p className="mt-2 text-sm leading-relaxed whitespace-pre-wrap text-blue-950/90 dark:text-blue-200/90">
-                                {ticket.assign_note}
+                                {ticket.assign_note} {ticket.assigned_by?.name ?? "Admin"}
                             </p>
                             {ticket.assigned_by && (
                                 <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-blue-700/70 dark:text-blue-400/80">
                                     <UserIcon className="size-3" />
-                                    <span>{ticket.assigned_by.name}</span>
+                                    <span>{ticket.assigned_to?.name ?? "-"}</span>
                                 </div>
                             )}
                         </div>
