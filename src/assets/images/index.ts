@@ -1,5 +1,5 @@
 import RiyanImg from "./riyan.avif";
-import ErbaImg from "./erba.avif";
+import ErbaImg from "./ernaldi.avif";
 import LedyImg from "./ledy.avif";
 import AdriImg from "./adri.avif";
 import RahmatImg from "./rahmat.avif";
