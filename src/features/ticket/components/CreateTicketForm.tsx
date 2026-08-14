@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { ROUTES } from "@/constants";
+import { meQueryOption } from "@/features/auth/queries/auth.query";
 import { listCategoryOptionsQueryOption } from "@/features/category/queries/category.query";
 import { DASHBOARD_QUERY_KEYS } from "@/features/dashboard/queries/dashboard.query";
 import { DivisionCombobox } from "@/features/division/components/DivisionCombobox";
@@ -35,12 +36,18 @@ export function CreateTicketForm() {
     const { mutate, isPending } = useCreateTicketMutation();
     const [file, setFile] = useState<File | null>(null);
     const fileRef = useRef<HTMLInputElement>(null);
+    const { data: loggedUser } = useQuery(meQueryOption());
 
     const { data: categoryOptionsData } = useQuery(listCategoryOptionsQueryOption());
     const categoryOptions = categoryOptionsData?.data ?? [];
 
     const form = useForm<TicketCreateFormData>({
-        defaultValues: { title: "", description: "", category: undefined, division: undefined },
+        defaultValues: {
+            title: "",
+            description: "",
+            category: undefined,
+            division: loggedUser?.data.division.id,
+        },
         mode: "onSubmit",
     });
 

@@ -1,8 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { TFunction } from "i18next";
-import { AlignLeftIcon, CheckCircle2Icon, MessageCircleIcon, PaperclipIcon } from "lucide-react";
-import { AttachmentViewer } from "./AttachmentViewer";
+import {
+    AlignLeftIcon,
+    CheckCircle2Icon,
+    MessageCircleIcon,
+    PaperclipIcon,
+    UserIcon,
+} from "lucide-react";
 import type { TicketDetail } from "../types";
+import { AttachmentViewer } from "./AttachmentViewer";
 
 interface TicketDetailContentProps {
     ticket: TicketDetail;
@@ -17,89 +23,81 @@ export function TicketDetailContent({ ticket, t }: TicketDetailContentProps) {
 
     return (
         <div className="flex flex-col gap-4 lg:col-span-2">
-            <Card>
-                <CardHeader className="pb-2">
-                    <CardTitle className="flex items-center gap-2 text-sm font-medium">
-                        <AlignLeftIcon className="size-4 text-muted-foreground" />
+            <Card className="overflow-hidden shadow-xs">
+                <CardHeader className="border-b bg-muted/30 pb-4">
+                    <CardTitle className="flex items-center gap-2 text-base font-semibold">
+                        <AlignLeftIcon className="size-4 text-primary" />
                         {t("detail.description")}
                     </CardTitle>
                 </CardHeader>
-                <CardContent>
-                    <p className="text-sm leading-relaxed whitespace-pre-wrap text-muted-foreground">
-                        {ticket.description}
-                    </p>
-                </CardContent>
-            </Card>
 
-            {ticket.assign_note && (
-                <Card className="border-blue-500/30">
-                    <CardHeader className="pb-2">
-                        <CardTitle className="flex items-center gap-2 text-sm font-medium">
-                            <MessageCircleIcon className="size-4 text-blue-500" />
-                            {t("detail.assignNote")}
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-sm leading-relaxed whitespace-pre-wrap text-muted-foreground">
-                            {ticket.assign_note}
+                <CardContent className="flex flex-col gap-6">
+                    <div className="space-y-4">
+                        <p className="text-sm leading-relaxed whitespace-pre-wrap text-foreground">
+                            {ticket.description}
                         </p>
-                        {ticket.assigned_by && (
-                            <p className="mt-2 text-xs text-muted-foreground">
-                                — {ticket.assigned_by.name}
-                            </p>
-                        )}
-                    </CardContent>
-                </Card>
-            )}
 
-            {ticket.resolution && (
-                <Card className="border-green-500/30">
-                    <CardHeader className="pb-2">
-                        <CardTitle className="flex items-center gap-2 text-sm font-medium">
-                            <CheckCircle2Icon className="size-4 text-green-500" />
-                            {t("detail.resolution")}
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-sm leading-relaxed whitespace-pre-wrap text-muted-foreground">
-                            {ticket.resolution}
-                        </p>
-                        {resolutionAttachments.length > 0 && (
-                            <div className="mt-4 flex flex-col gap-2 border-t pt-4">
-                                {resolutionAttachments.map((a) => (
-                                    <AttachmentViewer key={a.id} fileUrl={a.file_url} />
-                                ))}
+                        {reportAttachments.length > 0 && (
+                            <div className="rounded-lg border bg-muted/20 p-3">
+                                <p className="mb-2 flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                                    <PaperclipIcon className="size-3.5" />
+                                    {t("detail.reportAttachments")} ({reportAttachments.length})
+                                </p>
+                                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                                    {reportAttachments.map((a) => (
+                                        <AttachmentViewer key={a.id} fileUrl={a.file_url} />
+                                    ))}
+                                </div>
                             </div>
                         )}
-                    </CardContent>
-                </Card>
-            )}
+                    </div>
 
-            {reportAttachments.length > 0 && (
-                <Card>
-                    <CardHeader className="pb-2">
-                        <CardTitle className="flex items-center gap-2 text-sm font-medium">
-                            <PaperclipIcon className="size-4 text-muted-foreground" />
-                            {t("detail.attachments")}
-                            <span className="ml-auto text-xs font-normal text-muted-foreground">
-                                {reportAttachments.length}{" "}
-                                {reportAttachments.length !== 1
-                                    ? t("detail.filesCount_other", {
-                                          count: reportAttachments.length,
-                                      })
-                                    : t("detail.filesCount_one", {
-                                          count: reportAttachments.length,
-                                      })}
-                            </span>
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex flex-col gap-2">
-                        {reportAttachments.map((a) => (
-                            <AttachmentViewer key={a.id} fileUrl={a.file_url} />
-                        ))}
-                    </CardContent>
-                </Card>
-            )}
+                    {ticket.assign_note && (
+                        <div className="rounded-r-lg border-l-4 border-l-blue-500 bg-blue-50/50 p-4 dark:bg-blue-950/20">
+                            <div className="flex items-center gap-2 text-sm font-semibold text-blue-900 dark:text-blue-300">
+                                <MessageCircleIcon className="size-4 shrink-0 text-blue-500" />
+                                <span>{t("detail.assignNote")}</span>
+                            </div>
+                            <p className="mt-2 text-sm leading-relaxed whitespace-pre-wrap text-blue-950/90 dark:text-blue-200/90">
+                                {ticket.assign_note}
+                            </p>
+                            {ticket.assigned_by && (
+                                <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-blue-700/70 dark:text-blue-400/80">
+                                    <UserIcon className="size-3" />
+                                    <span>{ticket.assigned_by.name}</span>
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {ticket.resolution && (
+                        <div className="rounded-r-lg border-l-4 border-l-emerald-500 bg-emerald-50/50 p-4 dark:bg-emerald-950/20">
+                            <div className="flex items-center gap-2 text-sm font-semibold text-emerald-900 dark:text-emerald-300">
+                                <CheckCircle2Icon className="size-4 shrink-0 text-emerald-500" />
+                                <span>{t("detail.resolution")}</span>
+                            </div>
+                            <p className="mt-2 text-sm leading-relaxed whitespace-pre-wrap text-emerald-950/90 dark:text-emerald-200/90">
+                                {ticket.resolution}
+                            </p>
+
+                            {resolutionAttachments.length > 0 && (
+                                <div className="mt-4 border-t border-emerald-500/20 pt-3">
+                                    <p className="mb-2 flex items-center gap-1.5 text-xs font-medium text-emerald-800 dark:text-emerald-300">
+                                        <PaperclipIcon className="size-3.5" />
+                                        {t("detail.resolutionAttachments")} (
+                                        {resolutionAttachments.length})
+                                    </p>
+                                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                                        {resolutionAttachments.map((a) => (
+                                            <AttachmentViewer key={a.id} fileUrl={a.file_url} />
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </CardContent>
+            </Card>
         </div>
     );
 }

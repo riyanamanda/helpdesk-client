@@ -46,14 +46,14 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
     const { data: assignableUsersData } = useQuery(listAssignableUserQueryOption());
     const assignableUsers = assignableUsersData?.data ?? [];
 
-    const { data: userData, isFetching: isUserFetching } = useQuery(meQueryOption());
+    const { data: userData } = useQuery(meQueryOption());
     const user = userData?.data;
 
     const { mutate, isPending } = useResolveTicketMutation();
 
     const form = useForm<TicketResolutionFormData>({
         defaultValues: {
-            resolved_by: isUserFetching ? undefined : user?.id,
+            resolved_by: user?.id,
             resolution: "",
         },
         mode: "onSubmit",
@@ -80,8 +80,17 @@ export function ResolveTicketSheet({ ticketId }: ResolveTicketSheetProps) {
         );
     };
 
+    const handleOpenChange = (next: boolean) => {
+        setOpen(next);
+        if (next) {
+            form.reset({ resolved_by: user?.id ?? "", resolution: "" });
+            setFile(null);
+            if (fileRef.current) fileRef.current.value = "";
+        }
+    };
+
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={handleOpenChange}>
             <DialogTrigger asChild>
                 <Button variant="outline" size="sm">
                     <CheckCircleIcon />
