@@ -56,10 +56,12 @@ export function TicketDetailContent({ ticket, t }: TicketDetailContentProps) {
                         <div className="rounded-r-lg border-l-4 border-l-blue-500 bg-blue-50/50 p-4 dark:bg-blue-950/20">
                             <div className="flex items-center gap-2 text-sm font-semibold text-blue-900 dark:text-blue-300">
                                 <MessageCircleIcon className="size-4 shrink-0 text-blue-500" />
-                                <span>{t("detail.assignNote")}</span>
+                                <span>
+                                    {t("detail.assignNote")} {ticket.assigned_by?.name ?? "Admin"}
+                                </span>
                             </div>
                             <p className="mt-2 text-sm leading-relaxed whitespace-pre-wrap text-blue-950/90 dark:text-blue-200/90">
-                                {ticket.assign_note} {ticket.assigned_by?.name ?? "Admin"}
+                                {ticket.assign_note}
                             </p>
                             {ticket.assigned_by && (
                                 <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-blue-700/70 dark:text-blue-400/80">
