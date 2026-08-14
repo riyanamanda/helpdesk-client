@@ -15,10 +15,10 @@ import {
     UsersIcon,
     XCircleIcon,
 } from "lucide-react";
+import type { TicketDetail } from "../types";
 import { AssignTicketSheet } from "./AssignTicketSheet";
 import { ResolveTicketSheet } from "./ResolveTicketSheet";
 import { SetPrioritySheet } from "./SetPrioritySheet";
-import type { TicketDetail } from "../types";
 
 interface TicketDetailSidebarProps {
     t: TFunction<"ticket">;
@@ -189,7 +189,7 @@ export function TicketDetailSidebar({
                 </CardContent>
             </Card>
 
-            {(canSetPriority || canAssign || canResolve || canClose || canDelete) && (
+            {ticket.status != "CLOSED" && (
                 <Card>
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-medium">{t("detail.actions")}</CardTitle>
