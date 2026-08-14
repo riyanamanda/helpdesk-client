@@ -1,6 +1,6 @@
 import { COOKIES, ROUTES, SESSION_STORAGE_KEYS } from "@/constants";
 import { auth, googleProvider } from "@/lib/firebase";
-import { cookies } from "@/lib/cookies";
+import { cookies, getJwtExpiry } from "@/lib/cookies";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { GoogleAuthProvider, signInWithCredential, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router";
@@ -40,6 +40,7 @@ export function useGoogleOneTapMutation() {
             const loginData = await authService.loginWithGoogle({ id_token: firebaseIdToken });
             cookies.set(COOKIES.TOKEN_KEY, loginData.data.access_token, {
                 path: COOKIES.PATH,
+                expires: getJwtExpiry(loginData.data.access_token),
             });
             return loginData;
         },
@@ -70,6 +71,7 @@ export function useGoogleLoginMutation() {
             const loginData = await authService.loginWithGoogle({ id_token: idToken });
             cookies.set(COOKIES.TOKEN_KEY, loginData.data.access_token, {
                 path: COOKIES.PATH,
+                expires: getJwtExpiry(loginData.data.access_token),
             });
             return loginData;
         },
@@ -98,6 +100,7 @@ export function useLoginMutation() {
             const loginData = await authService.login(payload);
             cookies.set(COOKIES.TOKEN_KEY, loginData.data.access_token, {
                 path: COOKIES.PATH,
+                expires: getJwtExpiry(loginData.data.access_token),
             });
 
             return loginData;
