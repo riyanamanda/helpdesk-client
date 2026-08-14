@@ -184,7 +184,10 @@ export function UserPage() {
                     <DataTablePagination
                         pagination={pagination}
                         onPageChange={setPage}
-                        onLimitChange={setLimit}
+                        onLimitChange={(l) => {
+                            setLimit(l);
+                            setPage(1);
+                        }}
                     />
                 )}
             </PageLayout.Content>
