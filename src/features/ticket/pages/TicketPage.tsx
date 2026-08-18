@@ -13,10 +13,12 @@ import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { TicketFilters, type TicketFiltersState } from "../components/TicketFilters";
 import { getTicketColumns } from "../config/ticketColumn";
+import { useTicketWebSocket } from "../hook/use-ticket-websocket";
 import { listTicketQueryOption } from "../queries/ticket.query";
 import type { SortType, TicketSortBy } from "../types";
 
 export function TicketPage() {
+    useTicketWebSocket();
     const { t, i18n } = useTranslation("ticket");
     const canCreate = useHasPermission(PERMISSIONS.TICKET.CREATE);
     const [page, setPage] = useState(1);
