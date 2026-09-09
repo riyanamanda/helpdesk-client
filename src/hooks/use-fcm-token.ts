@@ -82,7 +82,9 @@ export function useFCMToken() {
 
                 const baseKey = `types.${type}`;
                 const bodyKey = status ? `${baseKey}.${status}` : baseKey;
-                const body = i18n.t(bodyKey, { ns: "notification", actor_name: actorName });
+                const body = i18n.exists(bodyKey, { ns: "notification" })
+                    ? i18n.t(bodyKey, { ns: "notification", actor_name: actorName })
+                    : i18n.t(baseKey, { ns: "notification", actor_name: actorName });
                 const title = i18n.t(`titles.${type}`, { ns: "notification", defaultValue: type });
 
                 const path =

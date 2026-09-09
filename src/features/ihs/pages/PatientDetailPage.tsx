@@ -52,7 +52,7 @@ export function DetailPatientPage() {
         createIhs(norm, {
             onSuccess: async () => {
                 toast.success(t("common:toast.success"), {
-                    description: t("detail.sendIhs.success"),
+                    description: t("detail.createDialog.success"),
                 });
                 navigate(ROUTES.IHS.INDEX, { replace: true });
             },

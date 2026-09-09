@@ -48,5 +48,14 @@
         "statusLabel": "Status",
         "statusPlaceholder": "Pilih status",
         "updatedSuccess": "Status umpan balik berhasil diperbarui"
+    },
+    "delete": {
+        "title": "Hapus Umpan Balik?",
+        "description": "\"{{name}}\" akan dihapus secara permanen dan tidak dapat dipulihkan.",
+        "deletedSuccess": "Umpan balik berhasil dihapus",
+        "deleteFailed": "Gagal menghapus umpan balik"
+    },
+    "actions": {
+        "delete": "Hapus"
     }
 }
