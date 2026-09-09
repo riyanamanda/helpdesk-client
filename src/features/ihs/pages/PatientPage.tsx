@@ -26,7 +26,7 @@ export function PatientPage() {
     const sorting: SortingState = sortById ? [{ id: sortById, desc: sortDesc }] : [];
     const filters: PatientFiltersState = { http_method: httpMethod };
 
-    const debouncedSearch = useDebounce(search, 300);
+    const debouncedSearch = useDebounce(search, 500);
 
     function update(changes: Record<string, string | null>, resetPage = false) {
         setSearchParams(
