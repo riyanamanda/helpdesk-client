@@ -15,11 +15,11 @@ export interface PatientListParams {
 export interface Patient {
     norm: string;
     name: string;
-    identity_number: string;
+    identity_number: string | null;
     http_method: string;
     get_date: string;
-    last_registration: string;
-    poly: string;
+    last_registration: string | null;
+    poly: string | null;
 }
 
 export interface PatientDetail {
@@ -34,12 +34,12 @@ export interface PatientDetail {
 }
 
 export interface IdentityCard {
-    identity_number: string;
-    address: string;
-    rt: string;
-    rw: string;
-    province?: string;
-    city?: string;
-    district?: string;
-    sub_district?: string;
+    identity_number: string | null;
+    address: string | null;
+    rt: string | null;
+    rw: string | null;
+    province: string | null;
+    city: string | null;
+    district: string | null;
+    sub_district: string | null;
 }

@@ -44,7 +44,8 @@
             "description": "Data pasien tidak ditemukan untuk nomor rekam medis ini. Pasien mungkin tidak terdaftar atau terjadi kesalahan pada server."
         },
         "status": {
-            "active": "Aktif"
+            "active": "Aktif",
+            "inactive": "Tidak Aktif"
         },
         "bio": {
             "title": "Bio",

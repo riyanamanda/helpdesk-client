@@ -44,7 +44,8 @@
             "description": "No patient data was returned for this record number. The patient may not exist or the server encountered an error."
         },
         "status": {
-            "active": "Active"
+            "active": "Active",
+            "inactive": "Inactive"
         },
         "bio": {
             "title": "Bio",

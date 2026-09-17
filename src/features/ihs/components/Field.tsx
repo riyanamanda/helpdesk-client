@@ -1,6 +1,14 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export function Field({ label, value, wide }: { label: string; value?: string; wide?: boolean }) {
+export function Field({
+    label,
+    value,
+    wide,
+}: {
+    label: string;
+    value?: string | null;
+    wide?: boolean;
+}) {
     return (
         <div className={wide ? "col-span-2" : undefined}>
             <p className="mb-0.5 text-[10px] font-semibold tracking-widest text-muted-foreground/50 uppercase">

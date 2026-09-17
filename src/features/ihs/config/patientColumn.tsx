@@ -48,7 +48,9 @@ export const getPatientColumns = (
         accessorKey: "identity_number",
         header: t("column.nik"),
         cell: ({ row }) => {
-            const identity_number = row.getValue("identity_number") as string;
+            const identity_number = row.getValue("identity_number") as string | null;
+
+            if (!identity_number) return <div className="text-muted-foreground">-</div>;
 
             return (
                 <div className="flex items-center gap-2">
@@ -97,7 +99,7 @@ export const getPatientColumns = (
     {
         accessorKey: "poly",
         header: t("column.poly"),
-        cell: ({ row }) => <div>{row.getValue("poly")}</div>,
+        cell: ({ row }) => <div>{row.original.poly ?? "-"}</div>,
         enableSorting: false,
     },
 ];

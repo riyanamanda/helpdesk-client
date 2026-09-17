@@ -29,7 +29,11 @@ export function PatientHeader({ patient, isLoading }: Props) {
                                 <h2 className="text-base font-semibold tracking-tight text-foreground">
                                     {patient?.name}
                                 </h2>
-                                <Badge variant="success">{t("detail.status.active")}</Badge>
+                                <Badge variant={patient?.status ? "success" : "destructive"}>
+                                    {patient?.status
+                                        ? t("detail.status.active")
+                                        : t("detail.status.inactive")}
+                                </Badge>
                             </div>
 
                             <div className="flex flex-wrap gap-x-5 gap-y-1">
@@ -43,7 +47,7 @@ export function PatientHeader({ patient, isLoading }: Props) {
                                 <span className="flex items-center gap-1 text-xs text-muted-foreground">
                                     <span className="font-medium text-foreground/50">NIK</span>
                                     <span className="font-mono font-bold text-primary">
-                                        {patient?.identity_card?.identity_number}
+                                        {patient?.identity_card?.identity_number ?? "-"}
                                     </span>
                                     <CopyButton
                                         text={patient?.identity_card?.identity_number ?? ""}
