@@ -1,4 +1,4 @@
-import { DeleteDialog } from "@/components/DeleteDialog";
+import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -209,7 +209,7 @@ export function TicketDetailSidebar({
                             <ResolveTicketSheet ticketId={ticketId} />
                         )}
                         {canClose && (
-                            <DeleteDialog
+                            <ConfirmDialog
                                 title={t("close.dialogTitle")}
                                 description={t("close.dialogDescription")}
                                 onConfirm={onClose}
@@ -226,7 +226,7 @@ export function TicketDetailSidebar({
                             />
                         )}
                         {canDelete && (
-                            <DeleteDialog
+                            <ConfirmDialog
                                 title={t("delete.title")}
                                 description={t("delete.description", { name: ticket.title })}
                                 onConfirm={onDelete}

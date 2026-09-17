@@ -1,4 +1,4 @@
-import { DeleteDialog } from "@/components/DeleteDialog";
+import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
@@ -48,7 +48,7 @@ export function GoogleSyncCard({ user }: { user: User }) {
                         </div>
                     </div>
                     {isLinked ? (
-                        <DeleteDialog
+                        <ConfirmDialog
                             title={t("google.unlinkTitle")}
                             description={t("google.unlinkDescription")}
                             confirmLabel={t("google.unlinkConfirm")}

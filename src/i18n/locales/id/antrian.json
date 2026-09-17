@@ -17,6 +17,11 @@
     "checkin": {
         "button": "Check In",
         "loading": "Sedang check in...",
+        "dialog": {
+            "title": "Konfirmasi Check In",
+            "description": "Apakah Anda yakin ingin melakukan check in untuk pasien ini?",
+            "confirm": "Konfirmasi Check In"
+        },
         "success": "Pasien berhasil check in.",
         "error": "Gagal check in. Silakan coba lagi."
     },

@@ -1,7 +1,9 @@
+import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { Button } from "@/components/ui/button";
 import type { TFunction } from "i18next";
-import type { Antrian } from "../types";
+import { LogInIcon } from "lucide-react";
 import { useCheckInAntrian } from "../mutation/antrian.mutation";
+import type { Antrian } from "../types";
 
 export function CheckInButton({ antrian, t }: { antrian: Antrian; t: TFunction<"antrian"> }) {
     const { mutate, isPending } = useCheckInAntrian();
@@ -9,14 +11,25 @@ export function CheckInButton({ antrian, t }: { antrian: Antrian; t: TFunction<"
 
     if (!canCheckIn) return <span>-</span>;
 
+    const handleCheckIn = () => {
+        mutate(antrian.kode_booking);
+    };
+
     return (
-        <Button
-            size="sm"
-            variant="outline"
-            disabled={isPending}
-            onClick={() => mutate(antrian.kode_booking)}
-        >
-            {isPending ? t("checkin.loading") : t("checkin.button")}
-        </Button>
+        <ConfirmDialog
+            title={t("checkin.dialog.title")}
+            description={t("checkin.dialog.description")}
+            confirmLabel={t("checkin.dialog.confirm")}
+            pendingLabel={t("checkin.loading")}
+            icon={<LogInIcon />}
+            variant="default"
+            isPending={isPending}
+            onConfirm={handleCheckIn}
+            trigger={
+                <Button size="sm" variant="outline" disabled={isPending}>
+                    {isPending ? t("checkin.loading") : t("checkin.button")}
+                </Button>
+            }
+        />
     );
 }

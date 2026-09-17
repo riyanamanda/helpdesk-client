@@ -15,7 +15,12 @@ import {
     AlertDialogTrigger,
 } from "./ui/alert-dialog";
 
-interface DeleteDialogProps {
+const mediaVariants = {
+    destructive: "bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive",
+    default: "bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary",
+} as const;
+
+interface ConfirmDialogProps {
     title?: string;
     description: string;
     onConfirm: () => void;
@@ -24,9 +29,10 @@ interface DeleteDialogProps {
     confirmLabel?: string;
     pendingLabel?: string;
     icon?: ReactNode;
+    variant?: keyof typeof mediaVariants;
 }
 
-export function DeleteDialog({
+export function ConfirmDialog({
     title,
     description,
     onConfirm,
@@ -35,7 +41,8 @@ export function DeleteDialog({
     confirmLabel,
     pendingLabel,
     icon = <Trash2Icon />,
-}: DeleteDialogProps) {
+    variant = "destructive",
+}: ConfirmDialogProps) {
     const { t } = useTranslation("common");
     const [open, setOpen] = useState(false);
 
@@ -53,9 +60,7 @@ export function DeleteDialog({
             <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
             <AlertDialogContent size="sm">
                 <AlertDialogHeader>
-                    <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
-                        {icon}
-                    </AlertDialogMedia>
+                    <AlertDialogMedia className={mediaVariants[variant]}>{icon}</AlertDialogMedia>
                     <AlertDialogTitle>{resolvedTitle}</AlertDialogTitle>
                     <AlertDialogDescription>{description}</AlertDialogDescription>
                 </AlertDialogHeader>
@@ -64,11 +69,7 @@ export function DeleteDialog({
                     <AlertDialogCancel variant="outline" disabled={isPending}>
                         {t("actions.cancel")}
                     </AlertDialogCancel>
-                    <AlertDialogAction
-                        variant="destructive"
-                        disabled={isPending}
-                        onClick={onConfirm}
-                    >
+                    <AlertDialogAction variant={variant} disabled={isPending} onClick={onConfirm}>
                         {isPending && <Spinner data-icon="inline-start" />}
                         {isPending ? resolvedPendingLabel : resolvedConfirmLabel}
                     </AlertDialogAction>

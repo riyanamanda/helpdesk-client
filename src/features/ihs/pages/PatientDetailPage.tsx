@@ -1,4 +1,4 @@
-import { DeleteDialog } from "@/components/DeleteDialog";
+import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -71,20 +71,17 @@ export function DetailPatientPage() {
                             {t("common:back")}
                         </Button>
                         {hasPermission && (
-                            <DeleteDialog
+                            <ConfirmDialog
                                 title={t("detail.createDialog.title")}
                                 description={t("detail.createDialog.description")}
                                 confirmLabel={t("detail.createDialog.confirm")}
                                 pendingLabel={t("detail.createDialog.creating")}
                                 icon={<EditIcon />}
+                                variant="default"
                                 isPending={isCreating}
                                 onConfirm={handleCreateIhs}
                                 trigger={
-                                    <Button
-                                        variant="destructive"
-                                        size="sm"
-                                        disabled={isCreating || hasIncompleteData}
-                                    >
+                                    <Button size="sm" disabled={isCreating || hasIncompleteData}>
                                         <EditIcon />
                                         <span>{t("detail.createDialog.button")}</span>
                                     </Button>

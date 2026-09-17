@@ -17,6 +17,11 @@
     "checkin": {
         "button": "Check In",
         "loading": "Checking in...",
+        "dialog": {
+            "title": "Confirm Check-In",
+            "description": "Are you sure you want to check in this patient?",
+            "confirm": "Confirm Check-In"
+        },
         "success": "Patient has been checked in successfully.",
         "error": "Failed to check in. Please try again."
     },

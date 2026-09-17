@@ -1,4 +1,4 @@
-import { DeleteDialog } from "@/components/DeleteDialog";
+import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -75,7 +75,7 @@ export function TicketActions({ ticket }: TicketActionProps) {
                         </DropdownMenuItem>
                     )}
                     {canDelete && (
-                        <DeleteDialog
+                        <ConfirmDialog
                             title={t("delete.title")}
                             description={t("delete.description", { name: ticket.title })}
                             onConfirm={handleDelete}
