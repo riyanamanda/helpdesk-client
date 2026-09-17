@@ -1,7 +1,7 @@
 import { DataTable } from "@/components/DataTable";
 import { DataTablePagination } from "@/components/DataTablePagination";
 import { PageLayout } from "@/components/layout/PageLayout";
-import { Input } from "@/components/ui/input";
+import { SearchInput } from "@/components/SearchInput";
 import { useDebounce } from "@/hooks/use-debounce";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { type SortingState } from "@tanstack/react-table";
@@ -83,11 +83,10 @@ export function PatientPage() {
             <PageLayout.Header title={t("page.title")} description={t("page.description")} />
             <PageLayout.Content>
                 <div className="flex flex-wrap items-center gap-2">
-                    <Input
+                    <SearchInput
                         placeholder={t("page.searchPlaceholder")}
                         value={search}
-                        onChange={(e) => handleSearchChange(e.target.value)}
-                        className="max-w-xs"
+                        onValueChange={handleSearchChange}
                     />
                     <PatientFilters filters={filters} onFiltersChange={handleFiltersChange} />
                 </div>

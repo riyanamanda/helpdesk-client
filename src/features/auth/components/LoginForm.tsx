@@ -9,7 +9,6 @@ import type { AxiosError } from "axios";
 import type { ComponentProps } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router";
 import { toast } from "sonner";
 import { useGoogleOneTap } from "../hooks/useGoogleOneTap";
 import { useGoogleLoginMutation, useLoginMutation } from "../mutation/auth.mutation";
@@ -90,13 +89,13 @@ export function LoginForm({ className, ...props }: ComponentProps<"form">) {
                                 <FieldLabel htmlFor={field.name}>
                                     {t("login.passwordLabel")}
                                 </FieldLabel>
-                                <NavLink
+                                {/* <NavLink
                                     to="#"
                                     className="ml-auto text-xs underline-offset-2 hover:underline"
                                     tabIndex={6}
                                 >
                                     {t("login.forgotPassword")}
-                                </NavLink>
+                                </NavLink> */}
                             </div>
                             <Input {...field} id={field.name} type="password" tabIndex={2} />
                             {fieldState.error && <FieldError errors={[fieldState.error]} />}

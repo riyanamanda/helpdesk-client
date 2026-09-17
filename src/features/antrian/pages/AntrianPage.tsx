@@ -1,8 +1,8 @@
 import { DataTable } from "@/components/DataTable";
 import { DataTablePagination } from "@/components/DataTablePagination";
 import { PageLayout } from "@/components/layout/PageLayout";
+import { SearchInput } from "@/components/SearchInput";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { useDebounce } from "@/hooks/use-debounce";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
@@ -43,11 +43,10 @@ export function AntrianPage() {
             <PageLayout.Header title={t("page.title")} description={t("page.description")} />
             <PageLayout.Content>
                 <div className="flex flex-wrap items-center gap-2">
-                    <Input
+                    <SearchInput
                         placeholder={t("page.searchPlaceholder")}
                         value={norm}
-                        onChange={(e) => handleNormChange(e.target.value)}
-                        className="max-w-xs"
+                        onValueChange={handleNormChange}
                     />
 
                     <Button
