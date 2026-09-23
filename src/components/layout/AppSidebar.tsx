@@ -160,7 +160,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                         {
                             is_blank: true,
                             name: t("nav.contact"),
-                            url: "https://riyanamanda.vercel.app",
+                            url: "https://riyanamanda.web.id",
                             icon: SmartphoneNfcIcon,
                         },
                     ]}

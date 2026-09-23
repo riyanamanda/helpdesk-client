@@ -3,7 +3,6 @@ import type { PropsWithChildren, ReactNode } from "react";
 import { SidebarInset, SidebarProvider } from "../ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { SiteHeader } from "./SiteHeader";
-import { useFCMToken } from "@/hooks/use-fcm-token";
 
 interface PageLayoutHeaderProps {
     title: string;
@@ -31,8 +30,6 @@ function PageLayoutContent({ children }: PropsWithChildren) {
 
 export const PageLayout = Object.assign(
     function PageLayout({ children }: PropsWithChildren) {
-        useFCMToken();
-
         return (
             <SidebarProvider>
                 <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">

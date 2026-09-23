@@ -10,7 +10,6 @@ import { Toaster } from "./components/ui/sonner.tsx";
 import { TooltipProvider } from "./components/ui/tooltip.tsx";
 import "./index.css";
 import { queryClient } from "./lib/query-client.ts";
-import { WebSocketProvider } from "./components/WebSocketProfider.tsx";
 import { appRoutes } from "./router/index.tsx";
 
 const router = createBrowserRouter(appRoutes);
@@ -21,10 +20,8 @@ createRoot(document.getElementById("root")!).render(
             <TooltipProvider>
                 <TopLoaderProvider>
                     <QueryClientProvider client={queryClient}>
-                        <WebSocketProvider>
-                            <RouterProvider router={router} />
-                            <Toaster richColors position="top-center" closeButton />
-                        </WebSocketProvider>
+                        <RouterProvider router={router} />
+                        <Toaster richColors position="top-center" closeButton />
                     </QueryClientProvider>
                 </TopLoaderProvider>
             </TooltipProvider>

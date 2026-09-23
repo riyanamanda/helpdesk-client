@@ -1,13 +1,11 @@
 import { COOKIES, ROUTES, SESSION_STORAGE_KEYS } from "@/constants";
-import { auth, googleProvider } from "@/lib/firebase";
 import { cookies, getJwtExpiry } from "@/lib/cookies";
+import { auth, googleProvider } from "@/lib/firebase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { GoogleAuthProvider, signInWithCredential, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router";
 import { meQueryOption } from "../queries/auth.query";
 import { authService } from "../service/authService";
-import { deviceService } from "@/features/notification/service/deviceService";
-import { getActiveFCMToken } from "@/hooks/use-fcm-token";
 import type { LoginRequest } from "../types";
 
 export function useLogoutMutation() {
@@ -16,8 +14,6 @@ export function useLogoutMutation() {
 
     return useMutation({
         mutationFn: async () => {
-            const token = getActiveFCMToken();
-            if (token) await deviceService.unregister(token).catch(() => {});
             return authService.logout();
         },
         onSettled: () => {

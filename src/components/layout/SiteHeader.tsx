@@ -1,7 +1,6 @@
 import { ROUTES } from "@/constants";
 import { useLogoutMutation } from "@/features/auth/mutation/auth.mutation";
 import { meQueryOption } from "@/features/auth/queries/auth.query";
-import { NotificationBell } from "@/features/notification/components/NotificationBell";
 import { usePWAInstall } from "@/hooks/use-pwa-install";
 import { formatName, getInitials } from "@/lib/formatters";
 import { resolveMediaUrl } from "@/lib/media-url";
@@ -12,7 +11,6 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { LanguageSwitcher } from "../LanguageSwitcher";
 import { ModeToggle } from "../ModeToggle";
-import { WebSocketStatus } from "../WebSocketStatus";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import {
@@ -42,7 +40,6 @@ export function SiteHeader() {
         <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center gap-2 bg-transparent backdrop-blur-md">
             <div className="flex w-full items-center gap-2 px-4">
                 <SidebarTrigger className="-ml-1" size="icon-lg" />
-                <WebSocketStatus />
 
                 <div className="ml-auto flex items-center gap-2">
                     {canInstall && (
@@ -51,7 +48,6 @@ export function SiteHeader() {
                             {t("header.install")}
                         </Button>
                     )}
-                    <NotificationBell />
                     <LanguageSwitcher />
                     <ModeToggle />
                 </div>
