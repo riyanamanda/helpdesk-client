@@ -17,12 +17,15 @@ export const ERROR_CODES = {
     TOKEN_EXPIRED: "TOKEN_EXPIRED",
     INVALID_TOKEN: "INVALID_TOKEN",
     BAD_REQUEST: "BAD_REQUEST",
+    RATE_LIMITED: "RATE_LIMITED",
 } as const;
 
 export const ROUTES = {
     HOME: "/",
 
     LOGIN: "/login",
+    FORGOT_PASSWORD: "/forgot-password",
+    RESET_PASSWORD: "/reset-password",
 
     DASHBOARD: "/dashboard",
 

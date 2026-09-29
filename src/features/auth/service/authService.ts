@@ -1,6 +1,11 @@
 import { http } from "@/api";
-import type { CurrentUser, GoogleLoginRequest, LoginRequest } from "../types";
 import type { SuccessResponse } from "@/types";
+import type {
+    CurrentUser,
+    ForgotPasswordRequest,
+    GoogleLoginRequest,
+    LoginRequest,
+} from "../types";
 
 export const authService = {
     login: async (payload: LoginRequest) => {
@@ -17,5 +22,9 @@ export const authService = {
     },
     logout: async () => {
         await http.post("/api/v1/auth/logout");
+    },
+    forgotPassword: async (payload: ForgotPasswordRequest) => {
+        const resepon = await http.post("/api/v1/auth/forgot-password", payload);
+        return resepon.data;
     },
 };

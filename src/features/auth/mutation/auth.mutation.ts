@@ -6,7 +6,7 @@ import { GoogleAuthProvider, signInWithCredential, signInWithPopup } from "fireb
 import { useNavigate } from "react-router";
 import { meQueryOption } from "../queries/auth.query";
 import { authService } from "../service/authService";
-import type { LoginRequest } from "../types";
+import type { ForgotPasswordRequest, LoginRequest } from "../types";
 
 export function useLogoutMutation() {
     const navigate = useNavigate();
@@ -114,5 +114,12 @@ export function useLoginMutation() {
                 navigate(ROUTES.DASHBOARD);
             }
         },
+    });
+}
+
+export function useForgotPasswordMutation() {
+    return useMutation({
+        mutationFn: async (payload: ForgotPasswordRequest) =>
+            await authService.forgotPassword(payload),
     });
 }

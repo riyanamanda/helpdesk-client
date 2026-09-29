@@ -9,6 +9,20 @@ export const authRoutes: RouteObject[] = [
             return { Component: LoginPage };
         },
     },
+    {
+        path: ROUTES.FORGOT_PASSWORD,
+        lazy: async () => {
+            const { ForgotPassword } = await import("./pages/ForgotPassword");
+            return { Component: ForgotPassword };
+        },
+    },
+    {
+        path: ROUTES.RESET_PASSWORD,
+        lazy: async () => {
+            const { ResetPassword } = await import("./pages/ResetPassword");
+            return { Component: ResetPassword };
+        },
+    },
 ];
 
 export const profileRoutes: RouteObject[] = [
