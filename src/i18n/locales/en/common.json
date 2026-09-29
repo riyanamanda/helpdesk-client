@@ -103,7 +103,7 @@
         "FORBIDDEN": "You do not have permission to perform this action",
         "UNAUTHORIZED": "Authentication required",
         "INVALID_TOKEN": "Authentication required",
-        "TOKEN_EXPIRED": "Authentication required",
+        "TOKEN_EXPIRED": "Token expired",
         "MISSING_TOKEN": "Authentication required",
         "VALIDATION_ERROR": "Please check the form for errors",
         "BAD_REQUEST": "Email or Password invalid",

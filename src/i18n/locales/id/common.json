@@ -103,7 +103,7 @@
         "FORBIDDEN": "Anda tidak memiliki izin untuk melakukan tindakan ini",
         "UNAUTHORIZED": "Autentikasi diperlukan",
         "INVALID_TOKEN": "Autentikasi diperlukan",
-        "TOKEN_EXPIRED": "Autentikasi diperlukan",
+        "TOKEN_EXPIRED": "Token telah kadaluarsa",
         "MISSING_TOKEN": "Autentikasi diperlukan",
         "VALIDATION_ERROR": "Harap periksa kembali formulir Anda",
         "BAD_REQUEST": "Email atau Password salah",

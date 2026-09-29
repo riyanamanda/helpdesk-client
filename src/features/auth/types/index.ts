@@ -37,3 +37,9 @@ export interface UpdatePasswordRequest {
 export interface ForgotPasswordRequest {
     email: string;
 }
+
+export interface ResetPasswordRequest {
+    token: null | string;
+    new_password: string;
+    password_confirm: string;
+}

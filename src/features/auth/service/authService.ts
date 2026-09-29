@@ -5,6 +5,7 @@ import type {
     ForgotPasswordRequest,
     GoogleLoginRequest,
     LoginRequest,
+    ResetPasswordRequest,
 } from "../types";
 
 export const authService = {
@@ -24,7 +25,11 @@ export const authService = {
         await http.post("/api/v1/auth/logout");
     },
     forgotPassword: async (payload: ForgotPasswordRequest) => {
-        const resepon = await http.post("/api/v1/auth/forgot-password", payload);
-        return resepon.data;
+        const reseponse = await http.post("/api/v1/auth/forgot-password", payload);
+        return reseponse.data;
+    },
+    resetPassword: async (payload: ResetPasswordRequest) => {
+        const response = await http.post("/api/v1/auth/reset-password", payload);
+        return response.data;
     },
 };

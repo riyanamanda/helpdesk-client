@@ -6,7 +6,7 @@ import { GoogleAuthProvider, signInWithCredential, signInWithPopup } from "fireb
 import { useNavigate } from "react-router";
 import { meQueryOption } from "../queries/auth.query";
 import { authService } from "../service/authService";
-import type { ForgotPasswordRequest, LoginRequest } from "../types";
+import type { ForgotPasswordRequest, LoginRequest, ResetPasswordRequest } from "../types";
 
 export function useLogoutMutation() {
     const navigate = useNavigate();
@@ -121,5 +121,12 @@ export function useForgotPasswordMutation() {
     return useMutation({
         mutationFn: async (payload: ForgotPasswordRequest) =>
             await authService.forgotPassword(payload),
+    });
+}
+
+export function useResetPasswordMutation() {
+    return useMutation({
+        mutationFn: async (payload: ResetPasswordRequest) =>
+            await authService.resetPassword(payload),
     });
 }
