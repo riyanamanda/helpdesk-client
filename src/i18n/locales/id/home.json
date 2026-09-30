@@ -9,7 +9,37 @@
         "headline1": "Dukungan Lebih Cepat",
         "headline2": "Pengalaman Lebih Baik",
         "subheadline": "Helpdesk IT internal untuk karyawan Erba. Ajukan tiket, pantau perkembangan, dan dapatkan bantuan — semuanya dalam satu platform.",
-        "goToDashboard": "Buka Dasbor"
+        "searchPlaceholder": "Cari basis pengetahuan, layanan, atau nomor tiket...",
+        "goToDashboard": "Buka Dasbor",
+        "cards": {
+            "reportIssue": {
+                "title": "Laporkan Kendala",
+                "desc": "Laporkan masalah teknis atau gangguan sistem.",
+                "badge": "SLA < 15m"
+            },
+            "requestService": {
+                "title": "Minta Layanan",
+                "desc": "Permintaan perangkat baru, perangkat lunak, atau hak akses.",
+                "badge": "Katalog Layanan"
+            },
+            "knowledgeBase": {
+                "title": "Pusat Bantuan",
+                "desc": "Solusi mandiri dan panduan pemecahan masalah.",
+                "badge": "FAQ & Panduan"
+            },
+            "trackTicket": {
+                "title": "Status Tiket Saya",
+                "desc": "Pantau status tiket aktif dan progres permintaan Anda.",
+                "badge": "2 Aktif"
+            }
+        },
+        "widgets": {
+            "myActiveTickets": "Tiket Aktif",
+            "viewAll": "Lihat semua",
+            "topArticles": "Artikel Bantuan Populer",
+            "browseKb": "Buka KB",
+            "urgentHelp": "Kendala sistem mendesak? Hubungi Hotline IT Helpdesk:"
+        }
     },
     "footer": {
         "appName": "IT Helpdesk",

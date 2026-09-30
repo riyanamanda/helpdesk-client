@@ -9,7 +9,37 @@
         "headline1": "Faster Support",
         "headline2": "Better Experience",
         "subheadline": "The internal IT helpdesk for Erba employees. Submit tickets, track progress, and get help — all in one place.",
-        "goToDashboard": "Go to Dashboard"
+        "searchPlaceholder": "Search knowledge base, services, or ticket ID...",
+        "goToDashboard": "Go to Dashboard",
+        "cards": {
+            "reportIssue": {
+                "title": "Report an Issue",
+                "desc": "To report technical problems or system issues.",
+                "badge": "SLA < 15m"
+            },
+            "requestService": {
+                "title": "Request a Service",
+                "desc": "To request new devices, software, or access.",
+                "badge": "Service Catalog"
+            },
+            "knowledgeBase": {
+                "title": "Knowledge Base",
+                "desc": "Self-service solutions and troubleshooting guide.",
+                "badge": "FAQ & Guide"
+            },
+            "trackTicket": {
+                "title": "Track My Tickets",
+                "desc": "Monitor your active tickets and request status.",
+                "badge": "2 Active"
+            }
+        },
+        "widgets": {
+            "myActiveTickets": "Active Tickets",
+            "viewAll": "View all",
+            "topArticles": "Top Knowledge Articles",
+            "browseKb": "Browse KB",
+            "urgentHelp": "Urgent system issue? Contact IT Helpdesk Hotline:"
+        }
     },
     "footer": {
         "appName": "IT Helpdesk",
