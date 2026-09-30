@@ -45,7 +45,7 @@ export function HomePage() {
             icon: CircleAlertIcon,
             route: ROUTES.DASHBOARD,
             badge: t("hero.cards.reportIssue.badge"),
-            badgeColor: "bg-red-500/10 text-red-400 border-red-500/20",
+            badgeColor: "bg-destructive/10 text-destructive border-destructive/20",
         },
         {
             title: t("hero.cards.requestService.title"),
@@ -53,7 +53,7 @@ export function HomePage() {
             icon: ShoppingCartIcon,
             route: ROUTES.DASHBOARD,
             badge: t("hero.cards.requestService.badge"),
-            badgeColor: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+            badgeColor: "bg-primary/10 text-primary border-primary/20",
         },
         {
             title: t("hero.cards.knowledgeBase.title"),
@@ -61,7 +61,7 @@ export function HomePage() {
             icon: BookOpen,
             route: ROUTES.DASHBOARD,
             badge: t("hero.cards.knowledgeBase.badge"),
-            badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+            badgeColor: "bg-chart-2/10 text-chart-2 border-chart-2/20",
         },
         {
             title: t("hero.cards.trackTicket.title"),
@@ -69,24 +69,24 @@ export function HomePage() {
             icon: TicketCheck,
             route: ROUTES.DASHBOARD,
             badge: t("hero.cards.trackTicket.badge"),
-            badgeColor: "bg-purple-500/10 text-purple-400 border-purple-500/20",
+            badgeColor: "bg-accent text-accent-foreground border-accent",
         },
     ];
 
-    // Data sampel tiket aktif (akan tampil dinamis dari API setelah login)
+    // Data sampel tiket aktif
     const activeTickets = [
         {
             id: "TK-1042",
             title: "Laptop performance is very slow after update",
             status: "In Progress",
-            statusColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+            statusColor: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
             updated: "2h ago",
         },
         {
             id: "TK-1038",
             title: "Request for VPN Access to Staging Environment",
             status: "Pending Approval",
-            statusColor: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+            statusColor: "bg-primary/10 text-primary border-primary/20",
             updated: "Yesterday",
         },
     ];
@@ -108,11 +108,11 @@ export function HomePage() {
             {/* Indikator Status Operasional Sistem */}
             <motion.div
                 variants={heroItem}
-                className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-medium text-emerald-400 backdrop-blur-md"
+                className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 text-xs font-medium text-primary backdrop-blur-md"
             >
                 <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
                 </span>
                 {t("hero.systemsOperational")}
             </motion.div>
@@ -120,10 +120,10 @@ export function HomePage() {
             {/* Judul Utama */}
             <motion.h1
                 variants={heroItem}
-                className="max-w-3xl text-3xl font-bold tracking-tight text-balance sm:text-4xl md:text-5xl lg:text-6xl"
+                className="max-w-3xl text-3xl font-bold tracking-tight text-balance text-foreground sm:text-4xl md:text-5xl lg:text-6xl"
             >
                 {t("hero.headline1")}{" "}
-                <span className="bg-linear-to-r from-zinc-100 via-zinc-300 to-zinc-500 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-foreground via-foreground/80 to-muted-foreground bg-clip-text text-transparent">
                     {t("hero.headline2")}
                 </span>
             </motion.h1>
@@ -131,7 +131,7 @@ export function HomePage() {
             {/* Subjudul */}
             <motion.p
                 variants={heroItem}
-                className="mt-3 max-w-xl text-sm leading-relaxed text-balance text-zinc-400 sm:mt-4 sm:text-base"
+                className="mt-3 max-w-xl text-sm leading-relaxed text-balance text-muted-foreground sm:mt-4 sm:text-base"
             >
                 {t("hero.subheadline")}
             </motion.p>
@@ -148,11 +148,11 @@ export function HomePage() {
                             <motion.div
                                 variants={heroItem}
                                 whileHover={{ y: -3, transition: { duration: 0.2 } }}
-                                className="flex h-full flex-col justify-between overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-900/50 p-5 backdrop-blur-md transition-all hover:border-zinc-600 hover:bg-zinc-900/90 hover:shadow-xl hover:shadow-black/20"
+                                className="flex h-full flex-col justify-between overflow-hidden rounded-xl border border-border bg-card p-5 shadow-xs backdrop-blur-md transition-all hover:border-ring hover:bg-card/90 hover:shadow-md"
                             >
                                 <div>
                                     <div className="mb-4 flex items-center justify-between">
-                                        <div className="rounded-lg bg-zinc-800/80 p-2.5 text-zinc-300 transition-colors group-hover:bg-zinc-100 group-hover:text-zinc-900">
+                                        <div className="rounded-lg bg-muted p-2.5 text-muted-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                                             <Icon size={20} />
                                         </div>
                                         <span
@@ -161,10 +161,10 @@ export function HomePage() {
                                             {card.badge}
                                         </span>
                                     </div>
-                                    <div className="text-base font-semibold text-zinc-100 transition-colors group-hover:text-white">
+                                    <div className="text-base font-semibold text-card-foreground transition-colors group-hover:text-primary">
                                         {card.title}
                                     </div>
-                                    <div className="mt-1 text-xs leading-relaxed text-zinc-400">
+                                    <div className="mt-1 text-xs leading-relaxed text-muted-foreground">
                                         {card.description}
                                     </div>
                                 </div>
@@ -180,17 +180,17 @@ export function HomePage() {
                 className="mt-8 grid w-full max-w-5xl grid-cols-1 gap-6 text-left md:grid-cols-2"
             >
                 {/* Widget 1: Tiket Aktif Saya */}
-                <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-5 backdrop-blur-md">
+                <div className="rounded-xl border border-border bg-card/50 p-5 shadow-xs backdrop-blur-md">
                     <div className="mb-4 flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <TicketCheck size={18} className="text-zinc-400" />
-                            <h3 className="text-sm font-semibold text-zinc-200">
+                            <TicketCheck size={18} className="text-muted-foreground" />
+                            <h3 className="text-sm font-semibold text-card-foreground">
                                 {t("hero.widgets.myActiveTickets")}
                             </h3>
                         </div>
                         <NavLink
                             to={ROUTES.DASHBOARD}
-                            className="flex items-center gap-1 text-xs text-zinc-400 transition-colors hover:text-zinc-200"
+                            className="flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
                         >
                             {t("hero.widgets.viewAll")} <ArrowRight size={12} />
                         </NavLink>
@@ -200,11 +200,11 @@ export function HomePage() {
                         {activeTickets.map((ticket, idx) => (
                             <div
                                 key={idx}
-                                className="flex items-center justify-between gap-3 rounded-lg border border-zinc-800/60 bg-zinc-950/40 p-3 text-xs transition-colors hover:border-zinc-700"
+                                className="flex items-center justify-between gap-3 rounded-lg border border-border bg-background/60 p-3 text-xs transition-colors hover:border-ring"
                             >
                                 <div className="min-w-0 flex-1">
                                     <div className="flex items-center gap-2">
-                                        <span className="font-mono text-[11px] font-semibold text-zinc-400">
+                                        <span className="font-mono text-[11px] font-semibold text-muted-foreground">
                                             {ticket.id}
                                         </span>
                                         <span
@@ -213,11 +213,11 @@ export function HomePage() {
                                             {ticket.status}
                                         </span>
                                     </div>
-                                    <p className="mt-1 truncate font-medium text-zinc-200">
+                                    <p className="mt-1 truncate font-medium text-foreground">
                                         {ticket.title}
                                     </p>
                                 </div>
-                                <div className="flex items-center gap-1 text-[11px] whitespace-nowrap text-zinc-500">
+                                <div className="flex items-center gap-1 text-[11px] whitespace-nowrap text-muted-foreground">
                                     <Clock size={12} />
                                     {ticket.updated}
                                 </div>
@@ -227,17 +227,17 @@ export function HomePage() {
                 </div>
 
                 {/* Widget 2: Artikel Bantuan Populer */}
-                <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-5 backdrop-blur-md">
+                <div className="rounded-xl border border-border bg-card/50 p-5 shadow-xs backdrop-blur-md">
                     <div className="mb-4 flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <BookOpen size={18} className="text-zinc-400" />
-                            <h3 className="text-sm font-semibold text-zinc-200">
+                            <BookOpen size={18} className="text-muted-foreground" />
+                            <h3 className="text-sm font-semibold text-card-foreground">
                                 {t("hero.widgets.topArticles")}
                             </h3>
                         </div>
                         <NavLink
                             to={ROUTES.DASHBOARD}
-                            className="flex items-center gap-1 text-xs text-zinc-400 transition-colors hover:text-zinc-200"
+                            className="flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
                         >
                             {t("hero.widgets.browseKb")} <ArrowRight size={12} />
                         </NavLink>
@@ -248,19 +248,19 @@ export function HomePage() {
                             <NavLink
                                 key={idx}
                                 to={ROUTES.DASHBOARD}
-                                className="group flex items-center justify-between rounded-lg border border-transparent p-2.5 text-xs transition-colors hover:border-zinc-800 hover:bg-zinc-950/40"
+                                className="group flex items-center justify-between rounded-lg border border-transparent p-2.5 text-xs transition-colors hover:border-border hover:bg-muted/50"
                             >
                                 <div className="flex items-center gap-2.5 truncate">
-                                    <span className="rounded bg-zinc-800 px-1.5 py-0.5 text-[10px] text-zinc-400">
+                                    <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
                                         {article.category}
                                     </span>
-                                    <span className="truncate text-zinc-300 group-hover:text-zinc-100">
+                                    <span className="truncate text-foreground/80 group-hover:text-foreground">
                                         {article.title}
                                     </span>
                                 </div>
                                 <ExternalLink
                                     size={12}
-                                    className="text-zinc-500 opacity-0 transition-opacity group-hover:opacity-100"
+                                    className="text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
                                 />
                             </NavLink>
                         ))}
