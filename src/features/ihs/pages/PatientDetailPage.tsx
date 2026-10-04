@@ -19,8 +19,6 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 import { PatientBioCard } from "../components/PatientBioCard";
-import { PatientHeader } from "../components/PatientHeader";
-import { PatientKtpCard } from "../components/PatientKtpCard";
 import { useCreateIhsMutation } from "../mutation/ihs.mutation";
 import { detailPatientQueryOptions } from "../queries/patient.query";
 
@@ -29,23 +27,20 @@ export function DetailPatientPage() {
     const { norm } = useParams();
     const { t } = useTranslation("ihs");
 
-    const { data: patientData, isLoading, isError } = useQuery(detailPatientQueryOptions(norm!));
-    const patient = patientData;
+    const { data: patient, isLoading, isError } = useQuery(detailPatientQueryOptions(norm!));
 
     const { mutate: createIhs, isPending: isCreating } = useCreateIhsMutation();
     const hasPermission = useHasPermission(PERMISSIONS.IHS.UPDATE);
 
+    // Pengecekan kelengkapan data utama untuk pembuatan IHS
     const hasIncompleteData =
         !isLoading &&
         !!patient &&
-        (!patient.birth_place ||
-            !patient.name ||
+        (!patient.name ||
             !patient.birth_date ||
-            !patient.marital_status ||
-            !patient.citizenship ||
-            !patient.identity_card?.address ||
-            !patient.identity_card?.rt ||
-            !patient.identity_card?.rw);
+            !patient.birth_place ||
+            !patient.identity_card?.identity_number ||
+            !patient.identity_card?.address);
 
     const handleCreateIhs = () => {
         if (!norm) return;
@@ -81,7 +76,10 @@ export function DetailPatientPage() {
                                 isPending={isCreating}
                                 onConfirm={handleCreateIhs}
                                 trigger={
-                                    <Button size="sm" disabled={isCreating || hasIncompleteData}>
+                                    <Button
+                                        size="sm"
+                                        disabled={isCreating || hasIncompleteData || isLoading}
+                                    >
                                         <EditIcon />
                                         <span>{t("detail.createDialog.button")}</span>
                                     </Button>
@@ -112,18 +110,29 @@ export function DetailPatientPage() {
                 ) : (
                     <>
                         <Alert className="border-amber-500/30 bg-amber-500/10">
-                            <ShieldAlertIcon className="text-amber-500" />
-                            <AlertTitle className="text-amber-500">
+                            <ShieldAlertIcon className="h-4 w-4 text-amber-500" />
+                            <AlertTitle className="font-semibold text-amber-600 dark:text-amber-400">
                                 {t("detail.alert.title")}
                             </AlertTitle>
-                            <AlertDescription>{t("detail.alert.description")}</AlertDescription>
+                            <AlertDescription className="text-amber-700 dark:text-amber-300">
+                                {t("detail.alert.description")}
+                            </AlertDescription>
                         </Alert>
 
-                        <PatientHeader patient={patient} isLoading={isLoading} />
+                        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                            <PatientBioCard
+                                title="SIMGOS"
+                                className="bg-primary/5"
+                                patient={patient}
+                                isLoading={isLoading}
+                            />
 
-                        <div className="grid gap-3 md:grid-cols-2">
-                            <PatientBioCard patient={patient!} isLoading={isLoading} />
-                            <PatientKtpCard patient={patient!} isLoading={isLoading} />
+                            <PatientBioCard
+                                title="BPJS"
+                                className="bg-blue-500/5"
+                                patient={patient}
+                                isLoading={isLoading}
+                            />
                         </div>
                     </>
                 )}
