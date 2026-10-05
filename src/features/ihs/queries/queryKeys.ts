@@ -6,4 +6,5 @@ export const PATIENT_QUERY_KEYS = {
     ROOT: PATIENT_ROOT_KEY,
     LIST: (params: PatientListParams) => [...PATIENT_ROOT_KEY, "list", params],
     DETAIL: (norm: string) => [...PATIENT_ROOT_KEY, "detail", norm],
+    BPJS_PATIENT: (nik: string) => [...PATIENT_ROOT_KEY, "bpjs", nik],
 } as const;

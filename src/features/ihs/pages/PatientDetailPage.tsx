@@ -19,22 +19,36 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 import { PatientBioCard } from "../components/PatientBioCard";
+import { PatientBpjsBioCard } from "../components/PatientBpjsBioCard";
+import { PatientValidationLegend } from "../components/PatientValidationLegend";
 import { useCreateIhsMutation } from "../mutation/ihs.mutation";
-import { detailPatientQueryOptions } from "../queries/patient.query";
+import { detailBPJSPatientQueryOptions, detailPatientQueryOptions } from "../queries/patient.query";
 
 export function DetailPatientPage() {
     const navigate = useNavigate();
     const { norm } = useParams();
     const { t } = useTranslation("ihs");
 
-    const { data: patient, isLoading, isError } = useQuery(detailPatientQueryOptions(norm!));
+    const {
+        data: patient,
+        isLoading: isPatientLoading,
+        isError,
+    } = useQuery(detailPatientQueryOptions(norm!));
+
+    const identityNumber = patient?.identity_card?.identity_number;
+
+    const { data: patientBpjs, isLoading: isBpjsLoading } = useQuery({
+        ...detailBPJSPatientQueryOptions(identityNumber ?? ""),
+        enabled: !!identityNumber,
+    });
 
     const { mutate: createIhs, isPending: isCreating } = useCreateIhsMutation();
     const hasPermission = useHasPermission(PERMISSIONS.IHS.UPDATE);
 
-    // Pengecekan kelengkapan data utama untuk pembuatan IHS
+    const isDataLoading = isPatientLoading || (!!identityNumber && isBpjsLoading);
+
     const hasIncompleteData =
-        !isLoading &&
+        !isPatientLoading &&
         !!patient &&
         (!patient.name ||
             !patient.birth_date ||
@@ -78,7 +92,7 @@ export function DetailPatientPage() {
                                 trigger={
                                     <Button
                                         size="sm"
-                                        disabled={isCreating || hasIncompleteData || isLoading}
+                                        disabled={isCreating || hasIncompleteData || isDataLoading}
                                     >
                                         <EditIcon />
                                         <span>{t("detail.createDialog.button")}</span>
@@ -108,7 +122,7 @@ export function DetailPatientPage() {
                         </EmptyContent>
                     </Empty>
                 ) : (
-                    <>
+                    <div className="space-y-4">
                         <Alert className="border-amber-500/30 bg-amber-500/10">
                             <ShieldAlertIcon className="h-4 w-4 text-amber-500" />
                             <AlertTitle className="font-semibold text-amber-600 dark:text-amber-400">
@@ -119,22 +133,25 @@ export function DetailPatientPage() {
                             </AlertDescription>
                         </Alert>
 
+                        <PatientValidationLegend />
+
                         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
                             <PatientBioCard
                                 title="SIMGOS"
                                 className="bg-primary/5"
                                 patient={patient}
-                                isLoading={isLoading}
+                                isLoading={isPatientLoading}
                             />
 
-                            <PatientBioCard
+                            <PatientBpjsBioCard
                                 title="BPJS"
                                 className="bg-blue-500/5"
-                                patient={patient}
-                                isLoading={isLoading}
+                                patient={patientBpjs}
+                                simgosPatient={patient}
+                                isLoading={isBpjsLoading || (isPatientLoading && !patientBpjs)}
                             />
                         </div>
-                    </>
+                    </div>
                 )}
             </PageLayout.Content>
         </PageLayout>

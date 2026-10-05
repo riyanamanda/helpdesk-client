@@ -43,3 +43,57 @@ export interface IdentityCard {
     district: string | null;
     sub_district: string | null;
 }
+
+export interface CodeDesc {
+    kode: string;
+    keterangan: string;
+}
+
+export interface MedicalRecord {
+    no_mr: string | null;
+    no_telepon: string | null;
+}
+
+export interface Provider {
+    kd_provider: string;
+    nm_provider: string;
+}
+
+export interface Umur {
+    umur_sekarang: string;
+    umur_saat_pelayanan: string;
+}
+
+export interface Informasi {
+    dinsos: string | null;
+    prolanis_prb: string | null;
+    no_sktm: string | null;
+    e_sep: string | null;
+}
+
+export interface Cob {
+    no_asuransi: string | null;
+    nm_asuransi: string | null;
+    tgl_tmt: string | null;
+    tgl_tat: string | null;
+}
+
+export interface PatientBpjs {
+    no_kartu: string;
+    nik: string;
+    nama: string;
+    pisa: string;
+    sex: string;
+    tgl_lahir: string;
+    tgl_cetak_kartu: string;
+    tgl_tat: string;
+    tgl_tmt: string;
+    mr: MedicalRecord;
+    status_peserta: CodeDesc;
+    prov_umum: Provider;
+    jenis_peserta: CodeDesc;
+    hak_kelas: CodeDesc;
+    umur: Umur;
+    informasi: Informasi;
+    cob: Cob;
+}

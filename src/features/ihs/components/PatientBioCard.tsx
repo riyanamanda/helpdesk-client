@@ -3,21 +3,39 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatDate } from "@/lib/formatters";
-import { MapPinIcon, UserRoundIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { AlertTriangleIcon, MapPinIcon, UserRoundIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { isNikMatchBirthDate } from "../helper";
 import type { PatientDetail } from "../types";
 import { Field, FieldSkeleton } from "./Field";
-import { cn } from "@/lib/utils";
 
 interface Props {
-    title: string; // Misal: "SIMGOS" atau "BPJS"
+    title: string;
     className?: string;
     patient?: PatientDetail;
     isLoading: boolean;
 }
 
+function UnmatchBadge({ label }: { label?: string }) {
+    return (
+        <Badge
+            variant="outline"
+            className="inline-flex h-4 shrink-0 items-center gap-1 border-destructive/40 bg-destructive/10 px-1.5 text-[9px] font-semibold text-destructive dark:bg-destructive/20"
+        >
+            <AlertTriangleIcon className="h-2.5 w-2.5 text-destructive" />
+            {label || "Unmatch"}
+        </Badge>
+    );
+}
+
 export function PatientBioCard({ title, className, patient, isLoading }: Props) {
     const { t } = useTranslation("ihs");
+
+    const isNikValidWithBirthDate = isNikMatchBirthDate(
+        patient?.identity_card?.identity_number,
+        patient?.birth_date
+    );
 
     return (
         <Card
@@ -26,7 +44,6 @@ export function PatientBioCard({ title, className, patient, isLoading }: Props) 
                 className
             )}
         >
-            {/* Header System Banner */}
             <div className="flex items-center justify-between border-b border-border/50 bg-muted/40 px-3.5 py-1.5">
                 <div className="flex items-center gap-1.5">
                     <UserRoundIcon className="h-3.5 w-3.5 text-muted-foreground/70" />
@@ -60,7 +77,6 @@ export function PatientBioCard({ title, className, patient, isLoading }: Props) 
                     </div>
                 ) : (
                     <>
-                        {/* Section Header Pasien (Nama, NORM & NIK) */}
                         <div className="space-y-1 border-b border-border/40 pb-2">
                             <h3 className="truncate text-sm font-semibold tracking-tight text-foreground">
                                 {patient.name || "-"}
@@ -77,17 +93,26 @@ export function PatientBioCard({ title, className, patient, isLoading }: Props) 
 
                                 <span className="flex items-center gap-1 text-muted-foreground">
                                     <span className="font-medium text-foreground/50">NIK</span>
-                                    <span className="font-mono font-bold text-primary">
+                                    <span
+                                        className={cn(
+                                            "font-mono font-bold",
+                                            !isNikValidWithBirthDate
+                                                ? "text-destructive"
+                                                : "text-primary"
+                                        )}
+                                    >
                                         {patient.identity_card?.identity_number || "-"}
                                     </span>
                                     {patient.identity_card?.identity_number && (
                                         <CopyButton text={patient.identity_card.identity_number} />
                                     )}
+                                    {!isNikValidWithBirthDate && (
+                                        <UnmatchBadge label="Format NIK & Tgl Lahir Beda" />
+                                    )}
                                 </span>
                             </div>
                         </div>
 
-                        {/* Section Biodata Pasien */}
                         <div className="grid grid-cols-2 gap-x-3 gap-y-2">
                             <div>
                                 <p className="text-[10px] font-medium text-muted-foreground/70 uppercase">
@@ -107,12 +132,24 @@ export function PatientBioCard({ title, className, patient, isLoading }: Props) 
                                 )}
                             </div>
 
-                            <Field
-                                label={t("detail.bio.birthDate")}
-                                value={
-                                    patient.birth_date ? formatDate(patient.birth_date) : undefined
-                                }
-                            />
+                            <div>
+                                <p className="text-[10px] font-medium text-muted-foreground/70 uppercase">
+                                    {t("detail.bio.birthDate")}
+                                </p>
+                                <div className="mt-0.5 flex items-center gap-1.5">
+                                    <p
+                                        className={cn(
+                                            "truncate font-medium",
+                                            !isNikValidWithBirthDate
+                                                ? "font-bold text-destructive"
+                                                : "text-foreground"
+                                        )}
+                                    >
+                                        {patient.birth_date ? formatDate(patient.birth_date) : "-"}
+                                    </p>
+                                </div>
+                            </div>
+
                             <Field
                                 label={t("detail.bio.maritalStatus")}
                                 value={patient.marital_status}
@@ -123,7 +160,6 @@ export function PatientBioCard({ title, className, patient, isLoading }: Props) 
                             />
                         </div>
 
-                        {/* Section Alamat KTP Pasien */}
                         <div className="border-t border-border/40 pt-2">
                             <div className="mb-1.5 flex items-center gap-1 text-[11px] font-semibold text-muted-foreground/80">
                                 <MapPinIcon className="h-3 w-3" />
