@@ -33,7 +33,7 @@ export function extractBirthDateFromNIK(nik?: string | null): string | null {
 
 export function isNikMatchBirthDate(nik?: string | null, birthDate?: string | null): boolean {
     const extractedDate = extractBirthDateFromNIK(nik);
-    if (!extractedDate || !birthDate) return true; // Anggap valid jika data belum lengkap
+    if (!extractedDate || !birthDate) return true;
 
     return extractedDate === birthDate.split("T")[0];
 }

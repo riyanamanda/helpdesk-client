@@ -16,7 +16,7 @@ export function LandingLayout() {
             <LazyMotion features={domAnimation}>
                 <Header />
 
-                <main className="relative z-10 flex flex-1 flex-col">
+                <main className="relative z-10 flex flex-1 flex-col px-4 sm:px-6">
                     <Outlet />
                 </main>
             </LazyMotion>

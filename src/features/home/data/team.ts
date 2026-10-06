@@ -9,7 +9,20 @@ import {
     RiyanImg,
 } from "@/assets/images";
 
-export const team = [
+export interface TeamMember {
+    name: string;
+    role: string;
+    image?: string;
+    featured?: boolean;
+}
+
+export const team: TeamMember[] = [
+    {
+        name: "Ledyana Puspasari",
+        role: "IT Manager",
+        featured: true,
+        image: LedyImg,
+    },
     {
         name: "Gunawan Santoso",
         role: "IT Support",
@@ -25,16 +38,6 @@ export const team = [
         role: "Network Engineer",
         image: AdriImg,
     },
-
-    // CENTER
-    {
-        name: "Ledyana Puspasari",
-        role: "IT Manager",
-        featured: true,
-        image: LedyImg,
-    },
-    // END
-
     {
         name: "Deti Nadya Rahma",
         role: "IT Helpdesk",
@@ -52,7 +55,7 @@ export const team = [
     },
     {
         name: "Nabila",
-        role: "IT Helpdesk",
+        role: "IT Administrator",
         image: NabilaImg,
     },
 ];

@@ -58,7 +58,6 @@
     --card-foreground: oklch(0.14 0.008 195);
     --popover: oklch(1 0 0 / 0.8);
     --popover-foreground: oklch(0.14 0.008 195);
-    /* logo teal */
     --primary: oklch(0.505 0.11 174);
     --primary-foreground: oklch(0.98 0.006 174);
     --secondary: oklch(0.965 0.006 174);
@@ -67,12 +66,10 @@
     --muted-foreground: oklch(0.54 0.015 195);
     --accent: oklch(0.92 0.09 78);
     --accent-foreground: oklch(0.38 0.14 70);
-    /* logo crimson */
     --destructive: oklch(0.5 0.21 20);
     --border: oklch(0.91 0.008 174);
     --input: oklch(0.91 0.008 174);
     --ring: oklch(0.65 0.08 174);
-    /* gold → teal → crimson → muted gold → muted teal */
     --chart-1: oklch(0.72 0.13 72);
     --chart-2: oklch(0.505 0.11 174);
     --chart-3: oklch(0.55 0.2 22);
@@ -96,7 +93,6 @@
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.22 0.009 195 / 0.8);
     --popover-foreground: oklch(0.985 0 0);
-    /* logo teal, brightened for dark bg */
     --primary: oklch(0.62 0.11 174);
     --primary-foreground: oklch(0.14 0.02 174);
     --secondary: oklch(0.28 0.008 195);
@@ -105,12 +101,10 @@
     --muted-foreground: oklch(0.7 0.014 195);
     --accent: oklch(0.32 0.1 76);
     --accent-foreground: oklch(0.86 0.12 72);
-    /* logo crimson, brightened for dark bg */
     --destructive: oklch(0.65 0.19 20);
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
     --ring: oklch(0.55 0.008 195);
-    /* gold → teal → crimson → muted gold → muted teal */
     --chart-1: oklch(0.78 0.13 72);
     --chart-2: oklch(0.62 0.11 174);
     --chart-3: oklch(0.65 0.18 22);
@@ -185,7 +179,6 @@
         @apply font-sans;
     }
 
-    /* glassmorphism surfaces */
     [data-sidebar="sidebar"],
     [data-slot="card"],
     [data-slot="popover-content"],

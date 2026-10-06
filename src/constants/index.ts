@@ -22,6 +22,7 @@ export const ERROR_CODES = {
 
 export const ROUTES = {
     HOME: "/",
+    TEAM: "/team",
 
     LOGIN: "/login",
     FORGOT_PASSWORD: "/forgot-password",

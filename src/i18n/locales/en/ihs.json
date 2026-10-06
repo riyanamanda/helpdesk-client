@@ -40,17 +40,11 @@
         }
     },
     "bpjs": {
-        "title": "BPJS Membership Info",
-        "cardNo": "BPJS Card Number",
         "class": "Class",
-        "status": "Membership Status",
-        "provider": "Faskes Provider",
         "sex": "Gender",
         "ageAtService": "Age at Service",
         "participantType": "Participant Type",
         "faskes": "Primary Faskes (FKTP)",
-        "mrNumber": "Medical Record No.",
-        "phone": "Phone Number",
         "tmt": "TMT (Effective From)",
         "tat": "TAT (Effective Until)",
         "notFound": {
@@ -73,14 +67,6 @@
             "creating": "Creating...",
             "success": "The IHS patient has been submitted successfully, Please check on SIMGOS regularly."
         },
-        "sendDialog": {
-            "button": "Send IHS",
-            "title": "Send IHS Patient?",
-            "description": "This send one-way communication to IHS and cannot be undone.",
-            "confirm": "Send",
-            "creating": "Sending...",
-            "success": "The IHS patient has been sent successfully, Please check on SIMGOS regularly."
-        },
         "notFound": {
             "title": "Patient Not Found",
             "description": "No patient data was returned for this record number. The patient may not exist or the server encountered an error."
@@ -90,17 +76,13 @@
             "inactive": "Inactive"
         },
         "bio": {
-            "title": "Bio",
-            "name": "Name",
             "birthPlace": "Place of Birth",
             "birthPlaceNull": "Not recorded",
             "birthDate": "Date of Birth",
             "maritalStatus": "Marital Status",
-            "citizenship": "Citizenship",
-            "status": "Status"
+            "citizenship": "Citizenship"
         },
         "ktp": {
-            "title": "Identity Card",
             "sectionTitle": "ID Card Address",
             "address": "Address",
             "rt": "RT",

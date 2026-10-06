@@ -77,7 +77,7 @@ export function DetailPatientPage() {
                     <div className="flex items-center gap-2">
                         <Button variant="ghost" size="sm" onClick={() => navigate(-1)}>
                             <ArrowLeftIcon />
-                            {t("common:back")}
+                            {t("common:actions.back")}
                         </Button>
                         {hasPermission && (
                             <ConfirmDialog
@@ -117,7 +117,7 @@ export function DetailPatientPage() {
                         <EmptyContent>
                             <Button variant="outline" size="sm" onClick={() => navigate(-1)}>
                                 <ArrowLeftIcon />
-                                {t("common:back")}
+                                {t("common:actions.back")}
                             </Button>
                         </EmptyContent>
                     </Empty>

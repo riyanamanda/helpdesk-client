@@ -46,6 +46,8 @@ export function HomePage() {
             route: ROUTES.DASHBOARD,
             badge: t("hero.cards.reportIssue.badge"),
             badgeColor: "bg-destructive/10 text-destructive border-destructive/20",
+            planning: false,
+            cta: t("hero.cards.reportIssue.cta"),
         },
         {
             title: t("hero.cards.requestService.title"),
@@ -54,6 +56,8 @@ export function HomePage() {
             route: ROUTES.DASHBOARD,
             badge: t("hero.cards.requestService.badge"),
             badgeColor: "bg-primary/10 text-primary border-primary/20",
+            planning: true,
+            cta: null,
         },
         {
             title: t("hero.cards.knowledgeBase.title"),
@@ -62,6 +66,8 @@ export function HomePage() {
             route: ROUTES.DASHBOARD,
             badge: t("hero.cards.knowledgeBase.badge"),
             badgeColor: "bg-chart-2/10 text-chart-2 border-chart-2/20",
+            planning: true,
+            cta: null,
         },
         {
             title: t("hero.cards.trackTicket.title"),
@@ -70,32 +76,41 @@ export function HomePage() {
             route: ROUTES.DASHBOARD,
             badge: t("hero.cards.trackTicket.badge"),
             badgeColor: "bg-accent text-accent-foreground border-accent",
+            planning: false,
+            cta: t("hero.cards.trackTicket.cta"),
         },
     ];
 
-    // Data sampel tiket aktif
     const activeTickets = [
         {
             id: "TK-1042",
-            title: "Laptop performance is very slow after update",
-            status: "In Progress",
+            title: t("hero.sample.tickets.slowLaptop.title"),
+            status: t("hero.sample.tickets.slowLaptop.status"),
             statusColor: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
-            updated: "2h ago",
+            updated: t("hero.sample.tickets.slowLaptop.updated"),
         },
         {
             id: "TK-1038",
-            title: "Request for VPN Access to Staging Environment",
-            status: "Pending Approval",
+            title: t("hero.sample.tickets.vpnAccess.title"),
+            status: t("hero.sample.tickets.vpnAccess.status"),
             statusColor: "bg-primary/10 text-primary border-primary/20",
-            updated: "Yesterday",
+            updated: t("hero.sample.tickets.vpnAccess.updated"),
         },
     ];
 
-    // Data sampel artikel bantuan populer
     const popularArticles = [
-        { title: "How to connect to Office Wi-Fi (WPA3 Enterprise)", category: "Network" },
-        { title: "Step-by-step VPN Setup Guide for Windows & macOS", category: "Access" },
-        { title: "Resetting your Outlook Email Password self-service", category: "Account" },
+        {
+            title: t("hero.sample.articles.officeWifi.title"),
+            category: t("hero.sample.articles.officeWifi.category"),
+        },
+        {
+            title: t("hero.sample.articles.vpnSetup.title"),
+            category: t("hero.sample.articles.vpnSetup.category"),
+        },
+        {
+            title: t("hero.sample.articles.outlookPassword.title"),
+            category: t("hero.sample.articles.outlookPassword.category"),
+        },
     ];
 
     return (
@@ -105,7 +120,6 @@ export function HomePage() {
             animate="visible"
             className="flex flex-col items-center pt-8 pb-5 text-center"
         >
-            {/* Indikator Status Operasional Sistem */}
             <motion.div
                 variants={heroItem}
                 className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 text-xs font-medium text-primary backdrop-blur-md"
@@ -117,18 +131,16 @@ export function HomePage() {
                 {t("hero.systemsOperational")}
             </motion.div>
 
-            {/* Judul Utama */}
             <motion.h1
                 variants={heroItem}
-                className="max-w-3xl text-3xl font-bold tracking-tight text-balance text-foreground sm:text-4xl md:text-5xl lg:text-6xl"
+                className="max-w-3xl text-3xl font-bold tracking-tight text-balance text-foreground sm:text-4xl md:text-5xl"
             >
-                {t("hero.headline1")}{" "}
-                <span className="bg-linear-to-r from-foreground via-foreground/80 to-muted-foreground bg-clip-text text-transparent">
+                {t("hero.headline1")} <br className="hidden sm:inline" />
+                <span className="bg-linear-to-r from-foreground to-accent-foreground bg-clip-text text-transparent">
                     {t("hero.headline2")}
                 </span>
             </motion.h1>
 
-            {/* Subjudul */}
             <motion.p
                 variants={heroItem}
                 className="mt-3 max-w-xl text-sm leading-relaxed text-balance text-muted-foreground sm:mt-4 sm:text-base"
@@ -136,50 +148,73 @@ export function HomePage() {
                 {t("hero.subheadline")}
             </motion.p>
 
-            {/* Grid Kartu Akses Layanan */}
             <motion.div
                 variants={containerVariants}
                 className="mt-10 grid w-full max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
             >
                 {actionCards.map((card, idx) => {
                     const Icon = card.icon;
-                    return (
-                        <NavLink key={idx} to={card.route} className="group block text-left">
-                            <motion.div
-                                variants={heroItem}
-                                whileHover={{ y: -3, transition: { duration: 0.2 } }}
-                                className="flex h-full flex-col justify-between overflow-hidden rounded-xl border border-border bg-card p-5 shadow-xs backdrop-blur-md transition-all hover:border-ring hover:bg-card/90 hover:shadow-md"
-                            >
-                                <div>
-                                    <div className="mb-4 flex items-center justify-between">
-                                        <div className="rounded-lg bg-muted p-2.5 text-muted-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                                            <Icon size={20} />
-                                        </div>
-                                        <span
-                                            className={`rounded-full border px-2 py-0.5 text-[10px] font-medium ${card.badgeColor}`}
-                                        >
-                                            {card.badge}
-                                        </span>
+
+                    const cardBody = (
+                        <motion.div
+                            variants={heroItem}
+                            whileHover={
+                                card.planning ? undefined : { y: -3, transition: { duration: 0.2 } }
+                            }
+                            className="flex h-full flex-col justify-between overflow-hidden rounded-xl border border-border bg-card p-5 shadow-xs backdrop-blur-md transition-all group-hover:border-ring group-hover:bg-card/90 group-hover:shadow-md"
+                        >
+                            <div>
+                                <div className="mb-4 flex items-center justify-between gap-2">
+                                    <div className="rounded-lg bg-muted p-2.5 text-muted-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                                        <Icon size={20} />
                                     </div>
-                                    <div className="text-base font-semibold text-card-foreground transition-colors group-hover:text-primary">
-                                        {card.title}
-                                    </div>
-                                    <div className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                                        {card.description}
-                                    </div>
+                                    <span
+                                        className={`rounded-full border px-2 py-0.5 text-[10px] font-medium whitespace-nowrap ${card.badgeColor}`}
+                                    >
+                                        {card.badge}
+                                    </span>
                                 </div>
-                            </motion.div>
+                                <div className="text-base font-semibold text-card-foreground transition-colors group-hover:text-primary">
+                                    {card.title}
+                                </div>
+                                <div className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                                    {card.description}
+                                </div>
+                                <div className="mt-3 flex h-6 items-center">
+                                    {card.planning ? (
+                                        <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium whitespace-nowrap text-amber-700 dark:text-amber-400">
+                                            {t("hero.onPlanning")}
+                                        </span>
+                                    ) : (
+                                        <span className="flex items-center gap-1 text-[11px] font-medium text-muted-foreground transition-colors group-hover:text-primary">
+                                            {card.cta}
+                                            <ArrowRight
+                                                size={12}
+                                                className="transition-transform group-hover:translate-x-0.5"
+                                            />
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        </motion.div>
+                    );
+
+                    return card.planning ? (
+                        <div key={idx} className="block text-left">
+                            {cardBody}
+                        </div>
+                    ) : (
+                        <NavLink key={idx} to={card.route} className="group block text-left">
+                            {cardBody}
                         </NavLink>
                     );
                 })}
             </motion.div>
 
-            {/* Section Widget: Tiket Aktif & Artikel Populer */}
             <motion.div
                 variants={heroItem}
                 className="mt-8 grid w-full max-w-5xl grid-cols-1 gap-6 text-left md:grid-cols-2"
             >
-                {/* Widget 1: Tiket Aktif Saya */}
                 <div className="rounded-xl border border-border bg-card/50 p-5 shadow-xs backdrop-blur-md">
                     <div className="mb-4 flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -226,7 +261,6 @@ export function HomePage() {
                     </div>
                 </div>
 
-                {/* Widget 2: Artikel Bantuan Populer */}
                 <div className="rounded-xl border border-border bg-card/50 p-5 shadow-xs backdrop-blur-md">
                     <div className="mb-4 flex items-center justify-between">
                         <div className="flex items-center gap-2">

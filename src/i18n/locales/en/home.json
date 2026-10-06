@@ -2,20 +2,27 @@
     "header": {
         "appName": "IT Helpdesk",
         "signIn": "Sign In",
-        "dashboard": "Dashboard"
+        "dashboard": "Dashboard",
+        "home": "Home",
+        "team": "Team"
+    },
+    "team": {
+        "eyebrow": "Our People",
+        "title": "Meet the IT Crew",
+        "subtitle": "The team behind Erba's IT helpdesk — here to keep your systems running."
     },
     "hero": {
         "systemsOperational": "All systems operational",
         "headline1": "Faster Support",
         "headline2": "Better Experience",
         "subheadline": "The internal IT helpdesk for Erba employees. Submit tickets, track progress, and get help — all in one place.",
-        "searchPlaceholder": "Search knowledge base, services, or ticket ID...",
-        "goToDashboard": "Go to Dashboard",
+        "onPlanning": "On Planning",
         "cards": {
             "reportIssue": {
                 "title": "Report an Issue",
                 "desc": "To report technical problems or system issues.",
-                "badge": "SLA < 15m"
+                "badge": "SLA < 15m",
+                "cta": "Create Ticket"
             },
             "requestService": {
                 "title": "Request a Service",
@@ -30,15 +37,43 @@
             "trackTicket": {
                 "title": "Track My Tickets",
                 "desc": "Monitor your active tickets and request status.",
-                "badge": "2 Active"
+                "badge": "2 Active",
+                "cta": "View Tickets"
+            }
+        },
+        "sample": {
+            "tickets": {
+                "slowLaptop": {
+                    "title": "Laptop performance is very slow after update",
+                    "status": "In Progress",
+                    "updated": "2h ago"
+                },
+                "vpnAccess": {
+                    "title": "Request for VPN Access to Staging Environment",
+                    "status": "Pending Approval",
+                    "updated": "Yesterday"
+                }
+            },
+            "articles": {
+                "officeWifi": {
+                    "title": "How to connect to Office Wi-Fi (WPA3 Enterprise)",
+                    "category": "Network"
+                },
+                "vpnSetup": {
+                    "title": "Step-by-step VPN Setup Guide for Windows & macOS",
+                    "category": "Access"
+                },
+                "outlookPassword": {
+                    "title": "Resetting your Outlook Email Password self-service",
+                    "category": "Account"
+                }
             }
         },
         "widgets": {
             "myActiveTickets": "Active Tickets",
             "viewAll": "View all",
             "topArticles": "Top Knowledge Articles",
-            "browseKb": "Browse KB",
-            "urgentHelp": "Urgent system issue? Contact IT Helpdesk Hotline:"
+            "browseKb": "Browse KB"
         }
     },
     "footer": {

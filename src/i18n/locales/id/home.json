@@ -2,20 +2,27 @@
     "header": {
         "appName": "IT Helpdesk",
         "signIn": "Masuk",
-        "dashboard": "Dasbor"
+        "dashboard": "Dasbor",
+        "home": "Beranda",
+        "team": "Tim"
+    },
+    "team": {
+        "eyebrow": "Tim Kami",
+        "title": "Kenali Tim IT",
+        "subtitle": "Tim di balik helpdesk IT Erba — siap menjaga sistem Anda tetap berjalan."
     },
     "hero": {
         "systemsOperational": "Semua sistem berjalan normal",
         "headline1": "Dukungan Lebih Cepat",
         "headline2": "Pengalaman Lebih Baik",
         "subheadline": "Helpdesk IT internal untuk karyawan Erba. Ajukan tiket, pantau perkembangan, dan dapatkan bantuan — semuanya dalam satu platform.",
-        "searchPlaceholder": "Cari basis pengetahuan, layanan, atau nomor tiket...",
-        "goToDashboard": "Buka Dasbor",
+        "onPlanning": "Dalam Perencanaan",
         "cards": {
             "reportIssue": {
                 "title": "Laporkan Kendala",
                 "desc": "Laporkan masalah teknis atau gangguan sistem.",
-                "badge": "SLA < 15m"
+                "badge": "SLA < 15m",
+                "cta": "Buat Tiket"
             },
             "requestService": {
                 "title": "Minta Layanan",
@@ -30,15 +37,43 @@
             "trackTicket": {
                 "title": "Status Tiket Saya",
                 "desc": "Pantau status tiket aktif dan progres permintaan Anda.",
-                "badge": "2 Aktif"
+                "badge": "2 Aktif",
+                "cta": "Lihat Tiket"
+            }
+        },
+        "sample": {
+            "tickets": {
+                "slowLaptop": {
+                    "title": "Performa laptop sangat lambat setelah pembaruan",
+                    "status": "Sedang Diproses",
+                    "updated": "2 jam lalu"
+                },
+                "vpnAccess": {
+                    "title": "Permintaan akses VPN ke lingkungan Staging",
+                    "status": "Menunggu Persetujuan",
+                    "updated": "Kemarin"
+                }
+            },
+            "articles": {
+                "officeWifi": {
+                    "title": "Cara terhubung ke Wi-Fi Kantor (WPA3 Enterprise)",
+                    "category": "Jaringan"
+                },
+                "vpnSetup": {
+                    "title": "Panduan penyiapan VPN langkah demi langkah untuk Windows & macOS",
+                    "category": "Akses"
+                },
+                "outlookPassword": {
+                    "title": "Reset kata sandi email Outlook secara mandiri",
+                    "category": "Akun"
+                }
             }
         },
         "widgets": {
             "myActiveTickets": "Tiket Aktif",
             "viewAll": "Lihat semua",
             "topArticles": "Artikel Bantuan Populer",
-            "browseKb": "Buka KB",
-            "urgentHelp": "Kendala sistem mendesak? Hubungi Hotline IT Helpdesk:"
+            "browseKb": "Buka KB"
         }
     },
     "footer": {

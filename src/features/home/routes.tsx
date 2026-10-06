@@ -15,6 +15,13 @@ export const homeRoutes: RouteObject[] = [
                     return { Component: HomePage };
                 },
             },
+            {
+                path: ROUTES.TEAM,
+                lazy: async () => {
+                    const { TeamPage } = await import("./pages/TeamPage");
+                    return { Component: TeamPage };
+                },
+            },
         ],
     },
 ];
