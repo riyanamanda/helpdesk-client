@@ -1,14 +1,17 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertTriangleIcon, CheckCircle2Icon, InfoIcon } from "lucide-react";
+import { Trans, useTranslation } from "react-i18next";
 
 export function PatientValidationLegend() {
+    const { t } = useTranslation("ihs");
+
     return (
         <Card className="border-border/60 bg-muted/30 shadow-none">
             <CardHeader className="p-3.5 pb-2">
                 <CardTitle className="flex items-center gap-1.5 text-xs font-bold text-foreground">
                     <InfoIcon className="h-4 w-4 text-primary" />
-                    <span>Petunjuk & Legend Validasi Data Pasien</span>
+                    <span>{t("legend.title")}</span>
                 </CardTitle>
             </CardHeader>
 
@@ -19,11 +22,10 @@ export function PatientValidationLegend() {
                             <AlertTriangleIcon className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
                             <div className="space-y-0.5">
                                 <p className="font-semibold text-foreground">
-                                    Format NIK vs Tanggal Lahir
+                                    {t("legend.nikFormat.title")}
                                 </p>
                                 <p className="text-[11px] leading-snug text-muted-foreground">
-                                    Memeriksa kesesuaian digit tanggal lahir pada NIK terhadap
-                                    Tanggal Lahir terdaftar.
+                                    {t("legend.nikFormat.description")}
                                 </p>
                             </div>
                         </div>
@@ -35,15 +37,14 @@ export function PatientValidationLegend() {
                                 variant="outline"
                                 className="mt-0.5 h-4 shrink-0 border-destructive/40 bg-destructive/10 px-1 text-[9px] font-semibold text-destructive"
                             >
-                                Unmatch
+                                {t("unmatch.default")}
                             </Badge>
                             <div className="space-y-0.5">
                                 <p className="font-semibold text-foreground">
-                                    Komparasi SIMGOS vs BPJS
+                                    {t("legend.comparison.title")}
                                 </p>
                                 <p className="text-[11px] leading-snug text-muted-foreground">
-                                    Menandai perbedaan Nama, NIK, atau Tanggal Lahir antara SIMGOS
-                                    dan BPJS VClaim.
+                                    {t("legend.comparison.description")}
                                 </p>
                             </div>
                         </div>
@@ -53,11 +54,16 @@ export function PatientValidationLegend() {
                         <div className="flex items-start gap-2 text-xs">
                             <CheckCircle2Icon className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
                             <div className="space-y-0.5">
-                                <p className="font-semibold text-foreground">Indikator Mismatch</p>
+                                <p className="font-semibold text-foreground">
+                                    {t("legend.mismatch.title")}
+                                </p>
                                 <p className="text-[11px] leading-snug text-muted-foreground">
-                                    Teks berwarna{" "}
-                                    <span className="font-bold text-destructive">Merah</span>{" "}
-                                    menandakan adanya ketidaksesuaian data.
+                                    <Trans
+                                        i18nKey="ihs:legend.mismatch.description"
+                                        components={{
+                                            1: <span className="font-bold text-destructive" />,
+                                        }}
+                                    />
                                 </p>
                             </div>
                         </div>

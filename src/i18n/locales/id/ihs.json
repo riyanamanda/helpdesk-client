@@ -16,6 +16,48 @@
         "poly": "Poli/Ruangan",
         "citizenshipNotFound": "Kewarganegaraan tidak ditemukan"
     },
+    "unmatch": {
+        "default": "Unmatch",
+        "name": "Beda Nama",
+        "nik": "Beda NIK",
+        "birthDate": "Beda Tgl Lahir",
+        "nikBirthDate": "NIK & Tgl Lahir Beda",
+        "nikBirthDateFormat": "Format NIK & Tgl Lahir Beda"
+    },
+    "legend": {
+        "title": "Petunjuk & Legend Validasi Data Pasien",
+        "nikFormat": {
+            "title": "Format NIK vs Tanggal Lahir",
+            "description": "Memeriksa kesesuaian digit tanggal lahir pada NIK terhadap Tanggal Lahir terdaftar."
+        },
+        "comparison": {
+            "title": "Komparasi SIMGOS vs BPJS",
+            "description": "Menandai perbedaan Nama, NIK, atau Tanggal Lahir antara SIMGOS dan BPJS VClaim."
+        },
+        "mismatch": {
+            "title": "Indikator Mismatch",
+            "description": "Teks berwarna <1>Merah</1> menandakan adanya ketidaksesuaian data."
+        }
+    },
+    "bpjs": {
+        "title": "Informasi Kepesertaan BPJS",
+        "cardNo": "Nomor Kartu BPJS",
+        "class": "Hak Kelas",
+        "status": "Status Peserta",
+        "provider": "Faskes / Provider",
+        "sex": "Jenis Kelamin",
+        "ageAtService": "Umur Saat Pelayanan",
+        "participantType": "Jenis Peserta",
+        "faskes": "Faskes Utama (FKTP)",
+        "mrNumber": "No. Medical Record (MR)",
+        "phone": "No. Telepon",
+        "tmt": "TMT (Terhitung Mulai)",
+        "tat": "TAT (Terhitung Akhir)",
+        "notFound": {
+            "title": "Data BPJS Tidak Ditemukan",
+            "description": "Data kepesertaan BPJS tidak ditemukan untuk NIK/Nomor Kartu ini di VClaim."
+        }
+    },
     "detail": {
         "title": "Detail Pasien",
         "description": "Profil lengkap pasien mencakup data biografis dan informasi kartu identitas.",
@@ -59,6 +101,7 @@
         },
         "ktp": {
             "title": "KTP",
+            "sectionTitle": "Alamat KTP",
             "address": "Alamat",
             "rt": "RT",
             "rw": "RW",

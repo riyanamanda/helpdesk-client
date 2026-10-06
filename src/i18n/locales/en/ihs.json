@@ -16,6 +16,48 @@
         "poly": "Poly/Room",
         "citizenshipNotFound": "Citizenship not found"
     },
+    "unmatch": {
+        "default": "Unmatch",
+        "name": "Name Mismatch",
+        "nik": "NIK Mismatch",
+        "birthDate": "Birth Date Mismatch",
+        "nikBirthDate": "NIK & Birth Date Mismatch",
+        "nikBirthDateFormat": "NIK & Birth Date Format Mismatch"
+    },
+    "legend": {
+        "title": "Patient Data Validation Guide & Legend",
+        "nikFormat": {
+            "title": "NIK Format vs Birth Date",
+            "description": "Checks whether the birth date digits in the NIK match the registered Date of Birth."
+        },
+        "comparison": {
+            "title": "SIMGOS vs BPJS Comparison",
+            "description": "Flags differences in Name, NIK, or Birth Date between SIMGOS and BPJS VClaim."
+        },
+        "mismatch": {
+            "title": "Mismatch Indicator",
+            "description": "Text in <1>red</1> indicates a data mismatch."
+        }
+    },
+    "bpjs": {
+        "title": "BPJS Membership Info",
+        "cardNo": "BPJS Card Number",
+        "class": "Class",
+        "status": "Membership Status",
+        "provider": "Faskes Provider",
+        "sex": "Gender",
+        "ageAtService": "Age at Service",
+        "participantType": "Participant Type",
+        "faskes": "Primary Faskes (FKTP)",
+        "mrNumber": "Medical Record No.",
+        "phone": "Phone Number",
+        "tmt": "TMT (Effective From)",
+        "tat": "TAT (Effective Until)",
+        "notFound": {
+            "title": "BPJS Data Not Found",
+            "description": "No active BPJS membership data found for this NIK/Card Number in VClaim."
+        }
+    },
     "detail": {
         "title": "Patient Detail",
         "description": "Complete patient profile including biographical and identity card information.",
@@ -59,6 +101,7 @@
         },
         "ktp": {
             "title": "Identity Card",
+            "sectionTitle": "ID Card Address",
             "address": "Address",
             "rt": "RT",
             "rw": "RW",

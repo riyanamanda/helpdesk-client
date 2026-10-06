@@ -84,7 +84,7 @@ export function PatientPage() {
             <PageLayout.Content>
                 <div className="flex flex-wrap items-center gap-2">
                     <SearchInput
-                        placeholder="search by NORM or identity number"
+                        placeholder={t("page.searchPlaceholder")}
                         value={search}
                         onValueChange={handleSearchChange}
                     />
