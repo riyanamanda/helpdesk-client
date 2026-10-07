@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signInWithPopup } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import { USER_QUERY_KEYS } from "@/features/user/queries";
 import { AUTH_QUERY_KEYS, PROFILE_QUERY_KEYS } from "../queries";
 import { profileService } from "../service/profileService";
 import type { UpdatePasswordRequest, UpdateProfileRequest } from "../types";
@@ -15,6 +16,7 @@ export function useUpdateProfileMutation() {
         mutationFn: (payload: UpdateProfileRequest) => profileService.updateProfile(payload),
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: PROFILE_QUERY_KEYS.ROOT });
+            await queryClient.invalidateQueries({ queryKey: USER_QUERY_KEYS.ROOT });
             toast.success(t("common:toast.success"), {
                 description: t("auth:profile.updatedSuccess"),
             });
@@ -31,6 +33,7 @@ export function useUpdateAvatarMutation() {
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: PROFILE_QUERY_KEYS.ROOT });
             await queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEYS.ME });
+            await queryClient.invalidateQueries({ queryKey: USER_QUERY_KEYS.ROOT });
             toast.success(t("common:toast.success"), {
                 description: t("auth:profile.avatarUpdatedSuccess"),
             });
