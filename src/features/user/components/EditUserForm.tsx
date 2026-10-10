@@ -64,7 +64,7 @@ export function EditUserForm({ user }: EditUserFormProps) {
                         description: t("edit.updatedSuccess"),
                     });
                     await queryClient.invalidateQueries({ queryKey: USER_QUERY_KEYS.ROOT });
-                    navigate(ROUTES.USER.INDEX, { replace: true });
+                    await navigate(ROUTES.USER.INDEX, { replace: true });
                 },
                 onError: (error) => {
                     handleFormError(error as AxiosError, form);

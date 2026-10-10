@@ -59,7 +59,9 @@ export function EditTicketForm({ id, ticket }: EditTicketFormProps) {
                     });
                     await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
                     await queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEYS.ROOT });
-                    navigate(ROUTES.TICKET.DETAIL.replace(":id", String(id)), { replace: true });
+                    await navigate(ROUTES.TICKET.DETAIL.replace(":id", String(id)), {
+                        replace: true,
+                    });
                 },
                 onError: (error) => {
                     handleFormError(error as AxiosError, form);

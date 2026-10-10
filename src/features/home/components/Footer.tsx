@@ -1,5 +1,7 @@
 import { useTranslation } from "react-i18next";
 
+const currentYear = new Date().getFullYear();
+
 export function Footer() {
     const { t } = useTranslation("home");
 
@@ -12,7 +14,7 @@ export function Footer() {
                     <span>· {t("footer.tagline")}</span>
                 </div>
 
-                <p>{t("footer.rights", { year: new Date().getFullYear() })}</p>
+                <p>{t("footer.rights", { year: currentYear })}</p>
             </div>
         </footer>
     );

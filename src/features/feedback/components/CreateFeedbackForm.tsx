@@ -50,7 +50,7 @@ export function CreateFeedbackForm() {
                     description: t("create.createdSuccess"),
                 });
                 await queryClient.invalidateQueries({ queryKey: FEEDBACK_QUERY_KEYS.ROOT });
-                navigate(ROUTES.FEEDBACK.INDEX, { replace: true });
+                await navigate(ROUTES.FEEDBACK.INDEX, { replace: true });
             },
             onError: (error) => {
                 handleFormError(error as AxiosError, form);

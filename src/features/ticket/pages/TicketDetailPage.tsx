@@ -60,7 +60,7 @@ export function TicketDetailPage() {
                 });
                 await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
                 await queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEYS.ROOT });
-                navigate(ROUTES.TICKET.INDEX, { replace: true });
+                await navigate(ROUTES.TICKET.INDEX, { replace: true });
             },
             onError: (error) => handleApiError(error),
         });
@@ -74,7 +74,7 @@ export function TicketDetailPage() {
                 });
                 await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
                 await queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEYS.ROOT });
-                navigate(ROUTES.TICKET.INDEX, { replace: true });
+                await navigate(ROUTES.TICKET.INDEX, { replace: true });
             },
             onError: (error) => handleApiError(error),
         });

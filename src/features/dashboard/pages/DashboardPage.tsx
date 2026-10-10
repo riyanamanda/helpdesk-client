@@ -7,7 +7,7 @@ import { DashboardStatCards } from "../components/DashboardStatCards";
 import { TicketTrendChart } from "../components/TicketTrendChart";
 
 export function DashboardPage() {
-    const [trendYear, setTrendYear] = useState(new Date().getFullYear());
+    const [trendYear, setTrendYear] = useState(() => new Date().getFullYear());
 
     return (
         <PageLayout>

@@ -36,7 +36,7 @@ export function CreateDivisionForm() {
                 await queryClient.invalidateQueries({
                     queryKey: DIVISION_QUERY_KEYS.ROOT,
                 });
-                navigate(ROUTES.DIVISION.INDEX, { replace: true });
+                await navigate(ROUTES.DIVISION.INDEX, { replace: true });
             },
             onError: (error) => {
                 handleFormError(error as AxiosError, form);

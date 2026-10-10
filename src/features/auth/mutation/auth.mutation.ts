@@ -16,10 +16,10 @@ export function useLogoutMutation() {
         mutationFn: async () => {
             return authService.logout();
         },
-        onSettled: () => {
+        onSettled: async () => {
             cookies.remove(COOKIES.TOKEN_KEY, { path: COOKIES.PATH });
             queryClient.clear();
-            navigate(ROUTES.LOGIN, { replace: true });
+            await navigate(ROUTES.LOGIN, { replace: true });
         },
     });
 }
@@ -40,7 +40,7 @@ export function useGoogleOneTapMutation() {
             });
             return loginData;
         },
-        onSuccess: (loginData) => {
+        onSuccess: async (loginData) => {
             queryClient.setQueryData(meQueryOption().queryKey, {
                 data: loginData.data.user,
             });
@@ -48,9 +48,9 @@ export function useGoogleOneTapMutation() {
             const redirectPath = sessionStorage.getItem(SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN);
             if (redirectPath) {
                 sessionStorage.removeItem(SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN);
-                navigate(redirectPath, { replace: true });
+                await navigate(redirectPath, { replace: true });
             } else {
-                navigate(ROUTES.DASHBOARD);
+                await navigate(ROUTES.DASHBOARD);
             }
         },
     });
@@ -71,7 +71,7 @@ export function useGoogleLoginMutation() {
             });
             return loginData;
         },
-        onSuccess: (loginData) => {
+        onSuccess: async (loginData) => {
             queryClient.setQueryData(meQueryOption().queryKey, {
                 data: loginData.data.user,
             });
@@ -79,9 +79,9 @@ export function useGoogleLoginMutation() {
             const redirectPath = sessionStorage.getItem(SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN);
             if (redirectPath) {
                 sessionStorage.removeItem(SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN);
-                navigate(redirectPath, { replace: true });
+                await navigate(redirectPath, { replace: true });
             } else {
-                navigate(ROUTES.DASHBOARD);
+                await navigate(ROUTES.DASHBOARD);
             }
         },
     });
@@ -101,7 +101,7 @@ export function useLoginMutation() {
 
             return loginData;
         },
-        onSuccess: (loginData) => {
+        onSuccess: async (loginData) => {
             queryClient.setQueryData(meQueryOption().queryKey, {
                 data: loginData.data.user,
             });
@@ -109,9 +109,9 @@ export function useLoginMutation() {
             const redirectPath = sessionStorage.getItem(SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN);
             if (redirectPath) {
                 sessionStorage.removeItem(SESSION_STORAGE_KEYS.REDIRECT_AFTER_LOGIN);
-                navigate(redirectPath, { replace: true });
+                await navigate(redirectPath, { replace: true });
             } else {
-                navigate(ROUTES.DASHBOARD);
+                await navigate(ROUTES.DASHBOARD);
             }
         },
     });

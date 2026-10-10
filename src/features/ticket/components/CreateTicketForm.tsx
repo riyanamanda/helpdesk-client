@@ -61,7 +61,7 @@ export function CreateTicketForm() {
                     });
                     await queryClient.invalidateQueries({ queryKey: TICKET_QUERY_KEYS.ROOT });
                     await queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEYS.ROOT });
-                    navigate(ROUTES.TICKET.INDEX, { replace: true });
+                    await navigate(ROUTES.TICKET.INDEX, { replace: true });
                 },
                 onError: (error) => {
                     handleFormError(error as AxiosError, form);

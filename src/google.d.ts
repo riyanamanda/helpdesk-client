@@ -19,10 +19,14 @@ interface GoogleAccountsId {
     cancel: () => void;
 }
 
-interface Window {
-    google?: {
-        accounts: {
-            id: GoogleAccountsId;
+declare global {
+    interface Window {
+        google?: {
+            accounts: {
+                id: GoogleAccountsId;
+            };
         };
-    };
+    }
 }
+
+export {};

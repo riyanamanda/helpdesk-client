@@ -39,9 +39,9 @@ export function ResetPassword() {
         }
 
         reset(payload, {
-            onSuccess: () => {
+            onSuccess: async () => {
                 toast.success("Reset password success");
-                navigate(ROUTES.LOGIN, { replace: true });
+                await navigate(ROUTES.LOGIN, { replace: true });
             },
             onError: (error) => {
                 handleFormError(error as AxiosError, form);

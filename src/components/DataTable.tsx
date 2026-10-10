@@ -34,7 +34,7 @@ export function DataTable<TData, TValue>({
     onSortingChange,
 }: DataTableProps<TData, TValue>) {
     const { t } = useTranslation("common");
-    // eslint-disable-next-line react-hooks/incompatible-library
+    // oxlint-disable-next-line react-hooks/incompatible-library
     const table = useReactTable({
         data: data ?? [],
         columns,

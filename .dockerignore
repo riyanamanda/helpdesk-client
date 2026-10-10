@@ -4,7 +4,7 @@ dist-ssr
 
 .git
 .gitignore
-.husky
+.vite-hooks/_
 .claude
 .agents
 .vscode

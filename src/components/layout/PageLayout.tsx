@@ -1,4 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
+/* oxlint-disable react-refresh/only-export-components */
 import type { PropsWithChildren, ReactNode } from "react";
 import { SidebarInset, SidebarProvider } from "../ui/sidebar";
 import { AppSidebar } from "./AppSidebar";

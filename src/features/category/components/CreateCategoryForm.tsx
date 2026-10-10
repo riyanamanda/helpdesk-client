@@ -36,7 +36,7 @@ export function CreateCategoryForm() {
                 await queryClient.invalidateQueries({
                     queryKey: CATEGORY_QUERY_KEYS.ROOT,
                 });
-                navigate(ROUTES.CATEGORY.INDEX, { replace: true });
+                await navigate(ROUTES.CATEGORY.INDEX, { replace: true });
             },
             onError: (error) => {
                 handleFormError(error as AxiosError, form);

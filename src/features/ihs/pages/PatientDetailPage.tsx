@@ -63,7 +63,7 @@ export function DetailPatientPage() {
                 toast.success(t("common:toast.success"), {
                     description: t("detail.createDialog.success"),
                 });
-                navigate(ROUTES.IHS.INDEX, { replace: true });
+                await navigate(ROUTES.IHS.INDEX, { replace: true });
             },
         });
     };

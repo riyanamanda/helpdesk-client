@@ -9,7 +9,7 @@ Frontend for the IT Helpdesk management system, built with React 19, TypeScript,
 | Concern       | Technology                                 |
 | ------------- | ------------------------------------------ |
 | Language      | TypeScript 6                               |
-| Framework     | React 19 + Vite 7                          |
+| Framework     | React 19 + Vite (via Vite+)                |
 | Styling       | Tailwind CSS v4                            |
 | UI Components | shadcn/ui + Radix UI                       |
 | Data fetching | TanStack Query v5                          |
@@ -22,9 +22,9 @@ Frontend for the IT Helpdesk management system, built with React 19, TypeScript,
 | Auth          | JWT (cookie) + Google Sign-In via Firebase |
 | HTTP client   | Axios                                      |
 | PWA           | vite-plugin-pwa (Workbox)                  |
-| Linting       | ESLint + Prettier                          |
+| Linting       | Oxlint + Oxfmt (via Vite+)                 |
 | Dead code     | Knip                                       |
-| Git hooks     | Husky + lint-staged + commitlint           |
+| Git hooks     | Vite+ hooks + commitlint                   |
 
 ## Getting Started
 
@@ -74,8 +74,8 @@ The six Firebase app credentials are required — the app throws on boot if any 
 | `bun run dev`       | Start dev server                           |
 | `bun run build`     | Type-check and build for production        |
 | `bun run preview`   | Preview production build locally           |
-| `bun run lint`      | Run ESLint                                 |
-| `bun run format`    | Format all files with Prettier             |
+| `bun run lint`      | Run Oxlint                                 |
+| `bun run format`    | Format all files with Oxfmt                |
 | `bun run typecheck` | Run TypeScript type-check without emitting |
 | `bun run knip`      | Report unused files, exports, dependencies |
 
