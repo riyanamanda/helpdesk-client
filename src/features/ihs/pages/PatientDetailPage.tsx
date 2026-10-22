@@ -23,6 +23,7 @@ import { PatientBpjsBioCard } from "../components/PatientBpjsBioCard";
 import { PatientValidationLegend } from "../components/PatientValidationLegend";
 import { useCreateIhsMutation } from "../mutation/ihs.mutation";
 import { detailBPJSPatientQueryOptions, detailPatientQueryOptions } from "../queries/patient.query";
+import { isNikMatchBirthDate } from "../helper";
 
 export function DetailPatientPage() {
     const navigate = useNavigate();
@@ -47,14 +48,19 @@ export function DetailPatientPage() {
 
     const isDataLoading = isPatientLoading || (!!identityNumber && isBpjsLoading);
 
+    const isNikValidWithBirthDate = isNikMatchBirthDate(
+        patient?.identity_card?.identity_number,
+        patient?.birth_date
+    );
+
     const hasIncompleteData =
-        !isPatientLoading &&
-        !!patient &&
-        (!patient.name ||
-            !patient.birth_date ||
-            !patient.birth_place ||
-            !patient.identity_card?.identity_number ||
-            !patient.identity_card?.address);
+        (!isPatientLoading &&
+            !!patient &&
+            (!patient.name ||
+                !patient.birth_date ||
+                !patient.identity_card?.identity_number ||
+                !patient.identity_card?.address)) ||
+        !isNikValidWithBirthDate;
 
     const handleCreateIhs = () => {
         if (!norm) return;
