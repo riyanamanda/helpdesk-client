@@ -1,5 +1,5 @@
 export type PatientSortBy = "http_method" | "get_date";
-export type HttpMethod = "GET" | "POST";
+export type HttpMethod = "GET" | "POST" | "ALL";
 export type { SortType } from "@/types";
 import type { SortType } from "@/types";
 

@@ -17,40 +17,30 @@ interface PatientFiltersProps {
     onFiltersChange: (filters: PatientFiltersState) => void;
 }
 
-const HTTP_METHOD_OPTIONS: { value: HttpMethod; label: string }[] = [
-    { value: "GET", label: "GET" },
-    { value: "POST", label: "POST" },
-];
-
 export function PatientFilters({ filters, onFiltersChange }: PatientFiltersProps) {
     const { t } = useTranslation("ihs");
-
-    const hasActiveFilters = Object.values(filters).some((v) => v !== undefined);
+    const currentMethod = filters.http_method ?? "GET";
+    const hasActiveFilters = filters.http_method !== undefined && filters.http_method !== "GET";
 
     const set = <K extends keyof PatientFiltersState>(key: K, value: PatientFiltersState[K]) => {
         onFiltersChange({ ...filters, [key]: value });
     };
 
-    const clear = () => onFiltersChange({});
+    const clear = () => onFiltersChange({ http_method: "GET" });
 
     return (
         <div className="flex flex-wrap items-center gap-2">
             <Select
-                value={filters.http_method ?? "all"}
-                onValueChange={(v) =>
-                    set("http_method", v === "all" ? undefined : (v as HttpMethod))
-                }
+                value={currentMethod}
+                onValueChange={(v) => set("http_method", v as HttpMethod | "ALL")}
             >
                 <SelectTrigger className="h-8 w-36 text-xs">
-                    <SelectValue placeholder={t("filters.allMethods")} />
+                    <SelectValue placeholder="Pilih Method" />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="all">{t("filters.allMethods")}</SelectItem>
-                    {HTTP_METHOD_OPTIONS.map((o) => (
-                        <SelectItem key={o.value} value={o.value}>
-                            {o.label}
-                        </SelectItem>
-                    ))}
+                    <SelectItem value="ALL">{t("filters.allMethods", "Semua Metode")}</SelectItem>
+                    <SelectItem value="GET">GET</SelectItem>
+                    <SelectItem value="POST">POST</SelectItem>
                 </SelectContent>
             </Select>
 
