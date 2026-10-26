@@ -29,10 +29,10 @@
                 "desc": "To request new devices, software, or access.",
                 "badge": "Service Catalog"
             },
-            "knowledgeBase": {
-                "title": "Knowledge Base",
-                "desc": "Self-service solutions and troubleshooting guide.",
-                "badge": "FAQ & Guide"
+            "ai": {
+                "title": "Agentic AI",
+                "desc": "Chat with AI or have it automate your tasks",
+                "badge": "AI-Powered"
             },
             "trackTicket": {
                 "title": "Track My Tickets",
@@ -42,6 +42,20 @@
             }
         },
         "sample": {
+            "aiChats": {
+                "resetPassword": {
+                    "prompt": "How do I reset my domain password?",
+                    "time": "10m ago"
+                },
+                "installSoftware": {
+                    "prompt": "Request software license for Figma",
+                    "time": "2h ago"
+                },
+                "wifiTroubleshoot": {
+                    "prompt": "Troubleshoot office Wi-Fi connection issue",
+                    "time": "Yesterday"
+                }
+            },
             "tickets": {
                 "slowLaptop": {
                     "title": "Laptop performance is very slow after update",
@@ -70,10 +84,10 @@
             }
         },
         "widgets": {
-            "myActiveTickets": "Active Tickets",
-            "viewAll": "View all",
-            "topArticles": "Top Knowledge Articles",
-            "browseKb": "Browse KB"
+            "myActiveTickets": "My Active Tickets",
+            "viewAll": "View All",
+            "recentAiChats": "Recent AI Chats",
+            "startNewChat": "Start Chat"
         }
     },
     "footer": {

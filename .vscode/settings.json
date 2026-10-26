@@ -10,7 +10,7 @@
         "editor.defaultFormatter": "oxc.oxc-vscode"
     },
     "[typescriptreact]": {
-        "editor.defaultFormatter": "oxc.oxc-vscode"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "oxc.disableNestedConfig": true,
     "oxc.fmt.disableNestedConfig": true,
@@ -19,5 +19,8 @@
     "editor.formatOnSaveMode": "file",
     "editor.codeActionsOnSave": {
         "source.fixAll.oxc": "explicit"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }

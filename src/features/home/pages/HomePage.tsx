@@ -1,11 +1,12 @@
 import { ROUTES } from "@/constants";
 import {
     ArrowRight,
-    BookOpen,
+    BotIcon,
     CircleAlertIcon,
     Clock,
-    ExternalLink,
+    MessageSquareText,
     ShoppingCartIcon,
+    Sparkles,
     TicketCheck,
 } from "lucide-react";
 import { motion } from "motion/react";
@@ -60,11 +61,11 @@ export function HomePage() {
             cta: null,
         },
         {
-            title: t("hero.cards.knowledgeBase.title"),
-            description: t("hero.cards.knowledgeBase.desc"),
-            icon: BookOpen,
+            title: t("hero.cards.ai.title"),
+            description: t("hero.cards.ai.desc"),
+            icon: BotIcon,
             route: ROUTES.DASHBOARD,
-            badge: t("hero.cards.knowledgeBase.badge"),
+            badge: t("hero.cards.ai.badge"),
             badgeColor: "bg-chart-2/10 text-chart-2 border-chart-2/20",
             planning: true,
             cta: null,
@@ -98,18 +99,18 @@ export function HomePage() {
         },
     ];
 
-    const popularArticles = [
+    const recentAiChats = [
         {
-            title: t("hero.sample.articles.officeWifi.title"),
-            category: t("hero.sample.articles.officeWifi.category"),
+            prompt: t("hero.sample.aiChats.resetPassword.prompt"),
+            time: t("hero.sample.aiChats.resetPassword.time"),
         },
         {
-            title: t("hero.sample.articles.vpnSetup.title"),
-            category: t("hero.sample.articles.vpnSetup.category"),
+            prompt: t("hero.sample.aiChats.installSoftware.prompt"),
+            time: t("hero.sample.aiChats.installSoftware.time"),
         },
         {
-            title: t("hero.sample.articles.outlookPassword.title"),
-            category: t("hero.sample.articles.outlookPassword.category"),
+            prompt: t("hero.sample.aiChats.wifiTroubleshoot.prompt"),
+            time: t("hero.sample.aiChats.wifiTroubleshoot.time"),
         },
     ];
 
@@ -264,38 +265,39 @@ export function HomePage() {
                 <div className="rounded-xl border border-border bg-card/50 p-5 shadow-xs backdrop-blur-md">
                     <div className="mb-4 flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <BookOpen size={18} className="text-muted-foreground" />
+                            <BotIcon size={18} className="text-chart-2" />
                             <h3 className="text-sm font-semibold text-card-foreground">
-                                {t("hero.widgets.topArticles")}
+                                {t("hero.widgets.recentAiChats")}
                             </h3>
                         </div>
                         <NavLink
                             to={ROUTES.DASHBOARD}
                             className="flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
                         >
-                            {t("hero.widgets.browseKb")} <ArrowRight size={12} />
+                            {t("hero.widgets.startNewChat")} <ArrowRight size={12} />
                         </NavLink>
                     </div>
 
                     <div className="space-y-2">
-                        {popularArticles.map((article, idx) => (
+                        {recentAiChats.map((chat, idx) => (
                             <NavLink
                                 key={idx}
                                 to={ROUTES.DASHBOARD}
-                                className="group flex items-center justify-between rounded-lg border border-transparent p-2.5 text-xs transition-colors hover:border-border hover:bg-muted/50"
+                                className="group flex items-center justify-between gap-2 rounded-lg border border-transparent p-2.5 text-xs transition-colors hover:border-border hover:bg-muted/50"
                             >
                                 <div className="flex items-center gap-2.5 truncate">
-                                    <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
-                                        {article.category}
-                                    </span>
+                                    <MessageSquareText
+                                        size={14}
+                                        className="shrink-0 text-muted-foreground group-hover:text-primary"
+                                    />
                                     <span className="truncate text-foreground/80 group-hover:text-foreground">
-                                        {article.title}
+                                        {chat.prompt}
                                     </span>
                                 </div>
-                                <ExternalLink
-                                    size={12}
-                                    className="text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
-                                />
+                                <div className="flex shrink-0 items-center gap-1 text-[10px] text-muted-foreground">
+                                    <Sparkles size={11} className="text-chart-2" />
+                                    <span>{chat.time}</span>
+                                </div>
                             </NavLink>
                         ))}
                     </div>

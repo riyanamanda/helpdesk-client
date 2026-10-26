@@ -29,10 +29,10 @@
                 "desc": "Permintaan perangkat baru, perangkat lunak, atau hak akses.",
                 "badge": "Katalog Layanan"
             },
-            "knowledgeBase": {
-                "title": "Pusat Bantuan",
-                "desc": "Solusi mandiri dan panduan pemecahan masalah.",
-                "badge": "FAQ & Panduan"
+            "ai": {
+                "title": "Agentic AI",
+                "desc": "Ngobrol dengan AI atau perintahkan untuk mengotomatiskan tugas Anda",
+                "badge": "Teknologi AI"
             },
             "trackTicket": {
                 "title": "Status Tiket Saya",
@@ -42,6 +42,20 @@
             }
         },
         "sample": {
+            "aiChats": {
+                "resetPassword": {
+                    "prompt": "Cara reset kata sandi domain?",
+                    "time": "10 mnt lalu"
+                },
+                "installSoftware": {
+                    "prompt": "Minta lisensi perangkat lunak Figma",
+                    "time": "2 jam lalu"
+                },
+                "wifiTroubleshoot": {
+                    "prompt": "Atasi masalah koneksi Wi-Fi kantor",
+                    "time": "Kemarin"
+                }
+            },
             "tickets": {
                 "slowLaptop": {
                     "title": "Performa laptop sangat lambat setelah pembaruan",
@@ -70,10 +84,10 @@
             }
         },
         "widgets": {
-            "myActiveTickets": "Tiket Aktif",
-            "viewAll": "Lihat semua",
-            "topArticles": "Artikel Bantuan Populer",
-            "browseKb": "Buka KB"
+            "myActiveTickets": "Tiket Aktif Saya",
+            "viewAll": "Lihat Semua",
+            "recentAiChats": "Chat AI Terakhir",
+            "startNewChat": "Mulai Chat"
         }
     },
     "footer": {
