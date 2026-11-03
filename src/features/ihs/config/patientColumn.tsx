@@ -102,4 +102,10 @@ export const getPatientColumns = (
         cell: ({ row }) => <div>{row.original.poly ?? "-"}</div>,
         enableSorting: false,
     },
+    {
+        accessorKey: "registrant",
+        header: t("column.registrant"),
+        cell: ({ row }) => <div>{row.original.registrant ?? "-"}</div>,
+        enableSorting: false,
+    },
 ];

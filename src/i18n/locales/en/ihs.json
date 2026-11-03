@@ -14,7 +14,8 @@
         "httpMethod": "HTTP Method",
         "lastRegistration": "Last Registration",
         "poly": "Poly/Room",
-        "citizenshipNotFound": "Citizenship not found"
+        "citizenshipNotFound": "Citizenship not found",
+        "registrant": "Registrant"
     },
     "unmatch": {
         "default": "Unmatch",

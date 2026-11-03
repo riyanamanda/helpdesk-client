@@ -14,7 +14,8 @@
         "httpMethod": "Metode HTTP",
         "lastRegistration": "Pendaftaran Terakhir",
         "poly": "Poli/Ruangan",
-        "citizenshipNotFound": "Kewarganegaraan tidak ditemukan"
+        "citizenshipNotFound": "Kewarganegaraan tidak ditemukan",
+        "registrant": "Pendaftar"
     },
     "unmatch": {
         "default": "Unmatch",

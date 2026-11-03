@@ -20,6 +20,7 @@ export interface Patient {
     get_date: string;
     last_registration: string | null;
     poly: string | null;
+    registrant: string | null;
 }
 
 export interface PatientDetail {
