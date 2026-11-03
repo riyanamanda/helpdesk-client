@@ -25,22 +25,16 @@ export const formatDate = (
     return dateObj.toLocaleDateString(locale, options);
 };
 
-export const formatDateTime = (
-    date: string | Date | undefined | null,
-    locale: string = "id-ID",
-    options: Intl.DateTimeFormatOptions = {
-        year: "numeric",
-        month: "2-digit",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        timeZone: "Asia/Jakarta",
-    }
-): string => {
+export const formatDateTime = (date: string | Date | undefined | null): string => {
     if (!date) return "-";
-    const dateObj = typeof date === "string" ? new Date(date) : date;
-    if (isNaN(dateObj.getTime())) return "-";
-    return dateObj.toLocaleString(locale, options);
+
+    const dateStr = typeof date === "string" ? date : date.toISOString();
+    const match = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+    if (!match) return "-";
+
+    const [, year, month, day, hour, minute] = match;
+
+    return `${day}/${month}/${year}, ${hour}.${minute}`;
 };
 
 export const formatRelativeDate = (
@@ -50,7 +44,6 @@ export const formatRelativeDate = (
     if (!date) return "-";
 
     const dateObj = typeof date === "string" ? new Date(date) : date;
-
     if (isNaN(dateObj.getTime())) return "-";
 
     const localeMap = {
