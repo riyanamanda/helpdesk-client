@@ -34,6 +34,7 @@ export const formatDateTime = (
         day: "numeric",
         hour: "2-digit",
         minute: "2-digit",
+        timeZone: "Asia/Jakarta",
     }
 ): string => {
     if (!date) return "-";
@@ -44,11 +45,12 @@ export const formatDateTime = (
 
 export const formatRelativeDate = (
     date: string | Date | undefined | null,
-    currentLocale: string = "id"
+    currentLanguage: string = "id"
 ): string => {
     if (!date) return "-";
 
     const dateObj = typeof date === "string" ? new Date(date) : date;
+
     if (isNaN(dateObj.getTime())) return "-";
 
     const localeMap = {
@@ -56,7 +58,7 @@ export const formatRelativeDate = (
         en: enUS,
     };
 
-    const normalizedLocale = currentLocale.toLowerCase().startsWith("id") ? "id" : "en";
+    const normalizedLocale = currentLanguage.toLowerCase().startsWith("id") ? "id" : "en";
 
     return formatDistanceToNow(dateObj, {
         addSuffix: true,
