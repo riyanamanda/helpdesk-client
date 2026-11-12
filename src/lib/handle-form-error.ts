@@ -1,3 +1,4 @@
+import { ERROR_CODES } from "@/constants";
 import i18n from "@/i18n";
 import type { ServerErrorResponse } from "@/types";
 import { AxiosError } from "axios";
@@ -32,6 +33,13 @@ export function handleFormError<TFieldValues extends FieldValues>(
     form.clearErrors();
 
     const resp = (error.response?.data as ServerErrorResponse) || {};
+
+    if (resp.error?.code === ERROR_CODES.RATE_LIMITED) {
+        toast.error(i18n.t("toast.operationFailed"), {
+            description: tErrorCode(resp.error.code),
+        });
+        return;
+    }
 
     if (resp.error?.details) {
         Object.entries(resp.error.details).forEach(([key, val]) => {
