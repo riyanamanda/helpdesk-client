@@ -110,6 +110,7 @@
         "BAD_REQUEST": "Permintaan tidak valid",
         "INVALID_CREDENTIALS": "Email atau Password salah",
         "INVALID_RESET_TOKEN": "Tautan reset tidak valid atau kedaluwarsa",
+        "METHOD_NOT_ALLOWED": "Aksi ini tidak diizinkan",
         "INTERNAL_SERVER_ERROR": "Terjadi kesalahan yang tidak terduga",
         "default": "Terjadi kesalahan"
     }

@@ -110,6 +110,7 @@
         "BAD_REQUEST": "The request is invalid",
         "INVALID_CREDENTIALS": "Email or Password invalid",
         "INVALID_RESET_TOKEN": "Reset link is invalid or expired",
+        "METHOD_NOT_ALLOWED": "This action is not allowed",
         "INTERNAL_SERVER_ERROR": "An unexpected error occurred",
         "default": "Something went wrong"
     }
