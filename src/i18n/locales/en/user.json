@@ -17,7 +17,15 @@
         "division": "Division",
         "gender": "Gender",
         "googleAccount": "Google Account",
-        "createdBy": "Created By"
+        "createdBy": "Created By",
+        "lastActive": "Last Active",
+        "lastLogin": "Last Login"
+    },
+    "activity": {
+        "online": "Online",
+        "never": "Never",
+        "password": "Password",
+        "google": "Google"
     },
     "roles": {
         "superadmin": "Super Admin",

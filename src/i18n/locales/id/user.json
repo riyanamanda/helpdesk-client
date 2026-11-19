@@ -17,7 +17,15 @@
         "division": "Divisi",
         "gender": "Jenis Kelamin",
         "googleAccount": "Akun Google",
-        "createdBy": "Dibuat Oleh"
+        "createdBy": "Dibuat Oleh",
+        "lastActive": "Terakhir Aktif",
+        "lastLogin": "Login Terakhir"
+    },
+    "activity": {
+        "online": "Online",
+        "never": "Belum pernah",
+        "password": "Password",
+        "google": "Google"
     },
     "roles": {
         "superadmin": "Super Admin",

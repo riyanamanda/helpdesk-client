@@ -7,6 +7,7 @@ export function listUserQueryOption(params: UserListParams = { page: 1, limit: 1
     return queryOptions({
         queryKey: USER_QUERY_KEYS.LIST(params),
         queryFn: ({ signal }) => userService.list(params, signal),
+        refetchInterval: 60 * 1000,
     });
 }
 

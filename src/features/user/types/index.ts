@@ -1,5 +1,6 @@
 export type RoleName = "ADMIN" | "EMPLOYEE" | "SUPERADMIN";
 export type UserGender = "MALE" | "FEMALE";
+export type LoginMethod = "PASSWORD" | "GOOGLE";
 
 export interface UserRole {
     id: number;
@@ -30,6 +31,10 @@ export interface User {
     created_by: UserBrief | null;
     created_at: string;
     updated_at: string;
+    is_online: boolean;
+    last_login_at: string | null;
+    last_login_method: LoginMethod | null;
+    last_active_at: string | null;
 }
 
 export interface UserFormData {
@@ -51,7 +56,14 @@ export interface UserListParams {
     page?: number;
     limit?: number;
     search?: string;
-    sort_by?: "name" | "email" | "role" | "division" | "is_active" | "created_at";
+    sort_by?:
+        | "name"
+        | "email"
+        | "role"
+        | "division"
+        | "is_active"
+        | "created_at"
+        | "last_active_at";
     sort_type?: "ASC" | "DESC";
     role?: RoleName;
     division?: number;

@@ -1,12 +1,16 @@
 import { Badge } from "@/components/ui/badge";
-import { formatDate } from "@/lib/formatters";
+import i18n from "@/i18n";
+import { formatDate, formatDateTime, formatRelativeDate } from "@/lib/formatters";
 import { ROLE_META } from "@/lib/role";
+import { cn } from "@/lib/utils";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 import {
     CircleCheckBigIcon,
     CircleXIcon,
+    GlobeIcon,
     GlobeOffIcon,
+    KeyRoundIcon,
     MarsIcon,
     RadioTowerIcon,
     VenusIcon,
@@ -131,6 +135,61 @@ export const getUserColumns = (
                         </>
                     )}
                 </Badge>
+            );
+        },
+        enableSorting: false,
+    },
+    {
+        accessorKey: "last_active_at",
+        header: t("columns.lastActive"),
+        cell: ({ row }) => {
+            const { is_online, last_active_at } = row.original;
+            return (
+                <div
+                    className="flex items-center gap-2 whitespace-nowrap"
+                    title={formatDateTime(last_active_at)}
+                >
+                    <span
+                        className={cn(
+                            "size-2 shrink-0 rounded-full",
+                            is_online ? "bg-green-500" : "bg-muted-foreground/40"
+                        )}
+                    />
+                    {is_online
+                        ? t("activity.online")
+                        : last_active_at
+                          ? formatRelativeDate(last_active_at, i18n.language)
+                          : t("activity.never")}
+                </div>
+            );
+        },
+        enableSorting: true,
+    },
+    {
+        accessorKey: "last_login_method",
+        header: t("columns.lastLogin"),
+        cell: ({ row }) => {
+            const { last_login_method, last_login_at } = row.original;
+            if (!last_login_method) return <div>-</div>;
+            return (
+                <div className="flex flex-col gap-1 whitespace-nowrap">
+                    <Badge variant="outline" className="px-1.5">
+                        {last_login_method === "GOOGLE" ? (
+                            <>
+                                <GlobeIcon />
+                                {t("activity.google")}
+                            </>
+                        ) : (
+                            <>
+                                <KeyRoundIcon />
+                                {t("activity.password")}
+                            </>
+                        )}
+                    </Badge>
+                    <span className="text-xs text-muted-foreground">
+                        {formatDateTime(last_login_at)}
+                    </span>
+                </div>
             );
         },
         enableSorting: false,
