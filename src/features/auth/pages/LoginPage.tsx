@@ -43,6 +43,7 @@ export function LoginPage() {
         googleLogin(undefined, {
             onError: (error) => {
                 const axiosError = error as AxiosError<{ error: { message: string } }>;
+                if (axiosError.response && axiosError.response.status >= 500) return;
                 toast.error(axiosError.response?.data?.error?.message ?? t("login.failedGoogle"));
             },
         });
