@@ -1363,6 +1363,7 @@ export default defineConfig({
             workbox: {
                 globPatterns: ["**/*.{js,css,html,svg,png,ico,woff2}"],
                 globIgnores: ["firebase-messaging-sw.js"],
+                navigateFallbackDenylist: [/^\/storage\//, /^\/api\//],
                 runtimeCaching: [
                     {
                         urlPattern: /^https?:.*\/api\/v1\/.*/i,
