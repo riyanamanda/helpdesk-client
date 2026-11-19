@@ -43,7 +43,7 @@ export function EditUserForm({ user }: EditUserFormProps) {
     const { data: rolesData } = useQuery(listRolesQueryOption());
     const roles = rolesData?.data ?? [];
 
-    const form = useForm<Omit<UserFormData, "password">>({
+    const form = useForm<UserFormData>({
         defaultValues: {
             name: user.name,
             email: user.email,
@@ -55,7 +55,7 @@ export function EditUserForm({ user }: EditUserFormProps) {
         mode: "onSubmit",
     });
 
-    const onSubmit = (payload: Omit<UserFormData, "password">) => {
+    const onSubmit = (payload: UserFormData) => {
         updateUser(
             { id: user.id, payload: { ...payload, is_active: payload.is_active === true } },
             {

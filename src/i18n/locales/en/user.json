@@ -44,7 +44,7 @@
         "divisionPlaceholder": "Select division",
         "divisionSearchPlaceholder": "Search division...",
         "divisionNotFound": "No division found",
-        "passwordLabel": "Password",
+        "setPasswordHint": "The user will receive an email with a link to set their own password.",
         "createdSuccess": "User account created successfully"
     },
     "edit": {

@@ -10,7 +10,7 @@ export function useCreateUserMutation() {
 
 export function useUpdateUserMutation() {
     return useMutation({
-        mutationFn: ({ id, payload }: { id: string; payload: Omit<UserFormData, "password"> }) =>
+        mutationFn: ({ id, payload }: { id: string; payload: UserFormData }) =>
             userService.update(id, payload),
     });
 }

@@ -23,7 +23,7 @@ export const userService = {
         return response.data;
     },
 
-    update: async (id: string, payload: Omit<UserFormData, "password">) => {
+    update: async (id: string, payload: UserFormData) => {
         const response = await http.patch(`/api/v1/users/${id}`, payload);
         return response.data;
     },

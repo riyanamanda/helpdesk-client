@@ -35,7 +35,6 @@ export function CreateUserForm() {
         defaultValues: {
             name: "",
             email: "",
-            password: "",
             role: undefined,
             division: undefined,
             gender: undefined,
@@ -195,26 +194,9 @@ export function CreateUserForm() {
                             )}
                         />
 
-                        <Controller
-                            name="password"
-                            control={form.control}
-                            render={({ field, fieldState }) => (
-                                <Field>
-                                    <FieldLabel htmlFor="password">
-                                        {t("create.passwordLabel")}
-                                        <span className="text-destructive">*</span>
-                                    </FieldLabel>
-                                    <Input
-                                        {...field}
-                                        id={field.name}
-                                        type="password"
-                                        autoComplete="new-password"
-                                        placeholder="••••••••"
-                                    />
-                                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
-                                </Field>
-                            )}
-                        />
+                        <p className="text-sm text-muted-foreground">
+                            {t("create.setPasswordHint")}
+                        </p>
 
                         <Field orientation="horizontal" className="justify-end">
                             <Button

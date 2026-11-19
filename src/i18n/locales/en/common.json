@@ -95,6 +95,7 @@
         "lte": "Must be at most {{count}}",
         "url": "Invalid URL",
         "uuid": "Invalid ID format",
+        "notcommon": "This password is too common, choose another one",
         "default": "Invalid value"
     },
     "errorCodes": {

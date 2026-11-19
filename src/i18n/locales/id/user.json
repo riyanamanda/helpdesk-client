@@ -44,7 +44,7 @@
         "divisionPlaceholder": "Pilih divisi",
         "divisionSearchPlaceholder": "Cari divisi...",
         "divisionNotFound": "Divisi tidak ditemukan",
-        "passwordLabel": "Kata Sandi",
+        "setPasswordHint": "Pengguna akan menerima email berisi tautan untuk mengatur kata sandinya sendiri.",
         "createdSuccess": "Akun pengguna berhasil dibuat"
     },
     "edit": {

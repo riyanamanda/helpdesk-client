@@ -95,6 +95,7 @@
         "lte": "Harus maksimal {{count}}",
         "url": "URL tidak valid",
         "uuid": "Format ID tidak valid",
+        "notcommon": "Kata sandi ini terlalu umum, gunakan kata sandi lain",
         "default": "Nilai tidak valid"
     },
     "errorCodes": {
