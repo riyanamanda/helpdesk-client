@@ -1366,21 +1366,6 @@ export default defineConfig({
                 navigateFallbackDenylist: [/^\/storage\//, /^\/api\//],
                 runtimeCaching: [
                     {
-                        urlPattern: /^https?:.*\/api\/v1\/.*/i,
-                        handler: "NetworkFirst",
-                        options: {
-                            cacheName: "api-cache",
-                            expiration: {
-                                maxEntries: 100,
-                                maxAgeSeconds: 60 * 60 * 24,
-                            },
-                            networkTimeoutSeconds: 10,
-                            cacheableResponse: {
-                                statuses: [0, 200],
-                            },
-                        },
-                    },
-                    {
                         urlPattern: /^https?:.*\/storage\/.*/i,
                         handler: "StaleWhileRevalidate",
                         options: {

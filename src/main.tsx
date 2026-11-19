@@ -12,6 +12,10 @@ import "./index.css";
 import { queryClient } from "./lib/query-client.ts";
 import { appRoutes } from "./router/index.tsx";
 
+if ("caches" in window) {
+    caches.delete("api-cache").catch(() => {});
+}
+
 const router = createBrowserRouter(appRoutes);
 
 createRoot(document.getElementById("root")!).render(
